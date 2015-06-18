@@ -1,0 +1,15 @@
+echo
+echo Script Configuration:
+echo ----------------------
+echo set boottargs
+setenv bootargs 'root=/dev/mtdblock2 noinitrd init=/linuxrc console=ttySAC0,115200'
+echo set bootcmd
+setenv bootcmd 'nand read 0x30008000 0x200000 0x400000;bootm'
+echo set update_kernel:
+setenv update_kernel 'tftp 0x30008000 zImage;nand erase 0x200000 0x400000;nand write 0x30008000 0x200000 0x400000'
+echo set update_rootfs
+setenv update_rootfs 'tftp 0x30008000 rootfs.img;nand erase 0x600000 0xfa00000;nand write 0x30008000 0x600000 0xfa00000'
+saveenv
+echo Done
+
+

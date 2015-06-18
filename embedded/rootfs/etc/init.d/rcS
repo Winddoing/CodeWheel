@@ -1,0 +1,73 @@
+#! /bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+
+#
+#	Trap CTRL-C &c only in this shell so we can interrupt subprocesses.
+#
+trap ":" INT QUIT TSTP
+/bin/hostname FriendlyARM
+
+/bin/mount -n -t proc none /proc
+/bin/mount -n -t sysfs none /sys
+/bin/mount -n -t usbfs none /proc/bus/usb
+/bin/mount -t ramfs none /dev
+
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+/sbin/mdev -s
+/bin/hotplug
+# mounting file system specified in /etc/fstab
+mkdir -p /dev/pts
+mkdir -p /dev/shm
+/bin/mount -n -t devpts none /dev/pts -o mode=0622
+/bin/mount -n -t tmpfs tmpfs /dev/shm
+/bin/mount -n -t ramfs none /tmp
+/bin/mount -n -t ramfs none /var
+mkdir -p /var/empty
+mkdir -p /var/log
+mkdir -p /var/lock
+mkdir -p /var/run
+mkdir -p /var/tmp
+
+/sbin/hwclock -s
+sleep 1
+echo "                        " > /dev/tty1
+echo "Starting boa server..." > /dev/tty1
+/usr/sbin/boa&
+sleep 1
+echo "                        " > /dev/tty1
+echo "Starting car control..." > /dev/tty1
+/usr/sbin/car_control&
+
+syslogd
+/etc/rc.d/init.d/netd start
+echo "                        " > /dev/tty1
+echo "Starting networking..." > /dev/tty1
+/etc/rc.d/init.d/leds start
+sleep 1
+echo "                        " > /dev/tty1
+echo "Starting leds service..." > /dev/tty1
+echo "                        "
+/etc/rc.d/init.d/wifi start
+sleep 1
+echo "                        " > /dev/tty1
+echo "Starting wifi..........." > /dev/tty1
+/etc/rc.d/init.d/mjpg-streamer start
+sleep 1
+echo "                        " > /dev/tty1
+echo "Starting mjpg-streamer..." > /dev/tty1
+sleep 1
+
+/sbin/ifconfig lo 127.0.0.1
+/etc/init.d/ifconfig-eth0
+
+soundplayer /root/testsound.mp3&
+/bin/rtm&
+
+echo "                                  " > /dev/tty1
+echo "Starting MiniTest, please waiting..." > /dev/tty1
+

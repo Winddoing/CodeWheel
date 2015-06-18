@@ -1,0 +1,37 @@
+#!/bin/sh
+
+ESSID=123
+PASSWORD=1234567890
+MODE=wpa2
+
+#检测并寻找WIFI热点
+
+scan-wifi | grep $ESSID
+
+if test 0 -eq $?
+	then
+	echo "----------------Wifi find successfully!--------------"
+
+	#连接WIFI热点
+	start-wifi $MODE $ESSID $PASSWORD
+	if test 0 -eq $?
+		then
+		echo "-----------------Wifi connect successfully!--------------"
+	else
+		echo "-----------------Wifi connect Error!-----------------"
+	fi
+else
+	echo "---------------Wifi Find Error!---------------"
+	#没有检测到规定WIFI热点将持续搜索
+	while test 0 -eq $?
+	do
+		echo "Finding..."
+		scan-wifi | grep $ESSID
+	done
+	echo "----------------Wifi find successfully!--------------"
+fi
+
+unset ESSID
+unset PASSWORD
+unset MODE
+

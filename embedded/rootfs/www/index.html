@@ -1,0 +1,237 @@
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>智能家居监控平台</title>
+    <style>
+      *{
+       margin:0px;
+       padding:0px;
+       border:0px;
+       text-align:center;
+     }
+     li{
+      list-style:none;
+    }
+    table{
+     width:100%;
+     text-align:center;
+   }
+
+   a{
+     text-decoration:none;
+   }
+
+   #logo{
+     height:80px;
+     background-image:url(images/banner.jpg);
+     background-repeat:repeat-x;
+   }
+   #logo li{
+     padding-top:28px;
+   }
+   #menu{
+     height:32px;
+     background-image:url(images/menu_bg.jpg);
+     background-repeat:repeat-x; 	  
+   }
+   #menu ul li{
+     float:left;
+     width:82px;
+     margin-left:15px;
+     margin-right:10px;
+     padding-top:8px;
+     text-align:center;
+   }
+   #menu ul li:hover{
+     background-image:url(images/menu.jpg);
+   }
+   .btn{
+     cursor:pointer;
+     width:100px;
+     height:30px;
+     margin-top:5px;
+     padding-top:8px;
+     background-repeat:no-repeat;
+   }
+   #btnPai{
+     width:100px;
+     height:35px;
+     cursor:pointer;
+     margin-top:80px;
+     padding-top:8px;
+     background-image:url(images/paizhao.gif);
+     background-repeat:no-repeat;
+   }
+ 
+   <!--
+   body {
+    background-color:#666;
+  }
+-->
+</style>
+
+</head>
+
+<table>
+  <tr>
+    <td>
+      <div id="logo">
+        <li style="font-size:36px; font-weight:bold">
+          <font face="华文楷体">智能家居监控平台</font></li>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div id="menu">
+          <ul>
+            <li><a href="#" target="_blank"><b>
+              <font face="楷体" size="4" color="#0000CC">首页</font></b></a></li>
+              <li><a href="./static_simple.html" target="_blank"><b>
+                <font face="楷体" size="4" color="#0000CC">拍照</font></b></a></li>
+                <li><a href="./text_send.html" target="_blank"><b>
+                  <font face="楷体" size="4" color="#0000CC">文本</font></b></a></li>
+                  <li><a href="#" target="_blank"><b>
+                    <font face="楷体" size="4" color="#0000CC">菜单3</font></b></a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <table align = "center" >
+                  <tr >
+                    <td style="width:70%; height:505px;">
+                      <li style="float:left; margin-left:200px;">
+                        <img src="http://192.168.137.2:8080/?action=stream" 
+                        align="暂无图片" style="width:560px; height:420px;"/></li>
+                      </td>
+                      <td style="width:70%; height:350px;">
+                      <table width="10" height="300" align="left" cellpadding="0" 
+                              class="MsoNormalTable" style="width: 25pt; height: 50pt"  hborder="0">
+                        <tr>
+                          <td width="width:70px;" height="50" style="padding: 0cm;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td width="width:70px;" style="padding: 0cm;">&nbsp;</td>
+                          <td width="width:70px;" style="padding: 0cm;">
+                            <iframe name="server" style="display:none;" src=' '></iframe>
+                              <form action="/cgi-bin/car.cgi" method="get" target="server">
+                              <input type="submit" style="width:50px;height:50px;" value="UP"name="control" >
+                              </form>
+                          </td>
+                        <td width="width:70px;" style="padding: 0cm;">&nbsp;</td>
+                      </tr>
+                      <tr >
+                        <td width="width:70px;" style="padding: 0cm;">
+                          <iframe name="server" style="display:none;" src=' '></iframe>
+                            <form action="/cgi-bin/car.cgi" method="get" target="server">
+                            <input type="submit" style="width:50px;height:50px;" value="LEFT"name="control" >
+                            </form>
+                        </td>
+                        <td width="width:70px;" style="padding: 0cm;">
+                          <iframe name="server" style="display:none;" src=' '></iframe>
+                            <form action="/cgi-bin/car.cgi" method="get" target="server">
+                            <input type="submit" style="width:50px;height:50px;" value="STOP"name="control" >
+                            </form>
+                        </td>
+                        <td width="width:70px;" style="padding: 0cm;">
+                          <iframe name="server" style="display:none;" src=' '></iframe>
+                            <form action="/cgi-bin/car.cgi" method="get" target="server">
+                            <input type="submit" style="width:50px;height:50px;" value="RIGHT"name="control" >
+                            </form>
+                        </td>
+                      </tr>
+                      <tr >
+                        <td width="width:70px;" style="padding: 0cm;">&nbsp;</td>
+                        <td width="width:70px;" style="padding: 0cm;">
+                          <iframe name="server" style="display:none;" src=' '></iframe>
+                            <form action="/cgi-bin/car.cgi" method="get" target="server">
+                            <input type="submit" style="width:50px;height:50px;" value="DOWN"name="control" >
+                            </form>
+                        </td>
+                        <td width="10" style="padding: 0cm;">&nbsp;</td>
+                    </table>
+                      </tr>
+                    </table>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          </html>
+
+          <script language="JavaScript">
+
+            var key_u = 1;
+
+            function submitFormgoup()
+            {
+    //将按钮的值赋给隐藏的输入框
+    document.getElementById("bValue").value="UP";
+    document.getElementById("my_form_id").submit();
+  }
+  function submitFormgodown()
+  {
+    //将按钮的值赋给隐藏的输入框
+    document.getElementById("bValue").value="DOWN";
+    document.getElementById("my_form_id").submit();
+  }
+  function submitFormgoright()
+  {
+    //将按钮的值赋给隐藏的输入框
+    document.getElementById("bValue").value="RIGHT";
+    document.getElementById("my_form_id").submit();
+  }
+  function submitFormgoleft()
+  {
+    //将按钮的值赋给隐藏的输入框
+    document.getElementById("bValue").value="LEFT";
+    document.getElementById("my_form_id").submit();
+  }
+
+  function submitFormup()
+  {
+    //将按钮的值赋给隐藏的输入框
+    document.getElementById("bValue").value="STOP";
+    document.getElementById("my_form_id").submit();
+  }
+
+  function submitFormKeydown()
+  {
+    var keycode=event.keyCode;      
+    if((keycode == 37) || (keycode == 38) || (keycode == 39) || (keycode == 40))
+    {
+      if(key_u == 1)
+      {           
+        if(keycode == 38)
+          document.getElementById("bValue").value="UP";
+        if(keycode == 37)
+          document.getElementById("bValue").value="LEFT";
+        if(keycode == 39)
+          document.getElementById("bValue").value="RIGHT";
+        if(keycode == 40)
+          document.getElementById("bValue").value="DOWN";
+        document.getElementById("my_form_id").submit();
+        key_u = 0;
+      }
+    }
+  }
+
+  function submitFormKeyup()
+  {
+    var keycode=event.keyCode;                 
+    if((keycode == 37) || (keycode == 38) || (keycode == 39) || (keycode == 40))
+    {
+      key_u = 1;
+      document.getElementById("bValue").value="STOP";
+      document.getElementById("my_form_id").submit();
+    }
+  }
+
+  //-->
+</script>

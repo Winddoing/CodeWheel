@@ -1,0 +1,40 @@
+uboot配置参数
+
+1. 用于开发的NFS文件系统与tftp
+	配置脚本：
+		nfs_config.img
+
+2. 开发板下载
+	配置脚本：
+		
+
+3. 脚本执行
+	将脚本镜像下载内存
+		tftp 0x30008000 example.img
+	运行脚步
+		autoscr  0x30008000
+4. 脚本的生成
+	工具：
+		mkimage
+	位置：
+		uboot/tools/
+	命令：
+		mkimage -A ARM -O linux -T script -C none -a 0 -e 0 -n"example script" -d /home/zhangli/example.script example.img
+	参数解析：
+	-A，指定目标映像的体系结构，本实验中是ARM
+
+	-O，指定目标映像的操作系统，本实验中是Linux；
+
+	-T，指定目标映像的类型，本实验中是脚本；
+
+	-C，指定目标映像的压缩类型，脚本不需要压缩，none；
+
+	-a，设置U-Boot的加载地址（loadaddress），本实验中设为0；
+
+	-e，设置U-Boot映像的入口点（entry point）地址，设为0，即从脚本的起始地方开始执行；
+
+	-n，设置映像的名称；
+
+	-d，制作映像的脚本文件
+
+

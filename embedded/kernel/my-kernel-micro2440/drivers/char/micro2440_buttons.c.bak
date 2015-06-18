@@ -1,0 +1,137 @@
+#include <linux/kernel.h>
+#include <linux/module.h>
+
+#include <linux/fs.h>
+#include <linux/device.h>
+#include <mach/regs-gpio.h>
+#include <mach/gpio-fns.h>
+#include <asm/uaccess.h>
+
+#include <linux/poll.h>
+#include <linux/sched.h>
+#include <linux/irq.h>
+#include <asm/irq.h>
+#include <linux/interrupt.h>
+
+#define MICRO2440_DEVICE_NAME   "buttons"
+#define MICRO2440_CLASS_NAME    "buttons"
+
+static int micro2440_buttons_release(struct inode *, struct file *);
+static int micro2440_buttons_open(struct inode *, struct file *);
+static ssize_t micro2440_buttons_read(struct file *, char __user *, size_t, loff_t *);
+
+static struct class *buttons_class;
+static int buttons_major;
+static char key_value;
+
+static struct buttons_resources {
+	unsigned long gpio;
+	unsigned long irq;
+	unsigned char value;
+}buttons_table[] = {
+	{ S3C2410_GPG(0),  S3C2410_GPG0_EINT8,   'A' },
+	{ S3C2410_GPG(3),  S3C2410_GPG3_EINT11,  'B' },
+	{ S3C2410_GPG(5),  S3C2410_GPG5_EINT13,  'C' },
+	{ S3C2410_GPG(6),  S3C2410_GPG6_EINT14,  'D' },
+	{ S3C2410_GPG(7),  S3C2410_GPG7_EINT15,  'E' },
+	{ S3C2410_GPG(11), S3C2410_GPG11_EINT19, 'F' },
+};
+
+static const struct file_operations micro2440_buttons_fops = {
+	.owner = THIS_MODULE,
+	.release = micro2440_buttons_release,
+	.open = micro2440_buttons_open,
+	.read = micro2440_buttons_read,
+};
+
+static irqreturn_t micro2440_buttons_interrupt(int irq_num, void *dev_id)
+{
+	const struct buttons_resources *presources = 
+			(struct buttons_resources *)dev_id;
+
+	key_value = presources->value;
+	if(s3c2410_gpio_getpin(presources->gpio))
+		key_value |= 0x80;
+
+	return 0;
+}
+
+static int micro2440_buttons_release(struct inode * inode, struct file * file)
+{
+	return 0;
+}
+static int micro2440_buttons_open(struct inode * inode, struct file * file)
+{
+	int i;
+
+	for(i = 0; i < ARRAY_SIZE(buttons_table); i++)
+	{
+		s3c2410_gpio_pullup(buttons_table[i].gpio, 1);
+
+		if(request_irq(buttons_table[i].irq, micro2440_buttons_interrupt, 
+					IRQ_TYPE_EDGE_BOTH, NULL, buttons_table + i))
+			break;
+	}
+	printk("i = %d\n", i);
+	if(i < ARRAY_SIZE(buttons_table))
+	{
+		for(i--; i >= 0; i--)
+		{
+			disable_irq(buttons_table[i].irq);
+			free_irq(buttons_table[i].irq, buttons_table + i);
+		}
+
+		return -EBUSY;
+	}
+	key_value = 0;
+
+	return 0;
+}
+static ssize_t micro2440_buttons_read(struct file * file, char __user * buf, size_t len, loff_t * off)
+{
+	if(len < sizeof(key_value)) return -1;
+	if(0 == key_value) return 0;
+
+	copy_to_user(buf, &key_value, sizeof(key_value));
+	key_value = 0;
+
+	return sizeof(key_value);
+}
+
+static int __init micro2440_buttons_init(void)
+{
+	buttons_class = class_create(THIS_MODULE, MICRO2440_CLASS_NAME);
+
+	buttons_major = register_chrdev(0, "MICRO2440_DEVICE_NAME", &micro2440_buttons_fops);
+	if(buttons_major < 0)
+	{
+		class_destroy(buttons_class);
+		printk("\nRegister device "MICRO2440_DEVICE_NAME" Error\n");
+		return -1;
+	}
+	
+	buttons_major = MKDEV(buttons_major, 0);
+	device_create(buttons_class, NULL, buttons_major, NULL, MICRO2440_DEVICE_NAME);
+
+	printk("\nRegister device "MICRO2440_DEVICE_NAME" cuccess\n");
+
+	return 0;
+}
+static void __exit micro2440_buttons_exit(void)
+{
+	device_destroy(buttons_class, buttons_major);
+
+	unregister_chrdev(buttons_major, MICRO2440_DEVICE_NAME);
+
+	class_destroy(buttons_class);
+
+	printk("\n "MICRO2440_DEVICE_NAME" device unregister successed\n");
+}
+
+module_init(micro2440_buttons_init);
+module_exit(micro2440_buttons_exit);
+
+MODULE_DESCRIPTION("Micro2440 buttons driver");
+MODULE_AUTHOR("shaowangquan@gmail.com");
+MODULE_LICENSE("GPL");
+

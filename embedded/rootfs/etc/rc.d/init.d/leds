@@ -1,0 +1,18 @@
+#!/bin/sh
+
+base=led-player
+
+# See how we were called.
+case "$1" in
+  start)
+		/usr/bin/$base &
+        ;;
+  stop)
+	pid=`/bin/pidof $base`
+	if [ -n "$pid" ]; then
+		kill -9 $pid
+	fi
+        ;;
+esac
+
+exit 0

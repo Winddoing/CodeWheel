@@ -1,0 +1,12 @@
+echo
+echo Script Configuration NFS:
+echo ----------------------
+echo set bootargs
+setenv bootargs 'noinitrd console=ttySAC0,115200 init=/linuxrc root=/dev/nfs nfsroot=192.168.11.11:/work/embedded/rootfs ip=192.168.11.22:192.168.11.11:192.168.11.11:255.255.255.0:micro2440.arm9.net:eth0'
+echo set bootcmd
+setenv bootcmd 'tftp 0x30007fc0 uImage ; bootm'
+echo set bootdelay
+setenv bootdelay 1
+saveenv
+echo Doed
+

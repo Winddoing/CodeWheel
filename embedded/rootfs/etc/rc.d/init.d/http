@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# See how we were called.
+boa
+

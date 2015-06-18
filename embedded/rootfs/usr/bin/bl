@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ x$1x = xx ]; then
+	echo Usage: bl [0|1]
+fi
+
+echo $1 > /dev/backlight

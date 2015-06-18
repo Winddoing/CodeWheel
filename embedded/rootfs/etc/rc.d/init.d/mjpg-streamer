@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#进入mjpg-streamer当前执行目录
+DIR=/usr/local/mjpg-streamer
+cd $DIR
+
+echo "                                 "
+echo "starting mjpg-streamer connection......"
+echo "                                 "
+
+#执行脚本start.sh开启mjpg服务器并将进程转
+#入后台，执行结果打印在当前目录临时日志文件中
+nohup  $DIR/start.sh > /var/mjpg.log 2>&1 &
+
+#判断是否成功开启服务器
+if test 0 -eq $?
+	then
+	echo "                             "
+	echo "Connect mjpg-streamer successfully!"
+	echo "                             "
+else	
+	echo "mjpg-streamer connect error!"
+fi
+

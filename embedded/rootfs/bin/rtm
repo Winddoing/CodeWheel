@@ -1,0 +1,25 @@
+#!/bin/sh
+
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_CONFFILE=/usr/local/etc/ts.conf
+export TSLIB_PLUGINDIR=/usr/local/lib/ts
+export TSLIB_CALIBFILE=/etc/pointercal
+export QTDIR=/opt/qt2
+export QPEDIR=/opt/qt2
+export PATH=$QTDIR/bin:$PATH
+export LD_LIBRARY_PATH=$QTDIR/lib:/usr/local/lib:$LD_LIBRARY_PATH
+
+TS_INFO_FILE=/sys/devices/virtual/input/input0/uevent
+if [ -e $TS_INFO_FILE -a "/bin/grep -q TouchScreen < $TS_INFO_FILE" ]; then
+        export QWS_MOUSE_PROTO="TPanel:/dev/input/event0 USB:/dev/input/mice"
+        if [ -e /etc/pointercal -a ! -s /etc/pointercal ] ; then
+                rm /etc/pointercal
+        fi
+else
+        export QWS_MOUSE_PROTO="USB:/dev/input/mice"
+        >/etc/pointercal
+fi
+unset TS_INFO_FILE
+export QWS_KEYBOARD=TTY:/dev/tty1
+export HOME=/root
+#/opt/rtmapp -qws&

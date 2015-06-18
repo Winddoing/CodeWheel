@@ -1,0 +1,43 @@
+./configure \
+	-prefix /opt/qt \
+	-debug-and-release \
+	-no-qt3support \
+	-qt-zlib \
+	-qt-libtiff \
+	-qt-libpng \
+	-qt-libmng \
+	-qt-libjpeg \
+	-make libs \
+	-nomake examples \
+	-nomake demos \
+	-nomake docs \
+	-no-cups \
+	-iconv \
+	-xplatform qws/linux-arm-g++ \
+	-embedded arm \
+	-little-endian \
+	-qt-freetype \
+	-depths 16 \
+	-no-dbus \
+	-qt-sql-sqlite \
+	-qt-gfx-linuxfb \
+	-no-gfx-transformed \
+	-no-gfx-qvfb \
+	-no-gfx-vnc \
+	-no-gfx-multiscreen \
+	-no-gfx-directfb \
+	-qt-kbd-buttons \
+	-no-kbd-tty \
+	-no-kbd-linuxinput \
+	-no-kbd-qvfb \
+	-no-mouse-pc \
+	-no-mouse-linuxtp \
+	-no-mouse-linuxinput \
+	-qt-mouse-tslib \
+	-no-mouse-qvfb \
+	-I/opt/tslib/include \
+	-L/opt/tslib/lib \
+	-D__ARM_ARCH_5TEJ__
+
+
+#-plugin-sql-mysql   

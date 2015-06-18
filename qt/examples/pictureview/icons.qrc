@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/aboutus.png</file>
+        <file>icons/ccwrotate.png</file>
+        <file>icons/close.png</file>
+        <file>icons/cwrotate.png</file>
+        <file>icons/help.png</file>
+        <file>icons/hmirror.png</file>
+        <file>icons/open.png</file>
+        <file>icons/quit.png</file>
+        <file>icons/resume.png</file>
+        <file>icons/save.png</file>
+        <file>icons/saveas.png</file>
+        <file>icons/vmirror.png</file>
+        <file>icons/zoomin.png</file>
+        <file>icons/zoomout.png</file>
+    </qresource>
+</RCC>
