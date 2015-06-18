@@ -1,0 +1,39 @@
+# /etc/profile
+
+# Set the initial path
+export PATH=/bin:/usr/bin
+
+if [ `id -u` -eq 0 ] ; then
+        PATH=/bin:/sbin:/usr/bin:/usr/sbin
+        unset HISTFILE
+fi
+
+# Setup some environment variables.
+export USER=`id -un`
+export LOGNAME=$USER
+export HOSTNAME=`/bin/hostname`
+export HISTSIZE=1000
+export HISTFILESIZE=1000
+export PAGER='/bin/more '
+export EDITOR='/bin/vi'
+export INPUTRC=/etc/inputrc
+
+# aliases                
+alias ls='ls --color=always'
+alias ll='ls -l'               
+                           
+# Prompt symbols               
+export PS1="\h:\w #"           
+                               
+# Bluez bin/lib                
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/bluez/lib
+export PATH=$PATH:/opt/bluez/bin:/opt/bluez/sbin
+
+# User space app exec.
+echo "Exec /root/init.sh..."
+if [ -f /root/init.sh ] ; then
+        /root/init.sh
+fi
+
+# End /etc/profile
+

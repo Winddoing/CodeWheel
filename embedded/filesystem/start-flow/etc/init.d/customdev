@@ -1,0 +1,48 @@
+#!/bin/ash
+ 
+# Syslog Startup Script
+#
+ 
+. /etc/rc.d/init.d/functions
+
+make_node()
+{
+	STR=`cat /proc/devices |grep $1`
+	for i in $STR
+	do
+		if [ $i != $1 ]
+		then
+			if [ $# == 2 ]
+			then
+				mknod /dev/$2 c $i 0
+			elif [ $# == 3 ]
+			then
+				mknod /dev/$2$3 c $i $3
+			else
+				mknod /dev/$2$3 c $i $4
+			fi
+		fi
+	done
+}
+ 
+case "$1" in
+start)
+	echo -n "Starting custom devices initing: "
+	make_node "Mega8Kbd" "kbd"
+	make_node "Mega8ICcard" "icc" 0
+	make_node "Mega8ICcard" "icc" 1
+	make_node "Mega8ICcard" "icc" 2
+	make_node "Mega8ICcard" "icc" 3
+	make_node "Mega8ICcard" "icc" 4
+	make_node "mcp2510_can" "can" 0
+	make_node "s3c2410-exio" "exio" 0
+	make_node "s3c2410_serial" "ttySAC" 0 64
+	make_node "s3c2410_serial" "ttySAC" 1 65
+	make_node "s3c2410_serial" "ttySAC" 2 66
+	check_status
+        ;;
+*)
+        echo "Usage: $0 {start}"
+        exit 1
+esac
+

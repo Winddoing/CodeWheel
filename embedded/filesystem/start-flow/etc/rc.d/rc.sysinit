@@ -1,0 +1,118 @@
+#!/bin/ash
+
+# System Startup Script
+# 
+. /etc/rc.d/init.d/functions
+
+/bin/mount -t proc none /proc
+/bin/mount -t sysfs none /sys
+/bin/mount -t tmpfs -o mode=0755 none /dev
+/bin/mkdir /dev/pts
+/bin/mkdir /dev/shm
+/bin/echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+/sbin/mdev -s
+
+echo -n "Setting system clock: "
+hwclock --hctosys --utc
+check_status
+
+echo -n "Remounting root rw: "
+mount -o remount,rw /
+check_status
+
+echo -n "Mounting devpts: "
+mount /dev/pts
+check_status
+
+echo -n "Mounting tmpfs: "
+mount /tmp
+check_status
+
+echo -n "Mounting applications on /root: "
+mount /root
+if [ ! -d /root/system/ ]
+then
+        mkdir /root/system/
+fi
+if [ ! -d /root/system/var/ ]
+then
+	mkdir /root/system/var/
+fi
+# by sprife
+if [ ! -d /root/system/var/ftp ]
+then
+        mkdir /root/system/var/ftp
+fi
+if [ ! -d /root/system/var/www ]
+then
+        mkdir /root/system/var/www
+fi
+if [ ! -d /root/system/var/log/boa ]
+then
+        mkdir /root/system/var/log/boa
+fi
+if [ ! -d /root/system/var/ftp/pub ]
+then
+        mkdir /root/system/var/ftp/pub
+	chmod 777 /root/system/var/ftp/pub/
+fi
+if [ ! -d /var/log ]
+then
+        mkdir /var/log
+fi
+if [ ! -f /root/system/var/log/error_log ]
+then
+        touch /root/system/var/log/error_log
+fi
+if [ ! -d /var/run ]
+then
+        mkdir /var/run
+fi
+if [ ! -d /var/tmp ]
+then
+        mkdir /var/tmp
+fi
+check_status
+
+echo -n "Setting hostname: "
+if [ -f /etc/HOSTNAME ]
+then
+	hostname -F /etc/HOSTNAME
+else
+	hostname up-tech
+fi
+check_status
+
+echo -n "Backup last logfiles: "
+if [ -f /var/log/messages ]
+then
+	mv /var/log/messages /var/log/messages.last
+fi
+check_status 
+
+echo -n "Cleaning up system: "
+> /var/run/utmp
+touch /var/log/wtmp
+touch /var/log/messages
+chmod 0664 /var/run/utmp
+chmod 0664 /var/log/wtmp
+chmod 0660 /var/log/messages
+rm -rf /tmp/*
+rm -f /var/run/*.pid
+check_status
+
+echo -n "Setting up interface lo: "
+ifconfig lo up 127.0.0.1
+check_status
+
+echo "Running start scripts."
+
+for i in /etc/rc.d/start/*
+do
+	if [ -x $i ]; then
+		$i start
+	fi
+done
+# by sprife
+echo "Running vsftpd server."
+/usr/sbin/vsftpd &
