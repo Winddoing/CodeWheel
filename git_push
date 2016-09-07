@@ -1,0 +1,105 @@
+#!/bin/sh
+
+CUR_TIME=`date`
+BRANCH=master
+REMOTE=origin
+COMMIT="$CUR_TIME update branch-$BRANCH"
+MANUAL="no"
+
+usage()
+{
+	echo "usage: $0 -m \"update commit!!!\""
+	echo "	-m <commit>"
+	echo "	-r <remote>"
+	echo "	-b <branch>"
+	echo "	-h help"
+	echo "	-y Do not manually confirm changes"
+	echo ""
+	echo "Default config:"
+	echo "	--remote:<$REMOTE>"
+	echo "	--branch:<$BRANCH>"
+	echo ""
+	echo "E.g $0 -m \"add a.c\" -r origin -b web_source"
+
+	exit 1;
+}
+
+add_commit() {
+
+	read -p "Add new commit<e.g \"new-commit\">:" n_commit
+
+	if [ -n $n_commit ]; then
+		COMMIT=$n_commit
+	fi
+
+	return 1;
+}
+
+manual_enter(){
+	local tmp
+
+	echo -n "Whether submit changes or add commit:[yes/y],[editor/e]"
+	read enter_x
+
+	while [ x$enter_x != xyes ] && [ x$enter_x != xy ] && [ x$enter_x != x ] && \
+		[ x$enter_x != xeditor ] && [ x$enter_x != xe ]
+	do
+		read -p "Whether submit changes or add commit:[yes/y],[editor/e]" enter_x
+	done
+
+	tmp=$enter_x
+
+	if [ x$tmp = xe ] || [ x$tmp = xeditor ]; then
+		add_commit
+	fi
+}
+
+exec_mode() {
+	if [ x$1 != xyes ];then
+		manual_enter
+	else
+		echo " Whether submit changes:[yes/y] yes"
+	fi
+}
+
+echo "[0]Push code ..."
+
+while getopts b:hm:r:y ops
+do
+	case $ops in
+		b)
+			BRANCH=$OPTARG ;;
+		r)
+			REMOTE=$OPTARG ;;
+		m)
+			COMMIT=$OPTARG ;;
+		y)
+			MANUAL="yes" ;;
+		h)
+			usage ;;
+		?)
+			usage
+			exit 1
+			;;
+	esac
+done
+
+echo "[1]View change file ..."
+git status
+
+#select execute mode
+exec_mode $MANUAL
+
+echo "[2]Add all change ..."
+git add -A
+
+echo "[3]Add commit:<$COMMIT> ...\n"
+git commit -m "$COMMIT"
+
+echo "[4]Push to github ..."
+git push $REMOTE $BRANCH
+
+echo "[5]Submit finish ..."
+unset COMMIT BRANCH REMOTE CUR_TIME
+
+exit 1;
