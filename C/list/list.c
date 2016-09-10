@@ -139,7 +139,7 @@ int get_elem(node *head, int i)
 		return ERROR;
 
 	while(head->next != NULL) {
-		count++;
+		++count;
 		if(count == i)
 			return head->data;
 		head = head->next;
@@ -148,13 +148,56 @@ int get_elem(node *head, int i)
 	return TRUE;
 }
 
-int list_insert()
+int list_insert(node *head, int index, int value)
 {
+	DEBUG_LINE();
+	int count = 0;
+	node *L, *new_node;
+
+	new_node = init_node(value);
+
+	DEBUG_LINE();
+	if(!head)
+		return ERROR;
+
+	DEBUG_LINE();
+	if(list_length(head) < index - 1)
+		return ERROR;
+
+	DEBUG_LINE();
+	while(head->next != NULL) {
+		++count;
+		if(count == index - 1) {
+			L = head->next;
+			head->next = new_node;
+			new_node->next = L;
+		}
+		head = head->next;
+	}
+
 	return 0;
 }
 
-int list_delete()
+int list_delete(node *head, int index)
 {
+	int count = 0;
+	node *L;
+
+	if(!head)
+		return ERROR;
+
+	if(list_length(head) < index - 1)
+		return ERROR;
+
+	while(head->next != NULL) {
+		++count;
+		head = head->next;
+		if(count == index - 1) {
+			L = head->next;
+			free(head)
+
+		}
+	}
 	return 0;
 }
 
@@ -172,10 +215,16 @@ int main(int argc, char const* argv[])
 	DEBUG_INFO("list length=%d", list_length(list));
 	DEBUG_INFO("list %d elem data=%d", 5, get_elem(list, 5));
 
-	if(clear_list(list))
-		printf("clear list node=0\n");
+/*	if(clear_list(list))*/
+/*		printf("clear list node=0\n");*/
+
+	list_insert(list, 9, 12);
 
 
+	DEBUG_INFO("list length=%d", list_length(list));
+	DEBUG_INFO("list %d elem data=%d", 4, get_elem(list, 4));
+	DEBUG_INFO("list %d elem data=%d", 10, get_elem(list, 10));
+	list_traversal(list);
 	destroy_list(list);
 
 	return 0;
