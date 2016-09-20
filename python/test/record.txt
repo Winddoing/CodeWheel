@@ -1,0 +1,5 @@
+# name, age, score
+tom, 12, 86
+Lee, 15, 99
+Lucy, 11, 58
+Joseph, 19, 56
