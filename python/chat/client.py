@@ -15,6 +15,8 @@ if __name__ == "__main__":
 
     HOST = sys.argv[1]
     PORT = int(sys.argv[2])
+    # HOST = "127.0.0.1"
+    # PORT = 22222
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(2)
@@ -29,9 +31,9 @@ if __name__ == "__main__":
     prompt()
 
     while 1:
-        socket_list = [sys.stdin, s]
+        socket_list = [s]
 
-        read_sockets, write_sockets, error_sockets = select.select(socket_list , [], [])
+        read_sockets, write_sockets, error_sockets = select.select(socket_list, [], [])
 
         for sock in read_sockets:
             if sock == s:

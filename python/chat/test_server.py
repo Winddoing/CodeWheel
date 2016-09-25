@@ -6,7 +6,7 @@ import sys
 import thread
 # HOST = "192.168.1.12"
 HOST = ''
-POART = 2222
+POART = 22222
 
 #creat
 try:
@@ -24,19 +24,21 @@ except socket.error, msg:
 print "bind success"
 
 #listen
-s.listen(10)
+s.listen(1)
 print "start listen"
 
 def clientthread(conn):
-    conn.send("Welcome to the server!!!\n   --wqshao")
+    print "111: " + str(conn)
+    conn.send("Welcome to the server!!!")
     while True:
+        print "222: " + str(conn)
         data = conn.recv(4096)
         reply = "OK.." + data
         if not data:
             break
         conn.sendall(reply)
 
-    conn.close()
+    # conn.close()
     thread.exit_thread()
 
 while 1:

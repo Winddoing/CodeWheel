@@ -52,7 +52,14 @@ except socket.error :
 print "send success" + message
 
 #receive
-reply = s.recv(1024)
+while True:
+    reply = s.recv(1024)
+    if not reply :
+        print "\n\n...OK!!!"
+        s.close()
+        sys.exit()
+
+
 
 print "receive data"
 print reply
