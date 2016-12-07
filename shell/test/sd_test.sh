@@ -52,7 +52,7 @@ while true;do
 echo "======test $COUNT ======="
 if [ -f "$PWD/$TEST_SRC_FILE" ];then
 	echo "===========>>>Test count: $COUNT" >> $TEST_LOG_FILE
-	echo "	copy to  SD: PASS($PASS_TO_SD_COUNT), FAIL($FAIL_TO_SD_COUNT)" >> $TEST_LOG_FILE
+	echo "	copy to  SD: PASS($PASS_TO_SD_COUNT), FAIL($FAIL_TO_SD_COUNT)"	 >> $TEST_LOG_FILE
 	echo "	copy to NFS: PASS($PASS_TO_NFS_COUNT), FAIL($FAIL_TO_NFS_COUNT)" >> $TEST_LOG_FILE
 	md5sum $PWD/$TEST_SRC_FILE > $SD_MOUNT/test.md5
 	cp $PWD/$TEST_SRC_FILE $SD_MOUNT/$TEST_DST_FILE
