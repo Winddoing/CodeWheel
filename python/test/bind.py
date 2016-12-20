@@ -1,10 +1,10 @@
 
-#-*-coding:UTF-8-*-
+# -*-coding:UTF-8-*-
 
 from types import MethodType
 
 class Std(object):
-    __slots__ = ('name', 'age')  #ÏÞÖÆStdÄÜ¶¯Ì¬Ìí¼ÓµÄÊôÐÔ
+    __slots__ = ('name', 'age')  #ï¿½ï¿½ï¿½ï¿½Stdï¿½Ü¶ï¿½Ì¬ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
     pass
 
 def set_age(self, age):
