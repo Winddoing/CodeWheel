@@ -9,18 +9,22 @@ void (*oldProcess)(int);
 void sigIntProcess(int signum)
 {
 	static int times;
-	fprintf(stdout, "你第%d次按下<Ctrl + C>了%d。\n", 
-					++times, signum);
-	signal(SIGINT, oldProcess);
+	fprintf(stdout, "你第%d次按下<Ctrl + C> sig=%d oldProcess=%p。\n",
+					++times, signum, oldProcess);
+	signal(signum, oldProcess);
 }
 
 int main(int argc, char *argv[])
 {
-	oldProcess = signal(SIGINT, sigIntProcess);
+	int *a;
+/*	oldProcess = signal(SIGINT, sigIntProcess);*/
+
+	oldProcess = signal(11, sigIntProcess);
+	*a = 1;
 
 	while(1)
 	{
-	
+
 	}
 	return EXIT_SUCCESS;
 }
