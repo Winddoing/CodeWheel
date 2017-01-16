@@ -25,6 +25,19 @@ debug_test ()
 	DEBUG=1
 }
 
+# arg : total tests, pass tests, fail tests
+function test_result ()
+{
+	echo ""
+	echo "  Test Result:"
+	echo "******************************"
+	echo "**** Total test items: $1"
+	echo "**** Pass  test items: $2"
+	echo "**** Fail  test items: $3"
+	echo "******************************"
+	exit 1;
+}
+
 test_opt ()
 {
 	local cnt
@@ -130,6 +143,8 @@ dd_test ()
 		fi
 		rm $R_DATA
 		COUNT=`expr $COUNT + 1`
+
+		trap "test_result $COUNT $PASS_COUNT `expr $COUNT - $PASS_COUNT`" INT
 	done
 }
 
@@ -268,6 +283,8 @@ copy_test ()
 		if [ $? -eq 0 ]; then
 			COUNT=`expr $COUNT + 1`
 		fi
+
+		trap "test_result $COUNT "null"  "null" " INT
 	done
 }
 
