@@ -17,6 +17,8 @@ R_DATA=$PWD/bbb.img
 TEST_MSC_DEV=/dev/mmcblk0p7
 FORMAT="ext4"
 TEST_LOG=$PWD/log
+TMP_OUT=/dev/null
+RESULT_OUT=$TEST_LOG
 
 debug_test ()
 {
@@ -25,16 +27,21 @@ debug_test ()
 	DEBUG=1
 }
 
-# arg : total tests, pass tests, fail tests
-function test_result ()
+# arg : test name,  total tests, pass tests, fail tests
+#function test_result ()
+test_result ()
 {
-	echo ""
-	echo "  Test Result:"
-	echo "******************************"
-	echo "**** Total test items: $1"
-	echo "**** Pass  test items: $2"
-	echo "**** Fail  test items: $3"
-	echo "******************************"
+	local log
+
+	log=$RESULT_OUT/$1_test_result.log
+
+	echo "" | tee -a $log
+	echo "  [$1] Test Result:" | tee -a $log
+	echo "******************************" | tee -a $log
+	echo "**** Total test items: $2" | tee -a $log
+	echo "**** Pass  test items: $3" | tee -a $log
+	echo "**** Fail  test items: $4" | tee -a $log
+	echo "******************************" | tee -a $log
 	exit 1;
 }
 
@@ -48,16 +55,16 @@ test_opt ()
 
 	case $1 in
 		"random" )
-			echo "dd if=$2 of=$3 bs=$DD_BS count=$cnt > /dev/null 2>&1"
-			dd if=$2 of=$3 bs=$DD_BS count=$cnt > /dev/null 2>&1
+			echo "dd if=$2 of=$3 bs=$DD_BS count=$cnt > $TMP_OUT 2>&1"
+			dd if=$2 of=$3 bs=$DD_BS count=$cnt > $TMP_OUT 2>&1
 			;;
 		"write" )
-			echo "dd if=$2 of=$3 seek=$4 bs=$DD_BS count=$cnt > /dev/null 2>&1"
-			dd if=$2 of=$3 seek=$4 bs=$DD_BS count=$cnt > /dev/null 2>&1
+			echo "dd if=$2 of=$3 seek=$4 bs=$DD_BS count=$cnt > $TMP_OUT 2>&1"
+			dd if=$2 of=$3 seek=$4 bs=$DD_BS count=$cnt > $TMP_OUT 2>&1
 			;;
 		"read" )
-			echo "dd if=$2 of=$3 skip=$4 bs=$DD_BS count=$cnt > /dev/null 2>&1"
-			dd if=$2 of=$3 skip=$4 bs=$DD_BS count=$cnt > /dev/null 2>&1
+			echo "dd if=$2 of=$3 skip=$4 bs=$DD_BS count=$cnt > $TMP_OUT 2>&1"
+			dd if=$2 of=$3 skip=$4 bs=$DD_BS count=$cnt > $TMP_OUT 2>&1
 			;;
 	esac
 }
@@ -144,7 +151,7 @@ dd_test ()
 		rm $R_DATA
 		COUNT=`expr $COUNT + 1`
 
-		trap "test_result $COUNT $PASS_COUNT `expr $COUNT - $PASS_COUNT`" INT
+		trap "test_result  "dd" $COUNT $PASS_COUNT `expr $COUNT - $PASS_COUNT`" INT
 	done
 }
 
@@ -234,8 +241,8 @@ copy_file ()
 			;;
 	esac
 
-	echo "md5sum -c $TEST_LOG/md5sum.log > /dev/null"
-	md5sum -c $TEST_LOG/md5sum.log > /dev/null
+	echo "md5sum -c $TEST_LOG/md5sum.log > $TMP_OUT"
+	md5sum -c $TEST_LOG/md5sum.log > $TMP_OUT
 	if [ $? -ne 0 ]; then
 		echo "[ERROR]: one copy_$1 test data error !!!"
 		my_umount $2
@@ -284,7 +291,7 @@ copy_test ()
 			COUNT=`expr $COUNT + 1`
 		fi
 
-		trap "test_result $COUNT "null"  "null" " INT
+		trap "test_result "copy" $COUNT "null"  "null" " INT
 	done
 }
 
