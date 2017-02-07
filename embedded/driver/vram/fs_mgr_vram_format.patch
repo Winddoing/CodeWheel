@@ -1,0 +1,155 @@
+diff --git a/fs_mgr/fs_mgr.c b/fs_mgr/fs_mgr.c
+index 6de8817..e0013f4 100644
+--- a/fs_mgr/fs_mgr.c
++++ b/fs_mgr/fs_mgr.c
+@@ -54,6 +54,7 @@
+ #define KEY_IN_FOOTER  "footer"
+ 
+ #define E2FSCK_BIN      "/system/bin/e2fsck"
++#define MKE2FS_BIN      "/system/bin/mke2fs"
+ #define F2FS_FSCK_BIN  "/system/bin/fsck.f2fs"
+ #define MKSWAP_BIN      "/system/bin/mkswap"
+ 
+@@ -93,6 +94,93 @@ static int wait_for_file(const char *filename, int timeout)
+     return ret;
+ }
+ 
++static void format_fs(char *blk_device, char *fs_type, char *target)
++{
++    int status;
++    int ret;
++    long tmpmnt_flags = MS_NOATIME | MS_NOEXEC | MS_NOSUID;
++    char tmpmnt_opts[64] = "errors=remount-ro";
++    char *e2fsck_argv[] = {
++        MKE2FS_BIN,
++        blk_device
++    };
++
++    /* Check for the types of filesystems we know how to check */
++    if (!strcmp(fs_type, "ext2") || !strcmp(fs_type, "ext3") || !strcmp(fs_type, "ext4")) {
++        /*
++         * First try to mount and unmount the filesystem.  We do this because
++         * the kernel is more efficient than e2fsck in running the journal and
++         * processing orphaned inodes, and on at least one device with a
++         * performance issue in the emmc firmware, it can take e2fsck 2.5 minutes
++         * to do what the kernel does in about a second.
++         *
++         * After mounting and unmounting the filesystem, run e2fsck, and if an
++         * error is recorded in the filesystem superblock, e2fsck will do a full
++         * check.  Otherwise, it does nothing.  If the kernel cannot mount the
++         * filesytsem due to an error, e2fsck is still run to do a full check
++         * fix the filesystem.
++         */
++        errno = 0;
++        if (!strcmp(fs_type, "ext4")) {
++            // This option is only valid with ext4
++            strlcat(tmpmnt_opts, ",nomblk_io_submit", sizeof(tmpmnt_opts));
++        }
++        ret = mount(blk_device, target, fs_type, tmpmnt_flags, tmpmnt_opts);
++        INFO("%s(): mount(%s,%s,%s)=%d: %s\n",
++             __func__, blk_device, target, fs_type, ret, strerror(errno));
++        if (!ret) {
++            int i;
++            for (i = 0; i < 5; i++) {
++                // Try to umount 5 times before continuing on.
++                // Should we try rebooting if all attempts fail?
++                int result = umount(target);
++                if (result == 0) {
++                    INFO("%s(): unmount(%s) succeeded\n", __func__, target);
++                    break;
++                }
++                ERROR("%s(): umount(%s)=%d: %s\n", __func__, target, result, strerror(errno));
++                sleep(1);
++            }
++        }
++
++        /*
++         * Some system images do not have e2fsck for licensing reasons
++         * (e.g. recent SDK system images). Detect these and skip the check.
++         */
++        if (access(MKE2FS_BIN, X_OK)) {
++            INFO("Not running %s on %s (executable not in system image)\n",
++                 MKE2FS_BIN, blk_device);
++        } else {
++            INFO("Running %s on %s\n", MKE2FS_BIN, blk_device);
++
++            ret = android_fork_execvp_ext(ARRAY_SIZE(e2fsck_argv), e2fsck_argv,
++                                          &status, true, LOG_KLOG | LOG_FILE,
++                                          true, FSCK_LOG_FILE, NULL, 0);
++
++            if (ret < 0) {
++                /* No need to check for error in fork, we can't really handle it now */
++                ERROR("Failed trying to run %s\n", MKE2FS_BIN);
++            }
++        }
++    } else if (!strcmp(fs_type, "f2fs")) {
++            char *f2fs_fsck_argv[] = {
++                    F2FS_FSCK_BIN,
++                    "-a",
++                    blk_device
++            };
++        INFO("Running %s -a %s\n", F2FS_FSCK_BIN, blk_device);
++
++        ret = android_fork_execvp_ext(ARRAY_SIZE(f2fs_fsck_argv), f2fs_fsck_argv,
++                                      &status, true, LOG_KLOG | LOG_FILE,
++                                      true, FSCK_LOG_FILE, NULL, 0);
++        if (ret < 0) {
++            /* No need to check for error in fork, we can't really handle it now */
++            ERROR("Failed trying to run %s\n", F2FS_FSCK_BIN);
++        }
++    }
++
++    return;
++}
+ static void check_fs(char *blk_device, char *fs_type, char *target)
+ {
+     int status;
+@@ -336,12 +424,18 @@ static int mount_with_alternatives(struct fstab *fstab, int start_idx, int *end_
+             if (fstab->recs[i].fs_mgr_flags & MF_CHECK) {
+                 check_fs(fstab->recs[i].blk_device, fstab->recs[i].fs_type,
+                          fstab->recs[i].mount_point);
+-            }
+-            if (!__mount(fstab->recs[i].blk_device, fstab->recs[i].mount_point, &fstab->recs[i])) {
+-                *attempted_idx = i;
+-                mounted = 1;
+-                if (i != start_idx) {
+-                    ERROR("%s(): Mounted %s on %s with fs_type=%s instead of %s\n", __func__,
++	    }
++
++	    if (fstab->recs[i].fs_mgr_flags & MF_FORMAT) {
++		    format_fs(fstab->recs[i].blk_device, fstab->recs[i].fs_type,
++				    fstab->recs[i].mount_point);
++	    }
++
++	    if (!__mount(fstab->recs[i].blk_device, fstab->recs[i].mount_point, &fstab->recs[i])) {
++		    *attempted_idx = i;
++		    mounted = 1;
++		    if (i != start_idx) {
++			    ERROR("%s(): Mounted %s on %s with fs_type=%s instead of %s\n", __func__,
+                          fstab->recs[i].blk_device, fstab->recs[i].mount_point, fstab->recs[i].fs_type,
+                          fstab->recs[start_idx].fs_type);
+                 }
+diff --git a/fs_mgr/fs_mgr_fstab.c b/fs_mgr/fs_mgr_fstab.c
+index 6d44e06..a0c1973 100644
+--- a/fs_mgr/fs_mgr_fstab.c
++++ b/fs_mgr/fs_mgr_fstab.c
+@@ -61,6 +61,7 @@ static struct flag_list mount_flags[] = {
+ static struct flag_list fs_mgr_flags[] = {
+     { "wait",        MF_WAIT },
+     { "check",       MF_CHECK },
++    { "format",	     MF_FORMAT },
+     { "encryptable=",MF_CRYPT },
+     { "forceencrypt=",MF_FORCECRYPT },
+     { "fileencryption",MF_FILEENCRYPTION },
+diff --git a/fs_mgr/fs_mgr_priv.h b/fs_mgr/fs_mgr_priv.h
+index 46975f1..4a89f8c 100644
+--- a/fs_mgr/fs_mgr_priv.h
++++ b/fs_mgr/fs_mgr_priv.h
+@@ -84,6 +84,7 @@ __BEGIN_DECLS
+ #define MF_SLOTSELECT   0x8000
+ #define MF_FORCEFDEORFBE 0x10000
+ #define MF_NOFAIL       0x40000
++#define MF_FORMAT       0x80000
+ 
+ #define DM_BUF_SIZE 4096
+ 
