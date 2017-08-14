@@ -7,7 +7,7 @@ F_NUM=0
 for FILE in  /etc/*
 do
 	if [ -d $FILE ]
-	then 
+	then
 		D_NUM=`expr $D_NUM + 1`
 	elif [ -L $FILE ]
 	then
@@ -20,6 +20,6 @@ done
 
 echo "D_num = $D_NUM, L_num = $L_NUM, F_num = $F_NUM, num = `expr $D_NUM + $L_NUM + $F_NUM`"
 
-unset D_NUM F_NUM L_NUM  
+unset D_NUM F_NUM L_NUM
 
 
