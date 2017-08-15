@@ -9,7 +9,7 @@ int main(void)
 	int count = 1;
 	int pid;
 	int status;
-	int *a;
+/*	int *a;*/
 
 	pid = fork( );
 	printf("pid=%d\n", pid);
@@ -19,9 +19,10 @@ int main(void)
 	} else if(pid == 0) {
 		printf("This is son, his count is: %d (%p). and his pid is: %d\n", 
 				++count, &count, getpid());
-		*a = 3;
+/*		*a = 3;*/
 		sleep(10);
-		_exit(0);
+/*		_exit(0);*/
+		exit(0);
 	} else {
 		pid = wait(&status);
 
