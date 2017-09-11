@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Find_longest_path	dynamic_longest_path.h	/^int Find_longest_path(int **weight,int numVertexes,int k,int t,vector<int> &r)  \/\/寻找k到t的最短路径$/;"	f
+INFINITY	dynamic_longest_path.h	5;"	d
+INITWEIGHT	Graphic_longest_path.h	6;"	d
+check	Graphic_longest_path.h	/^bool graph::check(int i,int j,int w)$/;"	f	class:graph
+createGraph	Graphic_longest_path.h	/^void graph::createGraph()$/;"	f	class:graph
+dynamic_longest_path	dynamic_longest_path.h	/^int dynamic_longest_path(int **weight,int numVertexes,int k,int t)$/;"	f
+getEdgeNums	Graphic_longest_path.h	/^      int getEdgeNums()$/;"	f	class:graph
+getVerNums	Graphic_longest_path.h	/^      int getVerNums()$/;"	f	class:graph
+getWeight	Graphic_longest_path.h	/^      int **getWeight()$/;"	f	class:graph
+graph	Graphic_longest_path.h	/^class graph$/;"	c
+graph	Graphic_longest_path.h	/^graph::graph(int numV,bool isWeighted,bool isDirected)$/;"	f	class:graph
+isDirected	Graphic_longest_path.h	/^      bool isDirected;  \/\/是否有向？$/;"	m	class:graph
+isWeighted	Graphic_longest_path.h	/^      bool isWeighted;  \/\/是否带权？$/;"	m	class:graph
+main	Graphic_longest_path.cpp	/^int main()$/;"	f
+matrix	Graphic_longest_path.h	/^      int **matrix; \/\/邻接矩阵$/;"	m	class:graph
+max	dynamic_longest_path.h	/^int max(int a,int b)$/;"	f
+numE	Graphic_longest_path.h	/^      int numE; \/\/边数$/;"	m	class:graph
+numV	Graphic_longest_path.h	/^      int numV; \/\/顶点数$/;"	m	class:graph
+printAdjacentMatrix	Graphic_longest_path.h	/^void graph::printAdjacentMatrix()$/;"	f	class:graph
+setEdgeWeight	Graphic_longest_path.h	/^void graph::setEdgeWeight(int beg,int end,int weight)$/;"	f	class:graph
+~graph	Graphic_longest_path.h	/^graph::~graph()  \/\/析构函数$/;"	f	class:graph
