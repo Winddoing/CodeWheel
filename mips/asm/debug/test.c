@@ -9,6 +9,9 @@
 
 int main()
 {
+	__asm__ volatile("ssnop\n\t");
+	__asm__ volatile("ssnop\n\t");
+
 	__asm__ volatile (
 			".set push		    \n\t"  	
 			".set noreorder		\n\t"
@@ -38,6 +41,8 @@ int main()
 			".word   0x00000000 \n\t"             //# 8c02a05c
 			".set    pop		\n\t"
 			);
+	__asm__ volatile("ssnop\n\t");
+	__asm__ volatile("ssnop\n\t");
 
 	return 0;
 }

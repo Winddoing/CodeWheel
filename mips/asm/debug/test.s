@@ -22,6 +22,14 @@ main:
 	move	$fp,$sp
 #APP
  # 12 "test.c" 1
+	ssnop
+	
+ # 0 "" 2
+ # 13 "test.c" 1
+	ssnop
+	
+ # 0 "" 2
+ # 15 "test.c" 1
 	.set push		    
 	.set noreorder		
 	.word   0x40028000 
@@ -49,6 +57,14 @@ main:
 	.word   0x00000000 
 	.word   0x00000000 
 	.set    pop		
+	
+ # 0 "" 2
+ # 44 "test.c" 1
+	ssnop
+	
+ # 0 "" 2
+ # 45 "test.c" 1
+	ssnop
 	
  # 0 "" 2
 #NO_APP
