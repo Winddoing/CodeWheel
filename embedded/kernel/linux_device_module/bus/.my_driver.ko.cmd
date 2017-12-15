@@ -1,0 +1,1 @@
+cmd_/mnt/hgfs/share/bus/my_driver.ko := /usr/local/arm/arm-2009q3/bin/arm-none-linux-gnueabi-ld -EL -r  -T /home/gec/build_kernel/android-kernel-20130621/scripts/module-common.lds --build-id -o /mnt/hgfs/share/bus/my_driver.ko /mnt/hgfs/share/bus/my_driver.o /mnt/hgfs/share/bus/my_driver.mod.o

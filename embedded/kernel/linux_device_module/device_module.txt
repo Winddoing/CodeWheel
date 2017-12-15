@@ -1,0 +1,367 @@
+总线模型：
+
+
+原始模型：
+总线：struct bus_type
+
+------------------------
+struct bus_type {
+	const char		*name;
+	struct bus_attribute	*bus_attrs;
+	struct device_attribute	*dev_attrs;
+	struct driver_attribute	*drv_attrs;
+
+	int (*match)(struct device *dev, struct device_driver *drv);
+	int (*uevent)(struct device *dev, struct kobj_uevent_env *env);
+	int (*probe)(struct device *dev);
+	int (*remove)(struct device *dev);
+	void (*shutdown)(struct device *dev);
+
+	int (*suspend)(struct device *dev, pm_message_t state);
+	int (*resume)(struct device *dev);
+
+	const struct dev_pm_ops *pm;
+
+	struct bus_type_private *p;
+};
+
+------------------------
+
+
+设备：struct device
+-------------------------
+struct device {
+	struct device		*parent;
+
+	struct device_private	*p;
+
+	struct kobject kobj;
+	const char		*init_name; /* initial name of the device */
+	struct device_type	*type;
+
+	struct mutex		mutex;	/* mutex to synchronize calls to
+					 * its driver.
+					 */
+
+	struct bus_type	*bus;		/* type of bus device is on */
+	struct device_driver *driver;	/* which driver has allocated this
+					   device */
+	void		*platform_data;	/* Platform specific data, device
+					   core doesn't touch it */
+	struct dev_pm_info	power;
+
+#ifdef CONFIG_NUMA
+	int		numa_node;	/* NUMA node this device is close to */
+#endif
+	u64		*dma_mask;	/* dma mask (if dma'able device) */
+	u64		coherent_dma_mask;/* Like dma_mask, but for
+					     alloc_coherent mappings as
+					     not all hardware supports
+					     64 bit addresses for consistent
+					     allocations such descriptors. */
+
+	struct device_dma_parameters *dma_parms;
+
+	struct list_head	dma_pools;	/* dma pools (if dma'ble) */
+
+	struct dma_coherent_mem	*dma_mem; /* internal for coherent mem
+					     override */
+	/* arch specific additions */
+	struct dev_archdata	archdata;
+#ifdef CONFIG_OF
+	struct device_node	*of_node;
+#endif
+
+	dev_t			devt;	/* dev_t, creates the sysfs "dev" */
+
+	spinlock_t		devres_lock;
+	struct list_head	devres_head;
+
+	struct klist_node	knode_class;
+	struct class		*class;
+	const struct attribute_group **groups;	/* optional groups */
+
+	void	(*release)(struct device *dev);
+};
+
+
+-------------------------
+
+
+驱动：struct device_driver
+-------------------------
+struct device_driver {
+	const char		*name;
+	struct bus_type		*bus;
+
+	struct module		*owner;
+	const char		*mod_name;	/* used for built-in modules */
+
+	bool suppress_bind_attrs;	/* disables bind/unbind via sysfs */
+
+#if defined(CONFIG_OF)
+	const struct of_device_id	*of_match_table;
+#endif
+
+	int (*probe) (struct device *dev);
+	int (*remove) (struct device *dev);
+	void (*shutdown) (struct device *dev);
+	int (*suspend) (struct device *dev, pm_message_t state);
+	int (*resume) (struct device *dev);
+	const struct attribute_group **groups;
+
+	const struct dev_pm_ops *pm;
+
+	struct driver_private *p;
+};
+
+-------------------------
+
+
+
+具体应用模型：
+
+platform总线：struct bus_type platform_bus_type 
+---------------------------
+struct bus_type platform_bus_type = {
+	.name		= "platform",
+	.dev_attrs	= platform_dev_attrs,
+	.match		= platform_match,
+	.uevent		= platform_uevent,
+	.pm		= &platform_dev_pm_ops,
+};
+---------------------------
+
+
+
+
+platform总线设备：struct platform_device
+---------------------------
+struct platform_device {
+	const char	* name;
+	int		id;
+	struct device	dev;
+	u32		num_resources;
+	struct resource	* resource;
+
+	const struct platform_device_id	*id_entry;
+
+	/* arch specific additions */
+	struct pdev_archdata	archdata;
+};
+---------------------------
+
+
+
+
+platform总线驱动：struct platform_driver
+---------------------------
+struct platform_driver {
+	int (*probe)(struct platform_device *);
+	int (*remove)(struct platform_device *);
+	void (*shutdown)(struct platform_device *);
+	int (*suspend)(struct platform_device *, pm_message_t state);
+	int (*resume)(struct platform_device *);
+	struct device_driver driver;
+	const struct platform_device_id *id_table;
+};
+---------------------------
+
+使用：
+1、定义一个struct platform_driver实例，并初始化。
+2、注册platform_driver：platform_driver_register(struct platform_driver *);
+
+--------------------------------
+platform_driver_register---》
+
+	int platform_driver_register(struct platform_driver *drv)
+	{
+	drv->driver.bus = &platform_bus_type;
+	return driver_register(&drv->driver);
+	}
+
+	driver_register---》
+
+		bus_add_driver(drv)---》
+			
+			driver_attach(drv)---》
+				
+				bus_for_each_dev(drv->bus, NULL, drv, __driver_attach); //遍历并匹配
+
+					/*******
+						if (!driver_match_device(drv, dev))  //返回1，！1 为假，不返回0；
+						return 0;    
+						
+						driver_match_device-->
+
+
+	static inline int driver_match_device(struct device_driver *drv, struct device *dev)
+	{
+	return drv->bus->match ? drv->bus->match(dev, drv) : 1;   //  drv->bus->match(dev, drv)，platform match成功返回1
+	}	
+					********/
+
+
+
+				driver_probe_device(drv, dev)---》 //遍历成功，则执行platform_driver的probe接口
+									
+							really_probe(dev, drv);---》
+										
+							if (drv->probe) {   //platform_driver的probe接口是否存在
+							ret = drv->probe(dev);   //如存在，则执行platform_driver的probe接口
+									｝
+		
+
+自此，设备驱动注册完毕，需要关注platform_device的存在，如果platform_device不存在，则platform_driver的probe接口不会执行。	
+----------------------------------
+
+3、定义一个struct platform_device实例，并初始化。
+
+	# 重点初始化设备的资源结构体
+	# 对于参数较为复杂的结构，使用指针传递，例如：
+
+		static struct platform_device geckey_key_device ={
+			.name = "gec_key",
+			.id = -1,
+			.dev={
+				.platform_data = button,  //指针传递
+				.release = gec_key_release,
+				},
+			.num_resources	 = ARRAY_SIZE(gec_key_resource),
+			.resource = gec_key_resource,
+		};
+
+	#获取指针传递的数据：
+		在driver中：
+			gec_button = pdev->dev.platform_data;
+
+
+
+4、注册platform_device：platform_device_register(struct platform_device *pdev)；
+
+----------------------------------------------------------
+platform_device_register(struct platform_device *pdev)；---->
+    platform_device_add(pdev);--->
+	device_add(&pdev->dev);----->
+		bus_add_device(dev);---->
+		bus_probe_device(dev);-->
+			device_attach(dev);--->
+				bus_for_each_drv(dev->bus, NULL, dev, __device_attach);-->
+					__device_attach--->
+						
+				/********
+
+				static int __device_attach(struct device_driver *drv, void *data)
+				{
+				struct device *dev = data;
+
+				if (!driver_match_device(drv, dev))   //设备匹配驱动，匹配成功返回1，！1为假，不返回0；
+				return 0;
+
+				return driver_probe_device(drv, dev);
+				}
+
+				******/
+						
+					driver_probe_device(drv, dev);----》
+					/*****
+						if (!device_is_registered(dev))
+						return -ENODEV;
+						really_probe(dev, drv);
+					****/
+							really_probe(dev, drv);---》
+										
+							if (drv->probe) {   //platform_driver的probe接口是否存在
+							ret = drv->probe(dev);   //如存在，则执行platform_driver的probe接口
+									｝
+
+自此，设备注册完毕，需要关注platform_driver的存在，如果platform_driver不存在，则platform_driver的probe接口不会执行。
+
+------------------------------------------------------------------------------------
+
+platform的match的原则，名字：
+
+
+static int platform_match(struct device *dev, struct device_driver *drv)
+{
+	struct platform_device *pdev = to_platform_device(dev);
+	struct platform_driver *pdrv = to_platform_driver(drv);
+
+	/* match against the id table first */
+	if (pdrv->id_table)
+		return platform_match_id(pdrv->id_table, pdev) != NULL;
+
+	/* fall-back to driver name match */
+	return (strcmp(pdev->name, drv->name) == 0);   //用名字座位匹配的依据，所以需要设备与驱动应当遵循该原则。
+}
+
+---------------------------------------------------------------------------------------
+
+注册并匹配成功，则在/sys/bus/platform目录下的devices以及drivers目录中将看到对应的设备与驱动名字。
+
+ls /sys/bus/platform/devices
+ls /sys/bus/platform/drivers
+
+
+------------------------------------------------------------------------------------
+
+类设备:
+
+
+	struct class;
+
+创建设备类与类设备；
+
+	gec_key = class_create(THIS_MODULE, "gec_key");
+	device_create(gec_key, NULL, devno, NULL, "gec_key%d",0);  // devno 为需要创建的设备号，gec_key%d 为设备文件名称
+
+注销设备类与类设备;
+
+	device_destroy(gec_key, devno);
+	class_destroy(gec_key);
+
+--------------------------------------------------------------------------
+			
+	button_dev = input_allocate_device();   //分配输入设备结构空间
+
+	button_dev->evbit[0] = BIT_MASK(EV_KEY);  //事件使能位
+	button_dev->keybit[BIT_WORD(KEY_0)] = BIT_MASK(KEY_0); //按键范围使能
+
+	error = input_register_device(button_dev);  //注册输入设备；
+
+
+############1 设备有数据操作时，对子系统进行提交数据即可。
+
+	例如：按键驱动，在中断中，提交事件汇报。
+
+	static irqreturn_t button_interrupt(int irq, void *dummy)
+	{
+		input_report_key(button_dev, KEY_0, 1);  //汇报设备的触发事件，子系统有状态管理功能，需要状态配对操作
+						//汇报了按下操作后，在适当的事件点需要汇报弹起状态，否则将被认为是异常
+		input_sync(button_dev);                   //同步事件，停止提交，触发子系统向用户空间反馈数据（必须）
+		return IRQ_HANDLED; 
+	}
+
+
+
+      用户空间将获取到一个标准的数据类型：
+
+	struct input_event {
+	struct timeval time;   //事件值
+	__u16 type;    //事件类型
+	__u16 code;    //事件的值（如果是按键，就是键值；如果是鼠标，就是坐标轴（X 或 Y）。。。）
+	__s32 value;   //事件的值 （如果是按键，就是状态:1按下 0 弹起，如果是鼠标，就是坐标数据）
+	};
+
+
+	在应用程序中：
+
+
+	read(fd,&gec_key, sizeof(struct input_event));
+        printf("gec_key type = %d \n",gec_key.type);
+	printf("gec_key code = %d \n",gec_key.code);
+	printf("gec_key value = %d \n",gec_key.value);
+
+
+------------------------------------------------------------------------------
+

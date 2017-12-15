@@ -1,0 +1,195 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AES128	aes.c	/^void AES128 (int *pkey, int *pinput, int plen, int crypt)$/;"	f
+AddRoundKey	aes.c	/^void AddRoundKey(unsigned char State[4][4],int Nr)$/;"	f
+BIT_BASE	rsa.h	19;"	d
+BIT_SHIFT	rsa.h	18;"	d
+BI_MAXLEN	rsa.h	8;"	d
+BLOCK_MAX_NUM	aes.c	27;"	d	file:
+BYTE_NUM_ADDR	aes.c	31;"	d	file:
+ByteSub	aes.c	/^void ByteSub(unsigned char state[4][4])$/;"	f
+CC	Makefile	/^CC = gcc$/;"	m
+DISPLAY_ON	aes.c	30;"	d	file:
+Decode	md5.c	/^static void Decode (output, input, len)$/;"	f	file:
+Decrypt	aes.c	/^void Decrypt(unsigned char State[4][4])$/;"	f
+ECB_CBC_SEL	aes.c	/^unsigned int ECB_CBC_SEL ;$/;"	v
+ECB_CBC_SEL_ADDR	aes.c	32;"	d	file:
+E_ADDR	aes.c	37;"	d	file:
+Encode	md5.c	/^static void Encode (output, input, len)$/;"	f	file:
+Encrypt128	aes.c	/^void Encrypt128(unsigned char State[4][4])$/;"	f
+Encrypt192	aes.c	/^void Encrypt192(unsigned char State[4][4])$/;"	f
+Encrypt256	aes.c	/^void Encrypt256(unsigned char State[4][4])$/;"	f
+F	md5.c	29;"	d	file:
+FF	md5.c	37;"	d	file:
+FILE_MAX_LEN	md5.c	11;"	d	file:
+FILE_NUM	aes.c	25;"	d	file:
+FILE_NUM	md5.c	10;"	d	file:
+G	md5.c	30;"	d	file:
+GG	md5.c	42;"	d	file:
+GLOBAL_VAR	rsa.c	/^struct GLOBAL_VAR {$/;"	s	file:
+H	md5.c	31;"	d	file:
+HH	md5.c	47;"	d	file:
+I	md5.c	32;"	d	file:
+II	md5.c	52;"	d	file:
+IV_ADDR	aes.c	34;"	d	file:
+InvByteSub	aes.c	/^void InvByteSub(unsigned char state[4][4])$/;"	f
+InvMixColumn	aes.c	/^void InvMixColumn(unsigned char state[4][4])$/;"	f
+InvMixColumn_Matrix	aes.c	/^unsigned char InvMixColumn_Matrix[0x04][0x04]={$/;"	v
+InvShiftRow	aes.c	/^void InvShiftRow(unsigned char state[4][4])$/;"	f
+KEY_ADDR	aes.c	35;"	d	file:
+KEY_LEN	aes.c	28;"	d	file:
+KEY_LEN_ADDR	aes.c	33;"	d	file:
+KeyExp128	aes.c	/^void KeyExp128(unsigned char OriKey[4][4])$/;"	f
+KeyExp192	aes.c	/^void KeyExp192(unsigned char OriKey[4][6])$/;"	f
+KeyExp256	aes.c	/^void KeyExp256(unsigned char OriKey[4][8])$/;"	f
+MD5Final	md5.c	/^void MD5Final (digest, context, file)$/;"	f
+MD5Init	md5.c	/^void MD5Init (context)$/;"	f
+MD5Transform	md5.c	/^static void MD5Transform (state, block, file)$/;"	f	file:
+MD5Update	md5.c	/^void MD5Update (context, input, inputLen, file)$/;"	f
+MD5_CTX	md5.c	/^} MD5_CTX;$/;"	t	typeref:struct:__anon1	file:
+MD5_memcpy	md5.c	/^static void MD5_memcpy (output, input, len)$/;"	f	file:
+MD5_memset	md5.c	/^static void MD5_memset (output, value, len)$/;"	f	file:
+MIN_D_BIT	rsa.h	16;"	d
+MIN_K_BIT	rsa.h	14;"	d
+MIN_N_BIT	rsa.h	12;"	d
+MixColumn	aes.c	/^void MixColumn(unsigned char state[4][4])$/;"	f
+MixColumn_Matrix	aes.c	/^unsigned char MixColumn_Matrix[0x04][0x04]={ 0x02,0x03,0x01,0x01,$/;"	v
+Multiply	aes.c	40;"	d	file:
+OTP_MAXLEN	rsa.h	10;"	d
+O_ADDR	aes.c	36;"	d	file:
+PADDING	md5.c	/^static unsigned char PADDING[64] = {$/;"	v	file:
+POINTER	md5.c	/^typedef unsigned char *POINTER;$/;"	t	file:
+ROTATE_LEFT	md5.c	36;"	d	file:
+Rc_h	aes.c	/^unsigned char  Rc_h[14]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x1b,0x36,0x6c,0xd8,0xab,0x4d};$/;"	v
+RoundKey	aes.c	/^unsigned char  RoundKey[120][8];$/;"	v
+S11	md5.c	12;"	d	file:
+S12	md5.c	13;"	d	file:
+S13	md5.c	14;"	d	file:
+S14	md5.c	15;"	d	file:
+S21	md5.c	16;"	d	file:
+S22	md5.c	17;"	d	file:
+S23	md5.c	18;"	d	file:
+S24	md5.c	19;"	d	file:
+S31	md5.c	20;"	d	file:
+S32	md5.c	21;"	d	file:
+S33	md5.c	22;"	d	file:
+S34	md5.c	23;"	d	file:
+S41	md5.c	24;"	d	file:
+S42	md5.c	25;"	d	file:
+S43	md5.c	26;"	d	file:
+S44	md5.c	27;"	d	file:
+SMALL_A_B	rsa.c	265;"	d	file:
+S_Box	aes.c	/^unsigned char S_Box[0x10][0x10]=$/;"	v
+S_InvBox	aes.c	/^unsigned char S_InvBox[0x10][0x10]=$/;"	v
+ShiftRow	aes.c	/^void ShiftRow(unsigned char state[4][4])$/;"	f
+UINT4	md5.c	/^typedef unsigned int UINT4;$/;"	t	file:
+_SCROM_RSA_H_	rsa.h	2;"	d
+__KEY_H__	key.h	2;"	d
+bi_add1	rsa.c	/^int bi_add1 (int a_len, unsigned long *a_data, unsigned long b_d)$/;"	f
+bi_bi2str	rsa.c	/^int bi_bi2str (char *str, int a_len, unsigned long *a_data,$/;"	f
+bi_blen	rsa.c	/^int bi_blen (int len, unsigned long *data)$/;"	f
+bi_div1	rsa.c	/^int bi_div1 (int a_len, unsigned long *a_data, unsigned long b_d)$/;"	f
+bi_eq	rsa.c	/^int bi_eq (int a_len, unsigned long *a_data, int b_len, unsigned long *b_data)$/;"	f
+bi_len	rsa.c	/^int bi_len (int len, unsigned long *data)$/;"	f
+bi_lt	rsa.c	/^int bi_lt (int a_len, unsigned long *a_data, int b_len, unsigned long *b_data)$/;"	f
+bi_mod	rsa.c	/^int bi_mod (int a_len, unsigned long *a_data, int b_len, unsigned long *b_data)$/;"	f
+bi_mod1	rsa.c	/^unsigned long bi_mod1 (int a_len, unsigned long *a_data, unsigned long b_d)$/;"	f
+bi_mon	rsa.c	/^int bi_mon (int a_len, unsigned long *a_data, int k_len, unsigned long *k_data,$/;"	f
+bi_mul	rsa.c	/^int bi_mul (int a_len, unsigned long *a_data, int b_len, unsigned long *b_data,$/;"	f
+bi_mul1	rsa.c	/^int bi_mul1 (int a_len, unsigned long *a_data, unsigned long b_d,$/;"	f
+bi_print	rsa.c	/^void bi_print (char * name, int a_len, unsigned long *a_data,$/;"	f
+bi_sftadd	rsa.c	/^int bi_sftadd (int a_len, unsigned long *a_data,$/;"	f
+bi_sftsub	rsa.c	/^int bi_sftsub (int a_len, unsigned long *a_data,$/;"	f
+bi_str2bi	rsa.c	/^int bi_str2bi (char *str, int str_len, unsigned long *a_data,$/;"	f
+buffer	md5.c	/^	unsigned char buffer[64];                         \/* input buffer *\/$/;"	m	struct:__anon1	file:
+burnukey	key.h	/^unsigned int burnukey[4] = {$/;"	v
+char_cpy	aes.c	/^void char_cpy ( unsigned char p_data[4][4], unsigned char q_data[4][4] )$/;"	f
+char_xor	aes.c	/^void char_xor ( unsigned char p_data[4][4], unsigned char q_data[4][4] )$/;"	f
+chipkey	key.h	/^unsigned int chipkey[4] = {$/;"	v
+ckencuk	key.h	/^unsigned int ckencuk[4] = {$/;"	v
+count	md5.c	/^	UINT4 count[2];        \/* number of bits, modulo 2^64 (lsb first) *\/$/;"	m	struct:__anon1	file:
+data_pri	aes_c.c	/^void data_pri(unsigned int *data, unsigned int len)$/;"	f
+div_nhw1p1	rsa.c	/^				  div_nhw1p1, rem_nhw1p1_p1, n_hw2_c16_b0, n_2fw_c;$/;"	m	struct:GLOBAL_VAR	file:
+do_aes	aes.c	/^int do_aes(int *key, int *input, int len, int crypt)$/;"	f
+do_md5	md5.c	/^int do_md5(unsigned char *input, unsigned int len, unsigned char *output)$/;"	f
+do_rsa	rsa.c	/^int do_rsa(int inlen, int *input, int klen, int *key, int nlen, int *n, int *output)$/;"	f
+dst	rsa_c.c	/^unsigned int dst[1024] = {0};$/;"	v
+global_var	rsa.c	/^} global_var;$/;"	v	typeref:struct:GLOBAL_VAR
+invalid_d	rsa.c	/^int invalid_d (int nn_len, unsigned long *nn, int d_len, unsigned long *data)$/;"	f
+invalid_nk	rsa.c	/^int invalid_nk (int nn_len, unsigned long *nn, int ku_len, unsigned long *ku)$/;"	f
+ku	rsa.c	/^unsigned long ku[BI_MAXLEN\/2];$/;"	v
+ku_len	rsa.c	/^int ku_len;$/;"	v
+lz_nw0	rsa.c	/^	int lz_nw0, sig_nw0;$/;"	m	struct:GLOBAL_VAR	file:
+main	aes_c.c	/^int main(int argc, char **argv)$/;"	f
+main	md5_c.c	/^int main(int argc, char **argv)$/;"	f
+main	rsa_c.c	/^int main(int argc, char **argv)$/;"	f
+mul_num	rsa.c	/^int mul_num;$/;"	v
+n_2fw_c	rsa.c	/^				  div_nhw1p1, rem_nhw1p1_p1, n_hw2_c16_b0, n_2fw_c;$/;"	m	struct:GLOBAL_VAR	file:
+n_ffw	rsa.c	/^	unsigned long n_ffw, n_ffw_p1, n_w0, n_w1, n_hw1_p1, n_hw2_c15,$/;"	m	struct:GLOBAL_VAR	file:
+n_ffw_p1	rsa.c	/^	unsigned long n_ffw, n_ffw_p1, n_w0, n_w1, n_hw1_p1, n_hw2_c15,$/;"	m	struct:GLOBAL_VAR	file:
+n_hw1_p1	rsa.c	/^	unsigned long n_ffw, n_ffw_p1, n_w0, n_w1, n_hw1_p1, n_hw2_c15,$/;"	m	struct:GLOBAL_VAR	file:
+n_hw2_c15	rsa.c	/^	unsigned long n_ffw, n_ffw_p1, n_w0, n_w1, n_hw1_p1, n_hw2_c15,$/;"	m	struct:GLOBAL_VAR	file:
+n_hw2_c16_b0	rsa.c	/^				  div_nhw1p1, rem_nhw1p1_p1, n_hw2_c16_b0, n_2fw_c;$/;"	m	struct:GLOBAL_VAR	file:
+n_offbit_c	rsa.c	/^	unsigned long n_offbit_c[8];$/;"	m	struct:GLOBAL_VAR	file:
+n_w0	rsa.c	/^	unsigned long n_ffw, n_ffw_p1, n_w0, n_w1, n_hw1_p1, n_hw2_c15,$/;"	m	struct:GLOBAL_VAR	file:
+n_w1	rsa.c	/^	unsigned long n_ffw, n_ffw_p1, n_w0, n_w1, n_hw1_p1, n_hw2_c15,$/;"	m	struct:GLOBAL_VAR	file:
+nn	rsa.c	/^unsigned long nn[BI_MAXLEN\/2];$/;"	v
+nn_key	jz-rsakey.h	/^unsigned int nn_key[64] = {$/;"	v
+nn_len	rsa.c	/^int nn_len;$/;"	v
+num1	rsa.c	/^int num1, num2;$/;"	v
+num2	rsa.c	/^int num1, num2;$/;"	v
+pb_key	jz-rsakey.h	/^unsigned int pb_key[64] = {$/;"	v
+pr_key	jz-rsakey.h	/^unsigned int pr_key[64] = {$/;"	v
+print_char44	aes.c	/^void print_char44 ( unsigned char p_data[4][4] )$/;"	f
+print_char46	aes.c	/^void print_char46 ( unsigned char p_data[4][6] )$/;"	f
+print_char48	aes.c	/^void print_char48 ( unsigned char p_data[4][8] )$/;"	f
+rem_nhw1p1_p1	rsa.c	/^				  div_nhw1p1, rem_nhw1p1_p1, n_hw2_c16_b0, n_2fw_c;$/;"	m	struct:GLOBAL_VAR	file:
+reset	aes.c	/^void reset( unsigned char p_data[4][4] )$/;"	f
+rev_dump	rsa_c.c	/^void rev_dump(unsigned int *d, unsigned int len)$/;"	f
+rkencck	key.h	/^unsigned int rkencck[4] = {$/;"	v
+rkencuk	key.h	/^unsigned int rkencuk[4] = {$/;"	v
+rootkey	key.h	/^unsigned int rootkey[4] = {$/;"	v
+rsa_eq	rsa.c	/^int rsa_eq (int src_len, unsigned long *src, int dst_len, unsigned long *dst)$/;"	f
+rsakr	key.h	/^unsigned int rsakr[32] = {$/;"	v
+rsakrckenc	key.h	/^unsigned int rsakrckenc[32] = {$/;"	v
+rsakrukenc	key.h	/^unsigned int rsakrukenc[32] = {$/;"	v
+rsaku	key.h	/^unsigned int rsaku[32] = {$/;"	v
+rsakuckenc	key.h	/^unsigned int rsakuckenc[32] = {$/;"	v
+rsakuukenc	key.h	/^unsigned int rsakuukenc[32] = {$/;"	v
+rsan	key.h	/^unsigned int rsan[32] = {$/;"	v
+rsanckenc	key.h	/^unsigned int rsanckenc[32] = {$/;"	v
+rsanku	key.h	/^unsigned int rsanku[128] = {$/;"	v
+rsankusig	key.h	/^unsigned int rsankusig[4] = {$/;"	v
+rsankusigrkenc	key.h	/^unsigned int rsankusigrkenc[4] = {$/;"	v
+rsanukenc	key.h	/^unsigned int rsanukenc[32] = {$/;"	v
+set_data	aes.c	/^void set_data( unsigned char p_data[4][4] )$/;"	f
+set_rand	aes.c	/^void set_rand( unsigned char p_data[4][4] )$/;"	f
+set_randkey128	aes.c	/^void set_randkey128( unsigned char p_data[4][4] )$/;"	f
+set_randkey192	aes.c	/^void set_randkey192( unsigned char p_data[4][6] )$/;"	f
+set_randkey256	aes.c	/^void set_randkey256( unsigned char p_data[4][8] )$/;"	f
+sig	rsa.c	/^long long sig[32];$/;"	v
+sig_nw0	rsa.c	/^	int lz_nw0, sig_nw0;$/;"	m	struct:GLOBAL_VAR	file:
+size	aes.c	/^unsigned int size = KEY_LEN\/32;$/;"	v
+spl	splsrc16k.h	/^unsigned int spl[4096] = {$/;"	v
+splckenc16k	splckenc16k.h	/^unsigned int splckenc16k[4096] = {$/;"	v
+splsrc16ksha1	splsrc16k.h	/^unsigned int splsrc16ksha1[4] = {$/;"	v
+splsrc16ksha1krenc	splsrc16k.h	/^unsigned int splsrc16ksha1krenc[31] = {$/;"	v
+splsrc16ksha1kuenc	splsrc16k.h	/^unsigned int splsrc16ksha1kuenc[31] = {$/;"	v
+splsrc16ksha1pending	splsrc16k.h	/^unsigned int splsrc16ksha1pending[16] = {$/;"	v
+splukenc16k	splukenc16k.h	/^unsigned int splukenc16k[4096] = {$/;"	v
+src	rsa_c.c	/^unsigned int src[] = {$/;"	v
+state	md5.c	/^	UINT4 state[4];                                   \/* state (ABCD) *\/$/;"	m	struct:__anon1	file:
+w_byte_num	aes.c	/^void w_byte_num ( FILE *fp, unsigned int block_num )		\/\/	write byte_num to file$/;"	f
+w_ecb_cbc	aes.c	/^void w_ecb_cbc ( FILE *fp )	\/\/	write ECB_CBC_SEL to file$/;"	f
+w_encrypt_data	aes.c	/^void w_encrypt_data ( FILE *fp, unsigned char data[4][4], unsigned int k )       \/\/      write encrypt data to file$/;"	f
+w_iv	aes.c	/^void w_iv ( FILE *fp, unsigned char iv[4][4])	\/\/ 	write iv to file$/;"	f
+w_key128	aes.c	/^void w_key128 ( FILE *fp, unsigned char key[4][4])	\/\/	write key to file$/;"	f
+w_key192	aes.c	/^void w_key192 ( FILE *fp, unsigned char key[4][6]) \/\/      write key to file$/;"	f
+w_key256	aes.c	/^void w_key256 ( FILE *fp, unsigned char key[4][8]) \/\/      write key to file$/;"	f
+w_key_len	aes.c	/^void w_key_len ( FILE *fp )		\/\/	write key_lem to file$/;"	f
+w_original_data	aes.c	/^void w_original_data ( FILE *fp, unsigned char data[4][4], unsigned int k )	\/\/	write original data to file$/;"	f
+xtime	aes.c	39;"	d	file:
