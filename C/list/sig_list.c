@@ -237,6 +237,45 @@ Status ListReverse2(LinkList L)
     return L;
 }
 
+LinkList ListReverse3(LinkList list)
+{
+	LinkList  newList;    //新链表的头结点
+	Node       *tmp;       //指向list的第一个结点，也就是要摘除的结点
+
+	//
+	//参数为空或者内存分配失败则返回NULL
+	//
+	if (list == NULL || (newList = (LinkList )malloc(sizeof(Node))) == NULL)
+	{
+		return NULL;
+	}
+
+	//
+	//初始化newList
+	//
+	newList->data = list->data;
+	newList->next = NULL;
+
+	//
+	//依次将list的第一个结点放到newList的第一个结点位置
+	//
+	while (list->next != NULL)
+	{
+		tmp = newList->next;         //保存newList中的后续结点
+		newList->next = list->next;       //将list的第一个结点放到newList中
+		list->next = list->next->next;     //从list中摘除这个结点
+		newList->next->next = tmp;        //恢复newList中后续结点的指针
+        ListTraverse(newList);
+	}
+
+	//
+	//原头结点应该释放掉，并返回新头结点的指针
+	//
+	free(list);
+	return newList;
+
+}
+
 int main()
 {
     LinkList L;
@@ -320,9 +359,10 @@ int main()
                 break;
 
             case '9':
-                ListReverse2(L);
+                //ListReverse2(L);
                 printf("\n反转L后\n");
-                ListTraverse(L);
+                //ListTraverse(L);
+                ListTraverse(ListReverse3(L));
                 printf("\n");
                 break;
 

@@ -1,0 +1,1 @@
+ --start 0xa0000004  --memory-region 0x04300000,0x200000 --memory-region 0xa0000000,0x001000 --memory-region 0x90000000,0x300000 --memory-region 0xb0400000,0x001000 --memory-region 0x90700000,0x100000  --memory-region 0xa00ff000,0x1000 --memory-region 0xa2100000,0x100 --profile-insn 

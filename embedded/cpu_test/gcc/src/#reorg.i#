@@ -1,0 +1,6500 @@
+# 1 "reorg.c"
+# 1 "<built-in>"
+# 1 "<command line>"
+# 1 "reorg.c"
+# 117 "reorg.c"
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 1 3
+# 28 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/features.h" 1 3
+# 322 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/features.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/sys/cdefs.h" 1 3
+# 324 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/sys/cdefs.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/wordsize.h" 1 3
+# 325 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/sys/cdefs.h" 2 3
+# 323 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/features.h" 2 3
+# 345 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/features.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/gnu/stubs.h" 1 3
+# 346 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/features.h" 2 3
+# 29 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+
+
+
+
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 214 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 3 4
+typedef unsigned int size_t;
+# 35 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/types.h" 1 3
+# 28 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/types.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/wordsize.h" 1 3
+# 29 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/types.h" 2 3
+
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 32 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/types.h" 2 3
+
+
+typedef unsigned char __u_char;
+typedef unsigned short int __u_short;
+typedef unsigned int __u_int;
+typedef unsigned long int __u_long;
+
+
+typedef signed char __int8_t;
+typedef unsigned char __uint8_t;
+typedef signed short int __int16_t;
+typedef unsigned short int __uint16_t;
+typedef signed int __int32_t;
+typedef unsigned int __uint32_t;
+
+
+
+
+__extension__ typedef signed long long int __int64_t;
+__extension__ typedef unsigned long long int __uint64_t;
+
+
+
+
+
+
+
+__extension__ typedef long long int __quad_t;
+__extension__ typedef unsigned long long int __u_quad_t;
+# 134 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/types.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/typesizes.h" 1 3
+# 135 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/types.h" 2 3
+
+
+__extension__ typedef __u_quad_t __dev_t;
+__extension__ typedef unsigned int __uid_t;
+__extension__ typedef unsigned int __gid_t;
+__extension__ typedef unsigned long int __ino_t;
+__extension__ typedef __u_quad_t __ino64_t;
+__extension__ typedef unsigned int __mode_t;
+__extension__ typedef unsigned int __nlink_t;
+__extension__ typedef long int __off_t;
+__extension__ typedef __quad_t __off64_t;
+__extension__ typedef int __pid_t;
+__extension__ typedef struct { int __val[2]; } __fsid_t;
+__extension__ typedef long int __clock_t;
+__extension__ typedef unsigned long int __rlim_t;
+__extension__ typedef __u_quad_t __rlim64_t;
+__extension__ typedef unsigned int __id_t;
+__extension__ typedef long int __time_t;
+__extension__ typedef unsigned int __useconds_t;
+__extension__ typedef long int __suseconds_t;
+
+__extension__ typedef int __daddr_t;
+__extension__ typedef long int __swblk_t;
+__extension__ typedef int __key_t;
+
+
+__extension__ typedef int __clockid_t;
+
+
+__extension__ typedef void * __timer_t;
+
+
+__extension__ typedef long int __blksize_t;
+
+
+
+
+__extension__ typedef long int __blkcnt_t;
+__extension__ typedef __quad_t __blkcnt64_t;
+
+
+__extension__ typedef unsigned long int __fsblkcnt_t;
+__extension__ typedef __u_quad_t __fsblkcnt64_t;
+
+
+__extension__ typedef unsigned long int __fsfilcnt_t;
+__extension__ typedef __u_quad_t __fsfilcnt64_t;
+
+__extension__ typedef int __ssize_t;
+
+
+
+typedef __off64_t __loff_t;
+typedef __quad_t *__qaddr_t;
+typedef char *__caddr_t;
+
+
+__extension__ typedef int __intptr_t;
+
+
+__extension__ typedef unsigned int __socklen_t;
+# 37 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+# 45 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+struct _IO_FILE;
+
+
+
+typedef struct _IO_FILE FILE;
+
+
+
+
+
+# 65 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+typedef struct _IO_FILE __FILE;
+# 75 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 1 3
+# 32 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 1 3
+# 14 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 326 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 3 4
+typedef int wchar_t;
+# 355 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 3 4
+typedef unsigned int wint_t;
+# 15 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 2 3
+# 24 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 1 3
+# 48 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 49 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 2 3
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/wchar.h" 1 3
+# 51 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 2 3
+# 76 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 3
+typedef struct
+{
+  int __count;
+  union
+  {
+    wint_t __wch;
+    char __wchb[4];
+  } __value;
+} __mbstate_t;
+# 25 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 2 3
+
+typedef struct
+{
+  __off_t __pos;
+  __mbstate_t __state;
+} _G_fpos_t;
+typedef struct
+{
+  __off64_t __pos;
+  __mbstate_t __state;
+} _G_fpos64_t;
+# 44 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/gconv.h" 1 3
+# 28 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/gconv.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 1 3
+# 48 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 49 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/wchar.h" 2 3
+# 29 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/gconv.h" 2 3
+
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 32 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/gconv.h" 2 3
+
+
+
+
+
+enum
+{
+  __GCONV_OK = 0,
+  __GCONV_NOCONV,
+  __GCONV_NODB,
+  __GCONV_NOMEM,
+
+  __GCONV_EMPTY_INPUT,
+  __GCONV_FULL_OUTPUT,
+  __GCONV_ILLEGAL_INPUT,
+  __GCONV_INCOMPLETE_INPUT,
+
+  __GCONV_ILLEGAL_DESCRIPTOR,
+  __GCONV_INTERNAL_ERROR
+};
+
+
+
+enum
+{
+  __GCONV_IS_LAST = 0x0001,
+  __GCONV_IGNORE_ERRORS = 0x0002
+};
+
+
+
+struct __gconv_step;
+struct __gconv_step_data;
+struct __gconv_loaded_object;
+struct __gconv_trans_data;
+
+
+
+typedef int (*__gconv_fct) (struct __gconv_step *, struct __gconv_step_data *,
+       __const unsigned char **, __const unsigned char *,
+       unsigned char **, size_t *, int, int);
+
+
+typedef wint_t (*__gconv_btowc_fct) (struct __gconv_step *, unsigned char);
+
+
+typedef int (*__gconv_init_fct) (struct __gconv_step *);
+typedef void (*__gconv_end_fct) (struct __gconv_step *);
+
+
+
+typedef int (*__gconv_trans_fct) (struct __gconv_step *,
+      struct __gconv_step_data *, void *,
+      __const unsigned char *,
+      __const unsigned char **,
+      __const unsigned char *, unsigned char **,
+      size_t *);
+
+
+typedef int (*__gconv_trans_context_fct) (void *, __const unsigned char *,
+       __const unsigned char *,
+       unsigned char *, unsigned char *);
+
+
+typedef int (*__gconv_trans_query_fct) (__const char *, __const char ***,
+     size_t *);
+
+
+typedef int (*__gconv_trans_init_fct) (void **, const char *);
+typedef void (*__gconv_trans_end_fct) (void *);
+
+struct __gconv_trans_data
+{
+
+  __gconv_trans_fct __trans_fct;
+  __gconv_trans_context_fct __trans_context_fct;
+  __gconv_trans_end_fct __trans_end_fct;
+  void *__data;
+  struct __gconv_trans_data *__next;
+};
+
+
+
+struct __gconv_step
+{
+  struct __gconv_loaded_object *__shlib_handle;
+  __const char *__modname;
+
+  int __counter;
+
+  char *__from_name;
+  char *__to_name;
+
+  __gconv_fct __fct;
+  __gconv_btowc_fct __btowc_fct;
+  __gconv_init_fct __init_fct;
+  __gconv_end_fct __end_fct;
+
+
+
+  int __min_needed_from;
+  int __max_needed_from;
+  int __min_needed_to;
+  int __max_needed_to;
+
+
+  int __stateful;
+
+  void *__data;
+};
+
+
+
+struct __gconv_step_data
+{
+  unsigned char *__outbuf;
+  unsigned char *__outbufend;
+
+
+
+  int __flags;
+
+
+
+  int __invocation_counter;
+
+
+
+  int __internal_use;
+
+  __mbstate_t *__statep;
+  __mbstate_t __state;
+
+
+
+  struct __gconv_trans_data *__trans;
+};
+
+
+
+typedef struct __gconv_info
+{
+  size_t __nsteps;
+  struct __gconv_step *__steps;
+  __extension__ struct __gconv_step_data __data [];
+} *__gconv_t;
+# 45 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/_G_config.h" 2 3
+typedef union
+{
+  struct __gconv_info __cd;
+  struct
+  {
+    struct __gconv_info __cd;
+    struct __gconv_step_data __data;
+  } __combined;
+} _G_iconv_t;
+
+typedef int _G_int16_t __attribute__ ((__mode__ (__HI__)));
+typedef int _G_int32_t __attribute__ ((__mode__ (__SI__)));
+typedef unsigned int _G_uint16_t __attribute__ ((__mode__ (__HI__)));
+typedef unsigned int _G_uint32_t __attribute__ ((__mode__ (__SI__)));
+# 33 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 2 3
+# 53 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stdarg.h" 1 3 4
+# 43 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stdarg.h" 3 4
+typedef __builtin_va_list __gnuc_va_list;
+# 54 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 2 3
+# 167 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+struct _IO_jump_t; struct _IO_FILE;
+# 177 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+typedef void _IO_lock_t;
+
+
+
+
+
+struct _IO_marker {
+  struct _IO_marker *_next;
+  struct _IO_FILE *_sbuf;
+
+
+
+  int _pos;
+# 200 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+};
+
+
+enum __codecvt_result
+{
+  __codecvt_ok,
+  __codecvt_partial,
+  __codecvt_error,
+  __codecvt_noconv
+};
+# 268 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+struct _IO_FILE {
+  int _flags;
+
+
+
+
+  char* _IO_read_ptr;
+  char* _IO_read_end;
+  char* _IO_read_base;
+  char* _IO_write_base;
+  char* _IO_write_ptr;
+  char* _IO_write_end;
+  char* _IO_buf_base;
+  char* _IO_buf_end;
+
+  char *_IO_save_base;
+  char *_IO_backup_base;
+  char *_IO_save_end;
+
+  struct _IO_marker *_markers;
+
+  struct _IO_FILE *_chain;
+
+  int _fileno;
+
+
+
+  int _flags2;
+
+  __off_t _old_offset;
+
+
+
+  unsigned short _cur_column;
+  signed char _vtable_offset;
+  char _shortbuf[1];
+
+
+
+  _IO_lock_t *_lock;
+# 316 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+  __off64_t _offset;
+# 325 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+  void *__pad1;
+  void *__pad2;
+  void *__pad3;
+  void *__pad4;
+  size_t __pad5;
+
+  int _mode;
+
+  char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
+
+};
+
+
+typedef struct _IO_FILE _IO_FILE;
+
+
+struct _IO_FILE_plus;
+
+extern struct _IO_FILE_plus _IO_2_1_stdin_;
+extern struct _IO_FILE_plus _IO_2_1_stdout_;
+extern struct _IO_FILE_plus _IO_2_1_stderr_;
+# 361 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
+
+
+
+
+
+
+
+typedef __ssize_t __io_write_fn (void *__cookie, __const char *__buf,
+     size_t __n);
+
+
+
+
+
+
+
+typedef int __io_seek_fn (void *__cookie, __off64_t *__pos, int __w);
+
+
+typedef int __io_close_fn (void *__cookie);
+# 413 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+extern int __underflow (_IO_FILE *);
+extern int __uflow (_IO_FILE *);
+extern int __overflow (_IO_FILE *, int);
+extern wint_t __wunderflow (_IO_FILE *);
+extern wint_t __wuflow (_IO_FILE *);
+extern wint_t __woverflow (_IO_FILE *, wint_t);
+# 451 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+extern int _IO_getc (_IO_FILE *__fp);
+extern int _IO_putc (int __c, _IO_FILE *__fp);
+extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__));
+extern int _IO_ferror (_IO_FILE *__fp) __attribute__ ((__nothrow__));
+
+extern int _IO_peekc_locked (_IO_FILE *__fp);
+
+
+
+
+
+extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__));
+extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__));
+extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__));
+# 481 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/libio.h" 3
+extern int _IO_vfscanf (_IO_FILE * __restrict, const char * __restrict,
+   __gnuc_va_list, int *__restrict);
+extern int _IO_vfprintf (_IO_FILE *__restrict, const char *__restrict,
+    __gnuc_va_list);
+extern __ssize_t _IO_padn (_IO_FILE *, int, __ssize_t);
+extern size_t _IO_sgetn (_IO_FILE *, void *, size_t);
+
+extern __off64_t _IO_seekoff (_IO_FILE *, __off64_t, int, int);
+extern __off64_t _IO_seekpos (_IO_FILE *, __off64_t, int);
+
+extern void _IO_free_backup_area (_IO_FILE *) __attribute__ ((__nothrow__));
+# 76 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+# 89 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+typedef _G_fpos_t fpos_t;
+
+
+
+
+# 141 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/stdio_lim.h" 1 3
+# 142 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+
+
+
+extern struct _IO_FILE *stdin;
+extern struct _IO_FILE *stdout;
+extern struct _IO_FILE *stderr;
+
+
+
+
+
+
+
+extern int remove (__const char *__filename) __attribute__ ((__nothrow__));
+
+extern int rename (__const char *__old, __const char *__new) __attribute__ ((__nothrow__));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern FILE *tmpfile (void) ;
+# 186 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern char *tmpnam (char *__s) __attribute__ ((__nothrow__)) ;
+
+
+
+
+
+extern char *tmpnam_r (char *__s) __attribute__ ((__nothrow__)) ;
+# 204 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern char *tempnam (__const char *__dir, __const char *__pfx)
+     __attribute__ ((__nothrow__)) __attribute__ ((__malloc__)) ;
+
+
+
+
+
+
+
+
+extern int fclose (FILE *__stream);
+
+
+
+
+extern int fflush (FILE *__stream);
+
+# 229 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern int fflush_unlocked (FILE *__stream);
+# 243 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+
+
+
+
+extern FILE *fopen (__const char *__restrict __filename,
+      __const char *__restrict __modes) ;
+
+
+
+
+extern FILE *freopen (__const char *__restrict __filename,
+        __const char *__restrict __modes,
+        FILE *__restrict __stream) ;
+# 272 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+# 283 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern FILE *fdopen (int __fd, __const char *__modes) __attribute__ ((__nothrow__)) ;
+# 304 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+
+extern void setbuf (FILE *__restrict __stream, char *__restrict __buf) __attribute__ ((__nothrow__));
+
+
+
+extern int setvbuf (FILE *__restrict __stream, char *__restrict __buf,
+      int __modes, size_t __n) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern void setbuffer (FILE *__restrict __stream, char *__restrict __buf,
+         size_t __size) __attribute__ ((__nothrow__));
+
+
+extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__));
+
+
+
+
+
+
+
+
+extern int fprintf (FILE *__restrict __stream,
+      __const char *__restrict __format, ...);
+
+
+
+
+extern int printf (__const char *__restrict __format, ...);
+
+extern int sprintf (char *__restrict __s,
+      __const char *__restrict __format, ...) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int vfprintf (FILE *__restrict __s, __const char *__restrict __format,
+       __gnuc_va_list __arg);
+
+
+
+
+extern int vprintf (__const char *__restrict __format, __gnuc_va_list __arg);
+
+extern int vsprintf (char *__restrict __s, __const char *__restrict __format,
+       __gnuc_va_list __arg) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int snprintf (char *__restrict __s, size_t __maxlen,
+       __const char *__restrict __format, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
+
+extern int vsnprintf (char *__restrict __s, size_t __maxlen,
+        __const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 0)));
+
+# 398 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+
+
+
+extern int fscanf (FILE *__restrict __stream,
+     __const char *__restrict __format, ...) ;
+
+
+
+
+extern int scanf (__const char *__restrict __format, ...) ;
+
+extern int sscanf (__const char *__restrict __s,
+     __const char *__restrict __format, ...) __attribute__ ((__nothrow__));
+
+# 440 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+
+
+
+extern int fgetc (FILE *__stream);
+extern int getc (FILE *__stream);
+
+
+
+
+
+extern int getchar (void);
+
+# 464 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern int getc_unlocked (FILE *__stream);
+extern int getchar_unlocked (void);
+# 475 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern int fgetc_unlocked (FILE *__stream);
+
+
+
+
+
+
+
+
+
+
+
+extern int fputc (int __c, FILE *__stream);
+extern int putc (int __c, FILE *__stream);
+
+
+
+
+
+extern int putchar (int __c);
+
+# 508 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern int fputc_unlocked (int __c, FILE *__stream);
+
+
+
+
+
+
+
+extern int putc_unlocked (int __c, FILE *__stream);
+extern int putchar_unlocked (int __c);
+
+
+
+
+
+
+extern int getw (FILE *__stream);
+
+
+extern int putw (int __w, FILE *__stream);
+
+
+
+
+
+
+
+
+extern char *fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
+     ;
+
+
+
+
+
+
+extern char *gets (char *__s) ;
+
+# 589 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+
+
+
+extern int fputs (__const char *__restrict __s, FILE *__restrict __stream);
+
+
+
+
+
+extern int puts (__const char *__s);
+
+
+
+
+
+
+extern int ungetc (int __c, FILE *__stream);
+
+
+
+
+
+
+extern size_t fread (void *__restrict __ptr, size_t __size,
+       size_t __n, FILE *__restrict __stream) ;
+
+
+
+
+extern size_t fwrite (__const void *__restrict __ptr, size_t __size,
+        size_t __n, FILE *__restrict __s) ;
+
+# 642 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern size_t fread_unlocked (void *__restrict __ptr, size_t __size,
+         size_t __n, FILE *__restrict __stream) ;
+extern size_t fwrite_unlocked (__const void *__restrict __ptr, size_t __size,
+          size_t __n, FILE *__restrict __stream) ;
+
+
+
+
+
+
+
+
+extern int fseek (FILE *__stream, long int __off, int __whence);
+
+
+
+
+extern long int ftell (FILE *__stream) ;
+
+
+
+
+extern void rewind (FILE *__stream);
+
+# 678 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern int fseeko (FILE *__stream, __off_t __off, int __whence);
+
+
+
+
+extern __off_t ftello (FILE *__stream) ;
+# 697 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+
+
+
+
+extern int fgetpos (FILE *__restrict __stream, fpos_t *__restrict __pos);
+
+
+
+
+extern int fsetpos (FILE *__stream, __const fpos_t *__pos);
+# 720 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+# 729 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+
+extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__));
+
+extern int feof (FILE *__stream) __attribute__ ((__nothrow__)) ;
+
+extern int ferror (FILE *__stream) __attribute__ ((__nothrow__)) ;
+
+
+
+
+extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__));
+extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
+extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
+
+
+
+
+
+
+
+
+extern void perror (__const char *__s);
+
+
+
+
+
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/sys_errlist.h" 1 3
+# 27 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/sys_errlist.h" 3
+extern int sys_nerr;
+extern __const char *__const sys_errlist[];
+# 759 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+
+
+
+
+extern int fileno (FILE *__stream) __attribute__ ((__nothrow__)) ;
+
+
+
+
+extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
+# 778 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern FILE *popen (__const char *__command, __const char *__modes) ;
+
+
+
+
+
+extern int pclose (FILE *__stream);
+
+
+
+
+
+extern char *ctermid (char *__s) __attribute__ ((__nothrow__));
+# 818 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__));
+
+
+
+extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__)) ;
+
+
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__));
+# 839 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/stdio.h" 1 3
+# 33 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/stdio.h" 3
+extern __inline int
+vprintf (__const char *__restrict __fmt, __gnuc_va_list __arg)
+{
+  return vfprintf (stdout, __fmt, __arg);
+}
+
+
+extern __inline int
+getchar (void)
+{
+  return _IO_getc (stdin);
+}
+
+
+
+
+extern __inline int
+fgetc_unlocked (FILE *__fp)
+{
+  return (__builtin_expect (((__fp)->_IO_read_ptr >= (__fp)->_IO_read_end), 0) ? __uflow (__fp) : *(unsigned char *) (__fp)->_IO_read_ptr++);
+}
+
+
+
+
+
+extern __inline int
+getc_unlocked (FILE *__fp)
+{
+  return (__builtin_expect (((__fp)->_IO_read_ptr >= (__fp)->_IO_read_end), 0) ? __uflow (__fp) : *(unsigned char *) (__fp)->_IO_read_ptr++);
+}
+
+
+extern __inline int
+getchar_unlocked (void)
+{
+  return (__builtin_expect (((stdin)->_IO_read_ptr >= (stdin)->_IO_read_end), 0) ? __uflow (stdin) : *(unsigned char *) (stdin)->_IO_read_ptr++);
+}
+
+
+
+
+extern __inline int
+putchar (int __c)
+{
+  return _IO_putc (__c, stdout);
+}
+
+
+
+
+extern __inline int
+fputc_unlocked (int __c, FILE *__stream)
+{
+  return (__builtin_expect (((__stream)->_IO_write_ptr >= (__stream)->_IO_write_end), 0) ? __overflow (__stream, (unsigned char) (__c)) : (unsigned char) (*(__stream)->_IO_write_ptr++ = (__c)));
+}
+
+
+
+
+
+extern __inline int
+putc_unlocked (int __c, FILE *__stream)
+{
+  return (__builtin_expect (((__stream)->_IO_write_ptr >= (__stream)->_IO_write_end), 0) ? __overflow (__stream, (unsigned char) (__c)) : (unsigned char) (*(__stream)->_IO_write_ptr++ = (__c)));
+}
+
+
+extern __inline int
+putchar_unlocked (int __c)
+{
+  return (__builtin_expect (((stdout)->_IO_write_ptr >= (stdout)->_IO_write_end), 0) ? __overflow (stdout, (unsigned char) (__c)) : (unsigned char) (*(stdout)->_IO_write_ptr++ = (__c)));
+}
+# 121 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/bits/stdio.h" 3
+extern __inline int
+__attribute__ ((__nothrow__)) feof_unlocked (FILE *__stream)
+{
+  return (((__stream)->_flags & 0x10) != 0);
+}
+
+
+extern __inline int
+__attribute__ ((__nothrow__)) ferror_unlocked (FILE *__stream)
+{
+  return (((__stream)->_flags & 0x20) != 0);
+}
+# 840 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 2 3
+# 848 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/../../../../mipsel-linux/include/stdio.h" 3
+
+# 118 "reorg.c" 2
+# 1 "config.h" 1
+# 52 "config.h"
+# 1 "tm.h" 1
+# 103 "tm.h"
+extern int target_flags;
+# 383 "tm.h"
+extern int hard_regno_nregs[];
+
+
+
+
+
+extern int hard_regno_mode_ok[64];
+# 434 "tm.h"
+extern int leaf_function;
+# 506 "tm.h"
+enum reg_class { NO_REGS, GENERAL_REGS, FP_REGS, ALL_REGS, LIM_REG_CLASSES };
+# 577 "tm.h"
+extern char leaf_reg_remap[];
+
+extern char leaf_reg_backmap[];
+# 880 "tm.h"
+extern struct rtx_def *sparc_compare_op0, *sparc_compare_op1;
+
+
+
+extern struct rtx_def *gen_compare_reg ();
+# 961 "tm.h"
+extern int current_function_calls_alloca;
+extern int current_function_outgoing_args_size;
+# 981 "tm.h"
+extern union tree_node *current_function_decl;
+# 1069 "tm.h"
+extern struct rtx_def *sparc_builtin_saveregs ();
+# 1309 "tm.h"
+extern struct rtx_def *legitimize_pic_address ();
+# 1857 "tm.h"
+extern char *singlemove_string ();
+extern char *output_move_double ();
+extern char *output_move_quad ();
+extern char *output_fp_move_double ();
+extern char *output_fp_move_quad ();
+extern char *output_block_move ();
+extern char *output_scc_insn ();
+extern char *output_cbranch ();
+extern char *output_return ();
+
+
+
+extern int flag_pic;
+# 53 "config.h" 2
+# 119 "reorg.c" 2
+# 1 "rtl.h" 1
+# 21 "rtl.h"
+# 1 "gvarargs.h" 1
+
+
+
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stdarg.h" 1 3 4
+# 105 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stdarg.h" 3 4
+typedef __gnuc_va_list va_list;
+# 5 "gvarargs.h" 2
+# 22 "rtl.h" 2
+# 1 "machmode.h" 1
+# 77 "machmode.h"
+enum machine_mode {
+# 1 "machmode.def" 1
+# 63 "machmode.def"
+VOIDmode,
+
+QImode,
+HImode,
+
+
+
+PSImode,
+SImode,
+PDImode,
+DImode,
+TImode,
+OImode,
+
+QFmode,
+HFmode,
+SFmode,
+DFmode,
+XFmode,
+TFmode,
+
+
+SCmode,
+DCmode,
+XCmode,
+TCmode,
+
+CQImode,
+CHImode,
+CSImode,
+CDImode,
+CTImode,
+COImode,
+
+
+
+BLKmode,
+
+
+
+
+
+
+
+CCmode,
+# 79 "machmode.h" 2
+
+
+  CC_NOOVmode, CCFPmode, CCFPEmode,
+
+MAX_MACHINE_MODE };
+# 95 "machmode.h"
+extern char *mode_name[];
+
+
+enum mode_class { MODE_RANDOM, MODE_INT, MODE_FLOAT, MODE_PARTIAL_INT, MODE_CC,
+    MODE_COMPLEX_INT, MODE_COMPLEX_FLOAT, MAX_MODE_CLASS};
+
+
+
+
+extern enum mode_class mode_class[];
+# 120 "machmode.h"
+extern int mode_size[];
+
+
+
+
+extern int mode_unit_size[];
+# 147 "machmode.h"
+extern enum machine_mode mode_wider_mode[];
+
+
+
+
+
+
+extern enum machine_mode mode_for_size (unsigned int, enum mode_class, int);
+
+
+
+extern enum machine_mode get_best_mode (int, int, int, enum machine_mode, int);
+# 168 "machmode.h"
+extern enum machine_mode class_narrowest_mode[];
+
+
+
+
+
+extern enum machine_mode byte_mode;
+extern enum machine_mode word_mode;
+# 23 "rtl.h" 2
+# 32 "rtl.h"
+enum rtx_code {
+
+
+# 1 "rtl.def" 1
+# 66 "rtl.def"
+UNKNOWN ,
+
+
+
+NIL ,
+
+
+
+
+
+
+EXPR_LIST ,
+
+
+
+INSN_LIST ,
+# 120 "rtl.def"
+MATCH_OPERAND ,
+
+
+
+
+
+
+MATCH_SCRATCH ,
+
+
+
+
+MATCH_DUP ,
+
+
+
+
+
+
+
+MATCH_OPERATOR ,
+# 149 "rtl.def"
+MATCH_PARALLEL ,
+
+
+
+
+MATCH_OP_DUP ,
+
+
+
+
+MATCH_PAR_DUP ,
+# 178 "rtl.def"
+DEFINE_INSN ,
+
+
+
+
+
+
+
+DEFINE_PEEPHOLE ,
+# 196 "rtl.def"
+DEFINE_SPLIT ,
+
+
+
+DEFINE_COMBINE ,
+# 212 "rtl.def"
+DEFINE_EXPAND ,
+# 228 "rtl.def"
+DEFINE_DELAY ,
+# 269 "rtl.def"
+DEFINE_FUNCTION_UNIT ,
+
+
+DEFINE_ASM_ATTRIBUTES ,
+
+
+
+
+
+SEQUENCE ,
+
+
+
+
+
+ADDRESS ,
+# 295 "rtl.def"
+DEFINE_ATTR ,
+
+
+ATTR ,
+
+
+
+
+
+
+
+SET_ATTR ,
+# 321 "rtl.def"
+SET_ATTR_ALTERNATIVE ,
+
+
+
+
+EQ_ATTR ,
+# 336 "rtl.def"
+ATTR_FLAG ,
+# 349 "rtl.def"
+INSN ,
+
+
+
+JUMP_INSN ,
+
+
+
+
+
+CALL_INSN ,
+
+
+BARRIER ,
+
+
+
+
+
+
+
+CODE_LABEL ,
+# 380 "rtl.def"
+NOTE ,
+
+
+
+
+
+INLINE_HEADER ,
+
+
+
+
+
+
+PARALLEL ,
+
+
+
+
+
+
+
+ASM_INPUT ,
+# 415 "rtl.def"
+ASM_OPERANDS ,
+# 426 "rtl.def"
+UNSPEC ,
+
+
+UNSPEC_VOLATILE ,
+
+
+
+ADDR_VEC ,
+
+
+
+
+
+ADDR_DIFF_VEC ,
+# 451 "rtl.def"
+SET ,
+
+
+
+
+USE ,
+
+
+
+
+CLOBBER ,
+
+
+
+
+
+CALL ,
+
+
+
+RETURN ,
+
+
+
+
+
+TRAP_IF ,
+
+
+
+
+
+
+CONST_INT ,
+# 493 "rtl.def"
+CONST_DOUBLE ,
+
+
+CONST_STRING ,
+
+
+
+
+
+CONST ,
+
+
+
+PC ,
+
+
+
+
+REG ,
+
+
+
+
+
+
+SCRATCH ,
+# 528 "rtl.def"
+SUBREG ,
+# 541 "rtl.def"
+STRICT_LOW_PART ,
+
+
+
+
+
+CONCAT ,
+
+
+
+MEM ,
+
+
+
+
+
+LABEL_REF ,
+
+
+
+
+
+SYMBOL_REF ,
+
+
+
+
+
+
+CC0 ,
+# 588 "rtl.def"
+QUEUED ,
+# 600 "rtl.def"
+IF_THEN_ELSE ,
+# 609 "rtl.def"
+COND ,
+
+
+COMPARE ,
+
+
+PLUS ,
+
+
+MINUS ,
+
+
+NEG ,
+
+MULT ,
+
+
+DIV ,
+
+MOD ,
+
+
+UDIV ,
+UMOD ,
+
+
+AND ,
+
+IOR ,
+
+XOR ,
+
+NOT ,
+
+
+
+
+
+
+LSHIFT ,
+ASHIFT ,
+ROTATE ,
+
+
+
+
+ASHIFTRT ,
+LSHIFTRT ,
+ROTATERT ,
+
+
+
+
+
+SMIN ,
+SMAX ,
+UMIN ,
+UMAX ,
+# 675 "rtl.def"
+PRE_DEC ,
+PRE_INC ,
+POST_DEC ,
+POST_INC ,
+
+
+
+NE ,
+EQ ,
+GE ,
+GT ,
+LE ,
+LT ,
+GEU ,
+GTU ,
+LEU ,
+LTU ,
+
+
+
+
+SIGN_EXTEND ,
+
+
+ZERO_EXTEND ,
+
+
+TRUNCATE ,
+
+
+FLOAT_EXTEND ,
+FLOAT_TRUNCATE ,
+
+
+FLOAT ,
+
+
+
+
+
+
+
+FIX ,
+
+
+UNSIGNED_FLOAT ,
+
+
+
+
+UNSIGNED_FIX ,
+
+
+ABS ,
+
+
+SQRT ,
+
+
+
+
+FFS ,
+# 747 "rtl.def"
+SIGN_EXTRACT ,
+
+
+ZERO_EXTRACT ,
+
+
+
+
+HIGH ,
+
+
+
+LO_SUM ,
+# 36 "rtl.h" 2
+
+
+  LAST_AND_UNUSED_RTX_CODE};
+
+
+
+
+
+
+extern int rtx_length[];
+
+
+extern char *rtx_name[];
+
+
+extern char *rtx_format[];
+
+
+extern char rtx_class[];
+
+
+
+
+typedef union rtunion_def
+{
+  int rtwint;
+  int rtint;
+  char *rtstr;
+  struct rtx_def *rtx;
+  struct rtvec_def *rtvec;
+  enum machine_mode rttype;
+} rtunion;
+
+
+
+typedef struct rtx_def
+{
+
+
+
+
+  unsigned short code;
+
+
+
+
+
+
+
+  int mode : 8;
+
+
+
+
+
+  unsigned int jump : 1;
+
+  unsigned int call : 1;
+# 103 "rtl.h"
+  unsigned int unchanging : 1;
+
+
+
+
+
+
+
+  unsigned int volatil : 1;
+# 127 "rtl.h"
+  unsigned int in_struct : 1;
+
+
+
+
+
+
+  unsigned int used : 1;
+
+
+
+  unsigned integrated : 1;
+
+
+
+  rtunion fld[1];
+} *rtx;
+# 195 "rtl.h"
+typedef struct rtvec_def{
+  unsigned num_elem;
+  rtunion elem[1];
+} *rtvec;
+# 323 "rtl.h"
+enum reg_note { REG_DEAD = 1, REG_INC = 2, REG_EQUIV = 3, REG_WAS_0 = 4,
+  REG_EQUAL = 5, REG_RETVAL = 6, REG_LIBCALL = 7,
+  REG_NONNEG = 8, REG_NO_CONFLICT = 9, REG_UNUSED = 10,
+  REG_CC_SETTER = 11, REG_CC_USER = 12, REG_LABEL = 13,
+  REG_DEP_ANTI = 14, REG_DEP_OUTPUT = 15 };
+
+
+
+
+
+
+
+extern char *reg_note_name[];
+# 412 "rtl.h"
+extern char *note_insn_name[];
+# 642 "rtl.h"
+extern rtx plus_constant_wide (rtx, int);
+extern rtx plus_constant_for_output_wide (rtx, int);
+# 656 "rtl.h"
+extern rtx bc_gen_rtx ();
+extern rtx gen_rtx (enum rtx_code, ...);
+extern rtvec gen_rtvec (int, ...);
+
+
+
+extern rtx read_rtx (FILE *);
+# 674 "rtl.h"
+extern char *xmalloc ();
+extern char *xrealloc ();
+
+
+extern char *oballoc (int);
+extern char *permalloc (int);
+extern void free (void *);
+extern rtx rtx_alloc (enum rtx_code);
+extern rtvec rtvec_alloc (int);
+extern rtx find_reg_note (rtx, enum reg_note, rtx);
+extern rtx find_regno_note (rtx, enum reg_note, int);
+extern int get_integer_term (rtx);
+extern rtx get_related_value (rtx);
+extern rtx single_set (rtx);
+extern rtx find_last_value (rtx, rtx *, rtx);
+extern rtx copy_rtx (rtx);
+extern rtx copy_rtx_if_shared (rtx);
+extern rtx copy_most_rtx (rtx, rtx);
+extern rtx replace_rtx (rtx, rtx, rtx);
+extern rtvec gen_rtvec_v (int, rtx *);
+extern rtx gen_reg_rtx (enum machine_mode);
+extern rtx gen_label_rtx (void);
+extern rtx gen_inline_header_rtx (rtx, rtx, int, int, int, int, int, int, rtx, int, int, rtvec, rtx);
+extern rtx gen_lowpart_common (enum machine_mode, rtx);
+extern rtx gen_lowpart (enum machine_mode, rtx);
+extern rtx gen_lowpart_if_possible (enum machine_mode, rtx);
+extern rtx gen_highpart (enum machine_mode, rtx);
+extern rtx gen_realpart (enum machine_mode, rtx);
+extern rtx gen_imagpart (enum machine_mode, rtx);
+extern rtx operand_subword (rtx, int, int, enum machine_mode);
+extern rtx operand_subword_force (rtx, int, enum machine_mode);
+extern int subreg_lowpart_p (rtx);
+extern rtx make_safe_from (rtx, rtx);
+extern rtx memory_address (enum machine_mode, rtx);
+extern rtx get_insns (void);
+extern rtx get_last_insn (void);
+extern rtx get_last_insn_anywhere (void);
+extern void start_sequence (void);
+extern void push_to_sequence (rtx);
+extern void end_sequence (void);
+extern rtx gen_sequence (void);
+extern rtx immed_double_const (int, int, enum machine_mode);
+extern rtx force_const_mem (enum machine_mode, rtx);
+extern rtx force_reg (enum machine_mode, rtx);
+extern rtx get_pool_constant (rtx);
+extern enum machine_mode get_pool_mode (rtx);
+extern int get_pool_offset (rtx);
+extern rtx simplify_subtraction (rtx);
+extern rtx assign_stack_local (enum machine_mode, int, int);
+extern rtx assign_stack_temp (enum machine_mode, int, int);
+extern rtx protect_from_queue (rtx, int);
+extern void emit_queue (void);
+extern rtx emit_move_insn (rtx, rtx);
+extern rtx emit_insn_before (rtx, rtx);
+extern rtx emit_jump_insn_before (rtx, rtx);
+extern rtx emit_call_insn_before (rtx, rtx);
+extern rtx emit_barrier_before (rtx);
+extern rtx emit_note_before (int, rtx);
+extern rtx emit_insn_after (rtx, rtx);
+extern rtx emit_jump_insn_after (rtx, rtx);
+extern rtx emit_barrier_after (rtx);
+extern rtx emit_label_after (rtx, rtx);
+extern rtx emit_note_after (int, rtx);
+extern rtx emit_line_note_after (char *, int, rtx);
+extern rtx emit_insn (rtx);
+extern rtx emit_insns (rtx);
+extern rtx emit_insns_before (rtx, rtx);
+extern rtx emit_jump_insn (rtx);
+extern rtx emit_call_insn (rtx);
+extern rtx emit_label (rtx);
+extern rtx emit_barrier (void);
+extern rtx emit_line_note (char *, int);
+extern rtx emit_note (char *, int);
+extern rtx emit_line_note_force (char *, int);
+extern rtx make_insn_raw (rtx);
+extern rtx previous_insn (rtx);
+extern rtx next_insn (rtx);
+extern rtx prev_nonnote_insn (rtx);
+extern rtx next_nonnote_insn (rtx);
+extern rtx prev_real_insn (rtx);
+extern rtx next_real_insn (rtx);
+extern rtx prev_active_insn (rtx);
+extern rtx next_active_insn (rtx);
+extern rtx prev_label (rtx);
+extern rtx next_label (rtx);
+extern rtx next_cc0_user (rtx);
+extern rtx prev_cc0_setter (rtx);
+extern rtx reg_set_last (rtx, rtx);
+extern rtx next_nondeleted_insn (rtx);
+extern enum rtx_code reverse_condition (enum rtx_code);
+extern enum rtx_code swap_condition (enum rtx_code);
+extern enum rtx_code unsigned_condition (enum rtx_code);
+extern enum rtx_code signed_condition (enum rtx_code);
+extern rtx find_equiv_reg (rtx, rtx, enum reg_class, int, short *, int, enum machine_mode);
+extern rtx squeeze_notes (rtx, rtx);
+extern rtx delete_insn (rtx);
+extern void delete_jump (rtx);
+extern rtx get_label_before (rtx);
+extern rtx get_label_after (rtx);
+extern rtx follow_jumps (rtx);
+extern rtx adj_offsettable_operand (rtx, int);
+extern rtx try_split (rtx, rtx, int);
+extern rtx split_insns (rtx, rtx);
+extern rtx simplify_unary_operation (enum rtx_code, enum machine_mode, rtx, enum machine_mode);
+extern rtx simplify_binary_operation (enum rtx_code, enum machine_mode, rtx, rtx);
+extern rtx simplify_ternary_operation (enum rtx_code, enum machine_mode, enum machine_mode, rtx, rtx, rtx);
+extern rtx simplify_relational_operation (enum rtx_code, enum machine_mode, rtx, rtx);
+extern rtx nonlocal_label_rtx_list (void);
+extern rtx gen_move_insn (rtx, rtx);
+extern rtx gen_jump (rtx);
+extern rtx gen_beq (rtx);
+extern rtx gen_bge (rtx);
+extern rtx gen_ble (rtx);
+extern rtx eliminate_constant_term (rtx, rtx *);
+extern rtx expand_complex_abs (enum machine_mode, rtx, rtx, int);
+
+
+
+
+
+extern int max_parallel;
+
+extern int asm_noperands (rtx);
+extern char *decode_asm_operands (rtx, rtx *, rtx **, char **, enum machine_mode *);
+
+extern enum reg_class reg_preferred_class (int);
+extern enum reg_class reg_alternate_class (int);
+
+extern rtx get_first_nonparm_insn (void);
+
+
+extern rtx pc_rtx;
+extern rtx cc0_rtx;
+extern rtx const0_rtx;
+extern rtx const1_rtx;
+extern rtx const2_rtx;
+extern rtx constm1_rtx;
+extern rtx const_true_rtx;
+
+extern rtx const_tiny_rtx[3][(int) MAX_MACHINE_MODE];
+# 828 "rtl.h"
+extern rtx stack_pointer_rtx;
+extern rtx frame_pointer_rtx;
+extern rtx hard_frame_pointer_rtx;
+extern rtx arg_pointer_rtx;
+extern rtx pic_offset_table_rtx;
+extern rtx struct_value_rtx;
+extern rtx struct_value_incoming_rtx;
+extern rtx static_chain_rtx;
+extern rtx static_chain_incoming_rtx;
+# 860 "rtl.h"
+extern rtx virtual_incoming_args_rtx;
+
+
+
+
+
+
+
+extern rtx virtual_stack_vars_rtx;
+
+
+
+
+
+
+
+extern rtx virtual_stack_dynamic_rtx;
+
+
+
+
+
+
+
+extern rtx virtual_outgoing_args_rtx;
+
+
+
+
+
+extern rtx find_next_ref (rtx, rtx);
+extern rtx *find_single_use (rtx, rtx, rtx *);
+
+
+
+
+extern rtx expand_expr ();
+extern rtx immed_real_const_1();
+# 907 "rtl.h"
+extern rtx output_constant_def ();
+extern rtx immed_real_const ();
+extern rtx immed_real_const_1 ();
+# 921 "rtl.h"
+extern int reload_completed;
+
+
+
+
+extern int reload_in_progress;
+
+
+
+
+
+
+
+extern int cse_not_expected;
+
+
+
+extern rtx *regno_reg_rtx;
+
+
+
+extern int rtx_to_tree_code ();
+# 120 "reorg.c" 2
+# 1 "insn-config.h" 1
+# 121 "reorg.c" 2
+# 1 "conditions.h" 1
+# 122 "reorg.c" 2
+# 1 "hard-reg-set.h" 1
+# 38 "hard-reg-set.h"
+typedef unsigned int HARD_REG_ELT_TYPE;
+# 49 "hard-reg-set.h"
+typedef HARD_REG_ELT_TYPE HARD_REG_SET[((64 + 32 - 1) / 32)];
+# 196 "hard-reg-set.h"
+extern char fixed_regs[64];
+
+
+
+extern HARD_REG_SET fixed_reg_set;
+
+
+
+
+
+
+extern char call_used_regs[64];
+
+
+
+extern HARD_REG_SET call_used_reg_set;
+
+
+
+
+
+
+
+extern char call_fixed_regs[64];
+
+
+
+extern HARD_REG_SET call_fixed_reg_set;
+
+
+
+
+
+
+extern char global_regs[64];
+
+
+
+
+extern int reg_alloc_order[64];
+
+
+
+
+extern HARD_REG_SET reg_class_contents[];
+
+
+
+extern int reg_class_size[(int) LIM_REG_CLASSES];
+
+
+
+extern enum reg_class reg_class_superclasses[(int) LIM_REG_CLASSES][(int) LIM_REG_CLASSES];
+
+
+
+extern enum reg_class reg_class_subclasses[(int) LIM_REG_CLASSES][(int) LIM_REG_CLASSES];
+
+
+
+
+extern enum reg_class reg_class_subunion[(int) LIM_REG_CLASSES][(int) LIM_REG_CLASSES];
+
+
+
+
+extern enum reg_class reg_class_superunion[(int) LIM_REG_CLASSES][(int) LIM_REG_CLASSES];
+
+
+
+extern int n_non_fixed_regs;
+
+
+
+extern char *reg_names[64];
+# 123 "reorg.c" 2
+# 1 "basic-block.h" 1
+# 34 "basic-block.h"
+typedef unsigned int *regset;
+
+
+
+
+extern int regset_bytes;
+extern int regset_size;
+
+
+
+extern int n_basic_blocks;
+
+
+
+extern rtx *basic_block_head;
+
+
+
+extern rtx *basic_block_end;
+
+
+
+
+extern regset *basic_block_live_at_start;
+# 68 "basic-block.h"
+extern int *reg_basic_block;
+# 124 "reorg.c" 2
+# 1 "regs.h" 1
+# 33 "regs.h"
+extern int max_regno;
+
+
+
+extern int max_scratch;
+
+
+
+
+extern int *reg_n_refs;
+
+
+
+extern short *reg_n_sets;
+
+
+
+
+
+
+
+extern short *reg_n_deaths;
+# 73 "regs.h"
+extern int *reg_n_calls_crossed;
+# 90 "regs.h"
+extern int *reg_live_length;
+
+
+
+
+extern short *reg_renumber;
+
+
+
+
+extern char regs_ever_live[64];
+
+
+
+extern char *reg_names[64];
+
+
+
+
+
+
+extern int *regno_first_uid;
+
+
+
+
+
+
+
+extern int *regno_last_uid;
+
+
+
+extern int *regno_last_note_uid;
+
+
+
+
+
+extern char *regno_pointer_flag;
+
+
+
+
+extern rtx regs_may_share;
+
+
+
+
+extern rtx *regno_reg_rtx;
+
+
+
+
+extern int caller_save_needed;
+# 157 "regs.h"
+extern rtx *scratch_list;
+
+extern int *scratch_block;
+
+extern int scratch_list_length;
+# 125 "reorg.c" 2
+# 1 "insn-flags.h" 1
+# 118 "insn-flags.h"
+extern rtx gen_cmpsi (rtx, rtx);
+extern rtx gen_cmpsf (rtx, rtx);
+extern rtx gen_cmpdf (rtx, rtx);
+extern rtx gen_cmptf (rtx, rtx);
+extern rtx gen_seq_special (rtx, rtx, rtx);
+extern rtx gen_sne_special (rtx, rtx, rtx);
+extern rtx gen_seq (rtx);
+extern rtx gen_sne (rtx);
+extern rtx gen_sgt (rtx);
+extern rtx gen_slt (rtx);
+extern rtx gen_sge (rtx);
+extern rtx gen_sle (rtx);
+extern rtx gen_sgtu (rtx);
+extern rtx gen_sltu (rtx);
+extern rtx gen_sgeu (rtx);
+extern rtx gen_sleu (rtx);
+extern rtx gen_beq (rtx);
+extern rtx gen_bne (rtx);
+extern rtx gen_bgt (rtx);
+extern rtx gen_bgtu (rtx);
+extern rtx gen_blt (rtx);
+extern rtx gen_bltu (rtx);
+extern rtx gen_bge (rtx);
+extern rtx gen_bgeu (rtx);
+extern rtx gen_ble (rtx);
+extern rtx gen_bleu (rtx);
+extern rtx gen_movqi (rtx, rtx);
+extern rtx gen_movhi (rtx, rtx);
+extern rtx gen_movsi (rtx, rtx);
+extern rtx gen_movdi (rtx, rtx);
+extern rtx gen_movsf (rtx, rtx);
+extern rtx gen_movdf (rtx, rtx);
+extern rtx gen_movtf (rtx, rtx);
+extern rtx gen_zero_extendhisi2 (rtx, rtx);
+extern rtx gen_zero_extendqihi2 (rtx, rtx);
+extern rtx gen_zero_extendqisi2 (rtx, rtx);
+extern rtx gen_extendhisi2 (rtx, rtx);
+extern rtx gen_extendqihi2 (rtx, rtx);
+extern rtx gen_extendqisi2 (rtx, rtx);
+extern rtx gen_extendsfdf2 (rtx, rtx);
+extern rtx gen_extendsftf2 (rtx, rtx);
+extern rtx gen_extenddftf2 (rtx, rtx);
+extern rtx gen_truncdfsf2 (rtx, rtx);
+extern rtx gen_trunctfsf2 (rtx, rtx);
+extern rtx gen_trunctfdf2 (rtx, rtx);
+extern rtx gen_floatsisf2 (rtx, rtx);
+extern rtx gen_floatsidf2 (rtx, rtx);
+extern rtx gen_floatsitf2 (rtx, rtx);
+extern rtx gen_fix_truncsfsi2 (rtx, rtx);
+extern rtx gen_fix_truncdfsi2 (rtx, rtx);
+extern rtx gen_fix_trunctfsi2 (rtx, rtx);
+extern rtx gen_adddi3 (rtx, rtx, rtx);
+extern rtx gen_addsi3 (rtx, rtx, rtx);
+extern rtx gen_subdi3 (rtx, rtx, rtx);
+extern rtx gen_subsi3 (rtx, rtx, rtx);
+extern rtx gen_mulsi3 (rtx, rtx, rtx);
+extern rtx gen_mulsidi3 (rtx, rtx, rtx);
+extern rtx gen_const_mulsidi3 (rtx, rtx, rtx);
+extern rtx gen_umulsidi3 (rtx, rtx, rtx);
+extern rtx gen_const_umulsidi3 (rtx, rtx, rtx);
+extern rtx gen_divsi3 (rtx, rtx, rtx);
+extern rtx gen_udivsi3 (rtx, rtx, rtx);
+extern rtx gen_anddi3 (rtx, rtx, rtx);
+extern rtx gen_andsi3 (rtx, rtx, rtx);
+extern rtx gen_iordi3 (rtx, rtx, rtx);
+extern rtx gen_iorsi3 (rtx, rtx, rtx);
+extern rtx gen_xordi3 (rtx, rtx, rtx);
+extern rtx gen_xorsi3 (rtx, rtx, rtx);
+extern rtx gen_negdi2 (rtx, rtx);
+extern rtx gen_negsi2 (rtx, rtx);
+extern rtx gen_one_cmpldi2 (rtx, rtx);
+extern rtx gen_one_cmplsi2 (rtx, rtx);
+extern rtx gen_addtf3 (rtx, rtx, rtx);
+extern rtx gen_adddf3 (rtx, rtx, rtx);
+extern rtx gen_addsf3 (rtx, rtx, rtx);
+extern rtx gen_subtf3 (rtx, rtx, rtx);
+extern rtx gen_subdf3 (rtx, rtx, rtx);
+extern rtx gen_subsf3 (rtx, rtx, rtx);
+extern rtx gen_multf3 (rtx, rtx, rtx);
+extern rtx gen_muldf3 (rtx, rtx, rtx);
+extern rtx gen_mulsf3 (rtx, rtx, rtx);
+extern rtx gen_divtf3 (rtx, rtx, rtx);
+extern rtx gen_divdf3 (rtx, rtx, rtx);
+extern rtx gen_divsf3 (rtx, rtx, rtx);
+extern rtx gen_negtf2 (rtx, rtx);
+extern rtx gen_negdf2 (rtx, rtx);
+extern rtx gen_negsf2 (rtx, rtx);
+extern rtx gen_abstf2 (rtx, rtx);
+extern rtx gen_absdf2 (rtx, rtx);
+extern rtx gen_abssf2 (rtx, rtx);
+extern rtx gen_sqrttf2 (rtx, rtx);
+extern rtx gen_sqrtdf2 (rtx, rtx);
+extern rtx gen_sqrtsf2 (rtx, rtx);
+extern rtx gen_ashlsi3 (rtx, rtx, rtx);
+extern rtx gen_ashrsi3 (rtx, rtx, rtx);
+extern rtx gen_lshrsi3 (rtx, rtx, rtx);
+extern rtx gen_jump (rtx);
+extern rtx gen_tablejump (rtx, rtx);
+extern rtx gen_pic_tablejump (rtx, rtx);
+extern rtx gen_untyped_call (rtx, rtx, rtx);
+extern rtx gen_untyped_return (rtx, rtx);
+extern rtx gen_update_return (rtx, rtx);
+extern rtx gen_return (void);
+extern rtx gen_nop (void);
+extern rtx gen_indirect_jump (rtx);
+extern rtx gen_nonlocal_goto (rtx, rtx, rtx, rtx);
+extern rtx gen_flush_register_windows (void);
+extern rtx gen_goto_handler_and_restore (void);
+extern rtx gen_flush (rtx);
+extern rtx gen_ffssi2 (rtx, rtx);
+
+
+
+
+
+
+extern rtx gen_call ();
+extern rtx gen_call_value ();
+# 126 "reorg.c" 2
+# 1 "recog.h" 1
+# 33 "recog.h"
+extern int recog_memoized (rtx);
+
+
+
+
+extern int validate_change (rtx, rtx *, rtx, int);
+
+
+
+extern int apply_change_group (void);
+
+
+
+extern int num_validated_changes (void);
+
+
+
+extern void cancel_changes (int);
+
+
+
+extern int volatile_ok;
+
+
+
+extern void insn_extract (rtx);
+
+
+
+
+extern rtx recog_operand[];
+
+
+extern rtx *recog_operand_loc[];
+
+
+
+extern rtx *recog_dup_loc[];
+
+
+
+extern char recog_dup_num[];
+# 91 "recog.h"
+extern char *const insn_template[];
+
+extern char *(*const insn_outfun[]) ();
+
+extern const int insn_n_operands[];
+
+extern const int insn_n_dups[];
+
+
+
+extern const int insn_n_alternatives[];
+
+
+
+
+
+extern char *const insn_operand_constraint[][10];
+
+
+
+
+
+
+extern const enum machine_mode insn_operand_mode[][10];
+
+extern const char insn_operand_strict_low[][10];
+
+extern int (*const insn_operand_predicate[][10]) ();
+
+extern char * insn_name[];
+# 127 "reorg.c" 2
+# 1 "flags.h" 1
+# 21 "flags.h"
+extern char *main_input_filename;
+
+enum debug_info_type
+{
+  NO_DEBUG,
+  DBX_DEBUG,
+  SDB_DEBUG,
+  DWARF_DEBUG,
+  XCOFF_DEBUG
+};
+
+
+extern enum debug_info_type write_symbols;
+
+enum debug_info_level
+{
+  DINFO_LEVEL_NONE,
+  DINFO_LEVEL_TERSE,
+  DINFO_LEVEL_NORMAL,
+  DINFO_LEVEL_VERBOSE
+};
+
+
+extern enum debug_info_level debug_info_level;
+
+
+
+extern int use_gnu_debug_info_extensions;
+
+
+
+extern int optimize;
+
+
+
+
+extern int obey_regdecls;
+
+
+
+
+extern int quiet_flag;
+
+
+
+extern int inhibit_warnings;
+
+
+
+extern int extra_warnings;
+
+
+
+extern int warn_unused;
+
+
+
+extern int warn_inline;
+
+
+
+extern int warn_uninitialized;
+
+
+
+extern int warn_shadow;
+
+
+
+extern int warn_switch;
+
+
+
+
+extern int warn_return_type;
+
+
+
+
+
+extern int warn_cast_align;
+
+
+
+
+extern int warn_template_debugging;
+
+
+
+
+extern int warn_id_clash;
+extern int id_clash_len;
+
+
+
+
+extern int warn_aggregate_return;
+
+
+
+extern int profile_flag;
+
+
+
+extern int profile_block_flag;
+
+
+
+
+extern int pedantic;
+
+
+
+
+extern int in_system_header;
+
+
+
+
+extern int flag_print_asm_name;
+
+
+
+
+
+extern int flag_signed_char;
+
+
+
+extern int flag_short_enums;
+
+
+
+
+
+extern int flag_caller_saves;
+
+
+
+extern int flag_pcc_struct_return;
+
+
+
+
+extern int flag_force_mem;
+
+
+
+
+extern int flag_force_addr;
+
+
+
+
+extern int flag_defer_pop;
+
+
+
+
+extern int flag_float_store;
+
+
+
+extern int flag_strength_reduce;
+
+
+
+
+
+
+extern int flag_unroll_loops;
+
+
+
+
+extern int flag_unroll_all_loops;
+
+
+
+
+extern int flag_cse_follow_jumps;
+
+
+
+
+extern int flag_cse_skip_blocks;
+
+
+
+extern int flag_expensive_optimizations;
+
+
+
+
+extern int flag_writable_strings;
+
+
+
+
+
+extern int flag_no_function_cse;
+
+
+
+
+extern int flag_omit_frame_pointer;
+
+
+
+extern int flag_no_peephole;
+
+
+
+extern int flag_volatile;
+
+
+
+extern int flag_volatile_global;
+
+
+
+
+
+
+extern int flag_fast_math;
+
+
+
+
+extern int flag_inline_functions;
+
+
+
+
+
+extern int flag_keep_inline_functions;
+
+
+
+
+
+
+
+extern int flag_no_inline;
+
+
+
+extern int flag_syntax_only;
+
+
+
+extern int flag_gen_aux_info;
+
+
+
+extern int flag_shared_data;
+
+
+
+
+
+
+extern int flag_schedule_insns;
+extern int flag_schedule_insns_after_reload;
+
+
+
+extern int flag_delayed_branch;
+
+
+
+
+
+extern int flag_pretend_float;
+
+
+
+
+extern int flag_pedantic_errors;
+
+
+
+
+extern int flag_pic;
+
+
+
+extern int flag_no_common;
+
+
+
+
+
+extern int flag_inhibit_size_directive;
+
+
+
+
+
+
+extern int flag_verbose_asm;
+
+
+
+extern int flag_gnu_linker;
+
+
+
+
+
+
+
+extern int frame_pointer_needed;
+
+
+
+
+extern int can_reach_end;
+
+
+
+
+extern int current_function_has_nonlocal_label;
+
+
+
+
+extern int current_function_has_nonlocal_goto;
+# 128 "reorg.c" 2
+# 1 "output.h" 1
+# 32 "output.h"
+extern void output_asm_insn (char *, rtx *);
+
+
+
+
+extern void output_addr_const (FILE *, rtx);
+
+
+extern void assemble_name (FILE *, char *);
+
+
+
+extern rtx alter_subreg (rtx);
+
+
+
+extern int which_alternative;
+
+
+
+
+
+
+
+extern rtx final_sequence;
+
+
+
+
+
+extern int current_function_pops_args;
+
+
+
+
+extern int current_function_returns_struct;
+
+
+
+
+extern int current_function_returns_pcc_struct;
+
+
+
+extern int current_function_needs_context;
+
+
+
+extern int current_function_calls_setjmp;
+
+
+
+extern int current_function_calls_longjmp;
+
+
+
+
+extern int current_function_calls_alloca;
+
+
+
+
+extern int current_function_has_nonlocal_label;
+
+
+
+extern int current_function_contains_functions;
+
+
+
+extern int current_function_returns_pointer;
+
+
+
+
+
+extern int current_function_args_size;
+
+
+
+
+extern int current_function_pretend_args_size;
+
+
+
+
+
+extern int current_function_outgoing_args_size;
+
+
+
+
+extern int current_function_varargs;
+
+
+
+
+extern int current_function_args_info;
+
+
+
+extern char *current_function_name;
+
+
+
+
+
+extern rtx current_function_return_rtx;
+
+
+
+
+extern rtx current_function_epilogue_delay_list;
+
+
+
+
+extern int flag_pic;
+
+
+extern int current_function_uses_pic_offset_table;
+
+
+extern int current_function_uses_const_pool;
+# 167 "output.h"
+extern FILE *asm_out_file;
+# 129 "reorg.c" 2
+# 1 "obstack.h" 1
+# 134 "obstack.h"
+# 1 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 1 3 4
+# 152 "/pdev/chains/mipseltools-gcc412-lnx26/bin/../lib/gcc/mipsel-linux/4.1.2/include/stddef.h" 3 4
+typedef int ptrdiff_t;
+# 135 "obstack.h" 2
+# 144 "obstack.h"
+struct _obstack_chunk
+{
+  char *limit;
+  struct _obstack_chunk *prev;
+  char contents[4];
+};
+
+struct obstack
+{
+  long chunk_size;
+  struct _obstack_chunk* chunk;
+  char *object_base;
+  char *next_free;
+  char *chunk_limit;
+  ptrdiff_t temp;
+  int alignment_mask;
+  struct _obstack_chunk *(*chunkfun) ();
+  void (*freefun) ();
+  char *extra_arg;
+  unsigned use_extra_arg:1;
+  unsigned maybe_empty_object:1;
+
+
+
+};
+
+
+
+
+extern void _obstack_newchunk (struct obstack *, int);
+extern void _obstack_free (struct obstack *, void *);
+extern void _obstack_begin (struct obstack *, int, int,
+       void *(*) (), void (*) ());
+extern void _obstack_begin_1 (struct obstack *, int, int,
+         void *(*) (), void (*) (), void *);
+# 191 "obstack.h"
+void obstack_init (struct obstack *obstack);
+
+void * obstack_alloc (struct obstack *obstack, int size);
+
+void * obstack_copy (struct obstack *obstack, void *address, int size);
+void * obstack_copy0 (struct obstack *obstack, void *address, int size);
+
+void obstack_free (struct obstack *obstack, void *block);
+
+void obstack_blank (struct obstack *obstack, int size);
+
+void obstack_grow (struct obstack *obstack, void *data, int size);
+void obstack_grow0 (struct obstack *obstack, void *data, int size);
+
+void obstack_1grow (struct obstack *obstack, int data_char);
+void obstack_ptr_grow (struct obstack *obstack, void *data);
+void obstack_int_grow (struct obstack *obstack, int data);
+
+void * obstack_finish (struct obstack *obstack);
+
+int obstack_object_size (struct obstack *obstack);
+
+int obstack_room (struct obstack *obstack);
+void obstack_1grow_fast (struct obstack *obstack, int data_char);
+void obstack_ptr_grow_fast (struct obstack *obstack, void *data);
+void obstack_int_grow_fast (struct obstack *obstack, int data);
+void obstack_blank_fast (struct obstack *obstack, int size);
+
+void * obstack_base (struct obstack *obstack);
+void * obstack_next_free (struct obstack *obstack);
+int obstack_alignment_mask (struct obstack *obstack);
+int obstack_chunk_size (struct obstack *obstack);
+# 130 "reorg.c" 2
+# 1 "insn-attr.h" 1
+# 14 "insn-attr.h"
+enum attr_type {TYPE_MOVE, TYPE_UNARY, TYPE_BINARY, TYPE_COMPARE, TYPE_LOAD, TYPE_STORE, TYPE_UNCOND_BRANCH, TYPE_BRANCH, TYPE_CALL, TYPE_CALL_NO_DELAY_SLOT, TYPE_ADDRESS, TYPE_FPLOAD, TYPE_FPSTORE, TYPE_FP, TYPE_FPCMP, TYPE_FPMUL, TYPE_FPDIV, TYPE_FPSQRT, TYPE_MULTI, TYPE_MISC};
+extern enum attr_type get_attr_type ();
+
+
+enum attr_use_clobbered {USE_CLOBBERED_FALSE, USE_CLOBBERED_TRUE};
+extern enum attr_use_clobbered get_attr_use_clobbered ();
+
+
+extern int get_attr_length ();
+extern void init_lengths ();
+extern void shorten_branches (rtx);
+extern int insn_default_length (rtx);
+extern int insn_variable_length_p (rtx);
+extern int insn_current_length (rtx);
+
+extern int *insn_addresses;
+extern int insn_current_address;
+
+
+enum attr_in_call_delay {IN_CALL_DELAY_FALSE, IN_CALL_DELAY_TRUE};
+extern enum attr_in_call_delay get_attr_in_call_delay ();
+
+
+extern int num_delay_slots (rtx);
+extern int eligible_for_delay (rtx, int, rtx, int);
+
+extern int const_num_delay_slots (rtx);
+
+
+enum attr_in_branch_delay {IN_BRANCH_DELAY_FALSE, IN_BRANCH_DELAY_TRUE};
+extern enum attr_in_branch_delay get_attr_in_branch_delay ();
+
+
+enum attr_in_uncond_branch_delay {IN_UNCOND_BRANCH_DELAY_FALSE, IN_UNCOND_BRANCH_DELAY_TRUE};
+extern enum attr_in_uncond_branch_delay get_attr_in_uncond_branch_delay ();
+
+
+enum attr_in_annul_branch_delay {IN_ANNUL_BRANCH_DELAY_FALSE, IN_ANNUL_BRANCH_DELAY_TRUE};
+extern enum attr_in_annul_branch_delay get_attr_in_annul_branch_delay ();
+
+
+extern int eligible_for_annul_false ();
+
+
+extern int result_ready_cost (rtx);
+extern int function_units_used (rtx);
+
+extern struct function_unit_desc
+{
+  char *name;
+  int bitmask;
+  int multiplicity;
+  int simultaneity;
+  int default_cost;
+  int max_issue_delay;
+  int (*ready_cost_function) ();
+  int (*conflict_cost_function) ();
+  int max_blockage;
+  unsigned int (*blockage_range_function) ();
+  int (*blockage_function) ();
+} function_units[];
+# 131 "reorg.c" 2
+# 146 "reorg.c"
+static struct obstack unfilled_slots_obstack;
+static rtx *unfilled_firstobj;
+# 162 "reorg.c"
+struct resources
+{
+  char memory;
+  char volatil;
+  char cc;
+  HARD_REG_SET regs;
+};
+
+
+
+
+
+
+
+static struct resources start_of_epilogue_needs;
+
+
+static struct resources end_of_function_needs;
+
+
+static rtx end_of_function_label;
+
+
+
+
+
+
+struct target_info
+{
+  int uid;
+  struct target_info *next;
+  HARD_REG_SET live_regs;
+  int block;
+  int bb_tick;
+};
+
+
+
+
+static struct target_info **target_hash_table;
+
+
+
+
+
+
+static int *bb_ticks;
+
+
+
+static int *uid_to_ruid;
+
+
+static int max_uid;
+
+static void mark_referenced_resources (rtx, struct resources *, int);
+static void mark_set_resources (rtx, struct resources *, int, int);
+static int stop_search_p (rtx, int);
+static int resource_conflicts_p (struct resources *, struct resources *);
+
+static int insn_references_resource_p (rtx, struct resources *, int);
+static int insn_sets_resources_p (rtx, struct resources *, int);
+static rtx find_end_label (void);
+static rtx emit_delay_sequence (rtx, rtx, int, int);
+static rtx add_to_delay_list (rtx, rtx);
+static void delete_from_delay_slot (rtx);
+static void delete_scheduled_jump (rtx);
+static void note_delay_statistics (int, int);
+static rtx optimize_skip (rtx);
+static int get_jump_flags (rtx, rtx);
+static int rare_destination (rtx);
+static int mostly_true_jump (rtx, rtx);
+static rtx get_branch_condition (rtx, rtx);
+static int condition_dominates_p (rtx, rtx);
+static rtx steal_delay_list_from_target (rtx, rtx, rtx, rtx, struct resources *, struct resources *, struct resources *, int, int *, int *, rtx *);
+
+
+
+
+static rtx steal_delay_list_from_fallthrough (rtx, rtx, rtx, rtx, struct resources *, struct resources *, struct resources *, int, int *, int *);
+
+
+
+
+static void try_merge_delay_insns (rtx, rtx);
+static int redundant_insn_p (rtx, rtx, rtx);
+static int own_thread_p (rtx, rtx, int);
+static int find_basic_block (rtx);
+static void update_block (rtx, rtx);
+static int reorg_redirect_jump (rtx, rtx);
+static void update_reg_dead_notes (rtx, rtx);
+static void update_live_status (rtx, rtx);
+static rtx next_insn_no_annul (rtx);
+static void mark_target_live_regs (rtx, struct resources *);
+static void fill_simple_delay_slots (rtx, int);
+static rtx fill_slots_from_thread (rtx, rtx, rtx, rtx, int, int, int, int, int, int *);
+
+static void fill_eager_delay_slots (rtx);
+static void relax_delay_slots (rtx);
+static void make_return_insns (rtx);
+
+
+
+
+
+
+static void
+mark_referenced_resources (x, res, include_delayed_effects)
+     register rtx x;
+     register struct resources *res;
+     register int include_delayed_effects;
+{
+  register enum rtx_code code = ((x)->code);
+  register int i, j;
+  register char *format_ptr;
+
+
+
+  switch (code)
+    {
+    case CONST:
+    case CONST_INT:
+    case CONST_DOUBLE:
+    case PC:
+    case SYMBOL_REF:
+    case LABEL_REF:
+      return;
+
+    case SUBREG:
+      if (((((x)->fld[0].rtx))->code) != REG)
+ mark_referenced_resources (((x)->fld[0].rtx), res, 0);
+      else
+ {
+   int regno = ((((x)->fld[0].rtx))->fld[0].rtint) + ((x)->fld[1].rtint);
+   int last_regno = regno + (((mode_size[(int)(((x)->mode))]) + 4 - 1) / 4);
+   for (i = regno; i < last_regno; i++)
+     ((res->regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+ }
+      return;
+
+    case REG:
+      for (i = 0; i < (((mode_size[(int)(((x)->mode))]) + 4 - 1) / 4); i++)
+ ((res->regs)[(((x)->fld[0].rtint) + i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((((x)->fld[0].rtint) + i) % ((unsigned) 32)));
+      return;
+
+    case MEM:
+
+
+      if (! ((x)->unchanging))
+ res->memory = 1;
+      res->volatil = ((x)->volatil);
+
+
+      mark_referenced_resources (((x)->fld[0].rtx), res, 0);
+      return;
+
+    case CC0:
+      res->cc = 1;
+      return;
+
+    case UNSPEC_VOLATILE:
+    case ASM_INPUT:
+
+      res->volatil = 1;
+      return;
+
+    case ASM_OPERANDS:
+      res->volatil = ((x)->volatil);
+
+
+
+
+
+
+      for (i = 0; i < (((x))->fld[3].rtvec->num_elem); i++)
+ mark_referenced_resources ((((x))->fld[3].rtvec->elem[(i)].rtx), res, 0);
+      return;
+
+    case CALL:
+
+
+      mark_referenced_resources (((((x)->fld[0].rtx))->fld[0].rtx), res, 0);
+      mark_referenced_resources (((x)->fld[1].rtx), res, 0);
+      return;
+
+    case SET:
+
+
+
+
+      mark_referenced_resources (((x)->fld[1].rtx), res, 0);
+
+      x = ((x)->fld[0].rtx);
+      if (((x)->code) == SIGN_EXTRACT || ((x)->code) == ZERO_EXTRACT)
+ mark_referenced_resources (x, res, 0);
+      else if (((x)->code) == SUBREG)
+ x = ((x)->fld[0].rtx);
+      if (((x)->code) == MEM)
+ mark_referenced_resources (((x)->fld[0].rtx), res, 0);
+      return;
+
+    case CLOBBER:
+      return;
+
+    case CALL_INSN:
+      if (include_delayed_effects)
+ {
+
+
+
+
+
+
+
+   rtx insn = ((x)->fld[1].rtx);
+   rtx sequence = 0;
+   int seq_size = 0;
+   int i;
+
+
+   if (((insn)->fld[2].rtx) != x)
+     {
+       sequence = ((((insn)->fld[2].rtx))->fld[3].rtx);
+       seq_size = ((sequence)->fld[0].rtvec->num_elem);
+       if (((sequence)->code) != SEQUENCE)
+  abort ();
+     }
+
+   res->memory = 1;
+   ((res->regs)[(14) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((14) % ((unsigned) 32)));
+   if (frame_pointer_needed)
+     {
+       ((res->regs)[(30) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((30) % ((unsigned) 32)));
+
+
+
+     }
+
+   for (i = 0; i < 64; i++)
+     if (global_regs[i])
+       ((res->regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+
+
+   while (((insn)->code) == CODE_LABEL)
+     insn = ((insn)->fld[1].rtx);
+
+   for ( ; (insn && ((insn)->code) == INSN
+     && ((((insn)->fld[3].rtx))->code) == USE);
+        insn = ((insn)->fld[1].rtx))
+     {
+       for (i = 1; i < seq_size; i++)
+  {
+    rtx slot_pat = ((((sequence)->fld[0].rtvec->elem[i].rtx))->fld[3].rtx);
+    if (((slot_pat)->code) == SET
+        && rtx_equal_p (((slot_pat)->fld[0].rtx),
+          ((((insn)->fld[3].rtx))->fld[0].rtx)))
+      break;
+  }
+       if (i >= seq_size)
+  mark_referenced_resources (((((insn)->fld[3].rtx))->fld[0].rtx), res, 0);
+     }
+ }
+
+
+
+    case INSN:
+    case JUMP_INSN:
+# 437 "reorg.c"
+      mark_referenced_resources (((x)->fld[3].rtx), res, include_delayed_effects);
+      return;
+    }
+
+
+  format_ptr = (rtx_format[(int)(code)]);
+  for (i = 0; i < (rtx_length[(int)(code)]); i++)
+    switch (*format_ptr++)
+      {
+      case 'e':
+ mark_referenced_resources (((x)->fld[i].rtx), res, include_delayed_effects);
+ break;
+
+      case 'E':
+ for (j = 0; j < ((x)->fld[i].rtvec->num_elem); j++)
+   mark_referenced_resources (((x)->fld[i].rtvec->elem[j].rtx), res,
+         include_delayed_effects);
+ break;
+      }
+}
+# 471 "reorg.c"
+static void
+mark_set_resources (x, res, in_dest, include_delayed_effects)
+     register rtx x;
+     register struct resources *res;
+     int in_dest;
+     int include_delayed_effects;
+{
+  register enum rtx_code code;
+  register int i, j;
+  register char *format_ptr;
+
+ restart:
+
+  code = ((x)->code);
+
+  switch (code)
+    {
+    case NOTE:
+    case BARRIER:
+    case CODE_LABEL:
+    case USE:
+    case CONST_INT:
+    case CONST_DOUBLE:
+    case LABEL_REF:
+    case SYMBOL_REF:
+    case CONST:
+    case PC:
+
+      return;
+
+    case CC0:
+      if (in_dest)
+ res->cc = 1;
+      return;
+
+    case CALL_INSN:
+
+
+
+
+      if (include_delayed_effects)
+ {
+   rtx next = ((x)->fld[2].rtx);
+   rtx prev = ((x)->fld[1].rtx);
+
+   res->cc = res->memory = 1;
+   for (i = 0; i < 64; i++)
+     if (call_used_regs[i] || global_regs[i])
+       ((res->regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+
+
+
+   if (((prev)->fld[2].rtx) != x)
+     next = ((((prev)->fld[2].rtx))->fld[2].rtx);
+
+
+   while (((next)->code) == CODE_LABEL)
+     next = ((next)->fld[2].rtx);
+
+   for (; (next && ((next)->code) == INSN
+    && ((((next)->fld[3].rtx))->code) == CLOBBER);
+        next = ((next)->fld[2].rtx))
+     mark_set_resources (((((next)->fld[3].rtx))->fld[0].rtx), res, 1, 0);
+
+
+
+   if (next && ((next)->code) == NOTE
+       && ((next)->fld[4].rtint) == -7)
+     do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = -1; } while (0);
+ }
+
+
+
+    case JUMP_INSN:
+    case INSN:
+# 556 "reorg.c"
+      x = ((x)->fld[3].rtx);
+      if (((x)->code) != USE && ((x)->code) != CLOBBER)
+ goto restart;
+      return;
+
+    case SET:
+
+
+
+
+      mark_set_resources (((x)->fld[0].rtx), res,
+     (include_delayed_effects
+      || ((((x)->fld[1].rtx))->code) != CALL),
+     0);
+
+      mark_set_resources (((x)->fld[1].rtx), res, 0, 0);
+      return;
+
+    case CLOBBER:
+      mark_set_resources (((x)->fld[0].rtx), res, 1, 0);
+      return;
+
+    case SEQUENCE:
+      for (i = 0; i < ((x)->fld[0].rtvec->num_elem); i++)
+ if (! (((((x)->fld[0].rtvec->elem[0].rtx))->unchanging)
+        && ((((x)->fld[0].rtvec->elem[i].rtx))->in_struct)))
+   mark_set_resources (((x)->fld[0].rtvec->elem[i].rtx), res, 0,
+         include_delayed_effects);
+      return;
+
+    case POST_INC:
+    case PRE_INC:
+    case POST_DEC:
+    case PRE_DEC:
+      mark_set_resources (((x)->fld[0].rtx), res, 1, 0);
+      return;
+
+    case ZERO_EXTRACT:
+      mark_set_resources (((x)->fld[0].rtx), res, in_dest, 0);
+      mark_set_resources (((x)->fld[1].rtx), res, 0, 0);
+      mark_set_resources (((x)->fld[2].rtx), res, 0, 0);
+      return;
+
+    case MEM:
+      if (in_dest)
+ {
+   res->memory = 1;
+   res->volatil = ((x)->volatil);
+ }
+
+      mark_set_resources (((x)->fld[0].rtx), res, 0, 0);
+      return;
+
+    case REG:
+      if (in_dest)
+        for (i = 0; i < (((mode_size[(int)(((x)->mode))]) + 4 - 1) / 4); i++)
+   ((res->regs)[(((x)->fld[0].rtint) + i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((((x)->fld[0].rtint) + i) % ((unsigned) 32)));
+      return;
+    }
+
+
+  format_ptr = (rtx_format[(int)(code)]);
+  for (i = 0; i < (rtx_length[(int)(code)]); i++)
+    switch (*format_ptr++)
+      {
+      case 'e':
+ mark_set_resources (((x)->fld[i].rtx), res, in_dest, include_delayed_effects);
+ break;
+
+      case 'E':
+ for (j = 0; j < ((x)->fld[i].rtvec->num_elem); j++)
+   mark_set_resources (((x)->fld[i].rtvec->elem[j].rtx), res, in_dest,
+         include_delayed_effects);
+ break;
+      }
+}
+
+
+
+
+
+static int
+stop_search_p (insn, labels_p)
+     rtx insn;
+     int labels_p;
+{
+  if (insn == 0)
+    return 1;
+
+  switch (((insn)->code))
+    {
+    case NOTE:
+    case CALL_INSN:
+      return 0;
+
+    case CODE_LABEL:
+      return labels_p;
+
+    case JUMP_INSN:
+    case BARRIER:
+      return 1;
+
+    case INSN:
+
+
+      return (((((insn)->fld[3].rtx))->code) == SEQUENCE
+       || ((((insn)->fld[3].rtx))->code) == ASM_INPUT
+       || asm_noperands (((insn)->fld[3].rtx)) >= 0);
+
+    default:
+      abort ();
+    }
+}
+
+
+
+
+static int
+resource_conflicts_p (res1, res2)
+     struct resources *res1, *res2;
+{
+  if ((res1->cc && res2->cc) || (res1->memory && res2->memory)
+      || res1->volatil || res2->volatil)
+    return 1;
+
+
+
+
+  {
+    int i;
+
+    for (i = 0; i < ((64 + 32 - 1) / 32); i++)
+      if ((res1->regs[i] & res2->regs[i]) != 0)
+ return 1;
+    return 0;
+  }
+
+}
+# 704 "reorg.c"
+static int
+insn_references_resource_p (insn, res, include_delayed_effects)
+     register rtx insn;
+     register struct resources *res;
+     int include_delayed_effects;
+{
+  struct resources insn_res;
+
+  do { (&insn_res)->memory = (&insn_res)->volatil = (&insn_res)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&insn_res)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  mark_referenced_resources (insn, &insn_res, include_delayed_effects);
+  return resource_conflicts_p (&insn_res, res);
+}
+
+
+
+
+
+
+static int
+insn_sets_resource_p (insn, res, include_delayed_effects)
+     register rtx insn;
+     register struct resources *res;
+     int include_delayed_effects;
+{
+  struct resources insn_sets;
+
+  do { (&insn_sets)->memory = (&insn_sets)->volatil = (&insn_sets)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&insn_sets)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  mark_set_resources (insn, &insn_sets, 0, include_delayed_effects);
+  return resource_conflicts_p (&insn_sets, res);
+}
+
+
+
+
+static rtx
+find_end_label ()
+{
+  rtx insn;
+
+
+  if (end_of_function_label)
+    return end_of_function_label;
+
+
+
+
+
+  insn = get_last_insn ();
+  while (((insn)->code) == NOTE
+  || (((insn)->code) == INSN
+      && (((((insn)->fld[3].rtx))->code) == USE
+   || ((((insn)->fld[3].rtx))->code) == CLOBBER)))
+    insn = ((insn)->fld[1].rtx);
+
+
+
+
+  if (((insn)->code) == BARRIER
+      && ((((insn)->fld[1].rtx))->code) == JUMP_INSN
+      && ((((((insn)->fld[1].rtx))->fld[3].rtx))->code) == RETURN)
+    {
+      rtx temp = ((((insn)->fld[1].rtx))->fld[1].rtx);
+      end_of_function_label = gen_label_rtx ();
+      ((end_of_function_label)->fld[5].rtint) = 0;
+
+
+      while (((temp)->code) == USE)
+ temp = ((temp)->fld[1].rtx);
+
+      emit_label_after (end_of_function_label, temp);
+    }
+
+  else if (((insn)->code) == CODE_LABEL)
+    end_of_function_label = insn;
+  else
+    {
+
+
+      end_of_function_label = gen_label_rtx ();
+      ((end_of_function_label)->fld[5].rtint) = 0;
+      emit_label (end_of_function_label);
+
+      if ((! (target_flags & 2)))
+ {
+
+   rtx insn = gen_return ();
+   insn = emit_jump_insn (insn);
+   emit_barrier ();
+          if (num_delay_slots (insn) > 0)
+     __extension__ ({ 
+		     struct obstack *__o = (&unfilled_slots_obstack);
+		     ((__o->next_free + sizeof (void *) > __o->chunk_limit) ? (_obstack_newchunk (__o, sizeof (void *)), 0) : 0), *((void **)__o->next_free)++ = ((void *)insn); 
+		     (void) 0; 
+	     });
+ }
+
+    }
+
+
+
+  ++((end_of_function_label)->fld[5].rtint);
+
+  return end_of_function_label;
+}
+# 815 "reorg.c"
+static rtx
+emit_delay_sequence (insn, list, length, avail)
+     rtx insn;
+     rtx list;
+     int length;
+     int avail;
+{
+  register int i = 1;
+  register rtx li;
+  int had_barrier = 0;
+
+
+  rtvec seqv = rtvec_alloc (length + 1);
+  rtx seq = gen_rtx (SEQUENCE, VOIDmode, seqv);
+  rtx seq_insn = make_insn_raw (seq);
+  rtx first = get_insns ();
+  rtx last = get_last_insn ();
+
+
+  rtx delay_insn = copy_rtx (insn);
+
+
+
+
+  if (((insn)->fld[2].rtx) && ((((insn)->fld[2].rtx))->code) == BARRIER)
+    {
+      delete_insn (((insn)->fld[2].rtx));
+      last = get_last_insn ();
+      had_barrier = 1;
+    }
+
+
+  ((seq_insn)->fld[2].rtx) = ((insn)->fld[2].rtx);
+  ((seq_insn)->fld[1].rtx) = ((insn)->fld[1].rtx);
+
+  if (insn == last)
+    set_new_first_and_last_insn (first, seq_insn);
+  else
+    ((((seq_insn)->fld[2].rtx))->fld[1].rtx) = seq_insn;
+
+  if (insn == first)
+    set_new_first_and_last_insn (seq_insn, last);
+  else
+    ((((seq_insn)->fld[1].rtx))->fld[2].rtx) = seq_insn;
+
+
+  ((seq)->fld[0].rtvec->elem[0].rtx) = delay_insn;
+  ((delay_insn)->volatil) = 0;
+  ((delay_insn)->fld[1].rtx) = ((seq_insn)->fld[1].rtx);
+
+  for (li = list; li; li = ((li)->fld[1].rtx), i++)
+    {
+      rtx tem = ((li)->fld[0].rtx);
+      rtx note;
+
+
+      ((tem)->volatil) = 0;
+
+      ((seq)->fld[0].rtvec->elem[i].rtx) = tem;
+      ((tem)->fld[1].rtx) = ((seq)->fld[0].rtvec->elem[i - 1].rtx);
+      ((((seq)->fld[0].rtvec->elem[i - 1].rtx))->fld[2].rtx) = tem;
+
+
+
+      for (note = ((tem)->fld[6].rtx); note; note = ((note)->fld[1].rtx))
+ if (((enum reg_note) ((note)->mode)) == REG_DEAD)
+   ((note)->fld[0].rtx) = const0_rtx;
+    }
+
+  ((((seq)->fld[0].rtvec->elem[length].rtx))->fld[2].rtx) = ((seq_insn)->fld[2].rtx);
+
+
+
+
+
+  if (((seq_insn)->fld[1].rtx) && ((((seq_insn)->fld[1].rtx))->code) == INSN
+      && ((((((seq_insn)->fld[1].rtx))->fld[3].rtx))->code) == SEQUENCE)
+    ((((((((seq_insn)->fld[1].rtx))->fld[3].rtx))->fld[0].rtvec->elem[((((((seq_insn)->fld[1].rtx))->fld[3].rtx))->fld[0].rtvec->num_elem) - 1].rtx))->fld[2].rtx)
+
+      = seq_insn;
+
+  if (((seq_insn)->fld[2].rtx) && ((((seq_insn)->fld[2].rtx))->code) == INSN
+      && ((((((seq_insn)->fld[2].rtx))->fld[3].rtx))->code) == SEQUENCE)
+    ((((((((seq_insn)->fld[2].rtx))->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->fld[1].rtx) = seq_insn;
+
+
+  if (had_barrier)
+    emit_barrier_after (seq_insn);
+
+  if (i != length + 1)
+    abort ();
+
+  return seq_insn;
+}
+
+
+
+
+static rtx
+add_to_delay_list (insn, delay_list)
+     rtx insn;
+     rtx delay_list;
+{
+
+
+
+
+  if (delay_list == 0)
+    {
+      struct target_info *tinfo;
+
+      for (tinfo = target_hash_table[((insn)->fld[0].rtint) % 257];
+    tinfo; tinfo = tinfo->next)
+ if (tinfo->uid == ((insn)->fld[0].rtint))
+   break;
+
+      if (tinfo)
+ tinfo->block = -1;
+
+      return gen_rtx (INSN_LIST, VOIDmode, insn, (rtx) 0);
+    }
+
+
+
+  ((delay_list)->fld[1].rtx) = add_to_delay_list (insn, ((delay_list)->fld[1].rtx));
+
+  return delay_list;
+}
+
+
+
+
+static void
+delete_from_delay_slot (insn)
+     rtx insn;
+{
+  rtx trial, seq_insn, seq, prev;
+  rtx delay_list = 0;
+  int i;
+
+
+
+
+
+  for (trial = insn;
+       ((((trial)->fld[2].rtx))->fld[1].rtx) == trial;
+       trial = ((trial)->fld[2].rtx))
+    ;
+
+  seq_insn = ((((trial)->fld[2].rtx))->fld[1].rtx);
+  seq = ((seq_insn)->fld[3].rtx);
+
+
+
+  if (((seq)->fld[0].rtvec->num_elem) > 2)
+    for (i = 1; i < ((seq)->fld[0].rtvec->num_elem); i++)
+      if (((seq)->fld[0].rtvec->elem[i].rtx) != insn)
+ delay_list = add_to_delay_list (((seq)->fld[0].rtvec->elem[i].rtx), delay_list);
+
+
+
+  prev = ((seq_insn)->fld[1].rtx);
+  trial = ((seq)->fld[0].rtvec->elem[0].rtx);
+  delete_insn (seq_insn);
+  add_insn_after (trial, prev);
+
+  if (((trial)->code) == JUMP_INSN
+      && (simplejump_p (trial) || ((((trial)->fld[3].rtx))->code) == RETURN))
+    emit_barrier_after (trial);
+
+
+
+  if (delay_list)
+    trial = emit_delay_sequence (trial, delay_list, ((seq)->fld[0].rtvec->num_elem) - 2, 0);
+  else
+    ((trial)->unchanging) = 0;
+
+  ((insn)->in_struct) = 0;
+
+
+  __extension__ ({ struct obstack *__o = (&unfilled_slots_obstack); ((__o->next_free + sizeof (void *) > __o->chunk_limit) ? (_obstack_newchunk (__o, sizeof (void *)), 0) : 0), *((void **)__o->next_free)++ = ((void *)trial); (void) 0; });
+}
+
+
+
+
+static void
+delete_scheduled_jump (insn)
+     rtx insn;
+{
+# 1044 "reorg.c"
+  delete_insn (insn);
+}
+
+
+
+
+
+
+
+static int num_insns_needing_delays[2][2];
+
+static int num_filled_delays[2][3 +1][2];
+
+static int reorg_pass_number;
+
+static void
+note_delay_statistics (slots_filled, index)
+     int slots_filled, index;
+{
+  num_insns_needing_delays[index][reorg_pass_number]++;
+  if (slots_filled > 3)
+    slots_filled = 3;
+  num_filled_delays[index][slots_filled][reorg_pass_number]++;
+}
+# 1103 "reorg.c"
+static rtx
+optimize_skip (insn)
+     register rtx insn;
+{
+  register rtx trial = next_nonnote_insn (insn);
+  rtx next_trial = next_active_insn (trial);
+  rtx delay_list = 0;
+  rtx target_label;
+  int flags;
+
+  flags = get_jump_flags (insn, ((insn)->fld[7].rtx));
+
+  if (trial == 0
+      || ((trial)->code) != INSN
+      || ((((trial)->fld[3].rtx))->code) == SEQUENCE
+      || recog_memoized (trial) < 0
+      || (! eligible_for_annul_false (insn, 0, trial, flags)
+   && ! 0))
+    return 0;
+
+
+
+
+
+
+
+  if ((next_trial == next_active_insn (((insn)->fld[7].rtx)))
+      || (next_trial != 0
+   && ((next_trial)->code) == JUMP_INSN
+   && ((insn)->fld[7].rtx) == ((next_trial)->fld[7].rtx)
+   && (simplejump_p (next_trial)
+       || ((((next_trial)->fld[3].rtx))->code) == RETURN)))
+    {
+      if (eligible_for_annul_false (insn, 0, trial, flags))
+ {
+   if (invert_jump (insn, ((insn)->fld[7].rtx)))
+     ((trial)->in_struct) = 1;
+   else if (! 0)
+     return 0;
+ }
+
+      delay_list = add_to_delay_list (trial, (rtx) 0);
+      next_trial = next_active_insn (trial);
+      update_block (trial, trial);
+      delete_insn (trial);
+
+
+
+
+
+      if (next_trial && ((next_trial)->code) == JUMP_INSN
+   && (simplejump_p (next_trial)
+       || ((((next_trial)->fld[3].rtx))->code) == RETURN))
+ {
+   target_label = ((next_trial)->fld[7].rtx);
+   if (target_label == 0)
+     target_label = find_end_label ();
+
+
+
+
+
+   flags = get_jump_flags (insn, target_label);
+   if (0)
+     reorg_redirect_jump (insn, target_label);
+ }
+
+      ((insn)->unchanging) = 1;
+    }
+
+  return delay_list;
+}
+# 1183 "reorg.c"
+static int
+get_jump_flags (insn, label)
+     rtx insn, label;
+{
+  int flags;
+
+
+
+
+
+
+
+  if (((insn)->code) == JUMP_INSN
+      && condjump_p (insn)
+      && ((insn)->fld[0].rtint) <= max_uid
+      && label != 0
+      && ((label)->fld[0].rtint) <= max_uid)
+    flags
+      = (uid_to_ruid[((label)->fld[0].rtint)] > uid_to_ruid[((insn)->fld[0].rtint)])
+  ? 0x1 : 0x2;
+
+  else
+    flags = 0;
+
+
+
+
+
+  if (((insn)->code) == JUMP_INSN
+      && condjump_p (insn))
+    {
+      int prediction;
+
+      prediction = mostly_true_jump (insn, get_branch_condition (insn, label));
+      switch (prediction)
+ {
+   case 2:
+     flags |= (0x8 | 0x4);
+     break;
+   case 1:
+     flags |= 0x4;
+     break;
+   case 0:
+     flags |= 0x10;
+     break;
+   case -1:
+     flags |= (0x20 | 0x10);
+     break;
+
+   default:
+     abort();
+ }
+    }
+  else
+    flags |= (0x8 | 0x4);
+
+  return flags;
+}
+
+
+
+
+
+
+static int
+rare_destination (insn)
+     rtx insn;
+{
+  int jump_count = 0;
+
+  for (; insn; insn = ((insn)->fld[2].rtx))
+    {
+      if (((insn)->code) == INSN && ((((insn)->fld[3].rtx))->code) == SEQUENCE)
+ insn = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx);
+
+      switch (((insn)->code))
+ {
+ case CODE_LABEL:
+   return 0;
+ case BARRIER:
+
+
+
+
+   return 2;
+ case JUMP_INSN:
+   if (((((insn)->fld[3].rtx))->code) == RETURN)
+     return 1;
+   else if (simplejump_p (insn)
+     && jump_count++ < 10)
+     insn = ((insn)->fld[7].rtx);
+   else
+     return 0;
+ }
+    }
+
+
+
+
+  return 1;
+}
+# 1293 "reorg.c"
+static int
+mostly_true_jump (jump_insn, condition)
+     rtx jump_insn, condition;
+{
+  rtx target_label = ((jump_insn)->fld[7].rtx);
+  rtx insn;
+  int rare_dest = rare_destination (target_label);
+  int rare_fallthrough = rare_destination (((jump_insn)->fld[2].rtx));
+
+
+  if (((((jump_insn)->fld[3].rtx))->code) == SET
+      && ((((((jump_insn)->fld[3].rtx))->fld[1].rtx))->code) == IF_THEN_ELSE
+      && ((((((((((jump_insn)->fld[3].rtx))->fld[1].rtx))->fld[1].rtx))->code) == LABEL_REF
+    && ((((((((jump_insn)->fld[3].rtx))->fld[1].rtx))->fld[1].rtx))->in_struct))
+   || (((((((((jump_insn)->fld[3].rtx))->fld[1].rtx))->fld[2].rtx))->code) == LABEL_REF
+       && ((((((((jump_insn)->fld[3].rtx))->fld[1].rtx))->fld[2].rtx))->in_struct))))
+    return -1;
+
+  if (target_label)
+    {
+
+
+
+
+      for (insn = ((target_label)->fld[1].rtx);
+    insn && ((insn)->code) == NOTE;
+    insn = ((insn)->fld[1].rtx))
+ if (((insn)->fld[4].rtint) == -4)
+   return 2;
+
+
+
+
+
+      for (insn = ((target_label)->fld[2].rtx);
+    insn && ((insn)->code) == NOTE;
+    insn = ((insn)->fld[1].rtx))
+ if (((insn)->fld[4].rtint) == -9)
+   return 1;
+    }
+
+
+
+
+  switch (rare_fallthrough - rare_dest)
+    {
+    case -2:
+      return -1;
+    case -1:
+      return 0;
+    case 0:
+      break;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+    }
+
+
+
+  if (condition == 0)
+    return 0;
+
+
+
+
+  switch (((condition)->code))
+    {
+    case CONST_INT:
+
+      return 1;
+    case EQ:
+      return 0;
+    case NE:
+      return 1;
+    case LE:
+    case LT:
+      if (((condition)->fld[1].rtx) == const0_rtx)
+        return 0;
+      break;
+    case GE:
+    case GT:
+      if (((condition)->fld[1].rtx) == const0_rtx)
+ return 1;
+      break;
+    }
+
+
+
+
+  return (target_label == 0 || ((jump_insn)->fld[0].rtint) > max_uid
+   || ((target_label)->fld[0].rtint) > max_uid
+   || (uid_to_ruid[((jump_insn)->fld[0].rtint)]
+       > uid_to_ruid[((target_label)->fld[0].rtint)]));;
+}
+
+
+
+
+
+
+static rtx
+get_branch_condition (insn, target)
+     rtx insn;
+     rtx target;
+{
+  rtx pat = ((insn)->fld[3].rtx);
+  rtx src;
+
+  if (((pat)->code) == RETURN)
+    return target == 0 ? const_true_rtx : 0;
+
+  else if (((pat)->code) != SET || ((pat)->fld[0].rtx) != pc_rtx)
+    return 0;
+
+  src = ((pat)->fld[1].rtx);
+  if (((src)->code) == LABEL_REF && ((src)->fld[0].rtx) == target)
+    return const_true_rtx;
+
+  else if (((src)->code) == IF_THEN_ELSE
+    && ((target == 0 && ((((src)->fld[1].rtx))->code) == RETURN)
+        || (((((src)->fld[1].rtx))->code) == LABEL_REF
+     && ((((src)->fld[1].rtx))->fld[0].rtx) == target))
+    && ((src)->fld[2].rtx) == pc_rtx)
+    return ((src)->fld[0].rtx);
+
+  else if (((src)->code) == IF_THEN_ELSE
+    && ((target == 0 && ((((src)->fld[2].rtx))->code) == RETURN)
+        || (((((src)->fld[2].rtx))->code) == LABEL_REF
+     && ((((src)->fld[2].rtx))->fld[0].rtx) == target))
+    && ((src)->fld[1].rtx) == pc_rtx)
+    return gen_rtx (reverse_condition (((((src)->fld[0].rtx))->code)),
+      ((((src)->fld[0].rtx))->mode),
+      ((((src)->fld[0].rtx))->fld[0].rtx), ((((src)->fld[0].rtx))->fld[1].rtx));
+
+  return 0;
+}
+
+
+
+
+static int
+condition_dominates_p (condition, insn)
+     rtx condition;
+     rtx insn;
+{
+  rtx other_condition = get_branch_condition (insn, ((insn)->fld[7].rtx));
+  enum rtx_code code = ((condition)->code);
+  enum rtx_code other_code;
+
+  if (rtx_equal_p (condition, other_condition)
+      || other_condition == const_true_rtx)
+    return 1;
+
+  else if (condition == const_true_rtx || other_condition == 0)
+    return 0;
+
+  other_code = ((other_condition)->code);
+  if ((rtx_length[(int)(code)]) != 2 || (rtx_length[(int)(other_code)]) != 2
+      || ! rtx_equal_p (((condition)->fld[0].rtx), ((other_condition)->fld[0].rtx))
+      || ! rtx_equal_p (((condition)->fld[1].rtx), ((other_condition)->fld[1].rtx)))
+    return 0;
+
+  return comparison_dominates_p (code, other_code);
+}
+
+
+
+
+static int
+redirect_with_delay_slots_safe_p (jump, newlabel, seq)
+     rtx jump, newlabel, seq;
+{
+  int flags, slots, i;
+  rtx pat = ((seq)->fld[3].rtx);
+
+
+
+
+
+  flags = get_jump_flags (jump, newlabel);
+  for (i = 1; i < ((pat)->fld[0].rtvec->num_elem); i++)
+    if (! (
+
+    (((jump)->unchanging)
+     && ((((pat)->fld[0].rtvec->elem[i].rtx))->in_struct))
+    ? eligible_for_annul_false (jump, i - 1,
+           ((pat)->fld[0].rtvec->elem[i].rtx), flags) :
+
+
+
+
+
+
+
+    eligible_for_delay (jump, i -1, ((pat)->fld[0].rtvec->elem[i].rtx), flags)))
+      break;
+
+  return (i == ((pat)->fld[0].rtvec->num_elem));
+}
+# 1515 "reorg.c"
+static rtx
+steal_delay_list_from_target (insn, condition, seq, delay_list,
+         sets, needed, other_needed,
+         slots_to_fill, pslots_filled, pannul_p,
+         pnew_thread)
+     rtx insn, condition;
+     rtx seq;
+     rtx delay_list;
+     struct resources *sets, *needed, *other_needed;
+     int slots_to_fill;
+     int *pslots_filled;
+     int *pannul_p;
+     rtx *pnew_thread;
+{
+  rtx temp;
+  int slots_remaining = slots_to_fill - *pslots_filled;
+  int total_slots_filled = *pslots_filled;
+  rtx new_delay_list = 0;
+  int must_annul = *pannul_p;
+  int i;
+
+
+
+
+
+
+
+  if (((seq)->fld[0].rtvec->num_elem) - 1 > slots_remaining
+      || ! condition_dominates_p (condition, ((seq)->fld[0].rtvec->elem[0].rtx)))
+    return delay_list;
+
+  for (i = 1; i < ((seq)->fld[0].rtvec->num_elem); i++)
+    {
+      rtx trial = ((seq)->fld[0].rtvec->elem[i].rtx);
+      int flags;
+
+      if (insn_references_resource_p (trial, sets, 0)
+   || insn_sets_resource_p (trial, needed, 0)
+   || insn_sets_resource_p (trial, sets, 0)
+
+
+
+
+
+
+
+   || (((((seq)->fld[0].rtvec->elem[0].rtx))->unchanging)
+       && ! ((trial)->in_struct)))
+ return delay_list;
+
+
+
+      if (redundant_insn_p (trial, insn, new_delay_list))
+ continue;
+
+
+
+      flags = get_jump_flags (insn, ((((seq)->fld[0].rtvec->elem[0].rtx))->fld[7].rtx));
+
+      if (! must_annul
+   && ((condition == const_true_rtx
+        || (! insn_sets_resource_p (trial, other_needed, 0)
+     && ! may_trap_p (((trial)->fld[3].rtx)))))
+   ? eligible_for_delay (insn, total_slots_filled, trial, flags)
+   : (must_annul = 1,
+      eligible_for_annul_false (insn, total_slots_filled, trial, flags)))
+ {
+   temp = copy_rtx (trial);
+   ((temp)->in_struct) = 1;
+   new_delay_list = add_to_delay_list (temp, new_delay_list);
+   total_slots_filled++;
+
+   if (--slots_remaining == 0)
+     break;
+ }
+      else
+ return delay_list;
+    }
+
+
+  *pnew_thread = next_active_insn (((((seq)->fld[0].rtvec->elem[0].rtx))->fld[7].rtx));
+
+
+
+  *pslots_filled = total_slots_filled;
+  *pannul_p = must_annul;
+
+  if (delay_list == 0)
+    return new_delay_list;
+
+  for (temp = new_delay_list; temp; temp = ((temp)->fld[1].rtx))
+    delay_list = add_to_delay_list (((temp)->fld[0].rtx), delay_list);
+
+  return delay_list;
+}
+
+
+
+
+
+
+static rtx
+steal_delay_list_from_fallthrough (insn, condition, seq,
+       delay_list, sets, needed, other_needed,
+       slots_to_fill, pslots_filled, pannul_p)
+     rtx insn, condition;
+     rtx seq;
+     rtx delay_list;
+     struct resources *sets, *needed, *other_needed;
+     int slots_to_fill;
+     int *pslots_filled;
+     int *pannul_p;
+{
+  int i;
+  int flags;
+
+  flags = get_jump_flags (insn, ((insn)->fld[7].rtx));
+
+
+
+
+  if (! simplejump_p (((seq)->fld[0].rtvec->elem[0].rtx))
+      && ((((((seq)->fld[0].rtvec->elem[0].rtx))->fld[3].rtx))->code) != RETURN)
+    return delay_list;
+
+  for (i = 1; i < ((seq)->fld[0].rtvec->num_elem); i++)
+    {
+      rtx trial = ((seq)->fld[0].rtvec->elem[i].rtx);
+
+
+
+      if (insn_references_resource_p (trial, sets, 0)
+   || insn_sets_resource_p (trial, needed, 0)
+   || insn_sets_resource_p (trial, sets, 0)
+
+
+
+   )
+
+ break;
+
+
+      if (redundant_insn_p (trial, insn, delay_list))
+ {
+   delete_from_delay_slot (trial);
+   continue;
+ }
+
+      if (! *pannul_p
+   && ((condition == const_true_rtx
+        || (! insn_sets_resource_p (trial, other_needed, 0)
+     && ! may_trap_p (((trial)->fld[3].rtx)))))
+   ? eligible_for_delay (insn, *pslots_filled, trial, flags)
+   : (*pannul_p = 1,
+      0))
+ {
+   delete_from_delay_slot (trial);
+   delay_list = add_to_delay_list (trial, delay_list);
+
+   if (++(*pslots_filled) == slots_to_fill)
+     break;
+ }
+      else
+ break;
+    }
+
+  return delay_list;
+}
+# 1693 "reorg.c"
+static void
+try_merge_delay_insns (insn, thread)
+     rtx insn, thread;
+{
+  rtx trial, next_trial;
+  rtx delay_insn = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx);
+  int annul_p = ((delay_insn)->unchanging);
+  int slot_number = 1;
+  int num_slots = ((((insn)->fld[3].rtx))->fld[0].rtvec->num_elem);
+  rtx next_to_match = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[slot_number].rtx);
+  struct resources set, needed;
+  rtx merged_insns = 0;
+  int i;
+  int flags;
+
+  flags = get_jump_flags (delay_insn, ((delay_insn)->fld[7].rtx));
+
+  do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+
+
+
+
+
+
+
+  if (! annul_p)
+    mark_referenced_resources (next_to_match, &needed, 1);
+
+  for (trial = thread; !stop_search_p (trial, 1); trial = next_trial)
+    {
+      rtx pat = ((trial)->fld[3].rtx);
+
+      next_trial = next_nonnote_insn (trial);
+
+
+      if (((trial)->code) == INSN
+   && (((pat)->code) == USE || ((pat)->code) == CLOBBER))
+ continue;
+
+      if (((next_to_match)->code) == ((trial)->code)
+
+
+
+
+   && ! insn_references_resource_p (trial, &set, 1)
+   && ! insn_sets_resource_p (trial, &set, 1)
+   && ! insn_sets_resource_p (trial, &needed, 1)
+   && (trial = try_split (pat, trial, 0)) != 0
+   && rtx_equal_p (((next_to_match)->fld[3].rtx), ((trial)->fld[3].rtx))
+
+
+   && eligible_for_delay (delay_insn, slot_number - 1, trial, flags))
+ {
+   next_trial = next_nonnote_insn (trial);
+
+   if (! annul_p)
+     {
+       update_block (trial, thread);
+       delete_insn (trial);
+       ((next_to_match)->in_struct) = 0;
+     }
+   else
+     merged_insns = gen_rtx (INSN_LIST, VOIDmode, trial, merged_insns);
+
+   if (++slot_number == num_slots)
+     break;
+
+   next_to_match = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[slot_number].rtx);
+   if (! annul_p)
+     mark_referenced_resources (next_to_match, &needed, 1);
+ }
+
+      mark_set_resources (trial, &set, 0, 1);
+      mark_referenced_resources (trial, &needed, 1);
+    }
+
+
+
+  if (slot_number != num_slots
+      && trial && ((trial)->code) == INSN
+      && ((((trial)->fld[3].rtx))->code) == SEQUENCE
+      && ! ((((((trial)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->unchanging))
+    {
+      rtx pat = ((trial)->fld[3].rtx);
+
+      for (i = 1; i < ((pat)->fld[0].rtvec->num_elem); i++)
+ {
+   rtx dtrial = ((pat)->fld[0].rtvec->elem[i].rtx);
+
+   if (! insn_references_resource_p (dtrial, &set, 1)
+       && ! insn_sets_resource_p (dtrial, &set, 1)
+       && ! insn_sets_resource_p (dtrial, &needed, 1)
+
+
+
+       && rtx_equal_p (((next_to_match)->fld[3].rtx), ((dtrial)->fld[3].rtx))
+       && eligible_for_delay (delay_insn, slot_number - 1, dtrial, flags))
+     {
+       if (! annul_p)
+  {
+    update_block (dtrial, thread);
+    delete_from_delay_slot (dtrial);
+    ((next_to_match)->in_struct) = 0;
+  }
+       else
+  merged_insns = gen_rtx (INSN_LIST, SImode, dtrial,
+     merged_insns);
+
+       if (++slot_number == num_slots)
+  break;
+
+       next_to_match = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[slot_number].rtx);
+     }
+ }
+    }
+
+
+
+
+
+
+  if (next_to_match == 0 && annul_p)
+    {
+      for (; merged_insns; merged_insns = ((merged_insns)->fld[1].rtx))
+ {
+   if (((merged_insns)->mode) == SImode)
+     {
+       update_block (((merged_insns)->fld[0].rtx), thread);
+       delete_from_delay_slot (((merged_insns)->fld[0].rtx));
+     }
+   else
+     {
+       update_block (((merged_insns)->fld[0].rtx), thread);
+       delete_insn (((merged_insns)->fld[0].rtx));
+     }
+ }
+
+      ((delay_insn)->unchanging) = 0;
+
+      for (i = 0; i < ((((insn)->fld[3].rtx))->fld[0].rtvec->num_elem); i++)
+ ((((((insn)->fld[3].rtx))->fld[0].rtvec->elem[i].rtx))->in_struct) = 0;
+    }
+}
+# 1857 "reorg.c"
+static int
+redundant_insn_p (insn, target, delay_list)
+     rtx insn;
+     rtx target;
+     rtx delay_list;
+{
+  rtx target_main = target;
+  rtx ipat = ((insn)->fld[3].rtx);
+  rtx trial, pat;
+  struct resources needed, set;
+  int i;
+
+
+  for (trial = ((target)->fld[1].rtx); trial; trial = ((trial)->fld[1].rtx))
+    {
+      if (((trial)->code) == CODE_LABEL)
+ return 0;
+
+      if ((rtx_class[(int)(((trial)->code))]) != 'i')
+ continue;
+
+      pat = ((trial)->fld[3].rtx);
+      if (((pat)->code) == USE || ((pat)->code) == CLOBBER)
+ continue;
+
+      if (((pat)->code) == SEQUENCE)
+ {
+
+
+   if (((((pat)->fld[0].rtvec->elem[0].rtx))->code) == CALL_INSN)
+     return 0;
+# 1905 "reorg.c"
+   for (i = ((pat)->fld[0].rtvec->num_elem) - 1; i > 0; i--)
+     if (((((pat)->fld[0].rtvec->elem[i].rtx))->code) == ((insn)->code)
+  && rtx_equal_p (((((pat)->fld[0].rtvec->elem[i].rtx))->fld[3].rtx), ipat))
+       break;
+
+
+   if (i > 0)
+     break;
+ }
+
+      else if (((trial)->code) == ((insn)->code) && rtx_equal_p (pat, ipat))
+ break;
+    }
+
+
+  if (trial == 0)
+    return 0;
+
+
+
+
+  do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  mark_set_resources (insn, &set, 0, 1);
+  mark_referenced_resources (insn, &needed, 1);
+
+
+  if (((target)->code) == INSN && ((((target)->fld[3].rtx))->code) == SEQUENCE)
+    target_main = ((((target)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx);
+
+  if (resource_conflicts_p (&needed, &set)
+
+
+
+
+
+      || insn_sets_resource_p (target_main, &needed, 1)
+      || insn_sets_resource_p (target_main, &set, 1))
+    return 0;
+
+
+
+  needed.memory |= set.memory;
+  do { register HARD_REG_ELT_TYPE *scan_tp_ = (needed.regs), *scan_fp_ = (set.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ |= *scan_fp_++; } while (0);
+
+
+
+
+  while (delay_list)
+    {
+      if (insn_sets_resource_p (((delay_list)->fld[0].rtx), &needed, 1))
+ return 0;
+      delay_list = ((delay_list)->fld[1].rtx);
+    }
+
+  if (((target)->code) == INSN && ((((target)->fld[3].rtx))->code) == SEQUENCE)
+    for (i = 1; i < ((((target)->fld[3].rtx))->fld[0].rtvec->num_elem); i++)
+      if (insn_sets_resource_p (((((target)->fld[3].rtx))->fld[0].rtvec->elem[i].rtx), &needed, 1))
+ return 0;
+
+
+
+
+  for (trial = ((target)->fld[1].rtx);
+       trial && ((trial)->code) != CODE_LABEL;
+       trial = ((trial)->fld[1].rtx))
+    {
+      if (((trial)->code) != INSN && ((trial)->code) != CALL_INSN
+   && ((trial)->code) != JUMP_INSN)
+ continue;
+
+      pat = ((trial)->fld[3].rtx);
+      if (((pat)->code) == USE || ((pat)->code) == CLOBBER)
+ continue;
+
+      if (((pat)->code) == SEQUENCE)
+ {
+
+
+   if (((((pat)->fld[0].rtvec->elem[0].rtx))->code) == CALL_INSN)
+     return 0;
+# 2002 "reorg.c"
+   for (i = ((pat)->fld[0].rtvec->num_elem) - 1; i > 0; i--)
+     {
+       rtx candidate = ((pat)->fld[0].rtvec->elem[i].rtx);
+
+
+
+       if (rtx_equal_p (((candidate)->fld[3].rtx), ipat)
+    && ! (((((pat)->fld[0].rtvec->elem[0].rtx))->unchanging)
+   && ((candidate)->in_struct)))
+  {
+
+    ((candidate)->in_struct) = 0;
+    return 1;
+  }
+
+
+
+       if ((! ((((pat)->fld[0].rtvec->elem[0].rtx))->unchanging)
+     || ! ((candidate)->in_struct))
+    && insn_sets_resource_p (candidate, &needed, 1))
+  return 0;
+     }
+
+
+
+
+   if (insn_sets_resource_p (((pat)->fld[0].rtvec->elem[0].rtx), &needed, 1))
+     return 0;
+ }
+      else
+ {
+
+   pat = ((trial)->fld[3].rtx);
+   if (rtx_equal_p (pat, ipat))
+     return 1;
+
+
+   if (insn_sets_resource_p (trial, &needed, 1))
+     return 0;
+ }
+    }
+
+  return 0;
+}
+# 2055 "reorg.c"
+static int
+own_thread_p (thread, label, allow_fallthrough)
+     rtx thread;
+     rtx label;
+     int allow_fallthrough;
+{
+  rtx active_insn;
+  rtx insn;
+
+
+  if (thread == 0)
+    return 0;
+
+
+  active_insn = next_active_insn (((thread)->fld[1].rtx));
+
+  for (insn = thread; insn != active_insn; insn = ((insn)->fld[2].rtx))
+    if (((insn)->code) == CODE_LABEL
+ && (insn != label || ((insn)->fld[5].rtint) != 1))
+      return 0;
+
+  if (allow_fallthrough)
+    return 1;
+
+
+  for (insn = prev_nonnote_insn (thread);
+       insn == 0 || ((insn)->code) != BARRIER;
+       insn = prev_nonnote_insn (insn))
+    if (insn == 0
+ || ((insn)->code) == CODE_LABEL
+ || (((insn)->code) == INSN
+     && ((((insn)->fld[3].rtx))->code) != USE
+     && ((((insn)->fld[3].rtx))->code) != CLOBBER))
+      return 0;
+
+  return 1;
+}
+
+
+
+
+static int
+find_basic_block (insn)
+     rtx insn;
+{
+  int i;
+
+
+
+
+  for (insn = prev_nonnote_insn (insn);
+       insn && ((insn)->code) != BARRIER;
+       insn = prev_nonnote_insn (insn))
+    ;
+
+
+  if (insn == 0)
+    return 0;
+
+
+
+  for (insn = next_nonnote_insn (insn);
+       insn && ((insn)->code) == CODE_LABEL;
+       insn = next_nonnote_insn (insn))
+    {
+      for (i = 0; i < n_basic_blocks; i++)
+ if (insn == basic_block_head[i])
+   return i;
+    }
+
+  return -1;
+}
+# 2137 "reorg.c"
+static void
+update_block (insn, where)
+     rtx insn;
+     rtx where;
+{
+  int b;
+
+
+
+  if (((insn)->in_struct))
+    return;
+
+  emit_insn_before (gen_rtx (USE, VOIDmode, insn), where);
+
+
+
+
+  b = find_basic_block (insn);
+  if (b != -1)
+    bb_ticks[b]++;
+}
+
+
+
+
+static int
+reorg_redirect_jump (jump, nlabel)
+     rtx jump;
+     rtx nlabel;
+{
+  int b = find_basic_block (jump);
+
+  if (b != -1)
+    bb_ticks[b]++;
+
+  return redirect_jump (jump, nlabel);
+}
+# 2186 "reorg.c"
+static void
+update_reg_dead_notes (insn, delayed_insn)
+     rtx insn, delayed_insn;
+{
+  rtx p, link, next;
+
+  for (p = next_nonnote_insn (insn); p != delayed_insn;
+       p = next_nonnote_insn (p))
+    for (link = ((p)->fld[6].rtx); link; link = next)
+      {
+ next = ((link)->fld[1].rtx);
+
+ if (((enum reg_note) ((link)->mode)) != REG_DEAD
+     || ((((link)->fld[0].rtx))->code) != REG)
+   continue;
+
+ if (reg_referenced_p (((link)->fld[0].rtx), ((insn)->fld[3].rtx)))
+   {
+
+     remove_note (p, link);
+     ((link)->fld[1].rtx) = ((insn)->fld[6].rtx);
+     ((insn)->fld[6].rtx) = link;
+   }
+      }
+}
+
+
+
+
+static HARD_REG_SET current_live_regs;
+
+
+
+
+static HARD_REG_SET pending_dead_regs;
+
+
+
+
+static void
+update_live_status (dest, x)
+     rtx dest;
+     rtx x;
+{
+  int first_regno, last_regno;
+  int i;
+
+  if (((dest)->code) != REG
+      && (((dest)->code) != SUBREG || ((((dest)->fld[0].rtx))->code) != REG))
+    return;
+
+  if (((dest)->code) == SUBREG)
+    first_regno = ((((dest)->fld[0].rtx))->fld[0].rtint) + ((dest)->fld[1].rtint);
+  else
+    first_regno = ((dest)->fld[0].rtint);
+
+  last_regno = first_regno + (((mode_size[(int)(((dest)->mode))]) + 4 - 1) / 4);
+
+  if (((x)->code) == CLOBBER)
+    for (i = first_regno; i < last_regno; i++)
+      ((current_live_regs)[(i) / ((unsigned) 32)] &= ~(((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32))));
+  else
+    for (i = first_regno; i < last_regno; i++)
+      {
+ ((current_live_regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+ ((pending_dead_regs)[(i) / ((unsigned) 32)] &= ~(((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32))));
+      }
+}
+
+
+
+
+static rtx
+next_insn_no_annul (insn)
+     rtx insn;
+{
+  if (insn)
+    {
+
+
+      if (((insn)->unchanging)
+   && ((((insn)->fld[1].rtx))->fld[2].rtx) != insn)
+ while (((((insn)->fld[2].rtx))->in_struct))
+   insn = ((insn)->fld[2].rtx);
+
+      insn = ((insn)->fld[2].rtx);
+      if (insn && ((insn)->code) == INSN
+   && ((((insn)->fld[3].rtx))->code) == SEQUENCE)
+ insn = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx);
+    }
+
+  return insn;
+}
+# 2318 "reorg.c"
+static void
+mark_target_live_regs (target, res)
+     rtx target;
+     struct resources *res;
+{
+  int b = -1;
+  int i;
+  struct target_info *tinfo;
+  rtx insn, next;
+  rtx jump_insn = 0;
+  rtx jump_target;
+  HARD_REG_SET scratch;
+  struct resources set, needed;
+  int jump_count = 0;
+
+
+  if (target == 0)
+    {
+      *res = end_of_function_needs;
+      return;
+    }
+
+
+  res->memory = 1;
+  res->volatil = 0;
+  res->cc = 0;
+
+
+  for (tinfo = target_hash_table[((target)->fld[0].rtint) % 257];
+       tinfo; tinfo = tinfo->next)
+    if (tinfo->uid == ((target)->fld[0].rtint))
+      break;
+
+
+
+
+  if (tinfo && tinfo->block != -1
+      && ! ((basic_block_head[tinfo->block])->volatil))
+    b = tinfo->block;
+
+  if (b == -1)
+    b = find_basic_block (target);
+
+  if (tinfo)
+    {
+
+
+      if (b == tinfo->block && b != -1 && tinfo->bb_tick == bb_ticks[b])
+ {
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs), *scan_fp_ = (tinfo->live_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = *scan_fp_++; } while (0);
+   return;
+ }
+    }
+  else
+    {
+
+
+      tinfo = (struct target_info *) oballoc (sizeof (struct target_info));
+      tinfo->uid = ((target)->fld[0].rtint);
+      tinfo->block = b;
+      tinfo->next = target_hash_table[((target)->fld[0].rtint) % 257];
+      target_hash_table[((target)->fld[0].rtint) % 257] = tinfo;
+    }
+
+  do { register HARD_REG_ELT_TYPE *scan_tp_ = (pending_dead_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0);
+
+
+
+
+  if (b != -1)
+    {
+      regset regs_live = basic_block_live_at_start[b];
+      int offset, j;
+      unsigned int bit;
+      int regno;
+      rtx start_insn, stop_insn;
+# 2402 "reorg.c"
+      do { register HARD_REG_ELT_TYPE *scan_tp_ = (current_live_regs), *scan_fp_ = (regs_live); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = *scan_fp_++; } while (0);
+
+
+      for (offset = 0, i = 0; offset < regset_size; offset++)
+ {
+   if (regs_live[offset] == 0)
+     i += 32;
+   else
+     for (bit = 1; bit && i < max_regno; bit <<= 1, i++)
+       if ((regs_live[offset] & bit)
+    && (regno = reg_renumber[i]) >= 0)
+  for (j = regno;
+       j < regno + (((mode_size[(int)(((regno_reg_rtx[i])->mode))]) + 4 - 1) / 4);
+
+       j++)
+    ((current_live_regs)[(j) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((j) % ((unsigned) 32)));
+ }
+
+
+
+      start_insn = (b == 0 ? get_insns () : basic_block_head[b]);
+      stop_insn = target;
+
+      if (((start_insn)->code) == INSN
+   && ((((start_insn)->fld[3].rtx))->code) == SEQUENCE)
+ start_insn = ((((start_insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx);
+
+      if (((stop_insn)->code) == INSN
+   && ((((stop_insn)->fld[3].rtx))->code) == SEQUENCE)
+ stop_insn = next_insn (((stop_insn)->fld[1].rtx));
+
+      for (insn = start_insn; insn != stop_insn;
+    insn = next_insn_no_annul (insn))
+ {
+   rtx link;
+   rtx real_insn = insn;
+
+
+
+
+   if (((insn)->in_struct))
+     continue;
+
+
+
+   if (((insn)->code) == INSN && ((((insn)->fld[3].rtx))->code) == USE
+       && (rtx_class[(int)(((((((insn)->fld[3].rtx))->fld[0].rtx))->code))]) == 'i')
+       real_insn = ((((insn)->fld[3].rtx))->fld[0].rtx);
+
+   if (((real_insn)->code) == CALL_INSN)
+     {
+
+
+
+       for (i = 0; i < 64; i++)
+  if (call_used_regs[i]
+      && i != 14 && i != 30
+      && i != 30
+
+
+
+
+
+
+
+      && ! (i == 23 && flag_pic)
+
+      )
+    ((current_live_regs)[(i) / ((unsigned) 32)] &= ~(((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32))));
+
+
+
+       for (i = 0; i < 64; i++)
+  if (global_regs[i])
+    ((current_live_regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+     }
+
+
+
+
+
+
+   if ((((real_insn)->code) == INSN
+        && ((((real_insn)->fld[3].rtx))->code) != USE
+        && ((((real_insn)->fld[3].rtx))->code) != CLOBBER)
+       || ((real_insn)->code) == JUMP_INSN
+       || ((real_insn)->code) == CALL_INSN)
+     {
+       for (link = ((real_insn)->fld[6].rtx); link; link = ((link)->fld[1].rtx))
+  if (((enum reg_note) ((link)->mode)) == REG_DEAD
+      && ((((link)->fld[0].rtx))->code) == REG
+      && ((((link)->fld[0].rtx))->fld[0].rtint) < 64)
+    {
+      int first_regno = ((((link)->fld[0].rtx))->fld[0].rtint);
+      int last_regno
+        = (first_regno
+    + (((mode_size[(int)(((((link)->fld[0].rtx))->mode))]) + 4 - 1) / 4));
+
+
+      for (i = first_regno; i < last_regno; i++)
+        ((pending_dead_regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+    }
+
+       note_stores (((real_insn)->fld[3].rtx), update_live_status);
+
+
+
+       for (link = ((real_insn)->fld[6].rtx); link; link = ((link)->fld[1].rtx))
+  if (((enum reg_note) ((link)->mode)) == REG_UNUSED
+      && ((((link)->fld[0].rtx))->code) == REG
+      && ((((link)->fld[0].rtx))->fld[0].rtint) < 64)
+    {
+      int first_regno = ((((link)->fld[0].rtx))->fld[0].rtint);
+      int last_regno
+        = (first_regno
+    + (((mode_size[(int)(((((link)->fld[0].rtx))->mode))]) + 4 - 1) / 4));
+
+
+      for (i = first_regno; i < last_regno; i++)
+        ((current_live_regs)[(i) / ((unsigned) 32)] &= ~(((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32))));
+    }
+     }
+
+   else if (((real_insn)->code) == CODE_LABEL)
+     {
+
+
+       do { register HARD_REG_ELT_TYPE *scan_tp_ = (current_live_regs), *scan_fp_ = (pending_dead_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= ~ *scan_fp_++; } while (0);
+       do { register HARD_REG_ELT_TYPE *scan_tp_ = (pending_dead_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0);
+     }
+
+
+
+
+   else if (((real_insn)->code) == NOTE
+      && ((real_insn)->fld[4].rtint) == -11)
+     do { register HARD_REG_ELT_TYPE *scan_tp_ = (current_live_regs), *scan_fp_ = (start_of_epilogue_needs.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ |= *scan_fp_++; } while (0);
+ }
+
+      do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs), *scan_fp_ = (current_live_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = *scan_fp_++; } while (0);
+      tinfo->block = b;
+      tinfo->bb_tick = bb_ticks[b];
+    }
+  else
+
+
+    do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = -1; } while (0);
+
+
+
+
+
+
+  do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+
+  for (insn = target; insn; insn = next)
+    {
+      rtx this_jump_insn = insn;
+
+      next = ((insn)->fld[2].rtx);
+      switch (((insn)->code))
+ {
+ case CODE_LABEL:
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (pending_dead_regs), *scan_fp_ = (needed.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= ~ *scan_fp_++; } while (0);
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs), *scan_fp_ = (pending_dead_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= ~ *scan_fp_++; } while (0);
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (pending_dead_regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0);
+   continue;
+
+ case BARRIER:
+ case NOTE:
+   continue;
+
+ case INSN:
+   if (((((insn)->fld[3].rtx))->code) == USE)
+     {
+
+
+
+       if ((rtx_class[(int)(((((((insn)->fld[3].rtx))->fld[0].rtx))->code))]) == 'i')
+  mark_set_resources (((((insn)->fld[3].rtx))->fld[0].rtx), res, 0, 1);
+
+
+       continue;
+     }
+   else if (((((insn)->fld[3].rtx))->code) == CLOBBER)
+     continue;
+   else if (((((insn)->fld[3].rtx))->code) == SEQUENCE)
+     {
+
+
+       for (i = 0; i < ((((insn)->fld[3].rtx))->fld[0].rtvec->num_elem); i++)
+  {
+    this_jump_insn = ((((insn)->fld[3].rtx))->fld[0].rtvec->elem[i].rtx);
+    if (((this_jump_insn)->code) == JUMP_INSN)
+      break;
+  }
+     }
+ }
+
+      if (((this_jump_insn)->code) == JUMP_INSN)
+ {
+   if (jump_count++ < 10
+       && (simplejump_p (this_jump_insn)
+    || ((((this_jump_insn)->fld[3].rtx))->code) == RETURN))
+     {
+       next = next_active_insn (((this_jump_insn)->fld[7].rtx));
+       if (jump_insn == 0)
+  {
+    jump_insn = insn;
+    jump_target = ((this_jump_insn)->fld[7].rtx);
+  }
+     }
+   else
+     break;
+ }
+
+      mark_referenced_resources (insn, &needed, 1);
+      mark_set_resources (insn, &set, 0, 1);
+
+      do { register HARD_REG_ELT_TYPE *scan_tp_ = (scratch), *scan_fp_ = (set.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = *scan_fp_++; } while (0);
+      do { register HARD_REG_ELT_TYPE *scan_tp_ = (scratch), *scan_fp_ = (needed.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= ~ *scan_fp_++; } while (0);
+      do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs), *scan_fp_ = (scratch); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= ~ *scan_fp_++; } while (0);
+    }
+# 2635 "reorg.c"
+  if (jump_insn && jump_count < 10)
+    {
+      struct resources new_resources;
+      rtx stop_insn = next_active_insn (jump_insn);
+
+      mark_target_live_regs (next_active_insn (jump_target), &new_resources);
+      do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+      do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+
+
+      for (insn = target; insn != stop_insn; insn = next_active_insn (insn))
+ {
+   mark_referenced_resources (insn, &needed, 1);
+
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (scratch), *scan_fp_ = (needed.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = *scan_fp_++; } while (0);
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (scratch), *scan_fp_ = (set.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= ~ *scan_fp_++; } while (0);
+   do { register HARD_REG_ELT_TYPE *scan_tp_ = (new_resources.regs), *scan_fp_ = (scratch); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ |= *scan_fp_++; } while (0);
+
+   mark_set_resources (insn, &set, 0, 1);
+ }
+
+      do { register HARD_REG_ELT_TYPE *scan_tp_ = (res->regs), *scan_fp_ = (new_resources.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ &= *scan_fp_++; } while (0);
+    }
+
+  do { register HARD_REG_ELT_TYPE *scan_tp_ = (tinfo->live_regs), *scan_fp_ = (res->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = *scan_fp_++; } while (0);
+}
+# 2676 "reorg.c"
+static void
+fill_simple_delay_slots (first, non_jumps_p)
+     rtx first;
+     int non_jumps_p;
+{
+  register rtx insn, pat, trial, next_trial;
+  register int i, j;
+  int num_unfilled_slots = ((rtx *) ((&unfilled_slots_obstack)->next_free)) - ((rtx *) ((&unfilled_slots_obstack)->object_base));
+  struct resources needed, set;
+  register int slots_to_fill, slots_filled;
+  rtx delay_list;
+
+  for (i = 0; i < num_unfilled_slots; i++)
+    {
+      int flags;
+
+
+
+      insn = ((rtx *) ((&unfilled_slots_obstack)->object_base))[i];
+      if (insn == 0
+   || ((insn)->volatil)
+   || (((insn)->code) == INSN
+       && ((((insn)->fld[3].rtx))->code) == SEQUENCE)
+   || (((insn)->code) == JUMP_INSN && non_jumps_p)
+   || (((insn)->code) != JUMP_INSN && ! non_jumps_p))
+ continue;
+
+      if (((insn)->code) == JUMP_INSN)
+ flags = get_jump_flags (insn, ((insn)->fld[7].rtx));
+      else
+ flags = get_jump_flags (insn, (rtx) 0);
+      slots_to_fill = num_delay_slots (insn);
+      if (slots_to_fill == 0)
+ abort ();
+# 2729 "reorg.c"
+      slots_filled = 0;
+      delay_list = 0;
+
+      if ((trial = next_active_insn (insn))
+   && ((trial)->code) == JUMP_INSN
+   && simplejump_p (trial)
+   && eligible_for_delay (insn, slots_filled, trial, flags)
+   && no_labels_between_p (insn, trial))
+ {
+   slots_filled++;
+   delay_list = add_to_delay_list (trial, delay_list);
+
+
+   if (((rtx *) ((&unfilled_slots_obstack)->object_base))[i + 1] == trial)
+     ((rtx *) ((&unfilled_slots_obstack)->object_base))[i + 1] = 0;
+   {
+     rtx next = ((trial)->fld[2].rtx);
+     rtx prev = ((trial)->fld[1].rtx);
+     if (prev)
+       ((prev)->fld[2].rtx) = next;
+     if (next)
+       ((next)->fld[1].rtx) = prev;
+   }
+ }
+# 2766 "reorg.c"
+      if (slots_filled < slots_to_fill)
+ {
+   do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+   do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+   mark_set_resources (insn, &set, 0, 0);
+   mark_referenced_resources (insn, &needed, 0);
+
+   for (trial = prev_nonnote_insn (insn); ! stop_search_p (trial, 1);
+        trial = next_trial)
+     {
+       next_trial = prev_nonnote_insn (trial);
+
+
+       pat = ((trial)->fld[3].rtx);
+
+
+       if (((pat)->code) == USE || ((pat)->code) == CLOBBER)
+  continue;
+
+
+
+       if (! insn_references_resource_p (trial, &set, 1)
+    && ! insn_sets_resource_p (trial, &set, 1)
+    && ! insn_sets_resource_p (trial, &needed, 1)
+
+
+
+
+
+    )
+  {
+    trial = try_split (pat, trial, 1);
+    next_trial = prev_nonnote_insn (trial);
+    if (eligible_for_delay (insn, slots_filled, trial, flags))
+      {
+
+
+
+
+
+        update_reg_dead_notes (trial, insn);
+        delay_list = gen_rtx (INSN_LIST, VOIDmode,
+         trial, delay_list);
+        update_block (trial, trial);
+        delete_insn (trial);
+        if (slots_to_fill == ++slots_filled)
+   break;
+        continue;
+      }
+  }
+
+       mark_set_resources (trial, &set, 0, 1);
+       mark_referenced_resources (trial, &needed, 1);
+     }
+ }
+
+
+
+
+
+      if (slots_filled != slots_to_fill
+   && delay_list == 0
+   && ((insn)->code) == JUMP_INSN && condjump_p (insn))
+ {
+   delay_list = optimize_skip (insn);
+   if (delay_list)
+     slots_filled += 1;
+ }
+# 2851 "reorg.c"
+      if (slots_filled != slots_to_fill
+          && (((insn)->code) != JUMP_INSN
+       || (condjump_p (insn) && ! simplejump_p (insn)
+     && ((insn)->fld[7].rtx) != 0)))
+ {
+   rtx target = 0;
+   int maybe_never = 0;
+   int passed_label = 0;
+   int target_uses;
+   struct resources needed_at_jump;
+
+   do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+   do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+
+   if (((insn)->code) == CALL_INSN)
+     {
+       mark_set_resources (insn, &set, 0, 1);
+       mark_referenced_resources (insn, &needed, 1);
+       maybe_never = 1;
+     }
+   else
+     {
+       mark_set_resources (insn, &set, 0, 1);
+       mark_referenced_resources (insn, &needed, 1);
+       if (((insn)->code) == JUMP_INSN)
+  {
+
+
+    target = ((insn)->fld[7].rtx);
+    target_uses = ((target)->fld[5].rtint) - 1;
+  }
+
+     }
+
+   for (trial = next_nonnote_insn (insn); trial; trial = next_trial)
+     {
+       rtx pat, trial_delay;
+
+       next_trial = next_nonnote_insn (trial);
+
+       if (((trial)->code) == CODE_LABEL)
+  {
+    passed_label = 1;
+
+
+
+
+    if (trial == target && target_uses == 0)
+      {
+        target = 0;
+        continue;
+      }
+    else
+      break;
+  }
+       else if (((trial)->code) == BARRIER)
+  break;
+
+
+       pat = ((trial)->fld[3].rtx);
+
+
+       if (((pat)->code) == USE || ((pat)->code) == CLOBBER)
+  continue;
+
+
+
+       if (((pat)->code) == SEQUENCE)
+  trial_delay = ((pat)->fld[0].rtvec->elem[0].rtx);
+       else
+  trial_delay = trial;
+
+
+
+
+
+       if (((trial_delay)->code) == JUMP_INSN)
+  {
+    if (target == 0)
+      break;
+    else if (((trial_delay)->fld[7].rtx) == target)
+      target_uses--;
+    else
+      {
+        mark_target_live_regs
+   (next_active_insn (((trial_delay)->fld[7].rtx)),
+    &needed_at_jump);
+        needed.memory |= needed_at_jump.memory;
+        do { register HARD_REG_ELT_TYPE *scan_tp_ = (needed.regs), *scan_fp_ = (needed_at_jump.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ |= *scan_fp_++; } while (0);
+      }
+  }
+
+
+
+       if (target == 0
+    && ((pat)->code) != SEQUENCE
+    && ! insn_references_resource_p (trial, &set, 1)
+    && ! insn_sets_resource_p (trial, &set, 1)
+    && ! insn_sets_resource_p (trial, &needed, 1)
+
+
+
+    && ! (maybe_never && may_trap_p (pat))
+    && (trial = try_split (pat, trial, 0))
+    && eligible_for_delay (insn, slots_filled, trial, flags))
+  {
+    next_trial = next_nonnote_insn (trial);
+    delay_list = add_to_delay_list (trial, delay_list);
+
+
+
+
+
+
+    if (passed_label)
+      update_block (trial, trial);
+    delete_insn (trial);
+    if (slots_to_fill == ++slots_filled)
+      break;
+    continue;
+  }
+
+       mark_set_resources (trial, &set, 0, 1);
+       mark_referenced_resources (trial, &needed, 1);
+
+
+
+
+       set.cc = 1;
+
+
+       if (((trial)->code) == CALL_INSN
+    || ((trial)->code) == JUMP_INSN)
+  maybe_never = 1;
+     }
+
+
+
+
+   if (slots_to_fill != slots_filled
+       && trial
+       && ((trial)->code) == JUMP_INSN
+       && simplejump_p (trial)
+       && (target == 0 || ((trial)->fld[7].rtx) == target)
+       && (next_trial = next_active_insn (((trial)->fld[7].rtx))) != 0
+       && ! (((next_trial)->code) == INSN
+      && ((((next_trial)->fld[3].rtx))->code) == SEQUENCE)
+       && ! insn_references_resource_p (next_trial, &set, 1)
+       && ! insn_sets_resource_p (next_trial, &set, 1)
+       && ! insn_sets_resource_p (next_trial, &needed, 1)
+
+
+
+       && ! (maybe_never && may_trap_p (((next_trial)->fld[3].rtx)))
+       && (next_trial = try_split (((next_trial)->fld[3].rtx), next_trial, 0))
+       && eligible_for_delay (insn, slots_filled, next_trial, flags))
+     {
+       rtx new_label = next_active_insn (next_trial);
+
+       if (new_label != 0)
+  new_label = get_label_before (new_label);
+       else
+  new_label = find_end_label ();
+
+       delay_list
+  = add_to_delay_list (copy_rtx (next_trial), delay_list);
+       slots_filled++;
+       reorg_redirect_jump (trial, new_label);
+
+
+
+       if (target)
+  reorg_redirect_jump (insn, new_label);
+     }
+ }
+
+      if (delay_list)
+ ((rtx *) ((&unfilled_slots_obstack)->object_base))[i]
+   = emit_delay_sequence (insn, delay_list,
+     slots_filled, slots_to_fill);
+
+      if (slots_to_fill == slots_filled)
+ ((rtx *) ((&unfilled_slots_obstack)->object_base))[i] = 0;
+
+      note_delay_statistics (slots_filled, 0);
+    }
+
+
+
+
+
+
+  if (current_function_epilogue_delay_list)
+    return;
+
+  slots_to_fill = ((target_flags & 256) ? sparc_frw_epilogue_delay_slots () : 1);
+  if (slots_to_fill == 0)
+    return;
+
+  slots_filled = 0;
+  do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+
+  for (trial = get_last_insn (); ! stop_search_p (trial, 1);
+       trial = ((trial)->fld[1].rtx))
+    {
+      if (((trial)->code) == NOTE)
+ continue;
+      pat = ((trial)->fld[3].rtx);
+      if (((pat)->code) == USE || ((pat)->code) == CLOBBER)
+ continue;
+
+      if (! insn_references_resource_p (trial, &set, 1)
+   && ! insn_sets_resource_p (trial, &needed, 1)
+
+
+
+
+   )
+ {
+   trial = try_split (pat, trial, 1);
+   if (((target_flags & 256) ? sparc_frw_eligible_for_epilogue_delay (trial, slots_filled) : eligible_for_epilogue_delay (trial, slots_filled)))
+     {
+
+
+
+       current_function_epilogue_delay_list
+  = gen_rtx (INSN_LIST, VOIDmode, trial,
+      current_function_epilogue_delay_list);
+       mark_referenced_resources (trial, &end_of_function_needs, 1);
+       update_block (trial, trial);
+       delete_insn (trial);
+
+
+       ((trial)->volatil) = 0;
+
+       if (slots_to_fill == ++slots_filled)
+  break;
+       continue;
+     }
+ }
+
+      mark_set_resources (trial, &set, 0, 1);
+      mark_referenced_resources (trial, &needed, 1);
+    }
+
+  note_delay_statistics (slots_filled, 0);
+
+}
+# 3125 "reorg.c"
+static rtx
+fill_slots_from_thread (insn, condition, thread, opposite_thread, likely,
+   thread_if_true, own_thread, own_opposite_thread,
+   slots_to_fill, pslots_filled)
+     rtx insn;
+     rtx condition;
+     rtx thread, opposite_thread;
+     int likely;
+     int thread_if_true;
+     int own_thread, own_opposite_thread;
+     int slots_to_fill, *pslots_filled;
+{
+  rtx new_thread;
+  rtx delay_list = 0;
+  struct resources opposite_needed, set, needed;
+  rtx trial;
+  int lose = 0;
+  int must_annul = 0;
+  int flags;
+
+
+  if ((condition == const_true_rtx && ! thread_if_true)
+      || (! own_thread && ! thread_if_true))
+    abort ();
+
+  flags = get_jump_flags (insn, ((insn)->fld[7].rtx));
+
+
+
+  if (thread == 0)
+    return 0;
+
+
+
+  if (condition == const_true_rtx)
+    do { (&opposite_needed)->memory = (&opposite_needed)->volatil = (&opposite_needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&opposite_needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  else
+    mark_target_live_regs (opposite_thread, &opposite_needed);
+
+
+
+
+
+  new_thread = thread = try_split (((thread)->fld[3].rtx), thread, 0);
+
+
+
+
+
+
+
+  do { (&needed)->memory = (&needed)->volatil = (&needed)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&needed)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+  do { (&set)->memory = (&set)->volatil = (&set)->cc = 0; do { register HARD_REG_ELT_TYPE *scan_tp_ = ((&set)->regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0); } while (0);
+
+
+
+
+
+
+  for (trial = thread;
+       ! stop_search_p (trial, ! thread_if_true) && (! lose || own_thread);
+       trial = next_nonnote_insn (trial))
+    {
+      rtx pat, old_trial;
+
+
+      if (((trial)->code) == CODE_LABEL)
+ {
+   own_thread = 0;
+   continue;
+ }
+
+      pat = ((trial)->fld[3].rtx);
+      if (((pat)->code) == USE || ((pat)->code) == CLOBBER)
+ continue;
+
+
+
+      if (! insn_references_resource_p (trial, &set, 1)
+   && ! insn_sets_resource_p (trial, &set, 1)
+   && ! insn_sets_resource_p (trial, &needed, 1)
+
+
+
+
+   )
+ {
+
+
+
+   if (redundant_insn_p (trial, insn, delay_list))
+     {
+       if (own_thread)
+  {
+    update_block (trial, thread);
+    delete_insn (trial);
+  }
+       else
+  new_thread = next_active_insn (trial);
+
+       continue;
+     }
+
+
+
+
+   if (condition == const_true_rtx
+       || (! insn_sets_resource_p (trial, &opposite_needed, 1)
+    && ! may_trap_p (pat)))
+     {
+       old_trial = trial;
+       trial = try_split (pat, trial, 0);
+       if (new_thread == old_trial)
+  new_thread = trial;
+       pat = ((trial)->fld[3].rtx);
+       if (eligible_for_delay (insn, *pslots_filled, trial, flags))
+  goto winner;
+     }
+   else if (0
+
+
+
+
+     || thread_if_true
+
+     )
+     {
+       old_trial = trial;
+       trial = try_split (pat, trial, 0);
+       if (new_thread == old_trial)
+  new_thread = trial;
+       pat = ((trial)->fld[3].rtx);
+       if ((thread_if_true
+     ? eligible_for_annul_false (insn, *pslots_filled, trial, flags)
+     : 0))
+  {
+    rtx temp;
+
+    must_annul = 1;
+  winner:
+# 3275 "reorg.c"
+    if (own_thread)
+      {
+        update_block (trial, thread);
+        delete_insn (trial);
+      }
+    else
+      new_thread = next_active_insn (trial);
+
+    temp = own_thread ? trial : copy_rtx (trial);
+    if (thread_if_true)
+      ((temp)->in_struct) = 1;
+
+    delay_list = add_to_delay_list (temp, delay_list);
+
+    if (slots_to_fill == ++(*pslots_filled))
+      {
+
+
+
+        while (new_thread && ! own_thread
+        && ! insn_sets_resource_p (new_thread, &set, 1)
+        && ! insn_sets_resource_p (new_thread, &needed, 1)
+        && ! insn_references_resource_p (new_thread,
+             &set, 1)
+        && redundant_insn_p (new_thread, insn,
+        delay_list))
+   new_thread = next_active_insn (new_thread);
+        break;
+      }
+
+    continue;
+  }
+     }
+ }
+
+
+      lose = 1;
+      mark_set_resources (trial, &set, 0, 1);
+      mark_referenced_resources (trial, &needed, 1);
+
+
+
+
+      set.cc = 1;
+# 3336 "reorg.c"
+      if (((trial)->code) == INSN && ((pat)->code) == SET
+   && ((((pat)->fld[1].rtx))->code) == REG
+   && ((((pat)->fld[0].rtx))->code) == REG)
+ {
+   rtx next = next_nonnote_insn (trial);
+
+   if (next && ((next)->code) == INSN
+       && ((((next)->fld[3].rtx))->code) != USE
+       && ! reg_set_p (((pat)->fld[0].rtx), next)
+       && ! reg_set_p (((pat)->fld[1].rtx), next)
+       && reg_referenced_p (((pat)->fld[0].rtx), ((next)->fld[3].rtx)))
+     validate_replace_rtx (((pat)->fld[0].rtx), ((pat)->fld[1].rtx), next);
+ }
+    }
+
+
+
+  if (trial && ((trial)->code) == INSN
+      && ((((trial)->fld[3].rtx))->code) == SEQUENCE
+      && ((((((trial)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->code) == JUMP_INSN)
+    {
+
+
+      if (thread_if_true && trial == new_thread)
+ delay_list
+   = steal_delay_list_from_target (insn, condition, ((trial)->fld[3].rtx),
+       delay_list, &set, &needed,
+       &opposite_needed, slots_to_fill,
+       pslots_filled, &must_annul,
+       &new_thread);
+      else if (! thread_if_true)
+ delay_list
+   = steal_delay_list_from_fallthrough (insn, condition,
+            ((trial)->fld[3].rtx),
+            delay_list, &set, &needed,
+            &opposite_needed, slots_to_fill,
+            pslots_filled, &must_annul);
+    }
+
+
+
+
+
+
+
+  if (delay_list == 0 && likely && new_thread && ((new_thread)->code) == INSN)
+    {
+      rtx pat = ((new_thread)->fld[3].rtx);
+      rtx dest;
+      rtx src;
+
+      trial = new_thread;
+      pat = ((trial)->fld[3].rtx);
+
+      if (((trial)->code) != INSN || ((pat)->code) != SET
+   || ! eligible_for_delay (insn, 0, trial, flags))
+ return 0;
+
+      dest = ((pat)->fld[0].rtx), src = ((pat)->fld[1].rtx);
+      if ((((src)->code) == PLUS || ((src)->code) == MINUS)
+   && rtx_equal_p (((src)->fld[0].rtx), dest)
+   && ! reg_overlap_mentioned_p (dest, ((src)->fld[1].rtx)))
+ {
+   rtx other = ((src)->fld[1].rtx);
+   rtx new_arith;
+   rtx ninsn;
+
+
+
+
+   if (((other)->code) == CONST_INT)
+     new_arith = gen_rtx (((src)->code), ((src)->mode), dest,
+     negate_rtx (((src)->mode), other));
+   else
+     new_arith = gen_rtx (((src)->code) == PLUS ? MINUS : PLUS,
+     ((src)->mode), dest, other);
+
+   ninsn = emit_insn_after (gen_rtx (SET, VOIDmode, dest, new_arith),
+       insn);
+
+   if (recog_memoized (ninsn) < 0
+       || (insn_extract (ninsn),
+    ! constrain_operands (((ninsn)->fld[4].rtint), 1)))
+     {
+       delete_insn (ninsn);
+       return 0;
+     }
+
+   if (own_thread)
+     {
+       update_block (trial, thread);
+       delete_insn (trial);
+     }
+   else
+     new_thread = next_active_insn (trial);
+
+   ninsn = own_thread ? trial : copy_rtx (trial);
+   if (thread_if_true)
+     ((ninsn)->in_struct) = 1;
+
+   delay_list = add_to_delay_list (ninsn, (rtx) 0);
+   (*pslots_filled)++;
+ }
+    }
+
+  if (delay_list && must_annul)
+    ((insn)->unchanging) = 1;
+
+
+
+
+  if (new_thread != thread)
+    {
+      rtx label;
+
+      if (! thread_if_true)
+ abort ();
+
+      if (new_thread && ((new_thread)->code) == JUMP_INSN
+   && (simplejump_p (new_thread)
+       || ((((new_thread)->fld[3].rtx))->code) == RETURN))
+ new_thread = follow_jumps (((new_thread)->fld[7].rtx));
+
+      if (new_thread == 0)
+ label = find_end_label ();
+      else if (((new_thread)->code) == CODE_LABEL)
+ label = new_thread;
+      else
+ label = get_label_before (new_thread);
+
+      reorg_redirect_jump (insn, label);
+    }
+
+  return delay_list;
+}
+# 3482 "reorg.c"
+static void
+fill_eager_delay_slots (first)
+     rtx first;
+{
+  register rtx insn;
+  register int i;
+  int num_unfilled_slots = ((rtx *) ((&unfilled_slots_obstack)->next_free)) - ((rtx *) ((&unfilled_slots_obstack)->object_base));
+
+  for (i = 0; i < num_unfilled_slots; i++)
+    {
+      rtx condition;
+      rtx target_label, insn_at_target, fallthrough_insn;
+      rtx delay_list = 0;
+      int own_target;
+      int own_fallthrough;
+      int prediction, slots_to_fill, slots_filled;
+
+      insn = ((rtx *) ((&unfilled_slots_obstack)->object_base))[i];
+      if (insn == 0
+   || ((insn)->volatil)
+   || ((insn)->code) != JUMP_INSN
+   || ! condjump_p (insn))
+ continue;
+
+      slots_to_fill = num_delay_slots (insn);
+      if (slots_to_fill == 0)
+ abort ();
+
+      slots_filled = 0;
+      target_label = ((insn)->fld[7].rtx);
+      condition = get_branch_condition (insn, target_label);
+
+      if (condition == 0)
+ continue;
+
+
+
+
+
+      insn_at_target = next_active_insn (target_label);
+      own_target = own_thread_p (target_label, target_label, 0);
+
+      if (condition == const_true_rtx)
+ {
+   own_fallthrough = 0;
+   fallthrough_insn = 0;
+   prediction = 2;
+ }
+      else
+ {
+   fallthrough_insn = next_active_insn (insn);
+   own_fallthrough = own_thread_p (((insn)->fld[2].rtx), (rtx) 0, 1);
+   prediction = mostly_true_jump (insn, condition);
+ }
+
+
+
+
+
+      if (prediction > 0)
+ {
+   delay_list
+     = fill_slots_from_thread (insn, condition, insn_at_target,
+          fallthrough_insn, prediction == 2, 1,
+          own_target, own_fallthrough,
+          slots_to_fill, &slots_filled);
+
+   if (delay_list == 0 && own_fallthrough)
+     {
+
+
+
+
+       target_label = ((insn)->fld[7].rtx);
+       insn_at_target = next_active_insn (target_label);
+
+       delay_list
+  = fill_slots_from_thread (insn, condition, fallthrough_insn,
+       insn_at_target, 0, 0,
+       own_fallthrough, own_target,
+       slots_to_fill, &slots_filled);
+     }
+ }
+      else
+ {
+   if (own_fallthrough)
+     delay_list
+       = fill_slots_from_thread (insn, condition, fallthrough_insn,
+     insn_at_target, 0, 0,
+     own_fallthrough, own_target,
+     slots_to_fill, &slots_filled);
+
+   if (delay_list == 0)
+     delay_list
+       = fill_slots_from_thread (insn, condition, insn_at_target,
+     next_active_insn (insn), 0, 1,
+     own_target, own_fallthrough,
+     slots_to_fill, &slots_filled);
+ }
+
+      if (delay_list)
+ ((rtx *) ((&unfilled_slots_obstack)->object_base))[i]
+   = emit_delay_sequence (insn, delay_list,
+     slots_filled, slots_to_fill);
+
+      if (slots_to_fill == slots_filled)
+ ((rtx *) ((&unfilled_slots_obstack)->object_base))[i] = 0;
+
+      note_delay_statistics (slots_filled, 1);
+    }
+}
+
+
+
+
+
+static void
+relax_delay_slots (first)
+     rtx first;
+{
+  register rtx insn, next, pat;
+  register rtx trial, delay_insn, target_label;
+
+
+  for (insn = first; insn; insn = next)
+    {
+      rtx other;
+
+      next = next_active_insn (insn);
+
+
+
+
+      if (((insn)->code) == JUMP_INSN
+   && condjump_p (insn)
+   && (target_label = ((insn)->fld[7].rtx)) != 0)
+ {
+   target_label = follow_jumps (target_label);
+   target_label = prev_label (next_active_insn (target_label));
+
+   if (target_label == 0)
+     target_label = find_end_label ();
+
+   if (next_active_insn (target_label) == next)
+     {
+       delete_jump (insn);
+       continue;
+     }
+
+   if (target_label != ((insn)->fld[7].rtx))
+     reorg_redirect_jump (insn, target_label);
+
+
+
+
+   if (next && ((next)->code) == JUMP_INSN
+       && (simplejump_p (next) || ((((next)->fld[3].rtx))->code) == RETURN)
+       && next_active_insn (target_label) == next_active_insn (next)
+       && no_labels_between_p (insn, next))
+     {
+       rtx label = ((next)->fld[7].rtx);
+# 3651 "reorg.c"
+       ++((target_label)->fld[5].rtint);
+       if (label)
+  ++((label)->fld[5].rtint);
+
+       if (invert_jump (insn, label))
+  {
+    delete_insn (next);
+    next = insn;
+  }
+
+       if (label)
+  --((label)->fld[5].rtint);
+
+       if (--((target_label)->fld[5].rtint) == 0)
+  delete_insn (target_label);
+
+       continue;
+     }
+ }
+# 3679 "reorg.c"
+      if (((insn)->code) == JUMP_INSN
+   && (simplejump_p (insn) || ((((insn)->fld[3].rtx))->code) == RETURN)
+   && (other = prev_active_insn (insn)) != 0
+   && condjump_p (other)
+   && no_labels_between_p (other, insn)
+   && 0 < mostly_true_jump (other,
+       get_branch_condition (other,
+        ((other)->fld[7].rtx))))
+ {
+   rtx other_target = ((other)->fld[7].rtx);
+   target_label = ((insn)->fld[7].rtx);
+
+
+
+   if (other_target)
+     ++((other_target)->fld[5].rtint);
+
+   if (invert_jump (other, target_label))
+     reorg_redirect_jump (insn, other_target);
+
+   if (other_target)
+     --((other_target)->fld[5].rtint);
+ }
+
+
+      if (((insn)->code) != INSN
+   || ((((insn)->fld[3].rtx))->code) != SEQUENCE)
+ continue;
+
+      pat = ((insn)->fld[3].rtx);
+      delay_insn = ((pat)->fld[0].rtvec->elem[0].rtx);
+
+
+
+
+      if (redundant_insn_p (((pat)->fld[0].rtvec->elem[1].rtx), delay_insn, 0))
+ {
+   delete_from_delay_slot (((pat)->fld[0].rtvec->elem[1].rtx));
+   next = prev_active_insn (next);
+   continue;
+ }
+
+
+      if (((((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->code) != JUMP_INSN
+   || ! condjump_p (((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx)))
+ continue;
+
+      target_label = ((delay_insn)->fld[7].rtx);
+
+      if (target_label)
+ {
+
+
+   trial = follow_jumps (target_label);
+   trial = prev_label (next_active_insn (trial));
+   if (trial == 0 && target_label != 0)
+     trial = find_end_label ();
+
+   if (trial != target_label
+       && redirect_with_delay_slots_safe_p (delay_insn, trial, insn))
+     {
+       reorg_redirect_jump (delay_insn, trial);
+       target_label = trial;
+     }
+
+
+
+   trial = next_active_insn (target_label);
+   if (trial && ((((trial)->fld[3].rtx))->code) != SEQUENCE
+       && redundant_insn_p (trial, insn, 0))
+     {
+       trial = next_active_insn (trial);
+       if (trial == 0)
+  target_label = find_end_label ();
+       else
+  target_label = get_label_before (trial);
+       reorg_redirect_jump (delay_insn, target_label);
+       next = insn;
+       continue;
+     }
+
+
+
+   if (trial && ((((trial)->fld[3].rtx))->code) == SEQUENCE
+       && ((((trial)->fld[3].rtx))->fld[0].rtvec->num_elem) == 2
+       && ((((((trial)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->code) == JUMP_INSN
+       && (simplejump_p (((((trial)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))
+    || ((((((((trial)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->fld[3].rtx))->code) == RETURN)
+       && redundant_insn_p (((((trial)->fld[3].rtx))->fld[0].rtvec->elem[1].rtx), insn, 0))
+     {
+       target_label = ((((((trial)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->fld[7].rtx);
+       if (target_label == 0)
+  target_label = find_end_label ();
+
+       if (redirect_with_delay_slots_safe_p (delay_insn, target_label,
+          insn))
+  {
+    reorg_redirect_jump (delay_insn, target_label);
+    next = insn;
+    continue;
+  }
+     }
+ }
+
+      if (! ((delay_insn)->unchanging)
+   && prev_active_insn (target_label) == insn
+# 3793 "reorg.c"
+   )
+ {
+   int i;
+# 3808 "reorg.c"
+   for (i = 0; i < ((pat)->fld[0].rtvec->num_elem); i++)
+     ((((pat)->fld[0].rtvec->elem[i].rtx))->in_struct) = 0;
+
+   trial = ((insn)->fld[1].rtx);
+   delete_insn (insn);
+   emit_insn_after (pat, trial);
+   delete_scheduled_jump (delay_insn);
+   continue;
+ }
+
+
+
+
+      if (next && ((next)->code) == INSN
+   && prev_label (next_active_insn (next)) == target_label
+   && simplejump_p (insn)
+   && ((pat)->fld[0].rtvec->num_elem) == 2
+   && rtx_equal_p (((next)->fld[3].rtx), ((((pat)->fld[0].rtvec->elem[1].rtx))->fld[3].rtx)))
+ {
+   delete_insn (insn);
+   continue;
+ }
+
+
+
+
+
+
+      if (! ((delay_insn)->unchanging)
+   && next && ((next)->code) == JUMP_INSN
+   && (simplejump_p (next) || ((((next)->fld[3].rtx))->code) == RETURN)
+   && next_active_insn (target_label) == next_active_insn (next)
+   && no_labels_between_p (insn, next))
+ {
+   rtx label = ((next)->fld[7].rtx);
+   rtx old_label = ((delay_insn)->fld[7].rtx);
+
+   if (label == 0)
+     label = find_end_label ();
+
+   if (redirect_with_delay_slots_safe_p (delay_insn, label, insn))
+     {
+
+
+
+       if (old_label)
+  ++((old_label)->fld[5].rtint);
+
+       if (invert_jump (delay_insn, label))
+  {
+    delete_insn (next);
+    next = insn;
+  }
+
+       if (old_label && --((old_label)->fld[5].rtint) == 0)
+  delete_insn (old_label);
+       continue;
+     }
+ }
+
+
+
+      if (((((pat)->fld[0].rtvec->elem[1].rtx))->in_struct)
+   && own_thread_p (((insn)->fld[2].rtx), 0, 1))
+ try_merge_delay_insns (insn, next);
+      else if (! ((((pat)->fld[0].rtvec->elem[1].rtx))->in_struct)
+        && own_thread_p (target_label, target_label, 0))
+ try_merge_delay_insns (insn, next_active_insn (target_label));
+
+
+
+      next = next_active_insn (insn);
+    }
+}
+
+
+
+
+
+
+
+static void
+make_return_insns (first)
+     rtx first;
+{
+  rtx insn, jump_insn, pat;
+  rtx real_return_label = end_of_function_label;
+  int slots, i;
+
+
+
+
+  for (insn = first; insn; insn = ((insn)->fld[2].rtx))
+    if (((insn)->code) == JUMP_INSN && ((((insn)->fld[3].rtx))->code) == RETURN)
+      {
+ real_return_label = get_label_before (insn);
+ break;
+      }
+
+
+
+  ((real_return_label)->fld[5].rtint)++;
+
+
+  __extension__ ({ struct obstack *__o = (&unfilled_slots_obstack); void *__obj = (unfilled_firstobj); if (__obj > (void *)__o->chunk && __obj < (void *)__o->chunk_limit) __o->next_free = __o->object_base = __obj; else (obstack_free) (__o, __obj); });
+
+  for (insn = first; insn; insn = ((insn)->fld[2].rtx))
+    {
+      int flags;
+
+
+
+      if (((insn)->code) != INSN
+   || ((((insn)->fld[3].rtx))->code) != SEQUENCE
+   || ((((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->code) != JUMP_INSN
+   || ((((((insn)->fld[3].rtx))->fld[0].rtvec->elem[0].rtx))->fld[7].rtx) != end_of_function_label)
+ continue;
+
+      pat = ((insn)->fld[3].rtx);
+      jump_insn = ((pat)->fld[0].rtvec->elem[0].rtx);
+
+
+
+      if (! reorg_redirect_jump (jump_insn, (rtx) 0))
+ {
+   reorg_redirect_jump (jump_insn, real_return_label);
+   continue;
+ }
+
+
+
+
+
+      flags = get_jump_flags (jump_insn, ((jump_insn)->fld[7].rtx));
+      slots = num_delay_slots (jump_insn);
+      if (slots >= ((pat)->fld[0].rtvec->num_elem) - 1)
+ {
+   for (i = 1; i < ((pat)->fld[0].rtvec->num_elem); i++)
+     if (! (
+
+     (((jump_insn)->unchanging)
+      && ((((pat)->fld[0].rtvec->elem[i].rtx))->in_struct))
+     ? eligible_for_annul_false (jump_insn, i - 1,
+            ((pat)->fld[0].rtvec->elem[i].rtx), flags) :
+
+
+
+
+
+
+
+     eligible_for_delay (jump_insn, i -1, ((pat)->fld[0].rtvec->elem[i].rtx), flags)))
+       break;
+ }
+      else
+ i = 0;
+
+      if (i == ((pat)->fld[0].rtvec->num_elem))
+ continue;
+
+
+
+
+
+      if (((((jump_insn)->fld[3].rtx))->code) == RETURN)
+ {
+   rtx prev = ((insn)->fld[1].rtx);
+
+   delete_insn (insn);
+   for (i = 1; i < ((pat)->fld[0].rtvec->num_elem); i++)
+     prev = emit_insn_after (((((pat)->fld[0].rtvec->elem[i].rtx))->fld[3].rtx), prev);
+
+   insn = emit_jump_insn_after (((jump_insn)->fld[3].rtx), prev);
+   emit_barrier_after (insn);
+
+   if (slots)
+     __extension__ ({ struct obstack *__o = (&unfilled_slots_obstack); ((__o->next_free + sizeof (void *) > __o->chunk_limit) ? (_obstack_newchunk (__o, sizeof (void *)), 0) : 0), *((void **)__o->next_free)++ = ((void *)insn); (void) 0; });
+ }
+      else
+
+
+ reorg_redirect_jump (jump_insn, real_return_label);
+    }
+
+
+
+  if (--((real_return_label)->fld[5].rtint) == 0)
+    delete_insn (real_return_label);
+
+  fill_simple_delay_slots (first, 1);
+  fill_simple_delay_slots (first, 0);
+}
+
+
+
+
+void
+dbr_schedule (first, file)
+     rtx first;
+     FILE *file;
+{
+  rtx insn, next, epilogue_insn = 0;
+  int i;
+# 4025 "reorg.c"
+  if (n_basic_blocks == 0)
+    return;
+
+
+
+  for (max_uid = 0, insn = first; insn; insn = ((insn)->fld[2].rtx))
+    {
+      if (((insn)->fld[0].rtint) > max_uid)
+ max_uid = ((insn)->fld[0].rtint);
+      if (((insn)->code) == NOTE
+   && ((insn)->fld[4].rtint) == -11)
+ epilogue_insn = insn;
+    }
+
+  uid_to_ruid = (int *) alloca ((max_uid + 1) * sizeof (int *));
+  for (i = 0, insn = first; insn; i++, insn = ((insn)->fld[2].rtx))
+    uid_to_ruid[((insn)->fld[0].rtint)] = i;
+
+
+  if (unfilled_firstobj == 0)
+    {
+      gcc_obstack_init (&unfilled_slots_obstack);
+      unfilled_firstobj = (rtx *) __extension__ ({ struct obstack *__h = (&unfilled_slots_obstack); __extension__ ({ struct obstack *__o = (__h); int __len = ((0)); ((__o->chunk_limit - __o->next_free < __len) ? (_obstack_newchunk (__o, __len), 0) : 0); __o->next_free += __len; (void) 0; }); __extension__ ({ struct obstack *__o1 = (__h); void *value = (void *) __o1->object_base; if (__o1->next_free == value) __o1->maybe_empty_object = 1; __o1->next_free = (((((__o1->next_free) - (char *)0)+__o1->alignment_mask) & ~ (__o1->alignment_mask)) + (char *)0); ((__o1->next_free - (char *)__o1->chunk > __o1->chunk_limit - (char *)__o1->chunk) ? (__o1->next_free = __o1->chunk_limit) : 0); __o1->object_base = __o1->next_free; value; }); });
+    }
+
+  for (insn = next_active_insn (first); insn; insn = next_active_insn (insn))
+    {
+      rtx target;
+
+      ((insn)->unchanging) = 0;
+      ((insn)->in_struct) = 0;
+
+
+      if (((insn)->code) == JUMP_INSN
+   && (((((insn)->fld[3].rtx))->code) == ADDR_VEC
+       || ((((insn)->fld[3].rtx))->code) == ADDR_DIFF_VEC))
+ continue;
+
+      if (num_delay_slots (insn) > 0)
+ __extension__ ({ struct obstack *__o = (&unfilled_slots_obstack); ((__o->next_free + sizeof (void *) > __o->chunk_limit) ? (_obstack_newchunk (__o, sizeof (void *)), 0) : 0), *((void **)__o->next_free)++ = ((void *)insn); (void) 0; });
+
+
+      if (((insn)->code) == JUMP_INSN && condjump_p (insn)
+   && ((insn)->fld[7].rtx) != 0
+   && ((target = prev_label (next_active_insn (((insn)->fld[7].rtx))))
+       != ((insn)->fld[7].rtx)))
+ redirect_jump (insn, target);
+    }
+# 4081 "reorg.c"
+  end_of_function_needs.cc = 0;
+  end_of_function_needs.memory = 1;
+  do { register HARD_REG_ELT_TYPE *scan_tp_ = (end_of_function_needs.regs); register int i; for (i = 0; i < ((64 + 32 - 1) / 32); i++) *scan_tp_++ = 0; } while (0);
+
+  if (frame_pointer_needed)
+    {
+      ((end_of_function_needs.regs)[(30) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((30) % ((unsigned) 32)));
+
+
+
+
+      if (! (get_frame_size () != 0 || current_function_calls_alloca || current_function_outgoing_args_size))
+
+ ((end_of_function_needs.regs)[(14) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((14) % ((unsigned) 32)));
+    }
+  else
+    ((end_of_function_needs.regs)[(14) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((14) % ((unsigned) 32)));
+
+  if (current_function_return_rtx != 0
+      && ((current_function_return_rtx)->code) == REG)
+    mark_referenced_resources (current_function_return_rtx,
+          &end_of_function_needs, 1);
+
+  for (i = 0; i < 64; i++)
+    if (global_regs[i])
+      ((end_of_function_needs.regs)[(i) / ((unsigned) 32)] |= ((HARD_REG_ELT_TYPE) (1)) << ((i) % ((unsigned) 32)));
+# 4125 "reorg.c"
+  start_of_epilogue_needs = end_of_function_needs;
+
+  while (epilogue_insn = next_nonnote_insn (epilogue_insn))
+    mark_set_resources (epilogue_insn, &end_of_function_needs, 0, 1);
+
+
+  end_of_function_label = 0;
+
+
+  target_hash_table
+    = (struct target_info **) alloca ((257
+           * sizeof (struct target_info *)));
+  bzero (target_hash_table, 257 * sizeof (struct target_info *));
+
+  bb_ticks = (int *) alloca (n_basic_blocks * sizeof (int));
+  bzero (bb_ticks, n_basic_blocks * sizeof (int));
+
+
+  bzero (num_insns_needing_delays, sizeof num_insns_needing_delays);
+  bzero (num_filled_delays, sizeof num_filled_delays);
+
+
+
+
+  for (reorg_pass_number = 0;
+       reorg_pass_number < 2;
+       reorg_pass_number++)
+    {
+      fill_simple_delay_slots (first, 1);
+      fill_simple_delay_slots (first, 0);
+      fill_eager_delay_slots (first);
+      relax_delay_slots (first);
+    }
+
+
+
+  for (insn = first; insn; insn = next)
+    {
+      next = ((insn)->fld[2].rtx);
+
+      if (((insn)->code) == INSN && ((((insn)->fld[3].rtx))->code) == USE
+   && (rtx_class[(int)(((((((insn)->fld[3].rtx))->fld[0].rtx))->code))]) == 'i')
+ next = delete_insn (insn);
+    }
+
+
+
+
+  if (end_of_function_label && --((end_of_function_label)->fld[5].rtint) == 0)
+    delete_insn (end_of_function_label);
+
+
+  if ((! (target_flags & 2)) && end_of_function_label != 0)
+    make_return_insns (first);
+
+
+  __extension__ ({ struct obstack *__o = (&unfilled_slots_obstack); void *__obj = (unfilled_firstobj); if (__obj > (void *)__o->chunk && __obj < (void *)__o->chunk_limit) __o->next_free = __o->object_base = __obj; else (obstack_free) (__o, __obj); });
+
+
+  unfilled_firstobj = (rtx *) __extension__ ({ struct obstack *__h = (&unfilled_slots_obstack); __extension__ ({ struct obstack *__o = (__h); int __len = ((0)); ((__o->chunk_limit - __o->next_free < __len) ? (_obstack_newchunk (__o, __len), 0) : 0); __o->next_free += __len; (void) 0; }); __extension__ ({ struct obstack *__o1 = (__h); void *value = (void *) __o1->object_base; if (__o1->next_free == value) __o1->maybe_empty_object = 1; __o1->next_free = (((((__o1->next_free) - (char *)0)+__o1->alignment_mask) & ~ (__o1->alignment_mask)) + (char *)0); ((__o1->next_free - (char *)__o1->chunk > __o1->chunk_limit - (char *)__o1->chunk) ? (__o1->next_free = __o1->chunk_limit) : 0); __o1->object_base = __o1->next_free; value; }); });
+
+
+
+  reposition_prologue_and_epilogue_notes (first);
+
+  if (file)
+    {
+      register int i, j, need_comma;
+
+      for (reorg_pass_number = 0;
+    reorg_pass_number < 2;
+    reorg_pass_number++)
+ {
+   fprintf (file, ";; Reorg pass #%d:\n", reorg_pass_number + 1);
+   for (i = 0; i < 2; i++)
+     {
+       need_comma = 0;
+       fprintf (file, ";; Reorg function #%d\n", i);
+
+       fprintf (file, ";; %d insns needing delay slots\n;; ",
+         num_insns_needing_delays[i][reorg_pass_number]);
+
+       for (j = 0; j < 3; j++)
+  if (num_filled_delays[i][j][reorg_pass_number])
+    {
+      if (need_comma)
+        fprintf (file, ", ");
+      need_comma = 1;
+      fprintf (file, "%d got %d delays",
+        num_filled_delays[i][j][reorg_pass_number], j);
+    }
+       fprintf (file, "\n");
+     }
+ }
+    }
+}

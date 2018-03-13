@@ -1,0 +1,22 @@
+################## This file link to mips or i386 makefile #######
+ifndef TARGET_ARCH
+	TARGET_ARCH = mips
+endif
+ifeq ($(TARGET_ARCH),)
+	TARGET_ARCH = mips
+endif
+
+ifneq ($(BENCHLANG),C)
+all:
+	@echo "Do NOT support language $(BENCHLANG)"
+else
+
+ifeq ($(TARGET_ARCH),mips)
+-include ../../../../mkmips.mk
+-include ../../../mkmips.mk
+-include ../../mkmips.mk
+-include ../mkmips.mk
+-include ./mkmips.mk
+endif
+
+endif

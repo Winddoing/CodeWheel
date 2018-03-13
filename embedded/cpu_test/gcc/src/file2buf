@@ -1,0 +1,10 @@
+rm -f src.h
+echo "#define MAXLINE " `wc -l 1.c | awk '{print $1}'` >src.h
+echo "static char in_buf[MAXLINE][256] = {"	>>src.h
+cat 1.c | sed 's/"/\\\"/g' | 
+          awk '{print "\"" $$_ "\"" ","}' >>src.h
+echo "};">>src.h
+
+echo "int l_p=0, c_p=0;">>src.h
+echo "static int cols_in_line[MAXLINE];">>src.h
+echo "static int first = 0;">>src.h
