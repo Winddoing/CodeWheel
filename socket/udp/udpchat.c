@@ -154,6 +154,7 @@ int main(int argc, char *argv[])
 	{
 		fprintf(stderr,	"Usage:%s <ip> <port>\n",
 				argv[0]);
+		fprintf(stderr, "local test:./udpchat 127.0.0.1 2222\n");
 		return EXIT_FAILURE;
 	}
 	info.ipAddr = argv[1];
