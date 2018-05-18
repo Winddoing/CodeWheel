@@ -1,0 +1,524 @@
+Index: f_hid.c
+===================================================================
+--- f_hid.c	(revision 1679)
++++ f_hid.c	(working copy)
+@@ -316,34 +316,51 @@
+ 	struct usb_request		*req  = cdev->req;
+ 	int status = 0;
+ 	__u16 value, length;
++	unsigned char report[2];
+ 
+ 	value	= __le16_to_cpu(ctrl->wValue);
+ 	length	= __le16_to_cpu(ctrl->wLength);
+ 
+-	VDBG(cdev, "hid_setup crtl_request : bRequestType:0x%x bRequest:0x%x "
++	printk("hid_setup crtl_request : bRequestType:0x%x bRequest:0x%x "
+ 		"Value:0x%x\n", ctrl->bRequestType, ctrl->bRequest, value);
+ 
+ 	switch ((ctrl->bRequestType << 8) | ctrl->bRequest) {
+-	case ((USB_DIR_IN | USB_TYPE_CLASS | USB_RECIP_INTERFACE) << 8
+-		  | HID_REQ_GET_REPORT):
+-		VDBG(cdev, "get_report\n");
++		case ((USB_DIR_IN | USB_TYPE_CLASS | USB_RECIP_INTERFACE) << 8
++				| HID_REQ_GET_REPORT):
++			printk("===> func: %s, line: %d\n", __func__, __LINE__);
++			printk("get_report\n");
++		switch (value >> 8) {      
++		case HID_REQ_GET_PROTOCOL:                                    
++			report[0] = 0x02;                                         
++			report[1] = 0x0a;                                         
+ 
+-		/* send an empty report */
+-		length = min_t(unsigned, length, hidg->report_length);
+-		memset(req->buf, 0x0, length);
++			length = min_t(unsigned, length, 2);                      
++			printk("hahahaha HID_REQ_GET_PROTOCOL: REPORT\n");        
++			length = 2;                                               
++			memcpy(req->buf, report, length);                         
++			goto respond;                                             
++			break;                                                    
++		default:                                                      
++			/* send an empty report */                                    
++			length = min_t(unsigned, length, hidg->report_length);        
++			memset(req->buf, 0x0, length);                                
+ 
+-		goto respond;
++			goto respond;                                                 
++			break;                                                        
++		}                                                                 
++
+ 		break;
+ 
+ 	case ((USB_DIR_IN | USB_TYPE_CLASS | USB_RECIP_INTERFACE) << 8
+ 		  | HID_REQ_GET_PROTOCOL):
+-		VDBG(cdev, "get_protocol\n");
++		printk("===> func: %s, line: %d\n", __func__, __LINE__);
++		printk("get_protocol\n");
+ 		goto stall;
+ 		break;
+ 
+ 	case ((USB_DIR_OUT | USB_TYPE_CLASS | USB_RECIP_INTERFACE) << 8
+ 		  | HID_REQ_SET_REPORT):
+-		VDBG(cdev, "set_report | wLenght=%d\n", ctrl->wLength);
++		printk("set_report | wLenght=%d\n", ctrl->wLength);
+ 		req->context  = hidg;
+ 		req->complete = hidg_set_report_complete;
+ 		goto respond;
+@@ -351,7 +368,7 @@
+ 
+ 	case ((USB_DIR_OUT | USB_TYPE_CLASS | USB_RECIP_INTERFACE) << 8
+ 		  | HID_REQ_SET_PROTOCOL):
+-		VDBG(cdev, "set_protocol\n");
++		printk("set_protocol\n");
+ 		goto stall;
+ 		break;
+ 
+@@ -359,7 +376,7 @@
+ 		  | USB_REQ_GET_DESCRIPTOR):
+ 		switch (value >> 8) {
+ 		case HID_DT_HID:
+-			VDBG(cdev, "USB_REQ_GET_DESCRIPTOR: HID\n");
++			printk("USB_REQ_GET_DESCRIPTOR: HID\n");
+ 			length = min_t(unsigned short, length,
+ 						   hidg_desc.bLength);
+ 			memcpy(req->buf, &hidg_desc, length);
+@@ -366,7 +383,7 @@
+ 			goto respond;
+ 			break;
+ 		case HID_DT_REPORT:
+-			VDBG(cdev, "USB_REQ_GET_DESCRIPTOR: REPORT\n");
++			printk("USB_REQ_GET_DESCRIPTOR: REPORT\n");
+ 			length = min_t(unsigned short, length,
+ 						   hidg->report_desc_length);
+ 			memcpy(req->buf, hidg->report_desc, length);
+@@ -374,7 +391,7 @@
+ 			break;
+ 
+ 		default:
+-			VDBG(cdev, "Unknown decriptor request 0x%x\n",
++			printk("Unknown decriptor request 0x%x\n",
+ 				 value >> 8);
+ 			goto stall;
+ 			break;
+@@ -381,9 +398,18 @@
+ 		}
+ 		break;
+ 
++	case ((USB_DIR_OUT | USB_TYPE_CLASS | USB_RECIP_INTERFACE) << 8  
++			| USB_REQ_GET_INTERFACE):  
++		printk("get_interface | wLenght=%d\n", ctrl->wLength);  
++		/* send an empty report */  
++		length = min_t(unsigned, length, hidg->report_length);  
++		memset(req->buf, 0x0, length);  
++		goto respond;  
++		break;
++
+ 	default:
+-		VDBG(cdev, "Unknown request 0x%x\n",
+-			 ctrl->bRequest);
++		printk("Unknown request 0x%x\n",
++				ctrl->bRequest);
+ 		goto stall;
+ 		break;
+ 	}
+Index: hid.c
+===================================================================
+--- hid.c	(revision 1679)
++++ hid.c	(working copy)
+@@ -16,13 +16,25 @@
+ #include <linux/platform_device.h>
+ #include <linux/list.h>
+ 
+-#define DRIVER_DESC		"HID Gadget"
++/*#define DEBUG_MOUSE*/
++
++#ifdef DEBUG_MOUSE
++#define DRIVER_DESC		"Mouse HID Gadget"
+ #define DRIVER_VERSION		"2010/03/16"
++#else
++#define DRIVER_DESC		"TouchDriver+ HID Gadget"
++#define DRIVER_VERSION		"2010/03/16"
++#endif
+ 
+ /*-------------------------------------------------------------------------*/
+ 
+-#define HIDG_VENDOR_NUM		0x0525	/* XXX NetChip */
+-#define HIDG_PRODUCT_NUM	0xa4ac	/* Linux-USB HID gadget */
++#ifdef DEBUG_MOUSE
++#define HIDG_VENDOR_NUM		0x0101	/* Mouse NetChip */
++#define HIDG_PRODUCT_NUM	0x0007	/* Linux-USB HID gadget */
++#else
++#define HIDG_VENDOR_NUM		0x1C4D	/* TouchDriver+ NetChip */
++#define HIDG_PRODUCT_NUM	0x0503	/* Linux-USB HID gadget */
++#endif
+ 
+ /*-------------------------------------------------------------------------*/
+ 
+@@ -263,10 +275,359 @@
+ MODULE_AUTHOR("Fabien Chouteau, Peter Korsgaard");
+ MODULE_LICENSE("GPL");
+ 
++#ifdef DEBUG_MOUSE
++/*hid descriptor for a mouse*/
++static struct hidg_func_descriptor vx_device_mouse_data = {
++	.subclass = 0,  /*NO SubClass*/
++	.protocol = 2,  /*Mouse*/
++	.report_length = 6,
++	.report_desc_length = 79,
++	.report_desc={
++		0x05,0x01,  /*Usage Page (Generic Desktop Controls)*/
++		0x09,0x02,  /*Usage (Mouse)*/
++		0xa1,0x01,  /*Collction (Application)*/
++		0x09,0x01,  /*Usage (pointer)*/
++		0xa1,0x00,  /*Collction (Physical)*/
++		0x05,0x09,  /*Usage Page (Button)*/
++		0x19,0x01,  /*Usage Minimum(1)*/
++		0x29,0x05,  /*Usage Maximum(3) */
++		0x15,0x00,  /*Logical Minimum(1)*/
++		0x25,0x01,  /*Logical Maximum(1)*/
++		0x95,0x05,  /*Report Count(5)  */
++		0x75,0x01,  /*Report Size(1)*/
++		0x81,0x02,  /*Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++		0x95,0x01,  /*Report Count(1)*/
++		0x75,0x03,  /*Report Size(3) */
++		0x81,0x01,  /*Input (Cnst,Ary,Abs) */
++		0x05,0x01,  /*Usage Page (Generic Desktop Controls)*/
++		0x09,0x30,  /*Usage(x)*/
++		0x09,0x31,  /*Usage(y)*/
++		0x16,0x00,0xF8,  /*Logical Minimum (-2048)*/
++		0x26,0xFF,0x07,  /*Logical Maximum (2047)*/
++		0x75,0x0C, /*Report Size(12)*/
++		0x95,0x02, /*Report Count(2) */
++		0x81,0x06, /*Input (Data,Var,Rel,NWrp,Lin,Pref,NNul,Bit)*/
++		0x09,0x38,  /*Usage(Wheel)*/
++		0x15,0x81,  /*Logical Minimum(-127)*/
++		0x25,0x7f,  /*Logical Maximum(127)*/
++		0x75,0x08,  /*Report Size(8)*/
++		0x95,0x01,  /*Report Count(1)  */
++		0x81,0x06,  /*Input (Data,Var,Rel,NWrp,Lin,Pref,NNul,Bit)*/
++		0x05,0x0C, /*Usage Page (Consumer Devices) */
++		0x0A,0x38,0x02, /*Usage (AC Pan)*/
++		0x95,0x01, /*Report Count (1) */
++		0x75,0x08, /*Report Size (8)*/
++		0x15,0x81, /*Logical Minimum (-127) */
++		0x25,0x7F, /*Logical Maximum (127)*/
++		0x81,0x06, /*Input (Data,Var,Rel,NWrp,Lin,Pref,NNul,Bit) */
++		0xc0,   /*End Collection*/
++		0xc0    /*End Collection*/
++	}
++};
++#else
++/*hid descriptor for a touch*/
++static struct hidg_func_descriptor vx_device_touch_data = {
++	.subclass = 0,
++	.protocol = 0,
++	.report_length = 64,
++	.report_desc_length = 555,
++	.report_desc={
++		0x05, 0x0D, /*Usage Page (Digitizer) */ 
++		0x09, 0x04, /*Usage (Touch Screen) */  
++		0xA1, 0x01, /*Collection (Application) */  
++			0x85, 0x01, /*Report ID (1) */  
++			0x75, 0x10, /*Report Size (16)*/  
++			0x95, 0x01, /*Report Count (1)*/  
++			0x15, 0x00,  /*Logical Minimum (0) */
++			0x27, 0xFF, 0xFF, 0x00, 0x00, /*Logical Maximum (65535) */ 
++			0x09, 0x56, /*Usage (Scan Time) */ 
++			0x81, 0x02, /*Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */ 
++			0x75, 0x08, /*Report Size (8) */ 
++			0x26, 0xFF, 0x00, /*Logical Maximum (255)*/  
++			0x09, 0x54, /*Usage (Contact Count) */  
++			0x81, 0x02, /*Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */ 
++			0x09, 0x22, /*Usage (Finger) */ 
++			0xA1, 0x02,  /*Collection (Logical) */  
++				0x09, 0x51, /*Usage (Contact Identifier)*/  
++				0x26, 0xFF, 0x00, /*Logical Maximum (255) */  
++				0x81, 0x02, /*Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/ 
++				0x09, 0x42, /*Usage (Tip Switch)*/ 
++				0x09, 0x32, /*Usage (In Range)*/  
++				0x09, 0x47, /*Usage (Confidence)*/ 
++				0x25, 0x01, /*Logical Maximum (1)*/ 
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767) */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 1*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 2*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 3*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 4*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 5*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 6*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 7*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 8*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0xA1, 0x02, /* Collection (Logical) 9*/
++				0x05, 0x0D, /* Usage Page (Digitizer) */
++				0x09, 0x51, /* Usage (Contact Identifier) */
++				0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++				0x75, 0x08, /* Report Size (8) */
++				0x95, 0x01, /* Report Count (1) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x09, 0x42, /* Usage (Tip Switch) */
++				0x09, 0x32, /* Usage (In Range) */
++				0x09, 0x47, /* Usage (Confidence) */
++				0x25, 0x01,	/* Logical Maximum (1) */
++				0x75, 0x01, /* Report Size (1) */
++				0x95, 0x03, /* Report Count (3) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x95, 0x05, /* Report Count (5) */
++				0x81, 0x03, /* Input (Cnst,Var,Abs,NWrp,Lin,Pref,NNul,Bit) */
++				0x05, 0x01, /* Usage Page (Generic Desktop) */
++				0x26, 0xFF, 0x7F, /* Logical Maximum (32767)  */
++				0x75, 0x10, /* Report Size (16) */
++				0x95, 0x02, /* Report Count (2) */
++				0x09, 0x30, /* Usage (X) */
++				0x09, 0x31, /* Usage (Y) */
++				0x81, 0x02, /* Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)*/
++			0xC0, /* End Collection */
++			0x05, 0x0D, /* Usage Page (Digitizer) */
++			0x85, 0x02, /* Report ID (2) */
++			0x09, 0x55, /* Usage (Contact Count Maximum) */
++			0x15, 0x00, /* Logical Minimum (0) */
++			0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++			0x75, 0x08, /* Report Size (8) */
++			0x95, 0x01, /* Report Count (1) */
++			0xB1, 0x02, /* Feature (Data,Var,Abs,NWrp,Lin,Pref,NNul,NVol,Bit) */
++			0x06, 0x00, 0xFF, /* Usage Page (Vendor-Defined 1) */
++			0x85, 0x03, /* Report ID (3) */
++			0x09, 0xC5, /* Usage (Vendor-Defined 197) */
++			0x15, 0x00, /* Logical Minimum (0) */
++			0x26, 0xFF, 0x00, /* Logical Maximum (255) */
++			0x75, 0x08, /* Report Size (8) */
++			0x96, 0x00, 0x01, /* Report Count (256)  */
++			0xB1, 0x02, /* Feature (Data,Var,Abs,NWrp,Lin,Pref,NNul,NVol,Bit) */
++		0xC0, /* End Collection */
++	}
++};
++#endif
++
++
++static struct platform_device vx_hid_device = {
++	.name = "hidg",
++	.id            = 0,
++	.num_resources = 0,
++	.resource    = 0,
++#ifdef DEBUG_MOUSE
++	.dev.platform_data = &vx_device_mouse_data,
++#else
++	.dev.platform_data = &vx_device_touch_data,
++#endif
++};
++
+ static int __init hidg_init(void)
+ {
+ 	int status;
+ 
++	status = platform_device_register(&vx_hid_device);
++	if (status < 0) {
++		printk("f:%s, l:%d, platform_driver hid mouse error\n", __func__, __LINE__);
++		return status;
++	}
++
+ 	status = platform_driver_probe(&hidg_plat_driver,
+ 				hidg_plat_driver_probe);
+ 	if (status < 0)
+@@ -282,6 +643,7 @@
+ 
+ static void __exit hidg_cleanup(void)
+ {
++	platform_device_unregister(&vx_hid_device);
+ 	platform_driver_unregister(&hidg_plat_driver);
+ 	usb_composite_unregister(&hidg_driver);
+ }

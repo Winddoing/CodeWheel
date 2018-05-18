@@ -1,0 +1,5 @@
+
+ACTION!="add", GOTO="uibc_exit"
+KERNEL=="hidraw2", SUBSYSTEM=="hidraw", RUN+="/etc/udev/startup-uibc.sh"
+LABEL="uibc_exit"
+

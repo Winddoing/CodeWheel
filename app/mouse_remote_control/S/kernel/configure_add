@@ -1,0 +1,2 @@
+
+CONFIG_USB_G_HID=m  //模块，需要insmod进去系统
