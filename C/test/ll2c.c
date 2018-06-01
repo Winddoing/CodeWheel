@@ -26,7 +26,7 @@ int main(int argc, const char *argv[])
 	memset(dst, 0, sizeof(char) * 30);
 
 	for (i = 0;  i < sizeof(rtpTime);  i++) {
-		dst[19 - i] = (rtpTime >> j) & 0xFF;
+		dst[19 - i] = (unsigned char)((rtpTime >> j) & 0xFF);
 		printf("===> func: %s, line: %d, rtpTime: %016llx, %d, dst[%d]=%02x\n",
 				__func__, __LINE__, (rtpTime >> j) & 0xFF, j, 19 - i, dst[19 - i]);
 		j -= 8;
