@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {  
 	if (argc != 4)
 	{
-		printf ("%s  mulitAddr  port  bindIP\n");
+		printf ("%s  mulitAddr  port  bindIP\n", argv[0]);
 		exit(129);
 	}
 	char* multiAddr = argv[1];
@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
 	}  
 	/*** END OF MODIFICATION TO ORIGINAL */  
 
-	unsigned long nip = inet_addr (bindIP);
 	/* set up destination address */  
 	memset(&addr,0,sizeof(addr));  
 	addr.sin_family=AF_INET;  
@@ -66,7 +65,8 @@ int main(int argc, char *argv[])
 
 	/* use setsockopt() to request that the kernel join a multicast group */  
 	mreq.imr_multiaddr.s_addr=inet_addr(multiAddr);  
-	mreq.imr_interface.s_addr=inet_addr(bindIP);//htonl(INADDR_ANY);  
+/*	mreq.imr_interface.s_addr=inet_addr(bindIP);//htonl(INADDR_ANY);  */
+	mreq.imr_interface.s_addr=htonl(INADDR_ANY);  
 	if (setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&mreq,sizeof(mreq)) < 0)   
 	{  
 		perror("setsockopt");  
