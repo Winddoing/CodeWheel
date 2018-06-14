@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
 		exit(1);  
 	}  
 
-	FILE* fp = fopen ("./xxxx.ts", "w+");
 	/* now just enter a read-print loop */  
 	while (1)   
 	{  
@@ -83,7 +82,6 @@ int main(int argc, char *argv[])
 			perror("recvfrom");  
 			exit(1);  
 		}  
-		fwrite (msgbuf, 1, nbytes, fp);
 		printf("r: %s\n", msgbuf);
 		printf ("write data %d bytes\n", nbytes);
 	}  
