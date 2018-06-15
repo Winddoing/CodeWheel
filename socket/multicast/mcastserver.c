@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 			perror("sendto");
 			exit(1);
 		}
-		sleep(1);
+		sleep(1); //会影响接受端select的超时时间，延时越大，select的超时越大
 	}
 }
 
