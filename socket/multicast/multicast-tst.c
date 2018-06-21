@@ -44,6 +44,22 @@ static int socket_set_nonblock(int s)
 	return 0;
 }
 
+#if 0
+/* inet_pton_4 等同于 inet_pton */
+static int inet_pton_4(int family, const char *strptr, void *addrptr)
+{
+	if(family == AF_INET) {
+		struct in_addr in_val;
+		if (inet_aton(strptr, &in_val)) {
+			memcpy(addrptr, &in_val, sizeof(struct in_addr));
+			return (0);
+		}
+	}
+	errno = EAFNOSUPPORT;
+	return (-1);
+}
+#endif
+
 int main (int argc, char **argv)
 {
 	int fd = -1;
@@ -65,78 +81,78 @@ int main (int argc, char **argv)
 
 	socket_set_nonblock(fd);
 
+	/* 允许多个应用绑定同一个本地端口接收数据包 */
+	ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &yes,sizeof(yes));
+	if (ret < 0) {
+		printf("setsockopt: SO_REUSEADDR error, ret=%d\n", ret);
+		goto failed;
+	}
+
+	/* 禁止组播数据回环 */
+	if( setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, (char *)&loop, sizeof(loop)) < 0 ){
+		printf("setsockopt: IP_MULTICAST_LOOP error, ret=%d\n", ret);
+		goto failed;
+	}
+
+	/* 加入组播 */
+	mreq.imr_multiaddr.s_addr=inet_addr(VX_RTP_MUL_IP);
+	mreq.imr_interface.s_addr=htonl(INADDR_ANY);
+	ret = setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&mreq,sizeof(mreq));
+	if (ret < 0) {
+		printf("setsockopt: IP_ADD_MEMBERSHIP error, ret=%d\n", ret);
+		goto failed;
+	}
+
 	memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = htons(VX_RTP_LOCAL_PORT);
 
+	/* 设置网卡的组播IP !!! */
+	ret = inet_pton(AF_INET, VX_RTP_MUL_IP, &addr.sin_addr);
+	if (ret <= 0) {
+		printf("Set network card multicast ip error, ret=%d\n", ret);
+		goto failed;
+	}
+
+	/* 绑定网卡 */
 	ret = bind(fd, (const struct sockaddr *)&addr, sizeof(addr));
 	if (ret < 0) {
-		printf("===> func: %s, line: %d, bind err %d\n", __func__, __LINE__, -errno);
+		printf("Bind socket error, ret=%d\n", ret);
 		goto failed;
 	}
 
-	ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &yes,sizeof(yes));
-	if (ret < 0) {
-		printf("===> func: %s, line: %d xxxxxxxxxxxxxx\n", __func__, __LINE__);
-		goto failed;
-	}
-
-	if( setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, (char *)&loop, sizeof(loop)) < 0 ){
-		printf("===> func: %s, line: %d xxxxxxxxxxxxxx\n", __func__, __LINE__);
-		goto failed;
-	}
-
-	mreq.imr_multiaddr.s_addr=inet_addr(VX_RTP_MUL_IP);
-	mreq.imr_interface.s_addr=htonl(INADDR_ANY);
-
-	ret = setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&mreq,sizeof(mreq));
-	if (ret < 0)
-	{
-		printf("===> func: %s, line: %d, setsockopt err %d\n", __func__, __LINE__, ret);
-		goto failed;
-	}
 	printf("create rtp udp socket %d ok\n",fd);
 
 	sock_len = sizeof(addr);
-	tv.tv_sec = 10; //加大超时时间 1s timeout
-	tv.tv_usec = 0;
-
-#if 0
-	ret = setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(tv));
-	if (ret) {
-		printf("set socket rcv timeout err %d\n", -errno);
-		goto failed;
-	}
-#endif
-
 	/* 循环接收网络上来的组播消息 */
 	for (;;)
 	{
-#if 1
+		tv.tv_sec = 1;
+		tv.tv_usec = 0;
+
 		FD_ZERO(&rfds);
 		FD_SET(fd, &rfds);
+
 		ret = select(fd + 1, &rfds, NULL, NULL, &tv);
-		if(-1 == ret) {
+		if (-1 == ret) {
 			printf("===> func: %s, line: %d, Socket select error\n", __func__, __LINE__);
 			return -1;
-		}
-		if(0 == ret) {
+		} else if (0 == ret) {
 			printf("===> func: %s, line: %d, select timeout\n", __func__, __LINE__);
 			continue;
 		}
-#endif
-		struct sockaddr_in tmp_addr;
-		socklen_t addr_len = sizeof(tmp_addr);
-		bzero (recmsg, BUFLEN + 1);
+		//struct sockaddr_in tmp_addr;
+		//socklen_t addr_len = sizeof(tmp_addr);
+		//bzero (recmsg, BUFLEN + 1);
 
 eagain:
-/*		n = recvfrom(fd, recmsg, BUFLEN, 0, (struct sockaddr*) &addr, (socklen_t*)&sock_len);*/
-/*		n = recvfrom(fd, recmsg, BUFLEN, 0, (struct sockaddr*) &tmp_addr, &addr_len);*/
+		//n = recvfrom(fd, recmsg, BUFLEN, 0, (struct sockaddr*) &addr, (socklen_t*)&sock_len);
+		//n = recvfrom(fd, recmsg, BUFLEN, 0, (struct sockaddr*) &tmp_addr, &addr_len);
 		n = recv(fd, recmsg, BUFLEN, 0);
 		if (n < 0) {
 			printf("recvfrom err in udptalk!, n: %d, errno: %d\n", n, -errno);
-			if(EAGAIN == errno)
+			if (EAGAIN == errno)
 				goto eagain;
 			else
 				return -1;
@@ -144,8 +160,9 @@ eagain:
 			printf("recv data siez: %d\n", n);
 		} else {
 			/* 成功接收到数据报 */
-			recmsg[n] = 0;
-			printf ("s: %d, peer:%s\n", n, recmsg);
+			unsigned int * tmp = (unsigned int*)recmsg;
+
+			printf ("s: %d, peer: 0x%08x\n", n, tmp[0]);
 		}
 
 	}

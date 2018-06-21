@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 	addr.sin_addr.s_addr=inet_addr(HELLO_GROUP);
 	addr.sin_port=htons(HELLO_PORT);
 
+	printf("message: %s, (HEX: 0x%08x)\n", message, *(unsigned int*)message);
 	/* now just sendto() our destination! */
 	while (1)
 	{
