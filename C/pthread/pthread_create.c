@@ -27,7 +27,7 @@ void printids(const char *s)
 }
 
 /* thread process */
-void *thread_func(void *arg);
+void *thread_func(void *arg)
 {
 	printids("new thread: ");
 	return (void *)108;
