@@ -9,6 +9,9 @@
 #include <stdlib.h>
 
 #include <pthread.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 
 
 /* print process and thread IDs */
@@ -21,7 +24,7 @@ void printids(const char *s)
 	ppid = getppid();
 	tid = pthread_self();
 
-	printf("%16s pid %5u ppid %5u tid %16u (0x%x) ",
+	printf("%16s pid %5u ppid %5u tid %16u (0x%x)\n",
 			s, (unsigned int)pid, (unsigned int)ppid,
 			(unsigned int)tid, (unsigned int)tid);
 }
@@ -30,7 +33,9 @@ void printids(const char *s)
 void *thread_func(void *arg)
 {
 	printids("new thread: ");
-	return (void *)108;
+
+	printf("%s: return 0x123\n", __func__);
+	return (void *)0x123;
 }
 
 /* main func */
@@ -49,9 +54,7 @@ int main()
 		perror("can't join thread");
 
 	printids("main thread: ");
-	printf("thread exit code: %d ", (int)tret);
-
-	sleep(1);
+	printf("thread exit code: %p\n", tret);
 
 	return 0;
 }
