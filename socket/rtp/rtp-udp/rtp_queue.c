@@ -183,7 +183,7 @@ int updateSeq(unsigned short seq, struct rtpBufNode *node)
     return 0;
 }
 
-
+/* main */
 void  parseRtp(VXPLAYER *player ,struct rtpBufNode *node,unsigned int len)
 {
     unsigned int paddingLength = 0;     //填充长度
