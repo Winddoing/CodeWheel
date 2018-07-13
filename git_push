@@ -65,7 +65,6 @@ exec_mode() {
 build_tags() {
 	local root=`pwd`
 
-	echo "-----------$root"
 	ctags -R $root &
 }
 
