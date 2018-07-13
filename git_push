@@ -107,7 +107,7 @@ echo "[4]Push to github ..."
 
 build_tags
 
-#git push $REMOTE $BRANCH
+git push $REMOTE $BRANCH
 
 echo "[5]Submit finish ..."
 unset COMMIT BRANCH REMOTE CUR_TIME
