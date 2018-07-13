@@ -62,6 +62,10 @@ exec_mode() {
 	fi
 }
 
+build_tags() {
+	ctags -R * &
+}
+
 echo "[0]Push code ..."
 
 while getopts b:hm:r:y ops
@@ -97,6 +101,10 @@ echo "[3]Add commit:<$COMMIT> ...\n"
 git commit -m "$COMMIT"
 
 echo "[4]Push to github ..."
+
+echo "        The background build tags &"
+build_tags
+
 git push $REMOTE $BRANCH
 
 echo "[5]Submit finish ..."
