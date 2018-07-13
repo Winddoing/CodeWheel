@@ -63,7 +63,10 @@ exec_mode() {
 }
 
 build_tags() {
-	ctags -R * &
+	local root=`pwd`
+
+	echo "-----------$root"
+	ctags -R $root &
 }
 
 echo "[0]Push code ..."
@@ -102,10 +105,9 @@ git commit -m "$COMMIT"
 
 echo "[4]Push to github ..."
 
-echo "        The background build tags &"
 build_tags
 
-git push $REMOTE $BRANCH
+#git push $REMOTE $BRANCH
 
 echo "[5]Submit finish ..."
 unset COMMIT BRANCH REMOTE CUR_TIME
