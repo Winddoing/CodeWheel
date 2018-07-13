@@ -13,8 +13,17 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 
+
+#define LIMITED_BROADCAST
+
+#ifdef LIMITED_BROADCAST
+  #define BROADCAST_IP	"255.255.255.255" /* INADDR_BROADCAST */
+#else
+  #define BROADCAST_IP	"172.16.186.255"
+#endif
 #define BROADCAST_PORT	12345
 
 int main(int argc, char *argv[])
@@ -40,7 +49,7 @@ int main(int argc, char *argv[])
 	}
 
 	to.sin_family = AF_INET;
-	to.sin_addr.s_addr = htonl(INADDR_BROADCAST);
+	to.sin_addr.s_addr = inet_addr(BROADCAST_IP);
 	to.sin_port = htons(BROADCAST_PORT);
 
 	while(1) {

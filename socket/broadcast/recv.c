@@ -15,6 +15,13 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#define LIMITED_BROADCAST
+
+#ifdef LIMITED_BROADCAST
+  #define BROADCAST_IP	"255.255.255.255"
+#else
+  #define BROADCAST_IP	"172.16.186.255"
+#endif
 #define PORT_NUM 12345
 
 int main(int argc, char *argv[])
@@ -35,7 +42,7 @@ int main(int argc, char *argv[])
 
 	myaddr.sin_family = AF_INET;
 /*	myaddr.sin_addr.s_addr = htonl(INADDR_ANY);*/
-	myaddr.sin_addr.s_addr = inet_addr("172.16.186.255");
+	myaddr.sin_addr.s_addr = inet_addr(BROADCAST_IP);
 	myaddr.sin_port = htons(PORT_NUM);
 
 	ret = bind(fd, (struct sockaddr *)&myaddr, sizeof(struct sockaddr_in));

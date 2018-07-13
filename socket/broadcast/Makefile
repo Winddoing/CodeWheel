@@ -1,7 +1,7 @@
 
 all:
-	gcc send.c -o send
-	gcc recv.c -o recv
+	gcc send.c -o send.out
+	gcc recv.c -o recv.out
 
 clean:
-	rm send recv
+	rm *.out
