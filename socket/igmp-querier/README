@@ -1,0 +1,15 @@
+igmp-querier - The Simple IGMP Querier
+
+This is a very simple daemon for sending periodic IGMP Group
+Membership Queries. It is mostly useful when using IGMP snooping
+enabled switches on networks without an existing IGMP querier.
+
+Features:
+- IGMPv1 support
+- General Query support
+- Group-Specific Query support
+- Query interval setting
+- Ability to drop root privileges after initialization
+
+This software is licensed under a 2-clause BSD license. See the
+LICENSE file for the full license text.
