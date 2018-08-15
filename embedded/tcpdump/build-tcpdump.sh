@@ -25,7 +25,7 @@ for software in ${TCPDUMP} ${LIBPCAP}
 do
 	echo "Download $software ..."
 	echo "wget http://www.tcpdump.org/release/${software}.tar.gz"
-	#wget http://www.tcpdump.org/release/${software}.tar.gz
+	wget http://www.tcpdump.org/release/${software}.tar.gz
 	echo "tar xvf ${software}.tar.gz"
 	tar xvf ${software}.tar.gz
 done
