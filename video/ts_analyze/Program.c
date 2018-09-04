@@ -131,7 +131,7 @@ void PrintAllProgramInfo(PROGRAM_INFO *pstProgramInfo, int iProgramCount)
 	for (iProgramIndex = 0; iProgramIndex < iProgramCount; iProgramIndex++)
 	{
 		printf("%5d  ", pstProgramInfo[iProgramIndex].uiProgramNumber);
-		printf("   %5d", pstProgramInfo[iProgramIndex].uiPMT_PID);
+		printf("   0x%5x", pstProgramInfo[iProgramIndex].uiPMT_PID);
 		if (0 == pstProgramInfo[iProgramIndex].uiFreeCA_Mode)
 		{
 			printf("     yes");
