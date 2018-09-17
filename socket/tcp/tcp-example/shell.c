@@ -2,14 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ****************************************
- *函数名： recivePrompt                   *
- *功  能： 得到接收服务器传来的提示符     *
- *参  数： 客户端IP节点                   *
- *         传送数据                       *
- *返回值：失败   错误号                   *
- *		  成功     0                      *
- **************************************** */
 // recive command prompt from server
 int recivePrompt(const IpInfo *info, Data *data)
 {
@@ -23,15 +15,6 @@ int recivePrompt(const IpInfo *info, Data *data)
 	ret = readData(info, data);
 	return ret;
 }
-/* ****************************************
- *函数名： reciveExecResult               *
- *功  能： 得到接收服务器传来的命令       *
- *         执行结果                       *
- *参  数： 客户端IP节点                   *
- *         传送数据                       *
- *返回值：失败   错误号                   *
- *		  成功     0                      *
- **************************************** */
 // recive command exec result from server
 int reciveExecResult(const IpInfo *info, Data *data)
 {
@@ -39,7 +22,7 @@ int reciveExecResult(const IpInfo *info, Data *data)
 	char *pTmp;
 
 	bzero(data->data, data->maxLength);
-	fgets(data->data, data->maxLength - 1, stdin);
+	pTmp = fgets(data->data, data->maxLength - 1, stdin);
 	pTmp = strrchr(data->data, '\n');
 	if(NULL != pTmp)
 		*pTmp = '\0';
@@ -56,15 +39,6 @@ int reciveExecResult(const IpInfo *info, Data *data)
 	return ret;
 }
 
-/* ****************************************
- *函数名：  analyData                     *
- *功  能：  服务器解析接受到的数据是为获取*
- *          提示符，还是命令              *
- *参  数：  客户端IP节点                  *
- *          传送数据                      *
- *返回值：失败   错误号                   *
- *		  成功     0                      *
- **************************************** */
 // analy command and call function
 int analyData(const IpInfo *info, Data *data)
 {
@@ -88,12 +62,6 @@ int analyData(const IpInfo *info, Data *data)
 		return  TYPE_ERRCMD;
 	return ret;
 }
-/* ****************************************
- *函数名： execCmd                        *
- *功  能： 执行客户端传来的命令           *
- *参  数： 传送的数据                     *
- *返回值：   0                            *
- **************************************** */
 static int execCmd(Data *data)
 {
 	FILE *fp;
@@ -116,14 +84,6 @@ static int execCmd(Data *data)
 //	strcat(data->data, "\n");
 	return 0;
 }
-/* ****************************************
- *函数名： sendPrompt                     *
- *功  能： 给客户端发送提示符             *
- *参  数： 客户端IP节点                   *
- *         传送数据                       *
- *返回值：失败   错误号                   *
- *		  成功     0                      *
- **************************************** */
 // send command prompt to client
 int sendPrompt(const IpInfo *info, Data *data)
 {
@@ -135,14 +95,6 @@ int sendPrompt(const IpInfo *info, Data *data)
 
 	return writeData(info, data);
 }
-/* ****************************************
- *函数名： sendExecResult                 *
- *功  能： 给客户端发送命令执行结果       *
- *参  数： 客户端IP节点                   *
- *         传送数据                       *
- *返回值：失败   错误号                   *
- *		  成功     0                      *
- **************************************** */
 // send command exec result to client
 int sendExecResult(const IpInfo *info, Data *data)
 {

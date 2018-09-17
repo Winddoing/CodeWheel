@@ -7,11 +7,12 @@
 
 int main(int argc, char *argv[])
 {
-	IpInfo info, clientInfo;
+	IpInfo info;
 	char *pTmp;
 	int ret;
 	Data data;
 
+	data.data = NULL;
 	if(argc != 3)
 	{
 		fprintf(stderr,	"Usage:%s <ip> <port>\n",
@@ -25,38 +26,37 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Invalid port %s\n", argv[1]);
 		return EXIT_FAILURE;
 	}
-	info.backlog = DEF_BACKLOG;
+	if(ERR_SUCCESS != (ret = initData(&data)))
+		goto Error;
 	info.domain = REMOT_SOCKET;
-	ret = creatTcpListen(&info);
+	ret = connectToHost(&info);
 	if(ret != TCPERR_SUCCESS)
 		goto Error;
-	data.maxLength = 1024; //////////
-	data.data = (char *)malloc(data.maxLength);
 	while(1)
 	{
-		ret = acceptConnect(&info, &clientInfo);
-		if(-1 == ret)
+		//1.向服务器获取提示符
+		ret = recivePrompt(&info, &data);
+		if(ret != TCPERR_SUCCESS)
+			break;
+		//打印
+		fprintf(stderr, "%s", data.data);
+		//2.向服务器获取一条命令的运行结果
+		ret = reciveExecResult(&info, &data);
+		if(TYPE_QUITCMD == ret)
 		{
-			perror("AcceptConnect");
-			continue;
-		}
-		fprintf(stdout, "Client[%s:%d] is connected!\n",
-					clientInfo.ipAddr, clientInfo.port);
-		while(1)
-		{
-			ret = analyData(&clientInfo, &data);
-			if(TCPERR_DISCONNECT == ret)
-			{
-				fprintf(stdout, "Client[%s:%d] is disconnected!\n",
-					clientInfo.ipAddr, clientInfo.port);
-				break;
-			}else if(0 != ret)
-				goto Error;
-		}
+			ret = 0;
+			break;
+		}else if(ret != TCPERR_SUCCESS)
+			break;
+		//打印
+		fprintf(stderr, "%s", data.data);
 	}
-	free(data.data);
+	if(ret != 0) goto Error;
+	destroyData(&data);
 	return EXIT_SUCCESS;
 Error:
+	perror("client");
+	destroyData(&data);
 	switch(ret)
 	{
 		case TCPERR_INVADDR:
