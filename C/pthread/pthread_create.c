@@ -24,7 +24,7 @@ void printids(const char *s)
 	ppid = getppid();
 	tid = pthread_self();
 
-	printf("%16s pid %5u ppid %5u tid %16u (0x%x)\n",
+	printf("%16s pid %5u ppid %5u tid %5u (0x%x)\n",
 			s, (unsigned int)pid, (unsigned int)ppid,
 			(unsigned int)tid, (unsigned int)tid);
 }

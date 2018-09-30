@@ -1,1 +1,0 @@
-gcc thread.c -lpthread
