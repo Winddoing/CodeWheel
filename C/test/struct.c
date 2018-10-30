@@ -14,37 +14,57 @@ struct v {
 	int b;
 };
 
-void test(struct v *vp)
+struct av_ {
+	struct v *vap[3];
+};
+
+static struct av_ *av;
+
+static int test(struct v **vp)
 {
-	int i = 0;
+	int i = 0, i_do = 0;
+	int ret = 0;
 
 	for (i = 0; i < 3; i++) {
-		vp[i].a = i;
-		vp[i].b = i + 1;
+		vp[i] = (struct v*)malloc(sizeof(struct v));
+		if (!vp[i]) {
+			i_do = i;
+			ret = -1;
+			goto err;
+		}
+		vp[i]->a = i;
+		vp[i]->b = i + 1;
 	}
+	i_do = i;
+	printf("===> func: %s, line: %d, i_do=%d\n", __func__, __LINE__, i_do);
 
 	for (i = 0; i < 3; i++) {
-		printf("===> func: %s, line: %d, vp[%d].a=%d, vp[%d].b=%d\n",
-				__func__, __LINE__, i, vp[i].a, i, vp[i].b);
+		if (vp[i]) {
+			printf("===> func: %s, line: %d, vp[%d].a=%d, vp[%d].b=%d\n",
+					__func__, __LINE__, i, vp[i]->a, i, vp[i]->b);
+		}
 	}
+
+err:
+	for (i = 0; i < i_do; i++) {
+		if (vp[i])
+			free(vp[i]);
+	}
+
+	return ret;
 }
 
 int main(int argc, const char *argv[])
 {
-	int i = 0;
-	struct v *vp;
+	int ret = 0;
 
-	vp = (struct v*)malloc(sizeof(struct v) * 3);
-	if (!vp)
+	av = (struct av_*)malloc(sizeof(struct av_));
+	if (!av) {
 		return -1;
+	}
+	ret = test(av->vap);
 
-	test(vp);
+	free(av);
 
-	free(vp);
-
-	struct v va[3];
-
-	test(va);
-	
-	return 0;
+	return ret;
 }
