@@ -12,8 +12,8 @@
 #define ts_malloc malloc
 
 struct ts_buffer{
-	char *data;
-	char  *curr;
+	unsigned char *data;
+	unsigned char *curr;
 	int32_t length;
 };
 
@@ -31,7 +31,7 @@ static int32_t ts_buffer_resize(struct ts_buffer *b, int32_t size){
 		length = length * 2;
 	}
 
-	char *data = ts_malloc(length);
+	unsigned char *data = ts_malloc(length);
 	if(!data){
 		ts_warn("malloc failed\n");
 		return 0;
@@ -83,7 +83,7 @@ int32_t ts_buffer_size(struct ts_buffer *b){
 	return (b->curr - b->data);
 }
 
-int32_t ts_buffer_write(struct ts_buffer *b, char *data, int32_t size){
+int32_t ts_buffer_write(struct ts_buffer *b, unsigned char *data, int32_t size){
 	assert(b && data && size > 0);
 	if(b->curr - b->data + size > b->length){
 		if(!ts_buffer_resize(b, b->curr - b->data + size)){
@@ -96,7 +96,7 @@ int32_t ts_buffer_write(struct ts_buffer *b, char *data, int32_t size){
 	return size;
 }
 
-int32_t ts_buffer_read(struct ts_buffer *b, char *data, int32_t size){
+int32_t ts_buffer_read(struct ts_buffer *b, unsigned char *data, int32_t size){
 	assert(b && data && size > 0);
 	if( b->curr - b->data < size){
 		ts_warn("require data size:%d > buffer data size:%d\n", size, ts_buffer_size(b));

@@ -91,13 +91,13 @@ struct ts_packet{
 
 
 	int32_t (*config_callback)(struct ts_packet *ts);
-	int32_t (*output_callback)(struct ts_pid *pid, char *buf, int32_t size);
+	int32_t (*output_callback)(struct ts_pid *pid, unsigned char *buf, int32_t size);
 	void *priv_data;
 
 };
 
 typedef int32_t (*config_handler_t)(struct ts_packet *ts);
-typedef int32_t (*output_handler_t)(struct ts_pid *pid, char *buf, int32_t size);
+typedef int32_t (*output_handler_t)(struct ts_pid *pid, unsigned char *buf, int32_t size);
 
 
 struct ts_packet *ts_packet_init();
@@ -110,7 +110,7 @@ void ts_packet_exit(struct ts_packet *ts);
  * @size input ts size
  * @ts_len ts packet length as 188, 204
  * */
-int32_t ts_packet(struct ts_packet *ts, char *buf,  int32_t size,  int32_t ts_len);
+int32_t ts_packet(struct ts_packet *ts, unsigned char *buf,  int32_t size,  int32_t ts_len);
 
 struct ts_pid *ts_get_pid(struct ts_packet *ts, int32_t pid);
 

@@ -77,7 +77,7 @@ int32_t ts_exit_es_config(struct ts_packet *ts){
 	return 0;
 }
 
-int32_t es_output(struct ts_pid *pid, char *buf, int32_t size){
+int32_t es_output(struct ts_pid *pid, unsigned char *buf, int32_t size){
 	int n = 0;
 	FILE *fp = (FILE *)pid->priv_data;
 	if(fp){
@@ -99,7 +99,7 @@ int32_t main(int32_t argc, char **argv){
 		printf("open file:%s failed\n", argv[1]);
 		return 0;
 	}
-	char buf[1316];
+	unsigned char buf[1316];
 	int32_t n;
 
 	struct ts_packet *ts = ts_packet_init();

@@ -127,7 +127,7 @@ int32_t ts_pat_parse(struct ts_packet *ts, struct ts_pid *pid){
 	assert(ts && pid);
 
 	int32_t i;
-	char *p;
+	unsigned char *p;
 	int32_t size = ts_buffer_size(pid->data_payload);
 	p = pid->data_payload->data;
 	if(size <= 8){
@@ -256,7 +256,7 @@ int32_t ts_pmt_done(struct ts_packet *ts, int32_t service_id){
 int32_t ts_pmt_parse(struct ts_packet *ts, struct ts_pid *pid){
 	assert(ts && pid);
 	int32_t service_id;
-	char *p;
+	unsigned char *p;
 	int32_t size = ts_buffer_size(pid->data_payload);
 	p = pid->data_payload->data;
 	if(size <= 12){
@@ -286,7 +286,7 @@ int32_t ts_pmt_parse(struct ts_packet *ts, struct ts_pid *pid){
 		return 0;
 	}
 	service_id = (p[3] << 8)|p[4];
-	char *end = p + section_length - 4;
+	unsigned char *end = p + section_length - 4;
 	p = p + 12 + program_info_length;
 	int32_t ES_info_length;
 	int32_t stream_type;
@@ -353,10 +353,10 @@ int32_t ts_psi_is_timeout(struct ts_packet *ts){
 int32_t ts_pes_parse( struct ts_packet *ts, struct ts_pid *pid){
 	assert(ts && pid);
 
-	int32_t PES_packet_length ;
+	int32_t PES_packet_length = 0;
 	int32_t PES_header_data_length;
 	int32_t PTS_DTS_flags;
-	char *p = pid->data_payload->data;
+	unsigned char *p = pid->data_payload->data;
 	int32_t size = ts_buffer_size(pid->data_payload);
 	if(size < 5){
 		pid->data_done = 0;
@@ -428,7 +428,7 @@ int32_t ts_pes_parse( struct ts_packet *ts, struct ts_pid *pid){
 }
 
 /*just jump adaptation or point field*/
-int32_t ts_point_field(struct ts_pid *pid, char *buf, int32_t size){
+int32_t ts_point_field(struct ts_pid *pid, unsigned char *buf, int32_t size){
 	assert(pid && buf && size > 0);
 	int32_t left_size = 0;
 	int32_t payload_unit_start_indicator = (buf[1]>>6)&0x1;
@@ -450,7 +450,7 @@ int32_t ts_point_field(struct ts_pid *pid, char *buf, int32_t size){
 	return left_size;
 }
 
-int32_t ts_adaptation_field(struct ts_pid *pid, char *buf, int32_t size){
+int32_t ts_adaptation_field(struct ts_pid *pid, unsigned char *buf, int32_t size){
 	assert(pid && buf && size > 0);
 	int32_t left_size = 0;
 
@@ -469,7 +469,7 @@ int32_t ts_adaptation_field(struct ts_pid *pid, char *buf, int32_t size){
 	return left_size;
 }
 
-int32_t ts_payload(struct ts_packet *ts, struct ts_pid *pid, char *buf, int32_t offset){
+int32_t ts_payload(struct ts_packet *ts, struct ts_pid *pid, unsigned char *buf, int32_t offset){
 
 	assert(ts && pid && buf);
 
@@ -486,9 +486,11 @@ int32_t ts_payload(struct ts_packet *ts, struct ts_pid *pid, char *buf, int32_t 
 			switch(pid->type){
 			case TS_VIDEO_PID:
 			case TS_AUDIO_PID:
+				//printf("%s pid->type =%d\n", __func__, pid->type);
 				ts_pes_parse(ts, pid);
 				break;
 			case TS_PAT_PID:
+				printf("%s pid->type =%d TS_PAT_PID\n", __func__, pid->type);
 				ts_pat_parse(ts, pid);
 				if(pid->data_done){
 					ts_add_pmt(ts);
@@ -496,6 +498,7 @@ int32_t ts_payload(struct ts_packet *ts, struct ts_pid *pid, char *buf, int32_t 
 				}
 				break;
 			case TS_PMT_PID:
+				printf("%s pid->type =%d TS_PMT_PID\n", __func__, pid->type);
 				ts_pmt_parse(ts, pid);
 				if(pid->data_done){
 					return 0;
@@ -513,7 +516,7 @@ int32_t ts_payload(struct ts_packet *ts, struct ts_pid *pid, char *buf, int32_t 
 	return 0;
 }
 
-int32_t ts_data(struct ts_packet *ts, struct ts_pid *pid, char *buf){
+int32_t ts_data(struct ts_packet *ts, struct ts_pid *pid, unsigned char *buf){
 
 	assert(ts && pid && buf);
 
@@ -534,32 +537,32 @@ int32_t ts_data(struct ts_packet *ts, struct ts_pid *pid, char *buf){
 }
 
 
-int32_t ts_psi(struct ts_packet *ts, struct ts_pid *pid, char *buf){
-		assert(ts && pid && buf);
-		int32_t left_size = 0;
-		left_size = ts_point_field(pid, buf, 188);
-		if(left_size > 0){
-			ts_payload(ts, pid, buf,  188 - left_size);
-		}else{
-			ts_payload(ts, pid, buf,  4);
-		}
+int32_t ts_psi(struct ts_packet *ts, struct ts_pid *pid, unsigned char *buf){
+	assert(ts && pid && buf);
+	int32_t left_size = 0;
+	left_size = ts_point_field(pid, buf, 188);
+	if(left_size > 0){
+		ts_payload(ts, pid, buf,  188 - left_size);
+	}else{
+		ts_payload(ts, pid, buf,  4);
+	}
 
-		return 1;
+	return 1;
 }
 
 struct ts_pid *ts_get_pid(struct ts_packet *ts, int32_t pid){
-		assert(pid >= 0 && pid < 8192);
-		return ts->pids[pid];
+	assert(pid >= 0 && pid < 8192);
+	return ts->pids[pid];
 }
 
-int32_t ts_av_packet(struct ts_packet *ts, char *buf, int32_t size, int32_t ts_len){
+int32_t ts_av_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int32_t ts_len){
 
 	assert(ts && buf && ts_len >= 188);
 
 	int32_t i;
 	int32_t pid;
 	struct ts_pid *ts_pid;
-	char *p;
+	unsigned char *p;
 
 	for(i = 0; i + 188 <= size; i = i + ts_len){
 		p = buf + i;
@@ -573,10 +576,10 @@ int32_t ts_av_packet(struct ts_packet *ts, char *buf, int32_t size, int32_t ts_l
 			continue;
 		}
 		switch(ts_pid->type){
-			case TS_VIDEO_PID:
-			case TS_AUDIO_PID:
-				ts_data(ts, ts_pid, p);
-				break;
+		case TS_VIDEO_PID:
+		case TS_AUDIO_PID:
+			ts_data(ts, ts_pid, p);
+			break;
 		}
 	}
 
@@ -587,14 +590,14 @@ int32_t ts_av_packet(struct ts_packet *ts, char *buf, int32_t size, int32_t ts_l
  * demux ts with pat and pmt,
  * no  parse sdt and other psi/si table
  * */
-int32_t ts_psi_packet(struct ts_packet *ts, char *buf, int32_t size, int32_t ts_len){
+int32_t ts_psi_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int32_t ts_len){
 
 	assert(ts && buf && ts_len >= 188);
 
 	int32_t i;
 	int32_t pid = 0;
 	struct ts_pid *ts_pid;
-	char *p;
+	unsigned char *p;
 
 	for(i = 0; i + 188 <= size; i = i + ts_len){
 		p = buf + i;
@@ -619,12 +622,12 @@ int32_t ts_psi_packet(struct ts_packet *ts, char *buf, int32_t size, int32_t ts_
 			continue;
 		}
 		switch(ts_pid->type){
-			case TS_PAT_PID:
-			case TS_PMT_PID:
-				ts_psi(ts, ts_pid, p);
-				break;
-			default:
-				break;
+		case TS_PAT_PID:
+		case TS_PMT_PID:
+			ts_psi(ts, ts_pid, p);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -656,8 +659,8 @@ int32_t ts_set_pid_filter_table(struct ts_packet *ts, int32_t pids[], int32_t si
 }
 
 int32_t *ts_get_pid_filter_table(struct ts_packet *ts){
-		assert(ts);
-		return ts->filter_pids;
+	assert(ts);
+	return ts->filter_pids;
 }
 
 int32_t ts_set_service_id_filter_table(struct ts_packet *ts, int32_t service_ids[], int32_t size){
@@ -734,7 +737,7 @@ void ts_output_filter(struct ts_packet *ts){
  * @size input ts size
  * @ts_len ts packet length as 188, 204
  * */
-int32_t ts_packet(struct ts_packet *ts, char *buf, int32_t size, int32_t ts_len){
+int32_t ts_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int32_t ts_len){
 
 	assert(ts && buf && ts_len >= 188);
 	if(!ts->pmts_done){

@@ -23,7 +23,7 @@ int32_t main(int32_t argc, char **argv){
 		printf("open file:%s failed\n", argv[1]);
 		return 0;
 	}
-	char buf[1316];
+	unsigned char buf[1316];
 	int32_t n;
 
 	struct ts_packet *ts = ts_packet_init();
