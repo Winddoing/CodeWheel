@@ -145,7 +145,8 @@ int32_t ts_pat_parse(struct ts_packet *ts, struct ts_pid *pid){
 		pid->data_done = 0;
 		return 0;
 	}
-	ts->program_num = (section_length - 4 - 5)/4;
+	ts->program_num = (section_length - 4 - 5)/4; //???
+	//ts->program_num = (section_length - 4(CRC的4Byte) - 5(section_lengt以后的5Byte))/4
 	ts->programs = ts_malloc(sizeof(struct ts_pmt)*ts->program_num);
 	if(!ts->programs){
 		ts_warn("malloc failed\n");
@@ -246,7 +247,7 @@ int32_t ts_pmt_done(struct ts_packet *ts, int32_t service_id){
 		}
 	}
 	/*exclude:service id == 0 */
-	if(done_num == ts->program_num - 1){
+	if(done_num){
 		ts_info("all pmt pid parsed\n");
 		ts->pmts_done = 1;
 	}
@@ -540,6 +541,7 @@ int32_t ts_data(struct ts_packet *ts, struct ts_pid *pid, unsigned char *buf){
 int32_t ts_psi(struct ts_packet *ts, struct ts_pid *pid, unsigned char *buf){
 	assert(ts && pid && buf);
 	int32_t left_size = 0;
+	/* 判断自适应区的大小 */
 	left_size = ts_point_field(pid, buf, 188);
 	if(left_size > 0){
 		ts_payload(ts, pid, buf,  188 - left_size);
@@ -613,7 +615,7 @@ int32_t ts_psi_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, in
 			ts_info("parse psi timeout\n");
 			return 1;
 		}
-		pid = (((p[1]&0x1f) << 8)| p[2])&0x1fff;
+		pid = (((p[1]&0x1f) << 8) | p[2]) & 0x1fff;
 		ts_pid = ts_get_pid(ts, pid);
 		if(!ts_pid){
 			continue;
