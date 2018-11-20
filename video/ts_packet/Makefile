@@ -18,4 +18,5 @@ $(TARGET):$(OBJS)
 	$(CC) $(CFLAGS) -o $@ -c $^
 	
 clean:
+	rm ts_packet ts_test_file ts_test_output
 	rm *.o *.es

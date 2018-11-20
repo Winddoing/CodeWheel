@@ -181,6 +181,7 @@ int32_t ts_add_pmt(struct ts_packet *ts){
 		if(ts->programs[i].service_id == 0){
 			continue;
 		}
+		printf("===> func: %s, line: %d\n", __func__, __LINE__);
 		ts_pid_init(ts->pids[pid], pid, TS_PMT_PID);
 		ts->pids[pid]->service_id = ts->programs[i].service_id;
 	}
@@ -217,6 +218,7 @@ int32_t ts_add_es_info(struct ts_packet *ts, int32_t service_id, int32_t stream_
 	struct ts_pmt *program = NULL;
 	for(i = 0; i < ts->program_num; i++){
 		if(ts->programs[i].service_id == service_id){
+			printf("===> func: %s, line: %d\n", __func__, __LINE__);
 			program = &ts->programs[i];
 			break;
 		}
@@ -298,7 +300,7 @@ int32_t ts_pmt_parse(struct ts_packet *ts, struct ts_pid *pid){
 		elementary_PID = (((p[1]&0x1F)<< 8)|p[2])&0x1fff;
 		ES_info_length = (((p[3]&0xF)<< 8)|p[4])&0xfff;
 		count++;
-		ts_info(" (%d) service id:%d pid:%d stream type:0x%x \n", count,  service_id,  elementary_PID,  stream_type);
+		ts_info(" (%d) service id:%d pid:%#x stream type:%#x ES_info_length=%#x\n", count,  service_id,  elementary_PID,  stream_type, ES_info_length);
 		ts_add_es_info(ts,  service_id,  stream_type,  elementary_PID);
 		p = p + 5 + ES_info_length;
 	}
@@ -319,6 +321,7 @@ int32_t ts_add_elementary_PID(struct ts_packet *ts){
 		if(ts->programs[i].service_id == 0){
 			continue;
 		}
+		printf("===> func: %s, line: %d\n", __func__, __LINE__);
 		es = ts->programs[i].next;
 		while(es){
 			pid = es->pid;
@@ -451,6 +454,7 @@ int32_t ts_point_field(struct ts_pid *pid, unsigned char *buf, int32_t size){
 	return left_size;
 }
 
+/* vido stream ???*/
 int32_t ts_adaptation_field(struct ts_pid *pid, unsigned char *buf, int32_t size){
 	assert(pid && buf && size > 0);
 	int32_t left_size = 0;
@@ -557,6 +561,8 @@ struct ts_pid *ts_get_pid(struct ts_packet *ts, int32_t pid){
 	return ts->pids[pid];
 }
 
+static int xxx = 0;
+
 int32_t ts_av_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int32_t ts_len){
 
 	assert(ts && buf && ts_len >= 188);
@@ -565,6 +571,8 @@ int32_t ts_av_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int
 	int32_t pid;
 	struct ts_pid *ts_pid;
 	unsigned char *p;
+
+	xxx++;
 
 	for(i = 0; i + 188 <= size; i = i + ts_len){
 		p = buf + i;
@@ -576,6 +584,10 @@ int32_t ts_av_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int
 		ts_pid = ts_get_pid(ts, pid);
 		if(!ts_pid){
 			continue;
+		}
+		if (xxx < 5){
+			printf("==%d=> func: %s, line: %d, pid=%#x, f=%#x, l=%d\n", i, 
+					__func__, __LINE__, pid, (p[3] >> 4) & 0x3,  ts_adaptation_field(ts_pid, p, 188));
 		}
 		switch(ts_pid->type){
 		case TS_VIDEO_PID:
@@ -739,6 +751,8 @@ void ts_output_filter(struct ts_packet *ts){
  * @size input ts size
  * @ts_len ts packet length as 188, 204
  * */
+
+static int iii = 0;
 int32_t ts_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int32_t ts_len){
 
 	assert(ts && buf && ts_len >= 188);
@@ -754,7 +768,12 @@ int32_t ts_packet(struct ts_packet *ts, unsigned char *buf, int32_t size, int32_
 
 			ts->pmts_done = 1;
 		}
+
 	}
+	iii++;
+
+	if (iii < 50)
+		printf("===> func: %s, line: %d, iii=%d\n\n", __func__, __LINE__, iii);
 
 	if(ts->output_enable){
 		ts_av_packet(ts, buf, size, ts_len);
