@@ -124,6 +124,7 @@ static int ParseTransportStream(FILE *pfTsFile)
 	{
 		return -1;
 	}
+	printf("PAT_INFO uiProgramNumber=%#x, uiPMT_PID=%#x\n", astPAT_Info[0].uiProgramNumber, astPAT_Info[0].uiPMT_PID);
 	if (-1 == ParseSDT_Table(pfTsFile, iTsPosition, iTsLength, astSDT_Info)) //SDT
 	{
 		return -1;
