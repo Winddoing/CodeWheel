@@ -35,7 +35,7 @@ void event_cb(TSDemuxContext *ctx, uint16_t pid, TSDEventId event_id, void *data
         print_pmt(ctx, data);
     }else if(event_id == TSD_EVENT_PES) {
         TSDPESPacket *pes = (TSDPESPacket*) data;
-        printf("PID %d PES Packet, Size: %d, stream_id=%u, pts=%llu, dts=%llu\n", pid, pes->data_bytes_length, pes->stream_id, pes->pts, pes->dts);
+        printf("PID %d PES Packet, Size: %ld, stream_id=%u, pts=%lu, dts=%lu\n", pid, pes->data_bytes_length, pes->stream_id, pes->pts, pes->dts);
 		if (!fp)
 			fp = fopen("xxxx.es", "w");
 

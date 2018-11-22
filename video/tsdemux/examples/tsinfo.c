@@ -107,7 +107,7 @@ void event_cb(TSDemuxContext *ctx, uint16_t pid, TSDEventId event_id, void *data
         TSDPESPacket *pes = (TSDPESPacket*) data;
         // This is where we would write the PES data into our buffer.
         printf("\n====================\n");
-        printf("PID %d PES Packet, Size: %d, stream_id=%u, pts=%llu, dts=%llu\n", pid, pes->data_bytes_length, pes->stream_id, pes->pts, pes->dts);
+        printf("PID %d PES Packet, Size: %ld, stream_id=%u, pts=%lu, dts=%lu\n", pid, pes->data_bytes_length, pes->stream_id, pes->pts, pes->dts);
         // print out the PES Packet data if it's in our print list
         int i;
         for(i=0; i<PRINT_PIDS_LEN; ++i) {
@@ -151,11 +151,11 @@ void print_pat(TSDemuxContext *ctx, void *data) {
     printf("\n====================\n");
     TSDPATData *pat = (TSDPATData*)data;
     size_t len = pat->length;
-    size_t i;
-    printf("PAT, Length %d\n", pat->length);
+    int i;
+    printf("PAT, Length %ld\n", pat->length);
 
     if(len > 1) {
-        printf("number of progs: %d\n", len);
+        printf("number of progs: %ld\n", len);
     }
     for(i=0; i<len; ++i) {
         printf("  %d) prog num: 0x%X, pid: 0x%X\n", i, pat->program_number[i], pat->pid[i]);
@@ -168,8 +168,8 @@ void print_pmt(TSDemuxContext *ctx, void *data) {
     TSDPMTData *pmt = (TSDPMTData*)data;
     printf("PCR PID: 0x%04X\n", pmt->pcr_pid);
     printf("program info length: %d\n", pmt->program_info_length);
-    printf("descriptors length: %d\n", pmt->descriptors_length);
-    size_t i;
+    printf("descriptors length: %ld\n", pmt->descriptors_length);
+    int i;
 
     for(i=0;i<pmt->descriptors_length;++i) {
         TSDDescriptor *des = &pmt->descriptors[i];
@@ -178,14 +178,14 @@ void print_pmt(TSDemuxContext *ctx, void *data) {
         print_descriptor_info(des);
     }
 
-    printf("program elements length: %d\n", pmt->program_elements_length);
+    printf("program elements length: %ld\n", pmt->program_elements_length);
     for(i=0;i<pmt->program_elements_length; ++i) {
         TSDProgramElement *prog = &pmt->program_elements[i];
         printf("  -----\nProgram #%d\n", i);
         printf("  stream type: (0x%04X)  %s\n", prog->stream_type, stream_type_to_str((TSDPESStreamId)(prog->stream_type)));
         printf("  elementary pid: 0x%04X\n", prog->elementary_pid);
         printf("  es info length: %d\n", prog->es_info_length);
-        printf("  descriptors length: %d\n", prog->descriptors_length);
+        printf("  descriptors length: %ld\n", prog->descriptors_length);
 
         // keep track of metadata pids, we'll print the data for these
         if(prog->stream_type == TSD_PMT_STREAM_TYPE_PES_METADATA)
@@ -206,7 +206,7 @@ void print_pmt(TSDemuxContext *ctx, void *data) {
         size_t j;
         for(j=0;j<prog->descriptors_length;++j) {
             TSDDescriptor *des = &prog->descriptors[j];
-            printf("    %d) tag: (0x%04X) %s\n", j, des->tag, descriptor_tag_to_str(des->tag));
+            printf("    %ld) tag: (0x%04X) %s\n", j, des->tag, descriptor_tag_to_str(des->tag));
             printf("         length: %d\n", des->length);
             print_descriptor_info(des);
 
