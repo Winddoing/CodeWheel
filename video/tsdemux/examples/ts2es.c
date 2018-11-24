@@ -8,15 +8,16 @@
 #include <tsdemux.h>
 
 
-void print_pmt(TSDemuxContext *ctx, void *data) {
+void analysis_pmt(TSDemuxContext *ctx, void *data)
+{
     TSDPMTData *pmt = (TSDPMTData*)data;
     size_t i;
 
-    for(i=0;i<pmt->program_elements_length; ++i) {
+    for(i=0; i<pmt->program_elements_length; ++i) {
         TSDProgramElement *prog = &pmt->program_elements[i];
         int reg_types = TSD_REG_PES;
         size_t j;
-        for(j=0;j<prog->descriptors_length;++j) {
+        for(j=0; j<prog->descriptors_length; ++j) {
             TSDDescriptor *des = &prog->descriptors[j];
 
             if(des->tag == 0x97) {
@@ -31,29 +32,29 @@ void print_pmt(TSDemuxContext *ctx, void *data) {
 FILE *fp;
 void event_cb(TSDemuxContext *ctx, uint16_t pid, TSDEventId event_id, void *data)
 {
-    if(event_id == TSD_EVENT_PMT){
-        print_pmt(ctx, data);
-    }else if(event_id == TSD_EVENT_PES) {
+    if(event_id == TSD_EVENT_PMT) {
+        printf("%s, PID: %#x PMT Packet...\n", __func__, pid);
+        analysis_pmt(ctx, data);
+    } else if(event_id == TSD_EVENT_PES) {
         TSDPESPacket *pes = (TSDPESPacket*) data;
         printf("PID %d PES Packet, Size: %ld, stream_id=%u, pts=%lu, dts=%lu\n", pid, pes->data_bytes_length, pes->stream_id, pes->pts, pes->dts);
-		if (!fp)
-			fp = fopen("xxxx.es", "w");
+        if (!fp)
+            fp = fopen("xxxx.es", "w");
 
-		fwrite(pes->data_bytes, pes->data_bytes_length, 1, fp);
+        fwrite(pes->data_bytes, pes->data_bytes_length, 1, fp);
     }
 }
 
-int main(int argc, char **charv) {
+int main(int argc, char **charv)
+{
     FILE *file_input = NULL;
-    if (argc < 2)
-    {
+    if (argc < 2) {
         printf("not enough params\n");
         return -10;
     }
 
     file_input = fopen(charv[1], "rb");
-    if (!file_input)
-    {
+    if (!file_input) {
         printf("failed to open file %s\n", charv[1]);
         return -20;
     }
@@ -87,7 +88,7 @@ int main(int argc, char **charv) {
             // with res, we could report any errors found during demuxing
             TSDCode res;
             parsed = tsd_demux(&ctx, buffer, count, &res);
-        }else{
+        } else {
             parsed = 0;
         }
         // during 'demux' our callback may be called, so we can safely discard
