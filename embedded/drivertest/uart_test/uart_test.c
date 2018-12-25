@@ -49,7 +49,6 @@
 
 
 /* kernel/include/uapi/asm-generic/termbits.h */
-/* kernel/drivers/tty/serial/jz_uart.c */
 
 //static unsigned int baud_rate = B115200;
 //static unsigned int baud_rate = B230400;
@@ -399,7 +398,7 @@ static int uart_recv_package_impl(int serial_fd, int package_count)
 						err_bytes_cnt += header;
 
 						if (header>0)
-							printf("search package header= %d ,\t recv_pkg=%d, err_pkg=%d\n", header, recv_package_cnt, err_package_cnt);
+							printf("search package header= %d ,\t recv_pkg=%ld, err_pkg=%ld\n", header, recv_package_cnt, err_package_cnt);
 						match_header = 1;
 						/* memmov */
 						move_size = read_len-header;
@@ -482,7 +481,7 @@ static int uart_recv_package_impl(int serial_fd, int package_count)
 			float err_bytes_rate = (float)((float)err_bytes_cnt/((float)(recv_package_cnt_total*PACKAGE_SIZE)));
 			/* printf("receive package: %d (err pkg: %d %.4f, err_bytes: %d, %.4f)\t|| (tx_no: %d - %d = %d)\n", */
 			/*        recv_package_cnt, err_package_cnt, err_rate, err_bytes_cnt, err_bytes_rate, recv_package_no, recv_package_cnt_total, (recv_package_no-recv_package_cnt_total)); */
-			printf("receive package: %d (err pkg: %d %.4f)\t|| (tx_no: (%d-%d)-%d = %d)\n",
+			printf("receive package: %ld (err pkg: %ld %.4f)\t|| (tx_no: (%ld-%ld)-%d = %ld)\n",
 			       recv_package_cnt, err_package_cnt, err_rate, recv_package_no, recv_package_no_1, recv_package_cnt_total, (recv_package_no+1-(recv_package_no_1) -recv_package_cnt_total));
 		}
 
@@ -490,7 +489,7 @@ static int uart_recv_package_impl(int serial_fd, int package_count)
 
 
 err:
-	printf("%d %s() recv_bytes_cnt=%d, err_bytes_cnt=%d \tfinish...\n", recv_package_cnt, __FUNCTION__, recv_bytes_cnt, err_bytes_cnt);
+	printf("%ld %s() recv_bytes_cnt=%ld, err_bytes_cnt=%ld \tfinish...\n", recv_package_cnt, __FUNCTION__, recv_bytes_cnt, err_bytes_cnt);
 
 	/* free tread data */
 
@@ -573,7 +572,7 @@ int uart_send_package(int serial_fd, int package_count)
 
 			len = write(serial_fd, buf, len);
 			if (len < 1) {
-				printf("write serial failed: total send_package_cnt=%d, send_len=%d, ret len=%d\n",
+				printf("write serial failed: total send_package_cnt=%ld, send_len=%d, ret len=%d\n",
 				       send_package_cnt, send_len, len);
 				break;
 			}
@@ -593,7 +592,7 @@ int uart_send_package(int serial_fd, int package_count)
 		    || (send_package_cnt<1000 &&send_package_cnt%100==0)
 		    || (send_package_cnt%1000==0)
 			) {
-			printf("%s() send_package_cnt= %d\n",
+			printf("%s() send_package_cnt= %ld\n",
 			       __FUNCTION__, send_package_cnt);
 		}
 
@@ -617,7 +616,7 @@ int uart_send_package(int serial_fd, int package_count)
 
 	}
 
- 	printf("%d %s() send_bytes_cnt= %d , finish...\n",
+ 	printf("%ld %s() send_bytes_cnt= %ld , finish...\n",
 	       send_package_cnt, __FUNCTION__, send_bytes_cnt);
 
 	return 0;
@@ -654,9 +653,9 @@ void sighandler(int signum)
 {
 	printf("%s(), signum=%d\n", __FUNCTION__, signum);
 
-	printf("\tloop_bytes_cnt= %d\n", loop_bytes_cnt);
+	printf("\tloop_bytes_cnt= %ld\n", loop_bytes_cnt);
 
-	printf("\trecv_package_cnt= %d\n", recv_package_cnt);
+	printf("\trecv_package_cnt= %ld\n", recv_package_cnt);
 
 	/* save file */
 
@@ -751,7 +750,7 @@ int main(int argc, char **argv)
 	printf("UART: TX_UNIT=%d, RX_UNIT=%d\n",
 	       TX_UNIT, RX_UNIT);
 
-	printf("PACKAGE_SIZE= %d, PACKAGE_HEADER_SIZE=%d\n",
+	printf("PACKAGE_SIZE= %ld, PACKAGE_HEADER_SIZE=%ld\n",
 	       PACKAGE_SIZE, PACKAGE_HEADER_SIZE);
 
 	printf("get_package_period_us()= %d\n",  get_package_period_us(0));

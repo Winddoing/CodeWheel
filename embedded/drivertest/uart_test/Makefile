@@ -1,7 +1,5 @@
 
-CC = mips-linux-gnu-gcc
-#CC = gcc
-
+CC = gcc
 
 TARGET = uart_test
 

@@ -56,7 +56,6 @@ int init_serial(void)
 	options.c_lflag = 0; //不激活终端模式
 
 	/* kernel/include/uapi/asm-generic/termbits.h */
-	/* kernel/drivers/tty/serial/jz_uart.c */
 
 	cfsetospeed(&options, B115200);//设置波特率
 	//cfsetospeed(&options, B230400);//设置波特率
