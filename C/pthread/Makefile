@@ -1,11 +1,11 @@
 
 all:
-	gcc pthread_create.c -o pthread_create -lpthread
-	gcc pthread.c -o pthread -lpthread
-	gcc atom_tst.c -o atom_tst -lpthread
-	gcc test.c -o test -lpthread
-	gcc pthread_key.c -o pthread_key -lpthread
+	gcc pthread_create.c -o pthread_create.out -lpthread
+	gcc pthread.c -o pthread.out -lpthread
+	gcc atom_tst.c -o atom_tst.out -lpthread
+	gcc test.c -o test.out -lpthread
+	gcc pthread_key.c -o pthread_key.out -lpthread
 
 clean:
-	rm pthread_create pthread atom_tst test pthread_key
+	rm *.out
 	rm *.log

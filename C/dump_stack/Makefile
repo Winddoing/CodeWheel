@@ -1,7 +1,7 @@
 
 all:
-	gcc test.c -o test -g -rdynamic
-	objdump -d test > test.s
+	gcc test.c -o test.out -g -rdynamic
+	objdump -d test.out > test.s
 
 clean:
-	rm test test.s
+	rm test.out test.s

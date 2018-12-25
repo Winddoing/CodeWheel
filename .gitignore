@@ -5,6 +5,7 @@ tags
 
 *.out
 *.o
+*.s
 *.so
 
 
