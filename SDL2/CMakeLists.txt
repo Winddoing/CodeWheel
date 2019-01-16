@@ -17,3 +17,6 @@ message(STATUS "xxxxxxxxxxxxxxxxxxxxxxxxx")
 link_libraries(SDL2 png)
 add_executable(png2yuv png2yuv.c)
 file(COPY test.png DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+
+add_executable(sdl2-test sdl2-test.c)
