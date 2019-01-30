@@ -7,3 +7,5 @@
 #!/bin/bash
 
 gcc test.c -o test.out -lGL -lglut
+
+gcc yuv_play.c -o yuv_play -lGL -lglut
