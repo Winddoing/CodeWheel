@@ -18,7 +18,7 @@
 int main(int argc, const char *argv[])
 {
 
-	char dst[30];
+	unsigned char dst[30];
 	unsigned long long rtpTime = 0x1234567898765;
 	unsigned long long rtp_time_s = 0;
 	int i = 0, j = 56;
