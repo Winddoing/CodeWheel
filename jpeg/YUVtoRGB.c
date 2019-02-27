@@ -8,6 +8,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* 验证 */
+
+void YUV444TOYUV420(char *inbuf,  char *outbuf, int w, int h)
+{
+    char *srcY = NULL, *srcU = NULL, *srcV = NULL;
+    char *desY = NULL, *desU = NULL, *desV = NULL;
+
+    srcY = inbuf;           //Y
+    srcU = srcY + w * h;    //U
+    srcV = srcU + w * h;    //V
+
+    desY = outbuf;
+    desU = desY + w * h;
+    desV = desU + w * h / 4;
+
+    int half_width = w / 2;
+    int half_height = h / 2;
+    //Y
+    memcpy(desY, srcY, w * h * sizeof(unsigned char));
+    //UV
+    for (int i = 0; i < half_height; i++) {
+        for (int j = 0; j < half_width; j++) {
+            *desU = *srcU;
+            *desV = *srcV;
+            desU++;
+            desV++;
+            srcU += 2;
+            srcV += 2;
+        }
+        srcU = srcU + w;
+        srcV = srcV + w;
+    }
+}
+
+
+
+/******************************************************************************/
+
 #define CLIP(color) (unsigned char)((color>0xFF)?0xff:((color<0)?0:color))
 
 void YUV420toRGB (unsigned char *src, unsigned char *dst, int width, int height,

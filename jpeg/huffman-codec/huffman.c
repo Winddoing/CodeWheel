@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include "huffman.h"
 
+struct huffman_code huffman_code_list[TABLE_SIZE];
+
 #if defined(DEBUG)
 #define INDENT (8)
 void dump_huffman_tree(struct huffman_node *root, int space)
@@ -34,8 +36,6 @@ void dump_huffman_code_list() {
     }
 }
 #endif
-
-struct huffman_code huffman_code_list[TABLE_SIZE];
 
 int table_unit_compar(const void *a, const void *b) {
     uint64_t x = *(uint64_t *)a;
@@ -105,6 +105,19 @@ struct huffman_node * build_huffman_tree(uint64_t *table, int size) {
     return p_huffman_node_list[size - 1];
 }
 
+void dump_table(uint64_t *table)
+{
+    int i = 0;
+
+    printf("==> %s:\n", __func__);
+    for (i = 0; i < TABLE_SIZE; i++) {
+        printf("%6ld ", table[i]);
+        if ((i + 1) % 16 == 0)
+            printf("\n");
+    }
+    printf("\n");
+}
+
 int encode(const char *input_file, const char *output_file) {
     int c, ret = 0;
     FILE *ifp, *ofp;
@@ -119,24 +132,35 @@ int encode(const char *input_file, const char *output_file) {
         return 1;
     }
 
+    //1. 统计文件中所有字符的个数
     while(!feof(ifp)) {
         c= fgetc(ifp);
         table[c]++;
     }
+    dump_table(table);
     fseek(ifp, 0L, SEEK_SET);
 
+    //2. 生成table中每个元素的值（[56][8] = 计数，索引）
     for (c = 0; c < TABLE_SIZE; c++) {
         table[c] = GEN_TABLE_UNIT(c, table[c]);
     }
+    dump_table(table);
+
+    //3. 对table进行排序
     qsort(table, TABLE_SIZE, sizeof(uint64_t), table_unit_compar);
+    dump_table(table);
+
     // Find the first non-zero value.
     for (c = 0; c < TABLE_SIZE; c++)
         if (table[c] >> 8)
             break;
+
     // Need 2 units at least
     if (c > TABLE_SIZE - 2) {
         c = TABLE_SIZE - 2;
     }
+
+    printf("cccccccc c=%d\n", c);
 
     tree = build_huffman_tree(table + c, TABLE_SIZE - c);
 #ifdef DEBUG
