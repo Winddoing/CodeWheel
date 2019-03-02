@@ -31,6 +31,16 @@ int add(int a, int b)
     return ret;
 }
 
+/*
+ * ://输出
+ *
+ * ://输入
+ *
+ * ://用到的寄存器
+ *
+ * +r 表示读写，=r 只可写
+ * */
+
 int main(int argc, const char *argv[])
 {
     int x = 3;
