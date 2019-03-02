@@ -113,7 +113,7 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
     uint16_t *b = (uint16_t*)bb;
     uint16_t *c = (uint16_t*)cc;
 
-#if 1
+#if 0
     asm(
         "ldr d3, [%0, #0]           \n\t"
         "ldr d2, [%0, #8]           \n\t"
@@ -147,15 +147,23 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
         : "cc", "memory", "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"
     );
 #else
-    // test, error
+    // test, OK
     asm(
-        "vld1.8 d0, [%0, #0] \n\t"
+        "ld4 {v0.4h, v1.4h, v2.4h, v3.4h}, [%0] \n"
+        "ld4 {v4.4h, v5.4h, v6.4h, v7.4h}, [%1] \n"
+
+        "mul v3.4h, v3.4h, v7.4h    \n\t"
+        "mul v2.4h, v2.4h, v6.4h    \n\t"
+        "mul v1.4h, v1.4h, v5.4h    \n\t"
+        "mul v0.4h, v0.4h, v4.4h    \n\t"
+
+        "st4 {v0.4h, v1.4h, v2.4h, v3.4h}, [%2] \n"
 
         : "+r"(a),   //%0
           "+r"(b),   //%1
           "+r"(c)    //%2
         :
-        : "cc", "memory", "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"
+        : "cc", "memory", "v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7"
     );
 #endif
 }
