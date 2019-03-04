@@ -114,7 +114,7 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
     uint16_t *c = (uint16_t*)cc;
 
 #if 0
-    asm(
+    asm volatile(
         "ldr d3, [%0, #0]           \n\t"
         "ldr d2, [%0, #8]           \n\t"
         "ldr d1, [%0, #16]          \n\t"
@@ -148,16 +148,22 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
     );
 #else
     // test, OK
-    asm(
-        "ld4 {v0.4h, v1.4h, v2.4h, v3.4h}, [%0] \n"
-        "ld4 {v4.4h, v5.4h, v6.4h, v7.4h}, [%1] \n"
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm volatile(
+        //"ld4 {v0.4h, v1.4h, v2.4h, v3.4h}, [%0] \n\t"
+        "ld4 {v0.4h-v3.4h}, [%0]                \n\t"
+        "ld4 {v4.4h, v5.4h, v6.4h, v7.4h}, [%1] \n\t"
 
-        "mul v3.4h, v3.4h, v7.4h    \n\t"
-        "mul v2.4h, v2.4h, v6.4h    \n\t"
-        "mul v1.4h, v1.4h, v5.4h    \n\t"
-        "mul v0.4h, v0.4h, v4.4h    \n\t"
+        "mul v3.4h, v3.4h, v7.4h                \n\t"
+        "mul v2.4h, v2.4h, v6.4h                \n\t"
+        "mul v1.4h, v1.4h, v5.4h                \n\t"
+        "mul v0.4h, v0.4h, v4.4h                \n\t"
 
-        "st4 {v0.4h, v1.4h, v2.4h, v3.4h}, [%2] \n"
+        "st4 {v0.4h, v1.4h, v2.4h, v3.4h}, [%2] \n\t"
 
         : "+r"(a),   //%0
           "+r"(b),   //%1
@@ -165,6 +171,11 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
         :
         : "cc", "memory", "v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7"
     );
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm("nop");
 #endif
 }
 #endif
