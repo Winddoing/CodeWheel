@@ -23,9 +23,23 @@ int add(int a, int b)
 
     asm volatile(
             "add %0, %1, %2"
-            
+
             : "=r" (ret)
             : "r" (a), "r" (b)
+            );
+
+    return ret;
+}
+
+int add_sym(int a, int b)
+{
+    int ret = 0;
+
+    asm volatile(
+            "add %[result], %[a], %[b]"
+
+            : [result] "=r" (ret)
+            : [a] "r" (a), [b] "r" (b)
             );
 
     return ret;
@@ -48,6 +62,8 @@ int main(int argc, const char *argv[])
     printf("Test Add %d+1=%d\n", x, x_add_1(x));
 
     printf("Test Add 2+3=%d\n", add(2, 3));
-    
+
+    printf("Test Add1 4+5=%d\n", add(4, 5));
+
     return 0;
 }

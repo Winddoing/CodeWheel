@@ -1,13 +1,9 @@
 ##########################################################
 # File Name		: m.sh
 # Author		: winddoing
-# Created Time	: 2019年01月25日 星期五 10时33分50秒
+# Created Time	: 2019年03月08日 星期五 15时38分20秒
 # Description	:
 ##########################################################
 #!/bin/bash
 
-gcc test.c -o test.out -lGL -lglut
-
-gcc yuv_play.c -o yuv_play.out -lGL -lglut
-
-gcc demo1.c -o demo1.out -lGL -lglut
+gcc -static whetstone.c -O0 -o whetstone.out -lm
