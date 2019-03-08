@@ -24,7 +24,7 @@ static void dump(uint16_t **x)
 
     for(i = 0; i < 8; i++) {
         for(j = 0; j < 8; j++) {
-            printf("%3d ", *(xx + (i << 2) + j));
+            printf("%3d ", *(xx + (i << 3) + j));
         }
 
         printf("\n");
@@ -116,7 +116,6 @@ static void matrix_mul_neon(uint16_t **aa, uint16_t **bb, uint16_t **cc)
 #endif
 }
 
-#if 1
 static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
 {
     printf("===> func: %s, line: %d\n", __func__, __LINE__);
@@ -167,7 +166,8 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
           "+r"(b),   //%1
           "+r"(c)    //%2
         :
-        : "cc", "memory", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q13", "q14", "q15"
+        : "cc", "memory", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7",
+        "q8", "q9", "q10", "q11", "q12", "q13", "q14", "q15"
     );
 #else
     // test, OK
@@ -178,27 +178,37 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
     asm ("nop");
     asm volatile(
         "ld4 {v0.8h, v1.8h, v2.8h, v3.8h}, [%0]     \n\t"
-        "ld4 {v4.8h, v5.8h, v6.8h, v7.8h}, [%0]     \n\t"
         "ld4 {v8.8h, v9.8h, v10.8h, v11.8h}, [%1]   \n\t"
-        "ld4 {v12.8h, v13.8h, v14.8h, v15.8h}, [%1] \n\t"
 
         "mul v0.8h, v0.8h, v8.8h                    \n\t"
         "mul v1.8h, v1.8h, v9.8h                    \n\t"
         "mul v2.8h, v2.8h, v10.8h                   \n\t"
         "mul v3.8h, v3.8h, v11.8h                   \n\t"
+
+        "st4 {v0.8h, v1.8h, v2.8h, v3.8h}, [%2]     \n\t"
+
+
+        "add x1, %0, #64                            \n\t"
+        "add x2, %1, #64                            \n\t"
+        "add x3, %2, #64                            \n\t"
+
+
+        "ld4 {v4.8h, v5.8h, v6.8h, v7.8h}, [x1]     \n\t"
+        "ld4 {v12.8h, v13.8h, v14.8h, v15.8h}, [x2] \n\t"
+
         "mul v4.8h, v4.8h, v12.8h                   \n\t"
         "mul v5.8h, v5.8h, v13.8h                   \n\t"
         "mul v6.8h, v6.8h, v14.8h                   \n\t"
         "mul v7.8h, v7.8h, v15.8h                   \n\t"
 
-        "st4 {v0.8h, v1.8h, v2.8h, v3.8h}, [%2]     \n\t"
-        "st4 {v4.8h, v5.8h, v6.8h, v7.8h}, [%2]     \n\t"
+        "st4 {v4.8h, v5.8h, v6.8h, v7.8h}, [x3]     \n\t"
 
         : "+r"(a),   //%0
           "+r"(b),   //%1
           "+r"(c)    //%2
         :
-        : "cc", "memory", "v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10", "v11", "v12", "v13", "v14", "v15"
+        : "cc", "memory", "x1", "x2", "x3", "v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7",
+            "v8", "v9", "v10", "v11", "v12", "v13", "v14", "v15"
     );
     asm ("nop");
     asm ("nop");
@@ -208,8 +218,6 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
 #endif
 }
 #endif
-#endif
-
 
 
 int main(int argc, const char *argv[])
