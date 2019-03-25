@@ -8,13 +8,13 @@
 
 if [ "$1" == "clean" ]; then
     echo "xxxxxxxxxxxxxx"
-    rm bin_to_8bit_hex build_edid conver_edid edid.h edid.hex hex_to_bin new_edid.bin
+    rm bin_to_8bit_hex rebuild_edid conver_edid edid.h edid.hex hex_to_bin new_edid.bin
     exit 1;
 fi
 
 
 gcc bin_to_8bit_hex.c -o bin_to_8bit_hex
-gcc build_edid.c -o build_edid
+gcc rebuild_edid.c -o rebuild_edid
 gcc conver_edid.c -o conver_edid
 gcc hex_to_bin.c -o hex_to_bin
 
