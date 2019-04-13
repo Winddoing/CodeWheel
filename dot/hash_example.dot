@@ -1,0 +1,42 @@
+//usr/bin/dot
+digraph st{
+    fontname = "Verdana";
+    fontsize = 10;
+    rankdir  = LR; //设置图的方向,左到右，默认由上到下
+    //rotate   = 90;
+
+    node [shape = "record", width = .1, height = .1];
+    node [fontname = "Verdana", fontsize = 10, color = "skyblue", shape = "record"];
+    edge [fontname = "Verdana", fontsize = 10, color = "crimson", style = "solid"];
+
+    node [shape="plaintext"];
+    st_table [label=<
+        <table border="0" cellborder="1" cellspacing="0" align="left">
+            <tr>
+                <td>st_table</td>
+            </tr>
+            <tr>
+                <td>num_bins=5</td>
+            </tr>
+            <tr>
+                <td>num_entries=3</td>
+            </tr>
+            <tr>
+                <td port="bins">bins</td>
+            </tr>
+        </table>
+        >];
+
+
+    node [shape="record"];
+    num_bins [label=" <b1> | <b2> | <b3> | <b4> | <b5> ", height=2];
+
+    entry_1 [label="{<e>st_table_entry|<next>next}"];
+    entry_2 [label="{<e>st_table_entry|<next>null}"];
+    entry_3 [label="{<e>st_table_entry|<next>null}"];
+
+    st_table: bins -> num_bins: b1;
+    num_bins: b1 -> entry_1: e;
+    entry_1: next -> entry_2: e;
+    num_bins: b3 -> entry_3: e;
+}

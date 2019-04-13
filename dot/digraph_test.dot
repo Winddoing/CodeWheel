@@ -1,0 +1,57 @@
+//usr/bin/dot
+digraph G{
+    //bgcolor = red;
+    //node [shape = "record"]; //节点方形，默认椭圆
+    //edge [style = "dashed"]; //连接线虚线，默认实线
+
+    1 -> 2;
+    2 -> 3 [color="red"];
+    3 -> 1;
+
+
+    a [shape = egg, label = "this is node a"]; 
+    b [shape = circle, label = "this is node b"]; 
+    
+    a -> b [style = dashed, label = "this is edge a to b"];
+
+
+
+    //子图的名字必须以cluster开始，否则解析引擎无法进行识别
+    subgraph cluster_sgh {
+        label = "this is subgraph";
+        bgcolor = greenyellow;
+        c;d;
+    }
+
+    1 -> d [style = dashed];
+
+    example1 [ shape = record, label = "{<head>cell1 | cell2 | cell3}" ];
+    example2 [ shape = record, label = "{<b1>|<b2>|<b3>}" ];
+
+
+    subgraph example3 { 
+        node [shape = record]; 
+        table1 [label = "{<head>cell1 | cell2 | cell3}"]; 
+        table2 [label = "{<head>cell1 | cell2}"]; 
+
+        table1: head -> table2: head; 
+    }
+
+
+    circle [label="", shape="circle", width=0.5, fixedsize=true, style=filled, color=black];
+
+
+    subgraph table {
+        node [shape=plaintext];    
+        struct1 [label=<<TABLE BORDER="1">
+            <TR>
+                <TD >a</TD>
+                <TD BGCOLOR="yellow">b</TD>
+                <TD HEIGHT="40" WIDTH="90" ALIGN="right">c</TD>
+                <TD VALIGN="bottom">d</TD>
+                <TD >e</TD>
+            </TR>
+            </TABLE>>];
+    }
+
+}

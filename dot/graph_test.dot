@@ -1,0 +1,20 @@
+//usr/bin/dot
+graph graph1 {
+    label = "this is a graph";
+    aa; bb;
+    a -- b;
+
+    {p, q} -- {x, y};
+
+    {c, d} -- o;
+
+    o -- end [style = dotted, color = red];
+
+    subgraph subgraph1 {
+            label = "This is subgraph";
+            bgcolor = greenyellow;
+            cc; dd;
+    }
+
+    ccc -- ddd [label = "test"];
+}
