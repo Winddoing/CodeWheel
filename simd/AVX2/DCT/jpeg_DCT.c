@@ -1,7 +1,8 @@
-
 #include <math.h>
 #include <stdio.h>
 #include <stdint.h>
+
+#include "jpeg_DCT.h"
 
 #if __x86_64__
 #include "immintrin.h"
@@ -14,10 +15,7 @@
 
 #define SHIFT16 16
 
-#define JPEG_BLOCK_SIZE 8
-
 #if __x86_64__
-
 #define barrier() __asm__ __volatile__("": : :"memory")
 void fastDCT_x86(unsigned char *image_data, short *dct_data)
 {
@@ -586,10 +584,12 @@ ones here or successive P-frames will drift too much with Reference frame coding
  * Perform the inverse DCT on one block of coefficients.
  */
 
-/*void fastIDCTInit(short block[64], short dst[64]) {
+#if 0
+void fastIDCTInit(short block[64], short dst[64]) {
     for (int n = 0; n < 64; n++)
         dst[(n & 0x38) | ((n & 6) >> 1) | ((n & 1) << 2)] = block[n];
-}*/
+}
+#else
 void fastIDCTInit(short block[64], short dst[64])
 {
 	char seq[64] = {0, 4, 1, 5, 2, 6, 3, 7, 8, 12, 9, 13, 10, 14, 11, 15, 16, 20, 17, 21, 18, 22, 19, 23, 24, 28, 25, 29, 26, 30, 27, 31, 32, 36, 33, 37,
@@ -599,6 +599,7 @@ void fastIDCTInit(short block[64], short dst[64])
 	for(int n = 0; n < 64; n++)
 		dst[seq[n]] = block[n];
 }
+#endif
 
 void fastIDCT(short data[JPEG_BLOCK_SIZE * JPEG_BLOCK_SIZE])
 {

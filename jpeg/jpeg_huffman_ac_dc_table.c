@@ -298,26 +298,26 @@ int main(int argc, const char *argv[])
      * */
 #if 1
     printf("亮度DC系数:\n");
-    printf("===> size:\n");
+    printf("===> size, EHUFSI_DC:\n");
     dump(dc_var_y.EHUFSI_DC, 12);
 
-    printf("===> code:\n");
+    printf("===> code, EHUFCO_DC:\n");
     dump(dc_var_y.EHUFCO_DC, 12);
 
     printf("色差DC系数:\n");
-    printf("===> size:\n");
+    printf("===> size, EHUFSI_DC:\n");
     dump(dc_var_uv.EHUFSI_DC, 12);
 
-    printf("===> code:\n");
+    printf("===> code, EHUFCO_DC:\n");
     dump(dc_var_uv.EHUFCO_DC, 12);
 #endif
 
 #if 1
     printf("亮度AC系数:\n");
-    printf("===> size:\n");
+    printf("===> size, EHUFSI_AC:\n");
     dump(ac_var_y.EHUFSI_AC, 251);
 
-    printf("===> code:\n");
+    printf("===> code, EHUFCO_AC:\n");
     dump(ac_var_y.EHUFCO_AC, 251);
 #endif
 
