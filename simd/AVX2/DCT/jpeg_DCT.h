@@ -4,6 +4,7 @@
 #define JPEG_BLOCK_SIZE 8
 
 void fastDCT_x86(unsigned char *image_data, short *dct_data);
+void fastDCT(unsigned char *image_data, short *dct_data, unsigned num_fdcts);
 void fastIDCTInit(short block[64], short dst[64]);
 void fastIDCT(short data[JPEG_BLOCK_SIZE * JPEG_BLOCK_SIZE]);
 

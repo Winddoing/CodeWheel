@@ -585,9 +585,10 @@ ones here or successive P-frames will drift too much with Reference frame coding
  */
 
 #if 0
-void fastIDCTInit(short block[64], short dst[64]) {
-    for (int n = 0; n < 64; n++)
-        dst[(n & 0x38) | ((n & 6) >> 1) | ((n & 1) << 2)] = block[n];
+void fastIDCTInit(short block[64], short dst[64])
+{
+	for(int n = 0; n < 64; n++)
+		dst[(n & 0x38) | ((n & 6) >> 1) | ((n & 1) << 2)] = block[n];
 }
 #else
 void fastIDCTInit(short block[64], short dst[64])
@@ -597,7 +598,7 @@ void fastIDCTInit(short block[64], short dst[64])
 				   };
 
 	for(int n = 0; n < 64; n++)
-		dst[seq[n]] = block[n];
+		dst[(int)seq[n]] = block[n];
 }
 #endif
 
