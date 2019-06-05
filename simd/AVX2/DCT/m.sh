@@ -14,7 +14,7 @@ nasm x86_64/jidctint-avx2.asm -o jidctint-avx2.o -I nasm/  -D__x86_64__  -f elf6
 nasm x86_64/jfdctfst-sse2.asm -o jfdctfst-sse2.o -I nasm/  -D__x86_64__  -f elf64 -DPIC
 nasm x86_64/jidctfst-sse2.asm -o jidctfst-sse2.o -I nasm/  -D__x86_64__  -f elf64 -DPIC
 
-gcc *.o *.c ${simd_flag} -Wall -O3
+gcc *.o *.c ${simd_flag} -Wall -O3 -g
 
 
 ctags -R .

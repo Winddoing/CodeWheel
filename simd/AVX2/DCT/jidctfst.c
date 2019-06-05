@@ -39,6 +39,33 @@
 //#include "jinclude.h"
 //#include "jpeglib.h"
 //#include "jdct.h"               /* Private declarations for DCT subsystem */
+//
+#define DCT_IFAST_SUPPORTED
+#define DCTSIZE 8
+//#define RIGHT_SHIFT_IS_UNSIGNED
+
+typedef long JLONG;
+typedef short DCTELEM;
+
+#define DCTSIZE2            64
+
+
+#ifdef RIGHT_SHIFT_IS_UNSIGNED
+#define SHIFT_TEMPS     JLONG shift_temp;
+#define RIGHT_SHIFT(x, shft) \
+    ((shift_temp = (x)) < 0 ? \
+    (shift_temp >> (shft)) | ((~((JLONG)0)) << (32 - (shft))) : \
+    (shift_temp >> (shft)))
+#else
+#define SHIFT_TEMPS
+#define RIGHT_SHIFT(x, shft)    ((x) >> (shft))
+#endif
+
+#define ONE          ((JLONG)1)
+#define DESCALE(x, n)  RIGHT_SHIFT((x) + (ONE << ((n) - 1)), n)
+
+
+
 
 #ifdef DCT_IFAST_SUPPORTED
 
@@ -163,32 +190,72 @@ Sorry, this code only copes with 8x8 DCTs. /* deliberate syntax err */
 #endif
 
 
+#if 1
+#define MULTIPLIER  short       /* prefer 16-bit with SIMD for parellelism */           
+typedef MULTIPLIER IFAST_MULT_TYPE;  /* 16 bits is OK, use short if faster */   
+#define IFAST_SCALE_BITS  2          /* fractional bits in scale factors */     
+
+#define MULTIPLY16V16(var1, var2)  ((var1) * (var2))      
+
+
+void jpeg_idct_init(unsigned short *quantval, short *dct_table)
+{
+	int i = 0;
+#define CONST_BITS  14
+	static const unsigned short aanscales[DCTSIZE2] = {
+		/* precomputed values scaled up by 14 bits */
+		16384, 22725, 21407, 19266, 16384, 12873,  8867,  4520,
+		22725, 31521, 29692, 26722, 22725, 17855, 12299,  6270,
+		21407, 29692, 27969, 25172, 21407, 16819, 11585,  5906,
+		19266, 26722, 25172, 22654, 19266, 15137, 10426,  5315,
+		16384, 22725, 21407, 19266, 16384, 12873,  8867,  4520,
+		12873, 17855, 16819, 15137, 12873, 10114,  6967,  3552,
+		8867, 12299, 11585, 10426,  8867,  6967,  4799,  2446,
+		4520,  6270,  5906,  5315,  4520,  3552,  2446,  1247
+	};
+	SHIFT_TEMPS
+
+	for (i = 0; i < DCTSIZE2; i++) {
+		dct_table[i] = (IFAST_MULT_TYPE)
+			DESCALE(MULTIPLY16V16((JLONG)quantval[i],
+						(JLONG)aanscales[i]),
+					CONST_BITS - IFAST_SCALE_BITS);
+	}
+#undef CONST_BITS
+#define CONST_BITS  8
+}
+#endif
+
+
 /*
  * Perform dequantization and inverse DCT on one block of coefficients.
  */
 
-GLOBAL(void)
-jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
-				JCOEFPTR coef_block, JSAMPARRAY output_buf,
-				JDIMENSION output_col)
+//GLOBAL(void)
+//jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
+//				JCOEFPTR coef_block, JSAMPARRAY output_buf,
+//				JDIMENSION output_col)
+void
+jpeg_idct_ifast(short *coef_block, short *dct_table, short **output_buf,
+				unsigned int output_col)
 {
 	DCTELEM tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7;
 	DCTELEM tmp10, tmp11, tmp12, tmp13;
 	DCTELEM z5, z10, z11, z12, z13;
-	JCOEFPTR inptr;
+	short *inptr;
 	IFAST_MULT_TYPE *quantptr;
 	int *wsptr;
-	JSAMPROW outptr;
-	JSAMPLE *range_limit = IDCT_range_limit(cinfo);
+	short *outptr;
+	//JSAMPLE *range_limit = IDCT_range_limit(cinfo);
 	int ctr;
 	int workspace[DCTSIZE2];      /* buffers data between passes */
-	SHIFT_TEMPS                   /* for DESCALE */
-	ISHIFT_TEMPS                  /* for IDESCALE */
+	//SHIFT_TEMPS                   /* for DESCALE */
+	//ISHIFT_TEMPS                  /* for IDESCALE */
 
 	/* Pass 1: process columns from input, store into work array. */
 
 	inptr = coef_block;
-	quantptr = (IFAST_MULT_TYPE *)compptr->dct_table;
+	quantptr = (IFAST_MULT_TYPE *)dct_table;
 	wsptr = workspace;
 
 	for(ctr = DCTSIZE; ctr > 0; ctr--) {
@@ -206,7 +273,11 @@ jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
 		   inptr[DCTSIZE * 5] == 0 && inptr[DCTSIZE * 6] == 0 &&
 		   inptr[DCTSIZE * 7] == 0) {
 			/* AC terms all zero */
+#if 0
 			int dcval = (int)DEQUANTIZE(inptr[DCTSIZE * 0], quantptr[DCTSIZE * 0]);
+#else
+			int dcval = (int)inptr[DCTSIZE * 0];
+#endif
 
 			wsptr[DCTSIZE * 0] = dcval;
 			wsptr[DCTSIZE * 1] = dcval;
@@ -225,10 +296,17 @@ jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
 
 		/* Even part */
 
+#if 0
 		tmp0 = DEQUANTIZE(inptr[DCTSIZE * 0], quantptr[DCTSIZE * 0]);
 		tmp1 = DEQUANTIZE(inptr[DCTSIZE * 2], quantptr[DCTSIZE * 2]);
 		tmp2 = DEQUANTIZE(inptr[DCTSIZE * 4], quantptr[DCTSIZE * 4]);
 		tmp3 = DEQUANTIZE(inptr[DCTSIZE * 6], quantptr[DCTSIZE * 6]);
+#else
+		tmp0 = inptr[DCTSIZE * 0];
+		tmp1 = inptr[DCTSIZE * 2];
+		tmp2 = inptr[DCTSIZE * 4];
+		tmp3 = inptr[DCTSIZE * 6];
+#endif
 
 		tmp10 = tmp0 + tmp2;        /* phase 3 */
 		tmp11 = tmp0 - tmp2;
@@ -243,10 +321,17 @@ jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
 
 		/* Odd part */
 
+#if 0
 		tmp4 = DEQUANTIZE(inptr[DCTSIZE * 1], quantptr[DCTSIZE * 1]);
 		tmp5 = DEQUANTIZE(inptr[DCTSIZE * 3], quantptr[DCTSIZE * 3]);
 		tmp6 = DEQUANTIZE(inptr[DCTSIZE * 5], quantptr[DCTSIZE * 5]);
 		tmp7 = DEQUANTIZE(inptr[DCTSIZE * 7], quantptr[DCTSIZE * 7]);
+#else
+		tmp4 = inptr[DCTSIZE * 1];
+		tmp5 = inptr[DCTSIZE * 3];
+		tmp6 = inptr[DCTSIZE * 5];
+		tmp7 = inptr[DCTSIZE * 7];
+#endif
 
 		z13 = tmp6 + tmp5;          /* phase 6 */
 		z10 = tmp6 - tmp5;
@@ -299,8 +384,9 @@ jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
 		if(wsptr[1] == 0 && wsptr[2] == 0 && wsptr[3] == 0 && wsptr[4] == 0 &&
 		   wsptr[5] == 0 && wsptr[6] == 0 && wsptr[7] == 0) {
 			/* AC terms all zero */
-			JSAMPLE dcval =
-				range_limit[IDESCALE(wsptr[0], PASS1_BITS + 3) & RANGE_MASK];
+			unsigned char dcval =
+				IDESCALE(wsptr[0], PASS1_BITS + 3);
+				//range_limit[IDESCALE(wsptr[0], PASS1_BITS + 3) & RANGE_MASK];
 
 			outptr[0] = dcval;
 			outptr[1] = dcval;
@@ -351,6 +437,7 @@ jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
 
 		/* Final output stage: scale down by a factor of 8 and range-limit */
 
+#if 0
 		outptr[0] =
 			range_limit[IDESCALE(tmp0 + tmp7, PASS1_BITS + 3) & RANGE_MASK];
 		outptr[7] =
@@ -367,7 +454,16 @@ jpeg_idct_ifast(j_decompress_ptr cinfo, jpeg_component_info *compptr,
 			range_limit[IDESCALE(tmp3 + tmp4, PASS1_BITS + 3) & RANGE_MASK];
 		outptr[3] =
 			range_limit[IDESCALE(tmp3 - tmp4, PASS1_BITS + 3) & RANGE_MASK];
-
+#else
+		outptr[0] = IDESCALE(tmp0 + tmp7, PASS1_BITS + 3);
+		outptr[7] = IDESCALE(tmp0 - tmp7, PASS1_BITS + 3);
+		outptr[1] = IDESCALE(tmp1 + tmp6, PASS1_BITS + 3);
+		outptr[6] = IDESCALE(tmp1 - tmp6, PASS1_BITS + 3);
+		outptr[2] = IDESCALE(tmp2 + tmp5, PASS1_BITS + 3);
+		outptr[5] = IDESCALE(tmp2 - tmp5, PASS1_BITS + 3);
+		outptr[4] = IDESCALE(tmp3 + tmp4, PASS1_BITS + 3);
+		outptr[3] = IDESCALE(tmp3 - tmp4, PASS1_BITS + 3);
+#endif
 		wsptr += DCTSIZE;           /* advance pointer to next row */
 	}
 }

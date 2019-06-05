@@ -224,6 +224,17 @@ void fastDCT_x86(unsigned char *image_data, short *dct_data)
 
 #endif
 
+
+void fastDCT_asm(unsigned char *image_data, short *dct_data, unsigned num_fdcts)
+{
+	__asm__ __volatile__(
+			"nop   \n\t"
+
+			:
+			: "r" (image_data), "r" (dct_data), "r" (num_fdcts)
+			);
+}
+
 void fastDCT(unsigned char *image_data, short *dct_data, unsigned num_fdcts)
 {
 	// ----------------------------------------------------
