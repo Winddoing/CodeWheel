@@ -195,6 +195,37 @@ static void Order_codes(int *HUFFVAL, int *HUFFCODE, int *HUFFSIZE, int *EHUFCO,
     return;
 }
 
+static char* itoa(int value, char* result, int base)
+{
+	// check that the base if valid
+	if(base < 2 || base > 36) {
+		*result = '\0';
+		return result;
+	}
+
+	char* ptr = result, *ptr1 = result, tmp_char;
+	int tmp_value;
+
+	do {
+		tmp_value = value;
+		value /= base;
+		*ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz" [35 + (tmp_value - value * base)];
+	} while(value);
+
+	// Apply negative sign
+	if(tmp_value < 0) *ptr++ = '-';
+
+	*ptr-- = '\0';
+
+	while(ptr1 < ptr) {
+		tmp_char = *ptr;
+		*ptr-- = *ptr1;
+		*ptr1++ = tmp_char;
+	}
+
+	return result;
+}
+
 static void dump(int *table, int n)
 {
     int i = 0;
@@ -203,6 +234,25 @@ static void dump(int *table, int n)
 
     for(i = 0; i < n; i++) {
         printf("%5d ", table[i]);
+
+        if((i + 1) % 16 == 0)
+            printf("\n");
+    }
+
+    printf("\n}\n");
+}
+
+static void dump_to_2(int *table, int n)
+{
+    int i = 0;
+
+    printf("===> %s: {\n", __func__);
+
+    for(i = 0; i < n; i++) {
+        char S2[20];                   
+        itoa(table[i], S2, 2);
+
+        printf("%5s ", S2);
 
         if((i + 1) % 16 == 0)
             printf("\n");
@@ -300,16 +350,20 @@ int main(int argc, const char *argv[])
     printf("亮度DC系数:\n");
     printf("===> size, EHUFSI_DC:\n");
     dump(dc_var_y.EHUFSI_DC, 12);
+    dump_to_2(dc_var_y.EHUFSI_DC, 12);
 
     printf("===> code, EHUFCO_DC:\n");
     dump(dc_var_y.EHUFCO_DC, 12);
+    dump_to_2(dc_var_y.EHUFCO_DC, 12);
 
     printf("色差DC系数:\n");
     printf("===> size, EHUFSI_DC:\n");
     dump(dc_var_uv.EHUFSI_DC, 12);
+    dump_to_2(dc_var_uv.EHUFSI_DC, 12);
 
     printf("===> code, EHUFCO_DC:\n");
     dump(dc_var_uv.EHUFCO_DC, 12);
+    dump_to_2(dc_var_uv.EHUFCO_DC, 12);
 #endif
 
 #if 1
