@@ -364,6 +364,14 @@ int main(int argc, const char *argv[])
     printf("===> code, EHUFCO_DC:\n");
     dump(dc_var_uv.EHUFCO_DC, 12);
     dump_to_2(dc_var_uv.EHUFCO_DC, 12);
+
+    printf("===> code, MINCODE_DC:\n");
+    dump(dc_var_uv.MINCODE_DC, 16);
+    dump_to_2(dc_var_uv.MINCODE_DC, 16);
+
+    printf("===> code, MAXCODE_DC:\n");
+    dump(dc_var_uv.MAXCODE_DC, 16);
+    dump_to_2(dc_var_uv.MAXCODE_DC, 16);
 #endif
 
 #if 1
