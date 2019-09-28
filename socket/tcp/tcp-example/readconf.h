@@ -1,7 +1,7 @@
 #ifndef READCONF_H
 #define READCONF_H
 
-#define CONF_FILE "/usr/etc/rmshell.conf"
+#define CONF_FILE "rmshell.conf"
 
 #define ITEM_ROOT		"root"
 #define ITEM_LOGFILE	"logfile"

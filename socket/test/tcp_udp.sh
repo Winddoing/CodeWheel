@@ -6,6 +6,6 @@
 ##########################################################
 #!/bin/bash
 
-gcc tcp_udp_s.c -o tcp_udp_s
-gcc tcp_udp_tc.c -o tcp_udp_tc
-gcc tcp_udp_uc.c -o tcp_udp_uc
+gcc tcp_udp_s.c -o tcp_udp_s.out -g
+gcc tcp_udp_tc.c -o tcp_udp_tc.out
+gcc tcp_udp_uc.c -o tcp_udp_uc.out
