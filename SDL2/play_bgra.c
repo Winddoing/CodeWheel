@@ -69,12 +69,13 @@ static int create_render_window(struct sdl_player *player)
     return 0;
 }
 
+#define _ALIGH(x, align) (((x) + (align - 1)) & (~(align - 1)))
+
 int main(int argc, char *argv[])
 {
     struct sdl_player player;
     uint32_t pixel_data_len = 0;
     uint32_t bpp = 0; //Bit per Pixel
-    uint32_t pitch = 0;
     int ret = 0;
 
     player.screen_w = 500;
@@ -82,7 +83,6 @@ int main(int argc, char *argv[])
 
     player.pixel_w = 320;
     player.pixel_h = 180;
-    player.stride  = 320;
 	//Note: ARGB8888 in "Little Endian" system stores as B|G|R|A
 	player.pixformat = SDL_PIXELFORMAT_ARGB8888;
 
@@ -90,7 +90,9 @@ int main(int argc, char *argv[])
         bpp = 32;
 
     pixel_data_len = player.pixel_w * player.pixel_h * bpp / 8;
-    pitch = player.stride * bpp / 8;
+
+    //内存中像素的宽度，并进行内存对齐处理，一般4字节对齐
+    player.stride = _ALIGH(player.pixel_w * bpp / 8, 4);
 
     ret = create_render_window(&player);
     if (ret) {
@@ -130,7 +132,7 @@ int main(int argc, char *argv[])
 			//We don't need to change Endian
 			//Because input BGRA pixel data(B|G|R|A)
 			//is same as ARGB8888 in Little Endian (B|G|R|A)
-			SDL_UpdateTexture(player.sdlTexture, NULL, player.buffer, pitch);
+			SDL_UpdateTexture(player.sdlTexture, NULL, player.buffer, player.stride);
 
 			//FIX: If window is resize
 			sdlRect.x = 0;

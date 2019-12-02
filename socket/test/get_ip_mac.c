@@ -12,7 +12,7 @@ int main(int argc,char *argv[])
 	struct ifreq ifr;
 	char*address;
 	int fd;
-	char *name = "eth0";
+	char *name = "enp2s0";
 
 	if (argc > 1)
 		name = argv[1];
