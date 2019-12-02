@@ -9,7 +9,25 @@
 
 - https://raw.githubusercontent.com/leixiaohua1020/simplest_media_play/master/test_bgra_320x180.rgb
 
+
+## convert
+
+```
+convert -depth 8 -size 320x180+0 bgra:test_bgra_320x180.rgb out.png
+```
+
+```
+convert test.png test.bmp
+```
+
+```
+display test.bmp
+```
+
+
 ## 参考
 
 - [最简单的视音频播放示例7：SDL2播放RGB/YUV](https://blog.csdn.net/leixiaohua1020/article/details/40525591/)
 - https://github.com/leixiaohua1020/simplest_media_play
+
+
