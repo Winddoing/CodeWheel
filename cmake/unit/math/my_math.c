@@ -5,7 +5,7 @@
  *     Description	:
  *############################################################*/
 
-#include "../include/my_math.h"
+#include "my_math.h"
 
 double cal_sqrt(double value)
 {

@@ -1,29 +1,30 @@
-#1.cmake verson，指定cmake版本 
 cmake_minimum_required(VERSION 3.2)
+project(cmake_demo)
 
-#2.project name，指定项目的名称，一般和项目的文件夹名称对应
-project(test_sqrt)
+# The version number.
+set (TEST_VERSION_MAJOR 1)
+set (TEST_VERSION_MINOR 0)
 
-#3.head file path，头文件目录
-include_directories(
-    include
+# configure a header file to pass some of the CMake settings
+# to the source code
+configure_file (
+    "${PROJECT_SOURCE_DIR}/Config.h.in"
+    "${PROJECT_BINARY_DIR}/Config.h"
     )
 
-#4.source directory，源文件目录
-aux_source_directory(src DIR_SRCS)
+# should we use our own math functions
+#option(USE_MYMATH "Use tutorial provided math implementation" ON)
 
-#5.set environment variable，设置环境变量，编译用到的源文件全部都要放到这里，否则编译能够通过，但是执行的时候会出现各种问题，比如"symbol lookup error xxxxx , undefined symbol"
-set(TEST_MATH
-    ${DIR_SRCS}
-    )
+set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
-#6.add executable file，添加要编译的可执行文件
-add_executable(${PROJECT_NAME} ${TEST_MATH})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)  
+set(LIBRARY_OUTPUT_PATH ${ROOT_DIR}/lib)             
 
-add_library(my_math1 STATIC ${TEST_MATH})
+include_directories(${ROOT_DIR}/include)
+include_directories(${PROJECT_BINARY_DIR})
 
-add_library(my_math2 SHARED ${TEST_MATH})
+add_subdirectory(${ROOT_DIR}/src)
+if (USE_MYMATH)
+    add_subdirectory(${ROOT_DIR}/unit/math)
+endif (USE_MYMATH)
 
-
-#7.add link library，添加可执行文件所需要的库，比如我们用到了libm.so（命名规则：lib+name+.so），就添加该库的名称
-target_link_libraries(${PROJECT_NAME} m)
