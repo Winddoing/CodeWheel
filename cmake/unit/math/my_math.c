@@ -5,6 +5,9 @@
  *     Description	:
  *############################################################*/
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "my_math.h"
 
 double cal_sqrt(double value)

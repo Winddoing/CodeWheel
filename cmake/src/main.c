@@ -7,8 +7,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "Config.h"
+
+#ifdef USE_MYMATH
+#include "my_math.h"
+#endif
 
 int main(int argc, char** argv)
 {
@@ -23,8 +28,10 @@ int main(int argc, char** argv)
 
     double inputValue = atof(argv[1]);
 #ifdef USE_MYMATH
+    printf("Now we use our own Math library. \n");
     double outputValue = cal_sqrt(inputValue);
 #else
+    printf("Now we use the standard library. \n");
     double outputValue = sqrt(inputValue);
 #endif
     fprintf(stdout,"The square root of %g is %g\n",

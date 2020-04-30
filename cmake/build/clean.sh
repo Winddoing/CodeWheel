@@ -6,4 +6,4 @@
 ##########################################################
 #!/bin/bash
 
-rm -rf CMakeCache.txt  CMakeFiles  cmake_install.cmake  libmy_math1.a  libmy_math2.so  Makefile  test_sqrt
+rm -rf CMakeCache.txt  CMakeFiles  cmake_install.cmake Makefile lib  bin Config.h  src  unit

@@ -17,14 +17,21 @@ configure_file (
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)  
-set(LIBRARY_OUTPUT_PATH ${ROOT_DIR}/lib)             
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 include_directories(${ROOT_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR})
 
-add_subdirectory(${ROOT_DIR}/src)
-if (USE_MYMATH)
-    add_subdirectory(${ROOT_DIR}/unit/math)
-endif (USE_MYMATH)
+link_directories(${ROOT_DIR}/lib)
+link_directories(${ROOT_DIR}/externals/lib)
 
+option (USE_MYMATH "Use provided math implementation" OFF)
+
+if(USE_MYMATH)
+    add_definitions(-DUSE_MYMATH)
+    add_subdirectory(${ROOT_DIR}/unit/math)
+endif(USE_MYMATH)
+
+add_subdirectory(${ROOT_DIR}/src)
