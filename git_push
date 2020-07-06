@@ -90,6 +90,9 @@ do
 	esac
 done
 
+git config user.name "winddoing"            
+git config user.email "winddoing@sina.cn"   
+
 echo "[1]View change file ..."
 git status
 
