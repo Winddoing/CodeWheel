@@ -1,0 +1,808 @@
+
+#startx -- :1 -config /etc/X11/xorg.conf-multiseat -layout seat-1 -seat seat-1 -novtswitch -sharevts vt2 -keeptty -listen tcp&
+#startx -- :2 -config /etc/X11/xorg.conf-multiseat -layout seat-2 -seat seat-2 -novtswitch -sharevts vt3 -keeptty -listen tcp&
+#startx -- :3 -config /etc/X11/xorg.conf-multiseat -layout seat-3 -seat seat-3 -novtswitch -sharevts vt4 -keeptty -listen tcp&
+#startx -- :4 -config /etc/X11/xorg.conf-multiseat -layout seat-4 -seat seat-4 -novtswitch -sharevts vt5 -keeptty -listen tcp&
+#Multi-seat config
+
+
+Section "ServerFlags"
+    Option "AllowMouseOpenFail" "true"
+    Option "Xinerama" "False"
+    Option "AllowEmptyInput" "True"
+    Option "DontZap" "False"
+#    Option "AutoAddGPU" "off"   #Crash, DON'T try.
+#    Option "AutoAddDevices" "false"   #Crash, DON'T try.
+#    Option "AutoEnableDevices"   "false"   #Crash, DON'T try.
+    Option "DefaultServerLayout" "seat0"
+EndSection
+
+Section "Extensions"
+#    Option         "Composite" "Disable"
+EndSection
+
+#seat0
+Section "ServerLayout"
+    Identifier     "seat0"
+    Screen      0  "Screen0" 0 0
+    InputDevice    "Keyboard0" "CoreKeyboard"
+    InputDevice    "Mouse0" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat0"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. Logitech USB Optical Mouse.
+    Identifier     "Mouse0"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse1"
+#    Option         "Device" "/dev/input/event9
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:5:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. AT Translated Set 2 keyboard.
+    Identifier     "Keyboard0"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event3"
+#    Option         "Device" "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor0"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS"
+EndSection
+
+Section "Device"
+    Identifier     "Device0"
+    VendorName     "ASPEED Technology, Inc."
+    BoardName      "ASPEED Graphics Family"
+    Driver         "astdrmfb"
+#    VendorName     "Intel Corporation"
+#    BoardName      "Intel i915"
+    BusID          "PCI:12:2:0"
+#    Screen          0
+    Option         "ProbeAllGpus" "false"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "Device0"
+    Monitor        "Monitor0"
+    DefaultDepth    24
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+EndSection
+
+
+#seat-1
+Section "ServerLayout"
+    Identifier     "seat-1"
+    Screen      1  "Screen1" 0 0
+    InputDevice    "Keyboard1" "CoreKeyboard"
+    InputDevice    "Mouse1" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-1"
+#    Option         "SingleCard" "on"   #Crash, DON'T try.
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt lenovo USB Optical Mouse.
+    Identifier     "Mouse1"
+#    Driver         "mous9
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse2"
+#    Option         "Device" "/dev/input/event10"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:7:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. Logitech USB Keyboard.
+    Identifier     "Keyboard1"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event11"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:8:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor1"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device1"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:4:0:0"
+#    Screen          1
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen1"
+    Device         "Device1"
+    Monitor        "Monitor1"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+EndSection
+
+
+#seat-2
+Section "ServerLayout"
+    Identifier     "seat-2"
+    Screen      2  "Screen2" 0 0
+    InputDevice    "Keyboard2" "CoreKeyboard"
+    InputDevice    "Mouse2" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-2"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse2"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard2"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor2"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device2"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:5:0:0"
+#    Screen          2
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen2"
+    Device         "Device2"
+    Monitor        "Monitor2"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+EndSection
+
+
+#seat-3
+Section "ServerLayout"
+    Identifier     "seat-3"
+    Screen      3  "Screen3" 0 0
+    InputDevice    "Keyboard3" "CoreKeyboard"
+    InputDevice    "Mouse3" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-3"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse3"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard3"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor3"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device3"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:8:0:0"
+#    Screen          3
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen3"
+    Device         "Device3"
+    Monitor        "Monitor3"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+
+EndSection
+
+
+#seat-4
+Section "ServerLayout"
+    Identifier     "seat-4"
+    Screen      4  "Screen4" 0 0
+    InputDevice    "Keyboard4" "CoreKeyboard"
+    InputDevice    "Mouse4" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-4"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse4"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard4"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor4"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device4"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:9:0:0"
+#    Screen          4
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen4"
+    Device         "Device4"
+    Monitor        "Monitor4"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+
+EndSection
+
+
+#seat-5
+Section "ServerLayout"
+    Identifier     "seat-5"
+    Screen      5  "Screen5" 0 0
+    InputDevice    "Keyboard5" "CoreKeyboard"
+    InputDevice    "Mouse5" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-5"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse5"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard5"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor5"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device5"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:133:0:0"
+#    Screen          5
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen5"
+    Device         "Device5"
+    Monitor        "Monitor5"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+
+EndSection
+
+
+#seat-6
+Section "ServerLayout"
+    Identifier     "seat-6"
+    Screen      6  "Screen6" 0 0
+    InputDevice    "Keyboard6" "CoreKeyboard"
+    InputDevice    "Mouse6" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-6"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse6"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard6"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor6"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device6"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:134:0:0"
+#    Screen          6
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen6"
+    Device         "Device6"
+    Monitor        "Monitor6"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+
+EndSection
+
+
+#seat-7
+Section "ServerLayout"
+    Identifier     "seat-7"
+    Screen      7  "Screen7" 0 0
+    InputDevice    "Keyboard7" "CoreKeyboard"
+    InputDevice    "Mouse7" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-7"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse7"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard7"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor7"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device7"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:137:0:0"
+#    Screen          7
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+
+EndSection
+
+Section "Screen"
+    Identifier     "Screen7"
+    Device         "Device7"
+    Monitor        "Monitor7"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+
+EndSection
+
+
+#seat-8
+Section "ServerLayout"
+    Identifier     "seat-8"
+    Screen      8  "Screen8" 0 0
+    InputDevice    "Keyboard8" "CoreKeyboard"
+    InputDevice    "Mouse8" "CorePointer"
+    Option         "Xinerama" "0"
+    Option         "Seat" "seat-8"
+#    Option         "SingleCard" "on"
+EndSection
+
+Section "Files"
+    FontPath        "/usr/share/fonts/default/Type1"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. PixArt_USB_Optical_Mouse.
+    Identifier     "Mouse8"
+#    Driver         "mouse"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/mouse0"
+#    Option         "Device" "/dev/input/event5"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-mouse"
+#    Option         "Protocol" "auto"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+    Option         "GrabDevice" "on"
+EndSection
+
+Section "InputDevice"
+
+    # generated from default. SIGMACHIP USB Keyboard.
+    Identifier     "Keyboard8"
+#    Driver         "kbd"
+    Driver         "evdev"
+#    Option         "Device" "/dev/input/event6"
+#    Option         "Device" "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "evdev"
+    Option         "XkbLayout" "us"
+    Option         "GrabDevice" "yes"
+EndSection
+
+Section "Monitor"
+
+    # HorizSync source: edid, VertRefresh source: edid
+    Identifier     "Monitor8"
+    VendorName     "AOC"
+    ModelName      "AOC 2491W"
+    HorizSync       30.0 - 83.0
+    VertRefresh     50.0 - 76.0
+    Option         "DPMS" "false"
+EndSection
+
+Section "Device"
+    Identifier     "Device8"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GP106GL [Quadro P2200]"
+    BusID          "PCI:138:0:0"
+#    Screen          8
+    Option         "ProbeAllGpus" "false"
+    Option         "ConnectedMonitor" "DFP-0"
+    Option         "CustomEDID" "DFP-0:/etc/X11/edid.bin"
+    Option         "IgnoreEDID" "false"
+    Option         "UseEDID" "ture"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen8"
+    Device         "Device8"
+    Monitor        "Monitor8"
+    DefaultDepth    24
+#    Option         "Stereo" "0"
+#    Option         "metamodes" "nvidia-auto-select +0+0 {AllowGSYNC=Off}"
+#    Option         "SLI" "Off"
+#    Option         "MultiGPU" "Off"
+#    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+        Modes       "1920x1080"
+    EndSubSection
+
+EndSection
+
+
+

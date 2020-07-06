@@ -50,6 +50,8 @@ link_directories(${ROOT_DIR}/externals/lib)
 option (USE_MYMATH
     "Use provided math implementation" OFF)
 
+find_package(math REQUIRED)
+
 if(USE_MYMATH)
     add_definitions(-DUSE_MYMATH)
     add_subdirectory(${ROOT_DIR}/unit/math)

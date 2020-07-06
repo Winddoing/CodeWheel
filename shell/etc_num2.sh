@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 echo -n "Input a directory:"
 read DIR
 
