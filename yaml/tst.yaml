@@ -1,0 +1,5 @@
+db_server: "localhost"
+db_password: "wibble"
+db_username: "test"
+national_rail_username: test
+national_rail_password: wibble
