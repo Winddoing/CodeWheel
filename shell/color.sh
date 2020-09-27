@@ -1,5 +1,26 @@
 #!/bin/bash
 
+function out_red() {
+    echo -e "\e[01;31m$@\e[0m"
+}
+out_red "test read"
+
+function out_yellow() {
+    echo -e "\e[33m$@\e[0m"
+}
+out_yellow "test yellow"
+
+function out_green() {
+    echo -e "\e[32m$@\e[0m"
+}
+out_green "test green"
+
+function out_blue() {
+    echo -e "\e[34m$@\e[0m"
+}
+out_blue "test blue"
+
+
 
 echo -e "\033[31m 红色字 \033[0m"
 
