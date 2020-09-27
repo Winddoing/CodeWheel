@@ -8,6 +8,7 @@ bin
 *.o
 #*.s
 *.so
+*.bin
 
 
 ## cmake
