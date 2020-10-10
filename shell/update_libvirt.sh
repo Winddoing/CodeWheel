@@ -3,7 +3,7 @@
 # File Name		: update_libvirt.sh
 # Author		: winddoing
 # Created Time	: 2020年09月14日 星期一 16时33分46秒
-# Description	:
+# Description	: install libvirt5.0 for centos7
 ##########################################################
 
 #url="http://mirror.centos.org/centos/7.8.2003/virt/x86_64/libvirt-latest/"
@@ -25,10 +25,12 @@ do
     ccc=`echo $href | sed 's/\"//g'`
 
     echo $url$ccc
-    wget $url$ccc
+    wget -P rpms $url$ccc
 
 done < fff.txt
 
 rm page.txt fff.txt -rf
 
-#yum install ./*
+yum -y install ./rpms/*.rpm virt-manager.noarch
+
+systemctl restart libvirtd.service
