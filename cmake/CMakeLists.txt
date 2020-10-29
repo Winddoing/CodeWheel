@@ -50,7 +50,18 @@ link_directories(${ROOT_DIR}/externals/lib)
 option (USE_MYMATH
     "Use provided math implementation" OFF)
 
-find_package(math REQUIRED)
+#find_package(math REQUIRED)
+
+# Test pkg-config
+set(CMAKE_CXX_STANDARD 17)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GL REQUIRED gl)
+
+message(STATUS "=========pkg-config========")
+MESSAGE(STATUS "-L: "${GL_LIBRARIES})
+MESSAGE(STATUS "-I: "${GL_INCLUDE_DIRS})
+message(STATUS "===========================")
+
 
 if(USE_MYMATH)
     add_definitions(-DUSE_MYMATH)
