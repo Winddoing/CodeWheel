@@ -6,6 +6,9 @@
 # Description	:
 ##########################################################
 
+# sudo apt install portmap
+# sudo systemctl status portmap.service
+
 if [ x$1 == "x"x ]; then
     rpcgen rpc_test.x
     rpcgen -Sc -o client.c rpc_test.x
