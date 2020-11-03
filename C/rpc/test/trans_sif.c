@@ -8,13 +8,24 @@
 #include <rpc/rpc.h>
 #include <stdio.h>
 
+#include "trans.h"
+
 char * readfile(char *);
 
-char **readfile_1_svc(char ** w, CLIENT *clnt)
+char ** readfile_1_svc(char **w, struct svc_req *clnt)
 {
     static char *retcode = NULL;
 
     retcode = readfile(*(char**)w);
 
     return &retcode;
+}
+
+int * check_file_1_svc(check_file_args *args, struct svc_req *clnt)
+{
+    int ret;
+
+    ret = check_file(args->file_name, args->str, &args->_file_data._file_data_val);
+
+    return &ret;
 }

@@ -7,7 +7,8 @@
 ##########################################################
 
 
-rpcgen   trans.x
+#rpcgen -N  trans.x
+rpcgen trans.x
 
-gcc -Wall -o trans_server.out server.c trans_svc.c trans_sif.c
-gcc -Wall -o trans_client.out client.c trans_clnt.c trans_cif.c
+gcc -Wall -o trans_server.out server.c trans_svc.c trans_sif.c trans_xdr.c
+gcc -Wall -o trans_client.out client.c trans_clnt.c trans_cif.c trans_xdr.c

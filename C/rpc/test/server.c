@@ -27,3 +27,17 @@ char * readfile(char * name)
 
     return NULL;
 }
+
+int check_file(char *file_name, char *str, struct file_data *f_data)
+{
+    printf("===> func: %s, line: %d\n", __func__, __LINE__);
+
+    printf("file_name=%s, str=%s\n", file_name, str);
+    strcpy(f_data->f_name, file_name);
+
+    printf("===> func: %s, line: %d\n", __func__, __LINE__);
+    //strcpy(f_data->str, str);
+
+    return 0;
+}
+

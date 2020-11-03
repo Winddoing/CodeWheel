@@ -25,7 +25,7 @@ char *readfile(char *);
 int main(int argc, const char *argv[])
 {
     char name[MAXNAME];
-    char * buf;
+    char *str;
 
     printf("Enter File Name: ");
     scanf("%s", name);
@@ -36,7 +36,22 @@ int main(int argc, const char *argv[])
         exit(1);
     }
 
-    buf = readfile(name);
-    printf("%s", buf);
+    str = readfile(name);
+    printf("%s\n", str);
+
+    struct file_data *_file_data = NULL;
+    _file_data = (struct file_data*)malloc(sizeof(struct file_data));
+    if (!_file_data)
+        printf("malloc file_data error\n");
+
+    memset(_file_data->f_name, 0 , sizeof(char)*MAXNAME);
+    _file_data->str = (char*)malloc(sizeof(char)*MAXLENGTH);
+
+
+    check_file(name, str, _file_data);
+
+    printf("file_data f_name:%s, str:%s\n", _file_data->f_name, _file_data->str);
+
+
     return 0;
 }

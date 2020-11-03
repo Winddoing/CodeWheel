@@ -6,4 +6,4 @@
 # Description	:
 ##########################################################
 
-rm -rf trans_svc.c trans_clnt.c trans.h *.out
+rm -rf trans_svc.c trans_clnt.c trans.h *.out trans_xdr.c
