@@ -3,13 +3,13 @@ LIBS=-lepoxy -lgbm -ldrm
 
 OBJ = main.o
 
-all:rgb2nv12
+all:rgb2nv12.out
 
 %.o: %.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-rgb2nv12: $(OBJ)
+rgb2nv12.out: $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	rm -f rgb2nv12 $(OBJ)
+	rm -f rgb2nv12.out $(OBJ)
