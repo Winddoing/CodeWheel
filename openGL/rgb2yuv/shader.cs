@@ -15,7 +15,7 @@ void main()
         vec4 sumUV;
         vec4 yvec;
         float y0,u0,v0,y1,u1,v1,y2,u2,v2,y3,u3,v3;
-	if(storePos.xy >= height)
+	if(storePos.y >= height)
 	{
 		return;
 	}
