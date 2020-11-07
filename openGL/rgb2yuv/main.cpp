@@ -121,8 +121,8 @@ GLuint PrepareComputeProgram()
 	GLuint cs = glCreateShader(GL_COMPUTE_SHADER);
 	char *src = NULL;
 	
-	char *fullShaderSource[2];
-	char *version = "#version 310 es \n";
+	const char *fullShaderSource[2];
+	const char *version = "#version 310 es \n";
 	fullShaderSource[0] = version;
 
 	FILE *f = fopen("shader.cs", "r");
