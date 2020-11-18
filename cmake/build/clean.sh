@@ -6,4 +6,6 @@
 ##########################################################
 #!/bin/bash
 
-rm -rf CMakeCache.txt  CMakeFiles  cmake_install.cmake Makefile lib  bin Config.h  src  unit
+rm -rf CMakeCache.txt  CMakeFiles  cmake_install.cmake Makefile lib  bin Config.h  src  unit *.deb
+
+rm -rf _CPack_Packages CPackConfig.cmake  CPackSourceConfig.cmake  install_manifest.txt

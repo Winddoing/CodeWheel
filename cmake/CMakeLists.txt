@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.2)
 project(cmake_demo)
 
+set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake")
+
+set(PACKAGE_VERSION 0.0.1)
+
 # The version number.
 set (TEST_VERSION_MAJOR 1)
 set (TEST_VERSION_MINOR 0)
@@ -69,3 +74,28 @@ if(USE_MYMATH)
 endif(USE_MYMATH)
 
 add_subdirectory(${ROOT_DIR}/src)
+
+# 打包deb，prefix默认是/usr
+
+install(
+    TARGETS test.out
+    COMPONENT applications
+    DESTINATION "bin"
+)
+
+if(USE_MYMATH)
+install(
+    FILES "unit/math/my_math.h"
+    DESTINATION "include"
+    COMPONENT headers
+)
+install(
+    TARGETS my_math
+    COMPONENT libraries
+    DESTINATION "lib"
+)
+endif(USE_MYMATH)
+
+include(deb)  # build/cmake/deb.cmake
+include(CPack)
+

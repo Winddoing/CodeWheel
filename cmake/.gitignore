@@ -1,3 +1,4 @@
 build
+!./build/cmake
 lib
 src/test.txt
