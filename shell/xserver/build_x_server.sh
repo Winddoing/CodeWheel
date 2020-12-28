@@ -66,6 +66,9 @@ function parse_args()
             -q|--quiet)
                 QUIET=1
                 ;;
+            -c|--clean)
+                CLEAN=1
+                ;;
             *)
                 warning "Unrecognised parameter $1"
                 return $FAILED
@@ -118,20 +121,10 @@ function vga_devices_info() {
     return $bus_id_num
 }
 
-function generate_edid() {
-    out "Generate_edid ..."
-
-    X_DEV_EDID="${X_CONFIG_PATH:-$PWD}/edid.bin"
-    debug "\tX_DEV_EDID=$X_DEV_EDID"
-
-    sed -n '1,/^exit $?$/!p' $0 > $X_DEV_EDID
-}
-
 function generate_xorg_conf() {
     local x_conf_id=`expr $1 + 1`
     local device_driver=$2
     local device_busid="PCI:$3"
-    local device_edid=$4
     local xorg_conf_file="${X_CONFIG_PATH:-$PWD}/xorg-$x_conf_id.conf"
 
     debug "\tgenerate_xorg_conf: x_conf_id=$x_conf_id"
@@ -141,21 +134,12 @@ function generate_xorg_conf() {
 Section "ServerLayout"
     Identifier     "X.org Configured"
     Screen      0  "Screen0" 0 0
-    InputDevice    "Mouse0" "CorePointer"
-    InputDevice    "Keyboard0" "CoreKeyboard"
-EndSection
 
-Section "InputDevice"
-    Identifier  "Keyboard0"
-    Driver      "kbd"
-EndSection
-
-Section "InputDevice"
-    Identifier  "Mouse0"
-    Driver      "mouse"
-    Option	    "Protocol" "auto"
-    Option	    "Device" "/dev/input/mice"
-    Option	    "ZAxisMapping" "4 5 6 7"
+    Option      "DontVTSwitch"      "on"
+    Option      "AutoAddDevices"    "off"
+    Option      "AutoEnableDevices" "off
+    Option      "AutoAddGPU"        "off"
+    Option      "AutoBindGPU"       "off"
 EndSection
 
 Section "Monitor"
@@ -169,37 +153,23 @@ Section "Device"
     Driver      "$device_driver"
     BusID       "$device_busid"
 
-    Option      "ProbeAllGpus" "false"
-    Option      "ConnectedMonitor" "DFP-0"
-    Option      "CustomEDID" "DFP-0:$device_edid"
-    Option      "IgnoreEDID" "false"
-    Option      "UseEDID" "ture"
+    #for nvidia
+    #https://download.nvidia.com/XFree86/Linux-x86_64/304.137/README/configtwinview.html
+    Option      "ConnectedMonitor"  "DFP-0"
+    Option      "MetaModes"         "DFP-0: 1920x1080"
+    Option      "HorizSync"         "DFP-0: 40-70"
+    Option      "VertRefresh"       "DFP-0: 60"
+    #http://download.nvidia.com/XFree86/Linux-x86_64/180.27/README/appendix-b.html
+    Option      "ConnectToAcpid"    "false"
+    Option      "UseEDID"           "false"
+    Option      "UseEDIDDpi"        "false"
+    Option      "ModeValidation"    "NoEdidModes"
 EndSection
 
 Section "Screen"
     Identifier "Screen0"
     Device     "Card0"
     Monitor    "Monitor0"
-    SubSection "Display"
-        Viewport   0 0
-        Depth     1
-    EndSubSection
-    SubSection "Display"
-        Viewport   0 0
-        Depth     4
-    EndSubSection
-    SubSection "Display"
-        Viewport   0 0
-        Depth     8
-    EndSubSection
-    SubSection "Display"
-        Viewport   0 0
-        Depth     15
-    EndSubSection
-    SubSection "Display"
-        Viewport   0 0
-        Depth     16
-    EndSubSection
     SubSection "Display"
         Viewport   0 0
         Depth     24
@@ -228,17 +198,50 @@ EOF
 }
 
 function start_x_service() {
-    out "Start X service"
+    out "Start X service..."
 
     for i in ${!X_DEV_BUS_ID[@]}
     do
         debug "\t==> start X@$i"
         systemctl start  X@$i && systemctl enable X@$i
         if [[ $? -ne 0 ]]; then
+            warning "[Error] start X@$i service fail."
             return $FAILED
         fi
     done
     return 0
+}
+
+function stop_x_service() {
+    out "Stop X service..."
+
+    for i in ${!X_DEV_BUS_ID[@]}
+    do
+        debug "\t==> stop X@$i"
+        systemctl stop  X@$i && systemctl disable X@$i
+        if [[ $? -ne 0 ]]; then
+            warning "[Error] stop X@$i service fail."
+            return $FAILED
+        fi
+    done
+    return 0
+}
+
+
+function clean_configure() {
+    out "Clean configure ..."
+
+    stop_x_service
+
+    debug "\trm ${X_SERVICE_PATH:-$PWD}/X@.service"
+    rm -rf ${X_SERVICE_PATH:-$PWD}/X@.service
+
+    for i in ${!X_DEV_BUS_ID[@]}
+    do
+        local x_conf_id=`expr $1 + 1`
+        debug "\trm ${X_CONFIG_PATH:-$PWD}/xorg-$x_conf_id.conf"
+        rm -rf ${X_CONFIG_PATH:-$PWD}/xorg-$x_conf_id.conf
+    done
 }
 
 function main() {
@@ -247,19 +250,22 @@ function main() {
     if [[ $? -ne 0 ]]; then
         return $FAILED
     fi
-    out "Other arg(0x${DEBUG:-0}${QUIET:-0})"
+    out "Other arg(0x${DEBUG:-0}${QUIET:-0}${CLEAN:-0})"
 
     vga_devices_info
     if [[ $? -eq 0 ]]; then
         return $FAILED
     fi
 
-    generate_edid
+    if [[ $CLEAN -eq 1 ]]; then
+        clean_configure
+        return 0
+    fi
 
     out "Generate Xorg configure ..."
     for i in ${!X_DEV_BUS_ID[@]}
     do
-        generate_xorg_conf $i $X_DEV_DRIVER ${X_DEV_BUS_ID[$i]} $X_DEV_EDID
+        generate_xorg_conf $i $X_DEV_DRIVER ${X_DEV_BUS_ID[$i]}
     done
 
     configure_x_service
@@ -267,7 +273,7 @@ function main() {
     if [[ $? -ne 0 ]]; then
         return $FAILED
     fi
-    
+
     out "Deploy success!!!"
     return 0
 }
