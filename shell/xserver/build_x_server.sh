@@ -132,48 +132,50 @@ function generate_xorg_conf() {
     debug "\txorg_conf_file=$xorg_conf_file"
     cat > $xorg_conf_file << EOF
 Section "ServerLayout"
-    Identifier     "X.org Configured"
-    Screen      0  "Screen0" 0 0
+	Identifier     "X.org Configured"
+	Screen      0  "Screen0" 0 0
 
-    Option      "DontVTSwitch"      "on"
-    Option      "AutoAddDevices"    "off"
-    Option      "AutoEnableDevices" "off
-    Option      "AutoAddGPU"        "off"
-    Option      "AutoBindGPU"       "off"
+	Option      "DontVTSwitch"      "on"
+	Option      "AutoAddDevices"    "off"
+	Option      "AutoEnableDevices" "off
+	Option      "AutoAddGPU"        "off"
+	Option      "AutoBindGPU"       "off"
 EndSection
 
 Section "Monitor"
-    Identifier   "Monitor0"
-    VendorName   "Monitor Vendor"
-    ModelName    "Monitor Model"
+	Identifier   "Monitor0"
+	VendorName   "Monitor Vendor"
+	ModelName    "Monitor Model"
 EndSection
 
 Section "Device"
-    Identifier  "Card0"
-    Driver      "$device_driver"
-    BusID       "$device_busid"
+	Identifier  "Card0"
+	Driver      "$device_driver"
+	BusID       "$device_busid"
 
-    #for nvidia
-    #https://download.nvidia.com/XFree86/Linux-x86_64/304.137/README/configtwinview.html
-    Option      "ConnectedMonitor"  "DFP-0"
-    Option      "MetaModes"         "DFP-0: 1920x1080"
-    Option      "HorizSync"         "DFP-0: 40-70"
-    Option      "VertRefresh"       "DFP-0: 60"
-    #http://download.nvidia.com/XFree86/Linux-x86_64/180.27/README/appendix-b.html
-    Option      "ConnectToAcpid"    "false"
-    Option      "UseEDID"           "false"
-    Option      "UseEDIDDpi"        "false"
-    Option      "ModeValidation"    "NoEdidModes"
+    `if [[ "$NVIDIA" == "true" ]]; then \
+        echo -e "\t#for NVIDIA Xorg configure"
+        #https://download.nvidia.com/XFree86/Linux-x86_64/304.137/README/configtwinview.html
+        echo -e "\tOption      \"ConnectedMonitor\"  \"DFP-0\""
+        echo -e "\tOption      \"MetaModes\"         \"DFP-0: 1920x1080\""
+        echo -e "\tOption      \"HorizSync\"         \"DFP-0: 40-70\""
+        echo -e "\tOption      \"VertRefresh\"       \"DFP-0: 60\""
+        #http://download.nvidia.com/XFree86/Linux-x86_64/180.27/README/appendix-b.html
+        echo -e "\tOption      \"ConnectToAcpid\"    \"false\""
+        echo -e "\tOption      \"UseEDID\"           \"false\""
+        echo -e "\tOption      \"UseEDIDDpi\"        \"false\""
+        echo -e "\tOption      \"ModeValidation\"    \"NoEdidModes\""
+    fi`
 EndSection
 
 Section "Screen"
-    Identifier "Screen0"
-    Device     "Card0"
-    Monitor    "Monitor0"
-    SubSection "Display"
-        Viewport   0 0
-        Depth     24
-    EndSubSection
+	Identifier "Screen0"
+	Device     "Card0"
+	Monitor    "Monitor0"
+	SubSection "Display"
+		Viewport   0 0
+		Depth     24
+	EndSubSection
 EndSection
 EOF
 }
@@ -202,8 +204,9 @@ function start_x_service() {
 
     for i in ${!X_DEV_BUS_ID[@]}
     do
-        debug "\t==> start X@$i"
-        systemctl start  X@$i && systemctl enable X@$i
+        local x_id=`expr $i + 1`
+        debug "\t==> start X@$x_id"
+        systemctl start  X@$i && systemctl enable X@$x_id
         if [[ $? -ne 0 ]]; then
             warning "[Error] start X@$i service fail."
             return $FAILED
@@ -217,8 +220,9 @@ function stop_x_service() {
 
     for i in ${!X_DEV_BUS_ID[@]}
     do
-        debug "\t==> stop X@$i"
-        systemctl stop  X@$i && systemctl disable X@$i
+        local x_id=`expr $i + 1`
+        debug "\t==> stop X@$x_id"
+        systemctl stop  X@$i && systemctl disable X@$x_id
         if [[ $? -ne 0 ]]; then
             warning "[Error] stop X@$i service fail."
             return $FAILED
@@ -238,9 +242,9 @@ function clean_configure() {
 
     for i in ${!X_DEV_BUS_ID[@]}
     do
-        local x_conf_id=`expr $1 + 1`
-        debug "\trm ${X_CONFIG_PATH:-$PWD}/xorg-$x_conf_id.conf"
-        rm -rf ${X_CONFIG_PATH:-$PWD}/xorg-$x_conf_id.conf
+        local x_id=`expr $i + 1`
+        debug "\trm ${X_CONFIG_PATH:-$PWD}/xorg-$x_id.conf"
+        rm -rf ${X_CONFIG_PATH:-$PWD}/xorg-$x_id.conf
     done
 }
 
