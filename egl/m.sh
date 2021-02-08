@@ -6,6 +6,8 @@
 # Description	:
 ##########################################################
 
+set -x
+
 # sudo apt install libgbm-dev
 
 gcc egl_off-scree_rendering.c -o egl_off-scree_rendering.out `pkg-config --libs --cflags egl gbm gl`
@@ -13,3 +15,7 @@ gcc egl_off-scree_rendering.c -o egl_off-scree_rendering.out `pkg-config --libs 
 
 # sudo apt install libdrm-dev
 gcc demo.c -o demo.out -g `pkg-config --libs --cflags egl gbm gl libdrm`
+
+
+
+gcc ./xeglthreads.c -o ./xeglthreads.out -g `pkg-config --libs --cflags egl gbm gl libdrm x11` -lpthread -lm
