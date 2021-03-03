@@ -19,3 +19,6 @@ gcc demo.c -o demo.out -g `pkg-config --libs --cflags egl gbm gl libdrm`
 
 
 gcc ./xeglthreads.c -o ./xeglthreads.out -g `pkg-config --libs --cflags egl gbm gl libdrm x11` -lpthread -lm
+
+
+gcc egl_gbm_render.c -o egl_gbm_render.out `pkg-config --libs --cflags egl gl gbm`

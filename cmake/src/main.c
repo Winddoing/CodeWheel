@@ -25,6 +25,9 @@ int main(int argc, char** argv)
         fprintf(stdout,"Usage: %s number\n",argv[0]);
         return 1;
     }
+#if USE_MYMATH
+    printf("===> func: %s, line: %d, file: %s\n", __func__, __LINE__, __FILE__);
+#endif
 
     double inputValue = atof(argv[1]);
 #ifdef USE_MYMATH
