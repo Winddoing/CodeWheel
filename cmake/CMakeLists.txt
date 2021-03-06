@@ -102,5 +102,7 @@ install(
 endif(USE_MYMATH)
 
 include(deb)  # build/cmake/deb.cmake
+include(rpm)  # build/cmake/rpm.cmake
+
 include(CPack)
 
