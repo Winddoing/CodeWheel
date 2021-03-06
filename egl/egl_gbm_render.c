@@ -182,6 +182,10 @@ static int init_egl_gbm(struct egl_gbm *R)
     EGLConfig* configs = (EGLConfig*)malloc(num_configs * sizeof(EGLConfig));
     eglChooseConfig(R->egl_display, egl_config_attribs, configs, num_configs, &num_configs);
 
+    //Using the GF API, the application can query the display buffer formats supported by the selected layer by calling gf_layer_query(). 
+    //It can then call eglChooseConfig() to determine which buffer configurations, if any, are compatible with a given display buffer format. 
+    //The key to performing this match is to use the EGL_NATIVE_VISUAL_ID attribute to select the EGL buffer configurations that support a given format.
+    //http://www.qnx.com/developers/docs/6.4.1/gf/dev_guide/3d.html
     // search all configurations
     EGLConfig config_use = NULL;
     for (int i = 0; i < num_configs; ++i)
