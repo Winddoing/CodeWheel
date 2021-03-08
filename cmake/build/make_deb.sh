@@ -8,12 +8,14 @@
 
 set -x
 
+./clean.sh
+
 ./cmake_mymath.sh
 
 #cpack
 cpack -G DEB
 
 
-dpkg --info ./cmake_demo_0.0.1_amd64.deb
+dpkg --info ./test_demo_0.0.1._amd64.deb
 
-dpkg -c ./cmake_demo_0.0.1_amd64.deb
+dpkg -c ./test_demo_0.0.1._amd64.deb

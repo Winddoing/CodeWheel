@@ -101,6 +101,9 @@ install(
 )
 endif(USE_MYMATH)
 
+set(CPACK_SET_DESTDIR TRUE)
+set(CPACK_INSTALL_PREFIX "/usr/local/")
+
 include(deb)  # build/cmake/deb.cmake
 include(rpm)  # build/cmake/rpm.cmake
 
