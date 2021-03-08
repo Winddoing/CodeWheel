@@ -1,4 +1,4 @@
-build
+./bulid/*
 !./build/*.sh
 !./build/cmake/*
 lib
