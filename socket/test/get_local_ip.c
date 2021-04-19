@@ -96,43 +96,34 @@ int get_local_ip_using_create_socket(char *str_ip)
 }
 
 /*linux上支持（Android上也支持）， 此函数不仅能获取IP，还可以获取MAC地址、掩码和广播地址等*/
-int get_local_ip_using_ifconf(char *str_ip)
+//支持多网卡检测
+int get_local_ip_using_ifconf(char local_ip[][INET_ADDRSTRLEN], int cnt)
 {
     int sock_fd, intrface;
     struct ifreq buf[INET_ADDRSTRLEN];
     struct ifconf ifc;
-    char *local_ip = NULL;
-    int status = RUN_FAIL;
+    char* tmp_local_ip = NULL;
+    int local_ip_cnt = 0;
 
-    if ((sock_fd = socket(AF_INET, SOCK_DGRAM, 0)) >= 0)
-    {
+    if ((sock_fd = socket(AF_INET, SOCK_DGRAM, 0)) >= 0) {
         ifc.ifc_len = sizeof(buf);
         ifc.ifc_buf = (caddr_t)buf;
-        if (!ioctl(sock_fd, SIOCGIFCONF, (char *)&ifc))
-        {
+        if (!ioctl(sock_fd, SIOCGIFCONF, (char *)&ifc)) {
             intrface = ifc.ifc_len/sizeof(struct ifreq);
-            while (intrface-- > 0)
-            {
-                if (!(ioctl(sock_fd, SIOCGIFADDR, (char *)&buf[intrface])))
-                {
-                    local_ip = NULL;
-                    local_ip = inet_ntoa(((struct sockaddr_in*)(&buf[intrface].ifr_addr))->sin_addr);
-                    if(local_ip)
-                    {
-                        strcpy(str_ip, local_ip);
-                        status = RUN_SUCCESS;
-                        if(strcmp("127.0.0.1", str_ip))
-                        {
-                            break;
-                        }
+            while (intrface-- > 0) {
+                if (!(ioctl(sock_fd, SIOCGIFADDR, (char *)&buf[intrface]))) {
+                    tmp_local_ip = NULL;
+                    tmp_local_ip = inet_ntoa(((struct sockaddr_in*)(&buf[intrface].ifr_addr))->sin_addr);
+                    if (tmp_local_ip) {
+                        strcpy(local_ip[local_ip_cnt], tmp_local_ip);
+                        local_ip_cnt++;
                     }
-
                 }
             }
         }
         close(sock_fd);
     }
-    return status;
+    return local_ip_cnt;
 }
 
 /*可以检测ip4也可以检测ip6，但是需要ifaddrs.h，某些Android系统上没有该头文件（可自己实现该头文件所带内容）
@@ -216,23 +207,24 @@ int main()
         printf("get_local_ip_using_socket() err \n");
     }
 
-    if( get_local_ip_using_ifconf(local_ip3) == RUN_SUCCESS)
-    {
-        printf("get_local_ip_using_ifconf() get local ip : %s \n", local_ip3);
-    }else{
-        printf("get_local_ip_using_ifconf() err \n");
-    }
     char local_ip_array[10][INET_ADDRSTRLEN] = {0};
-    int cnt;
+    int cnt, i;
 
-
-    cnt = get_local_ip_using_ifaddrs(local_ip_array, 10);
-    for (int i = 0; i < cnt; i++) {
+    cnt = get_local_ip_using_ifconf(local_ip_array, 10);
+    for (i = 0; i < cnt; i++) {
         printf("%s: local_ip_%d=%s\n", __func__, i + 1, local_ip_array[i]);
     }
 
+
+    printf("===> func: %s, line: %d\n", __func__, __LINE__);
+    cnt = get_local_ip_using_ifaddrs(local_ip_array, 10);
+    for (i = 0; i < cnt; i++) {
+        printf("%s: local_ip_%d=%s\n", __func__, i + 1, local_ip_array[i]);
+    }
+
+    printf("===> func: %s, line: %d\n", __func__, __LINE__);
     cnt = get_netway_ip_using_res(local_ip_array, 10);
-    for (int i = 0; i < cnt; i++) {
+    for (i = 0; i < cnt; i++) {
         printf("%s: local_ip_%d=%s\n", __func__, i + 1, local_ip_array[i]);
     }
 
