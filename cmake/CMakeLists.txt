@@ -4,7 +4,8 @@ project(cmake_demo)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake")
 
-set(PACKAGE_VERSION 0.0.1)
+set(PROJECT_VERSION 0.0.1)
+set(PACKAGE_VERSION ${PROJECT_VERSION})
 
 # The version number.
 set (TEST_VERSION_MAJOR 1)
@@ -36,6 +37,28 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_GNU_SOURCE")
 
+add_definitions( -DPROJECT_VERSION=\"${PROJECT_VERSION}\")
+
+execute_process(
+    COMMAND git rev-parse --short HEAD
+    OUTPUT_VARIABLE COMMIT_HASH
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+add_definitions( -DCOMMIT_HASH=\"${COMMIT_HASH}\")
+
+execute_process(
+    COMMAND git symbolic-ref --short -q HEAD
+    OUTPUT_VARIABLE BRANCH_NAME
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+add_definitions( -DBRANCH_NAME=\"${BRANCH_NAME}\")
+
+message(STATUS "COMMIT_HASH: ${COMMIT_HASH}")
+message(STATUS "BRANCH_NAME: ${BRANCH_NAME}")
 
 # configure a header file to pass some of the CMake settings
 # to the source code

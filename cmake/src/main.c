@@ -18,10 +18,13 @@
 int main(int argc, char** argv)
 {
     if (argc < 2) {
-        fprintf(stdout,"%s Version %d.%d\n",
+        fprintf(stdout,"%s Version %d.%d, [%s]\n",
                 argv[0],
                 TEST_VERSION_MAJOR,
-                TEST_VERSION_MINOR);
+                TEST_VERSION_MINOR,
+                PROJECT_VERSION);
+        fprintf(stdout, "Code Version: git-%s-%s\n", BRANCH_NAME, COMMIT_HASH);
+        fprintf(stdout, "Build Time: %s, %s\n", __DATE__, __TIME__);
         fprintf(stdout,"Usage: %s number\n",argv[0]);
         return 1;
     }
