@@ -57,8 +57,11 @@ execute_process(
 )
 add_definitions( -DBRANCH_NAME=\"${BRANCH_NAME}\")
 
-message(STATUS "COMMIT_HASH: ${COMMIT_HASH}")
-message(STATUS "BRANCH_NAME: ${BRANCH_NAME}")
+string(TIMESTAMP COMPILE_TIME %Y%m%d%H)
+
+message(STATUS "COMMIT_HASH  : ${COMMIT_HASH}")
+message(STATUS "BRANCH_NAME  : ${BRANCH_NAME}")
+message(STATUS "COMPILE_TIME : ${COMPILE_TIME}")
 
 # configure a header file to pass some of the CMake settings
 # to the source code
