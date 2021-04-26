@@ -26,28 +26,28 @@ typedef enum {
 #define MLOGD(fmt, ...)                                                                       \
     do {                                                                                      \
         if(DEFAULT_LOG_LEVEL >= kDebugLevel) {                                                \
-            syslog(LOG_DEBUG | SYSLOG_DEF, "%s:%d "fmt, __func__, __LINE__, ##__VA_ARGS__);   \
+            syslog(LOG_DEBUG | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__);   \
         }                                                                                     \
     } while(0);
 
 #define MLOGI(fmt, ...)                                                                       \
     do {                                                                                      \
         if(DEFAULT_LOG_LEVEL >= kInformationLevel) {                                          \
-            syslog(LOG_INFO | SYSLOG_DEF, "%s:%d "fmt, __func__, __LINE__, ##__VA_ARGS__);    \
+            syslog(LOG_INFO | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__);    \
         }                                                                                     \
     } while(0);
 
 #define MLOGW(fmt, ...)                                                                       \
     do {                                                                                      \
         if(DEFAULT_LOG_LEVEL >= kWarningLevel) {                                              \
-            syslog(LOG_WARNING | SYSLOG_DEF, "%s:%d "fmt, __func__, __LINE__, ##__VA_ARGS__); \
+            syslog(LOG_WARNING | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__); \
         }                                                                                     \
     } while(0);
 
 #define MLOGE(fmt, ...)                                                                       \
     do {                                                                                      \
         if(DEFAULT_LOG_LEVEL >= kErrorLevel) {                                                \
-            syslog(LOG_ERR | SYSLOG_DEF, "%s:%d "fmt, __func__, __LINE__, ##__VA_ARGS__);     \
+            syslog(LOG_ERR | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__);     \
         }                                                                                     \
     } while(0);
 
