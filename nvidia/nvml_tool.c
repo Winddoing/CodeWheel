@@ -344,6 +344,28 @@ int main()
         {
             printf("   VIDEO： %6d Mhz   max clock ：%d   \n", clock, max_clock);
         }
+
+        int power;
+        result = nvmlDeviceGetPowerUsage(device, &power);
+        if (NVML_SUCCESS != result)
+        {
+            printf("Failed to get current power for device %i: %s\n", i, nvmlErrorString(result));
+        }
+        else
+        {
+            printf("   Current power: %d  [%d W]  \n", power, power / 1000);
+        }
+
+        unsigned int power_max;
+        result = nvmlDeviceGetEnforcedPowerLimit(device, &power_max);
+        if (NVML_SUCCESS != result)
+        {
+            printf("Failed to get max power for device %i: %s\n", i, nvmlErrorString(result));
+        }
+        else
+        {
+            printf("   max power: %d  [%d W]  \n", power_max, power_max / 1000);
+        }
     }
 
     printf("-------------------------------------------------------------------- \n");
