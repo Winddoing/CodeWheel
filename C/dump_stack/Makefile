@@ -1,6 +1,6 @@
 
 all:
-	gcc test.c -o test.out -g -rdynamic
+	gcc test.c -o test.out -g -rdynamic -O0
 	objdump -d test.out > test.s
 
 clean:
