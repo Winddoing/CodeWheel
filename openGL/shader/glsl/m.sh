@@ -2,12 +2,8 @@
 ##########################################################
 # File Name		: m.sh
 # Author		: winddoing
-# Created Time	: 2020年12月09日 星期三 11时34分45秒
+# Created Time	: 2021年07月21日 星期三 16时59分22秒
 # Description	:
 ##########################################################
 
-
-
-gcc test.c -o test.out -lnuma
-
-gcc test_numa.c -o test_numa.out -lnuma
+g++ test_vbo.c -o test_vbo.out -lGLEW -lGL -lglut
