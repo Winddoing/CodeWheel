@@ -1,0 +1,1 @@
+gcc glhook_all.c glxhook.c eglhook.c dlwrap.c -g -o glhook_all.so -fPIC -shared -ldl -D_GNU_SOURCE

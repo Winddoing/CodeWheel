@@ -1,0 +1,1 @@
+export LD_PRELOAD=/root/glx_hook/glhook_all.so
