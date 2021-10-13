@@ -44,26 +44,30 @@ fi
 set -x
 
 echo "Delete old partition table ..."
-sudo dd if=/dev/zero of=/dev/sda bs=1M count=1 seek=0
+sudo dd if=/dev/zero of=$sd_dev bs=1K count=1 seek=0
+sync
 
 echo "Create a GPT disklabel (partition table)"
 yes | sudo parted ${sd_dev} mklabel ${part_type}
 sudo parted ${sd_dev} quit
+sync
 
 echo "Create boot partition !"
 # 1 boot
 pstart=$((0 + free_space))
 pend=$((pstart + boot_part))
-sudo parted ${sd_dev} mkpart boot ext4 ${pstart}${unit} ${pend}${unit}
+sudo parted ${sd_dev} mkpart boot ${pstart}${unit} ${pend}${unit}
 sudo parted ${sd_dev} set 1 esp on
 sudo parted ${sd_dev} quit
+sync
 
 # 2 rootfs
 echo "Create rootfs partition !"
 pstart=$pend
 pend=$((pstart + rootfs_part))
-sudo parted ${sd_dev} mkpart rootfs ext4 ${pstart}${unit} ${pend}${unit}
+sudo parted ${sd_dev} mkpart rootfs ${pstart}${unit} ${pend}${unit}
 sudo parted ${sd_dev} quit
+sync
 
 # 3 data
 echo "Create data partition !"
@@ -74,5 +78,6 @@ sudo parted ${sd_dev} quit
 echo "Format the data partition(${sd_dev}3) as ext4"
 yes | sudo mkfs.ext4 ${sd_dev}3
 
+sync
 sudo parted ${sd_dev} print
 sudo fdisk -l ${sd_dev}
