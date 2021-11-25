@@ -44,7 +44,14 @@ fi
 set -x
 
 echo "Delete old partition table ..."
-sudo dd if=/dev/zero of=$sd_dev bs=1K count=1 seek=0
+partition_num=$(sudo fdisk -l $sd_dev | grep "$sd_dev[0-9]" | wc -l)
+echo "Dev: ${sd_dev}, old partition sum: $partition_num"
+for partition in `seq 1 $partition_num`
+do
+	echo "  delete partition $sd_dev num $partition"
+	sudo parted $sd_dev rm $partition
+done
+sudo parted ${sd_dev} quit
 sync
 
 echo "Create a GPT disklabel (partition table)"

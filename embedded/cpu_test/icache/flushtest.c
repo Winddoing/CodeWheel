@@ -65,7 +65,9 @@ void *exec(void *ignored) {
 void flush(void *start, long size) {
 	if (!noflush) {
 		if(flush_type == 0){
+#if defined(__mips__)
 			cacheflush(start, (int)size, BCACHE);
+#endif
 		}else {
 			__builtin___clear_cache((char *)start, (char *)(start+size));
 		}
