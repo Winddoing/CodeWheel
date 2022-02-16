@@ -3,6 +3,7 @@
  *     Author		: winddoing
  *     Created Time	: 2022年02月15日 星期二 13时48分23秒
  *     Description	:
+ *			http://www.topherlee.com/software/pcm-tut-wavformat.html
  *############################################################*/
 
 #include <stdio.h>
@@ -18,38 +19,37 @@
 
 //refer to alsa-utils-1.2.4
 #define COMPOSE_ID(a,b,c,d) ((a) | ((b)<<8) | ((c)<<16) | ((d)<<24))
-#define WAV_RIFF        COMPOSE_ID('R','I','F','F') 
-#define WAV_RIFX        COMPOSE_ID('R','I','F','X') 
-#define WAV_WAVE        COMPOSE_ID('W','A','V','E') 
-#define WAV_FMT         COMPOSE_ID('f','m','t',' ') 
-#define WAV_DATA        COMPOSE_ID('d','a','t','a') 
+#define WAV_RIFF        COMPOSE_ID('R','I','F','F')
+#define WAV_RIFX        COMPOSE_ID('R','I','F','X')
+#define WAV_WAVE        COMPOSE_ID('W','A','V','E')
+#define WAV_FMT         COMPOSE_ID('f','m','t',' ')
+#define WAV_DATA        COMPOSE_ID('d','a','t','a')
 
 typedef struct{
 	union {
 		uint32_t	riff;
-		char	riffFlag[4];
+		char	riffFlag[4]; /* “RIFF” 资源交换文件标志 */
 	}magic;
-	uint32_t	fileLength;
+	uint32_t	fileLength;  /* 文件大小 */
 	union {
 		uint32_t	wave;
-		char	waveFlag[4];
+		char	waveFlag[4]; /* “wave” wav文件标志 */
 	}type;
-	char		fmtFlag[4];
+	char		fmtFlag[4];  /* “fmt” 波形格式标志,最后一位空格 */
 	char		unused[4];
-	uint16_t	fmtType;
-	uint16_t	channels;
-	uint16_t	rate;
-	uint32_t	bps;
-	uint16_t	blockSize;
-	uint16_t	bits;
-	char		dataFlag[4];
-	uint32_t	voiceLength;
+	uint16_t	fmtType;	 /* 格式种类(值为1时,表示数据为线性pcm编码) */
+	uint16_t	channels;    /* 通道数,单声道为1,双声道为2 */
+	uint16_t	rate;	     /* 采样率*/
+	uint32_t	bps;		 /* 比特率(Byte率=采样频率*音频通道数*每次采样得到的样本位数/8) */
+	uint16_t	blockSize;   /* 数据块长度(每个样本的字节数=通道数*每次采样得到的样本位数/8) */
+	uint16_t	bits;		 /* 每个采样点的位数 */
+	char		dataFlag[4]; /* “data”数据标志符 */
+	uint32_t	voiceLength; /* pcm音频数据大小 */
 }wav_head;
 
 struct audio_convert {
 	wav_head head;
 	int ifd, ofd;
-	int if_size;
 	int raw_size;
 };
 
@@ -77,20 +77,34 @@ static int s24_le_to_s24_3le(struct audio_convert *act)
 {
 	int i = 0;
 	char buf[4];
+	int of_raw_sz = 0;
+	int of_duration_time = 0;
+	wav_head ohead;
 
 	printf("%s: start\n", __func__);
 
-	//if ( -1 == write(act->ofd, &act->head, sizeof(act->head))) {
-	//	printf("%s Write Head (%s)\n", __func__, strerror(errno));
-	//	return -1;
-	//}
+	of_raw_sz = act->raw_size * 3 / 4;
+	of_duration_time = (of_raw_sz * 8) /
+		(act->head.bits * act->head.channels * act->head.rate);
+
+	memcpy(&ohead, &act->head, sizeof(ohead));
+
+	ohead.blockSize = (act->head.bits * act->head.channels / 8);  //原头部为8,不调整无法播放
+	ohead.bps = of_raw_sz / of_duration_time;
+	ohead.voiceLength = of_raw_sz;
+
+	dump_wav_info(&ohead);
+
+	if ( -1 == write(act->ofd, &ohead, sizeof(ohead))) {
+		printf("%s Write Head (%s)\n", __func__, strerror(errno));
+		return -1;
+	}
 
 	/*
-	 *           LSB                           MSB
-	 *           1st byte  2nd byte  3rd byte  4th byte   alignment
-	 * S32_LE:   00000000  xxxxxxxx  xxxxxxxx  xxxxxxxx   32 bits
-	 * S24_LE:   xxxxxxxx  xxxxxxxx  xxxxxxxx  00000000   32 bits
-	 * S24_3LE:  xxxxxxxx  xxxxxxxx  xxxxxxxx             24 bits
+	 *           MSB                           LSB
+	 *           4th byte  3rd byte  2nd byte  1st byte   alignment
+	 * S24_LE:   00000000  xxxxxxxx  xxxxxxxx  xxxxxxxx   32 bits
+	 * S24_3LE:			   xxxxxxxx  xxxxxxxx  xxxxxxxx   24 bits
 	 */
 	for (i = 0; i < act->raw_size; i = i + 4) {
 		/* 1. read 4 bytes S24_LE [xx xx xx 00] */
@@ -120,11 +134,13 @@ static int s24_le_to_s24_3le(struct audio_convert *act)
 int main(int argc, const char *argv[])
 {
 	struct audio_convert act;
-	char *in_file, *out_file;
+	const char *in_file, *out_file;
 	struct stat fstat;
+	int fsize = 0;
 
 	if (argc != 3) {
-		printf("Usage: %s <in_file> <out_file>", argv[0]);
+		printf("Usage: %s <in_file> <out_file>\n", argv[0]);
+		printf(" PCM data S24_LE to S24_3LE\n");
 		return -1;
 	}
 
@@ -139,7 +155,7 @@ int main(int argc, const char *argv[])
 		exit(1);
 	}
 
-	act.ofd = open(out_file, O_CREAT | O_RDWR | O_TRUNC);
+	act.ofd = open(out_file, O_CREAT | O_RDWR, S_IREAD | S_IWRITE);
 	if (-1 == act.ofd) {
 		printf("Cannot open file %s (%s)\n", out_file, strerror(errno));
 		exit(1);
@@ -149,7 +165,7 @@ int main(int argc, const char *argv[])
 		printf("Cannot get fstat %s (%s)\n", in_file, strerror(errno));
 		exit(1);
 	}
-	act.if_size = fstat.st_size;
+	fsize = fstat.st_size;
 
 	if(-1 == read(act.ifd, &act.head, sizeof(act.head))) {
 		printf("Cannot read %s (%s)\n", in_file, strerror(errno));
@@ -161,19 +177,19 @@ int main(int argc, const char *argv[])
 
 		dump_wav_info(&act.head);
 
-		act.raw_size = act.if_size - sizeof(act.head);
+		act.raw_size = fsize - sizeof(act.head);
 		s24_le_to_s24_3le(&act);
 
 	} else {
 		printf("### File Type RAW\n");
 
-		act.raw_size = act.if_size;
+		act.raw_size = fsize;
 		s24_le_to_s24_3le(&act);
 
 	}
 
 	close(act.ifd);
 	close(act.ofd);
-	
+
 	return 0;
 }
