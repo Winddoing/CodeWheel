@@ -12,10 +12,8 @@
 audiopll_clk=$((1536*1000*1000))
 #audiopll_clk=$((1225*1000*1000))
 
-# 64fs、128fs、256fs、512fs
-mclk_fs_32=256
-# 96fs、192fs、384fs、768fs
-mclk_fs_24=192
+# 24,32,2三者的最大公约数，目的是为了在分频时尽可能除尽
+mclk_fs=384
 
 ROUNDING=1  #分频系数进行四舍五入
 
@@ -35,8 +33,6 @@ do
 		for channel in 2
 		do
 			i=$((i+1))
-			mclk_fs=$mclk_fs_32
-			[ $bit -eq 24 ] && mclk_fs=$mclk_fs_24
 			echo -ne "[$i]apll=$audiopll_clk\trate=$rate\tbit=$bit ch=$channel fs=$mclk_fs\t"
 
 			mclk=$((rate * mclk_fs))
