@@ -21,7 +21,7 @@ int main(void)
 	char * space;
 	struct timeval tv;
 	struct timezone tz = {0,0};
-	unsigned int addr,addrtemp;
+	unsigned long addr,addrtemp;
 	while(1){
 		gettimeofday(&tv,&tz);
 		seed = tv.tv_usec % 65536;
@@ -29,8 +29,8 @@ int main(void)
 		size = 4*1024*1024 +((unsigned int)rand() % (9*1024*1024));
 //		size = 1*1024*1024 +((unsigned int)rand() % (9*1024*1024));
 		space = (char *)malloc(size);
-		addrtemp = space;
-		while(addrtemp<(space + size)){
+		addrtemp = (unsigned long)space;
+		while(addrtemp < ((unsigned long)space + size)){
 			i = (unsigned int)rand()%(128*1024);
 			*(char*)addrtemp = 0xa5;
 			addrtemp+=i;
@@ -43,15 +43,16 @@ int main(void)
 			cacheline = (unsigned int)rand() % (sizeof(buf)/(sizeof(buf[0])));
 			addr = (unsigned int)rand()%size;
 			//addr = ((unsigned int)space+addr)&~(0x1f);
-			addr = ((unsigned int)space+addr)&~(4096-1);
-			if( (addr>=(unsigned int )space) && (addr+buf[cacheline] < (unsigned int)space+size) ) {
+			//addr = ((unsigned int)space+addr)&~(4096-1);
+			addr += (unsigned long)space;
+			if( (addr >= (unsigned long)space) && (addr+buf[cacheline] < (unsigned long)space+size) ) {
 				memcpy((void*)(addr+buf[cacheline]/2), (void*)addr , buf[cacheline]/2);
 #if 1
 				for(j = 0;j < (buf[cacheline]/2/4); j++){
 					unsigned int s =*(unsigned int*)(addr + j * 4);
 					unsigned int d = *(unsigned int *)(addr + buf[cacheline]/2 + j * 4);
 					if(s != d){
-						printf("s[%x]:%x d[%x]:%x\n",(addr + j *4),s,addr + buf[cacheline]/2 + j * 4,d);
+						printf("s[%lx]:%x d[%lx]:%x\n",(addr + j *4),s,addr + buf[cacheline]/2 + j * 4,d);
 					}
 				}
 #endif
@@ -61,4 +62,4 @@ int main(void)
 		}
 		free(space);
 	}
-lil}
+}
