@@ -1,0 +1,100 @@
+#!/bin/sh
+
+ID_VENDOR="0x2257"
+ID_PRODUCT="0x4e42"
+
+USB_ATTRIBUTE=0x409
+USB_GROUP=g1
+USB_SKELETON=adb.1
+
+CONFIGFS_DIR=/sys/kernel/config
+USB_GADGET_DIR=${CONFIGFS_DIR}/usb_gadget
+USB_CONFIGFS_DIR=${USB_GADGET_DIR}/${USB_GROUP}
+USB_STRINGS_DIR=${USB_CONFIGFS_DIR}/strings/${USB_ATTRIBUTE}
+USB_FUNCTIONS_DIR=${USB_CONFIGFS_DIR}/functions
+USB_FUNCTIONS_ADB_DIR=${USB_FUNCTIONS_DIR}/ffs.adb
+USB_CONFIGS_DIR=${USB_CONFIGFS_DIR}/configs/${USB_SKELETON}
+
+USB_DEV_FFS=/dev/usb-ffs
+ADB_DEV_DIR=$USB_DEV_FFS/adb
+
+DEV_SNUM=$(head -c 4 /dev/urandom | od -A n -t x | tr -d ' ')
+
+DISABLE_ADBD="/root/.disableadb"
+if [ -f $DISABLE_ADBD ]; then
+	echo "Because of the existence of [$DISABLE_ADBD] file, adb is not enabled"
+	exit 0
+fi
+
+case "$1" in
+	start)
+		printf "Starting adbd:"
+		[ -d ${USB_GADGET_DIR} ] || mount -t configfs none ${CONFIGFS_DIR}
+		[ -d ${USB_CONFIGFS_DIR} ] || mkdir ${USB_CONFIGFS_DIR}
+		[ -d ${USB_STRINGS_DIR} ] || mkdir ${USB_STRINGS_DIR}
+		echo $ID_VENDOR >  ${USB_CONFIGFS_DIR}/idVendor
+		echo $ID_PRODUCT > ${USB_CONFIGFS_DIR}/idProduct
+		echo "${DEV_SNUM}" > ${USB_STRINGS_DIR}/serialnumber
+		echo "Vanxum Inc." > ${USB_STRINGS_DIR}/manufacturer
+		echo "FunctionFS gadget (adb)" > ${USB_STRINGS_DIR}/product
+		sleep 1
+		[ -d ${USB_CONFIGS_DIR} ] || mkdir -p ${USB_CONFIGS_DIR}
+		echo 500 > ${USB_CONFIGS_DIR}/MaxPower
+
+		[ -d ${USB_FUNCTIONS_ADB_DIR} ] || mkdir -p ${USB_FUNCTIONS_ADB_DIR}
+		[ -L ${USB_CONFIGS_DIR}/ffs.adb ] || ln -s ${USB_FUNCTIONS_ADB_DIR} ${USB_CONFIGS_DIR}
+
+		[ -d ${ADB_DEV_DIR} ] || mkdir -p ${ADB_DEV_DIR}
+		[ "$(ls -A $ADB_DEV_DIR)" != "" ] || mount -t functionfs adb ${ADB_DEV_DIR}
+
+		ps | grep adbd | grep -v grep | grep -v S91adbd > /dev/null
+		if [ $? -ne 0 ]; then
+			adbd &
+			sleep 1
+		fi
+
+		UDC_SET=`ls /sys/class/udc/| awk '{print $1}'`
+		if [ -z $UDC_SET ]; then
+			echo "There is no UDC device in the current system, note: usb needs otg mode"
+			exit 1
+		fi
+		UDC_GET=$(cat ${USB_CONFIGFS_DIR}/UDC)
+		if [ -z $UDC_GET ]; then
+			echo $UDC_SET > ${USB_CONFIGFS_DIR}/UDC
+		else
+			echo "UDC device is registered, [$UDC_GET]"
+
+		fi
+		echo "OK"
+		;;
+	stop)
+		printf "Stoping adbd:"
+		[ -f ${USB_CONFIGFS_DIR}/UDC ] && echo "" > ${USB_CONFIGFS_DIR}/UDC
+		ps | grep adbd | grep -v grep | grep -v S91adbd > /dev/null
+		if [ $? -eq 0 ]; then
+			sleep 1
+			killall adbd
+		fi
+		[ $(ls -A ${CONFIGFS_DIR}) ] && umount ${CONFIGFS_DIR}
+
+		[ -d ${USB_FUNCTIONS_ADB_DIR} ] && rmdir ${USB_FUNCTIONS_ADB_DIR}
+		[ -d ${USB_CONFIGS_DIR} ] && rmdir ${USB_CONFIGS_DIR}
+		[ -d ${USB_STRINGS_DIR} ] && rmdir ${USB_STRINGS_DIR}
+		[ -d ${USB_CONFIGFS_DIR} ] && rmdir ${USB_CONFIGFS_DIR}
+
+		if [ -d "$USB_DEV_FFS" ]; then
+			umount ${ADB_DEV_DIR}
+			rm -rf $USB_DEV_FFS
+		fi
+		echo "OK"
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit $?

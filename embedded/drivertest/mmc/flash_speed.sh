@@ -32,7 +32,8 @@ TST_DATA_BS=$((1*1024*1024))  #1MB
 TST_SKIP=$((1*1024*1024)) #1MB
 ERASE_BLK_SZ=$((64*1024)) #64KB
 
-
+AVG_SPEED=0
+TST_CNT=0
 # read test
 for sz_mb in 15 20 25
 do
@@ -48,10 +49,14 @@ do
 	end_time=$(date +"%s")
 	tdiff=$((end_time - start_time))
 
-	#echo "tdiff=$tdiff, size=$((TST_DATA_BS * tst_data_cnt))"
-	speed=$(echo "scale=4;$sz_mb/$tdiff"| bc)
+	speed=$(echo "scale=4;$sz_mb/$tdiff" | bc)
 	printf "time: %2d s, speed: %5.2f MB/s\n" $tdiff $speed
+
+	AVG_SPEED=$(echo "$AVG_SPEED + $speed" | bc)
+	TST_CNT=$((TST_CNT + 1))
 done
+AVG_SPEED=$(echo "scale=2;$AVG_SPEED/$TST_CNT" | bc)
+printf "	Read data test [%d], average speed: %.2f MB/s\n" $TST_CNT $AVG_SPEED
 
 
 flasherase()
@@ -61,6 +66,8 @@ flasherase()
 	flash_erase $TST_DEV $TST_SKIP $erase_blk_size 1>&2 > /dev/null
 }
 
+AVG_SPEED=0
+TST_CNT=0
 # write test
 for sz_mb in 5 10 15
 do
@@ -79,10 +86,14 @@ do
 	end_time=$(date +"%s")
 	tdiff=$((end_time - start_time))
 
-	#echo "tdiff=$tdiff, size=$((TST_DATA_BS * tst_data_cnt))"
-	speed=$(echo "scale=4;$sz_mb/$tdiff"| bc)
+	speed=$(echo "scale=4;$sz_mb/$tdiff" | bc)
 	printf "time: %2d s, speed: %5.2f MB/s\n" $tdiff $speed
+
+	AVG_SPEED=$(echo "$AVG_SPEED + $speed" | bc)
+	TST_CNT=$((TST_CNT + 1))
 done
+AVG_SPEED=$(echo "scale=2;$AVG_SPEED/$TST_CNT" | bc)
+printf "	Wirte data test [%d], average speed: %.2f MB/s\n" $TST_CNT $AVG_SPEED
 
 
 echo "over"
