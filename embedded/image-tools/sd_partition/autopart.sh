@@ -15,10 +15,16 @@
 sd_dev=$1
 part_type=gpt
 unit="MiB"
-free_space=2
-boot_part=8
-rootfs_part=24
-data_part=100%  #剩余所有空间
+free_space=2 #2M size for spl+uboot
+
+part_table=(
+	#part_name  size  format
+	'boot        8      0'
+	'rootfs      200    0'
+	'userdata    500    1'
+	'other       100%   1'
+)
+# 100%：表示剩余所有空间
 
 if [ $# -lt 1 ]; then
 	echo "Usage: $0 <device>"
@@ -35,7 +41,7 @@ if [ $? -ne 0 ]; then
 	sudo apt install fdisk
 fi
 
-sudo parted ${sd_dev} print | grep SD > /dev/null
+echo I | sudo parted ${sd_dev} print | grep "MassStorageClass" > /dev/null
 if [ $? -ne 0 ]; then
 	echo "the current device($sd_dev) is not an SD card"
 	exit
@@ -49,6 +55,7 @@ echo "Dev: ${sd_dev}, old partition sum: $partition_num"
 for partition in `seq 1 $partition_num`
 do
 	echo "  delete partition $sd_dev num $partition"
+	sudo umount ${sd_dev}${partition}
 	sudo parted $sd_dev rm $partition
 done
 sudo parted ${sd_dev} quit
@@ -59,31 +66,42 @@ yes | sudo parted ${sd_dev} mklabel ${part_type}
 sudo parted ${sd_dev} quit
 sync
 
-echo "Create boot partition !"
-# 1 boot
-pstart=$((0 + free_space))
-pend=$((pstart + boot_part))
-sudo parted ${sd_dev} mkpart boot ${pstart}${unit} ${pend}${unit}
-sudo parted ${sd_dev} set 1 esp on
-sudo parted ${sd_dev} quit
-sync
+set +x
 
-# 2 rootfs
-echo "Create rootfs partition !"
-pstart=$pend
-pend=$((pstart + rootfs_part))
-sudo parted ${sd_dev} mkpart rootfs ${pstart}${unit} ${pend}${unit}
-sudo parted ${sd_dev} quit
-sync
-
-# 3 data
-echo "Create data partition !"
-pstart=$pend
-pend=${data_part}
-sudo parted ${sd_dev} mkpart data ext4 ${pstart}${unit} ${pend}${unit}
-sudo parted ${sd_dev} quit
-echo "Format the data partition(${sd_dev}3) as ext4"
-yes | sudo mkfs.ext4 ${sd_dev}3
+pstart=0
+pend=0
+index=1
+echo "Create partition !"
+for part in "${part_table[@]}"
+do
+	part_line=($part)
+	part_name=${part_line[0]}
+	part_size=${part_line[1]}
+	part_format=${part_line[2]}
+	#echo "part_line: ${part_line[@]}"
+	#echo "name: $part_name, size: $part_size, format: $part_format"
+	echo "===> Create partition [$part_name]"
+	if [ $pstart = 0 ]; then
+		pstart=$((pstart + free_space))
+	else
+		pstart=$pend
+	fi
+	if [ $part_size = 100% ]; then
+		pend=$part_size
+	else
+		pend=$((pstart + part_size))
+	fi
+	set -x
+	sudo parted ${sd_dev} mkpart ${part_name} ${pstart}${unit} ${pend}${unit}
+	sudo parted ${sd_dev} quit
+	set +x
+	if [ $part_format = 1 ]; then
+		echo "Format the data partition(${sd_dev}${index}) as ext4"
+		yes | sudo mkfs.ext4 ${sd_dev}${index}
+	fi
+	index=$((index + 1))
+	sync
+done
 
 sync
 sudo parted ${sd_dev} print
