@@ -1,0 +1,11 @@
+property:
+    disk_size = 1024m
+
+partition:
+	#name     =  start,   size,  fstype
+	boot      =     2m,     8m,  EMPTY
+	rootfs    =    10m,   200m,  LINUX_FS
+	data      =   210m,   512m,  LINUX_FS
+
+#fstype could be: LINUX_FS, FAT_FS, EMPTY
+#Only supports up to 4 partitions

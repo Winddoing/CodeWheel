@@ -32,6 +32,13 @@ if [ $# -lt 1 ]; then
 	exit
 fi
 
+if [ x$part_type != x"gpt" ] && [ x$part_type != x"msdos" ]; then
+	echo "part_type=$part_type"
+	echo "Currently partition type only supports [msdos] and [gpt]"
+	echo ""
+	exit
+fi
+
 which parted > /dev/null
 if [ $? -ne 0 ]; then
 	sudo apt install parted
