@@ -13,11 +13,11 @@ gcc ./gpt_creator.c -o ./gpt_creator -lz
 
 cat mbr-of-gpt.bin gpt.bin > mbr-gpt.bin
 
-dd if=/dev/zero of=file.bin bs=512 count=63
+dd if=/dev/zero of=file.bin bs=512 count=32   #gpt分区表，最大支持128个分区
 
 cat mbr-gpt.bin file.bin > file2.bin
 
-dd if=file2.bin of=mbr-gpt.bin bs=512 count=64
+dd if=file2.bin of=mbr-gpt.bin bs=512 count=33 #1个mbr头+32个gpt分区
 
 rm file* -rf
 rm mbr-of-gpt.bin gpt.bin -rf
