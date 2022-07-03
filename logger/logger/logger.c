@@ -73,7 +73,7 @@ struct logger_info {
     unsigned long filesize;
     pthread_mutex_t lock;
     char buf[MAX_LOG_LEN];
-} __attribute__((packed));
+}; //__attribute__((packed));
 
 struct logger_impl {
     struct logger_var var;
