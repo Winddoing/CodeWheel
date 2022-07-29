@@ -97,8 +97,8 @@ find_package(PkgConfig REQUIRED)
 pkg_search_module(GL REQUIRED gl)
 
 message(STATUS "=========pkg-config========")
-MESSAGE(STATUS "-L: "${GL_LIBRARIES})
-MESSAGE(STATUS "-I: "${GL_INCLUDE_DIRS})
+MESSAGE(STATUS "-L: ${GL_LIBRARIES}")
+MESSAGE(STATUS "-I: ${GL_INCLUDE_DIRS}")
 message(STATUS "===========================")
 
 

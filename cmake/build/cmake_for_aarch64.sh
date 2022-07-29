@@ -6,6 +6,6 @@
 ##########################################################
 #!/bin/bash
 
-cmake -G "Unix Makefiles" ..
+cmake -DAARCH64_LINUX=1 -DCMAKE_TOOLCHAIN_FILE=./cmake/cmake_for_aarch64.cmake -G "Unix Makefiles" ..
 
 make
