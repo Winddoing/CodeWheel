@@ -11,6 +11,9 @@
 
 #include "Config.h"
 
+#define LOG_TAG "xxx"
+#include "log.h"
+
 #ifdef USE_MYMATH
 #include "my_math.h"
 #endif
@@ -43,6 +46,11 @@ int main(int argc, char** argv)
     fprintf(stdout,"The square root of %g is %g\n",
             inputValue, outputValue);
 
+	TST_LOG_INIT();
+	MLOGI("Test info log\n");
+	MLOGD("Test debug log\n");
+	MLOGW("Test waring log\n");
+	MLOGE("Test error log\n");
 
     //b = cal_sqrt(argc[1]);
 

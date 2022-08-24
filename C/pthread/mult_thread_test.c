@@ -14,7 +14,7 @@
 
 void* _do_gpu_monitor(void* args)
 {
-
+	//sleep(10);
     printf("===> func: %s, line: %d, file: %s\n", __func__, __LINE__, __FILE__);
     return NULL;
 }
@@ -37,6 +37,8 @@ int main(int argc, const char *argv[])
 
         pthread_attr_destroy(&attr);                                            
     }
+
+	//wait
 
     return 0;
 }

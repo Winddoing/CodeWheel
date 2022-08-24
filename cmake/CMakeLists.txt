@@ -37,6 +37,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_GNU_SOURCE")
 
+set(CMAKE_BUILD_TYPE Debug)
+
 # 可执行文件链接时参数
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s -O3 -Wl,--gc-sections")
 
@@ -108,6 +110,7 @@ if(USE_MYMATH)
 endif(USE_MYMATH)
 
 add_subdirectory(${ROOT_DIR}/src)
+add_subdirectory(${ROOT_DIR}/tests)
 
 # 打包deb，prefix默认是/usr
 
