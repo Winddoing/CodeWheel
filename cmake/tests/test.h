@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include <unistd.h>
+#include <assert.h>
 
 #ifndef SHORT_TYPE_DEFINE
 #define SHORT_TYPE_DEFINE
