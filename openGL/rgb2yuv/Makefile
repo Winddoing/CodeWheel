@@ -12,4 +12,4 @@ rgb2nv12.out: $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	rm -f rgb2nv12.out $(OBJ)
+	rm -f rgb2nv12.out $(OBJ) *.nv12

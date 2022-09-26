@@ -4,6 +4,7 @@
  *  Author       : wqshao
  *  Created Time : 2022-09-13 20:04:38
  *  Description  :
+ *				sudo apt install libepoxy-dev
  *		编译： gcc render_enc_gbm.c `pkg-config --libs gbm epoxy`
  *
  *	render context      |      convert context           |
@@ -23,6 +24,9 @@
  *                      |                      +-------+ |
  *                      |                                |
  *
+ * 渲染和转换（使用计算着色器）必须在不同的上下文中
+ *
+ * 原因：在同一个上下文中，使用片段着色器和计算着色器的时候，片段着色器无法渲染正常的颜色
  */
 
 #include <stdio.h>
@@ -437,6 +441,7 @@ void save_data(GLbyte* data, int i, uint32_t w, uint32_t h)
 
 }
 
+//获取转换时间
 uint32_t timerQueriesSupported = 0;
 
 uint32_t IsExtensionSupported(const char *Extension)
@@ -764,6 +769,7 @@ void convert_save_nv12(struct render_tst* render, uint32_t index)
 		GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, fbo));
 		GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, render->out_nv12_texture, 0));
 
+#if 0
 		unsigned char *rgbaPixels = (unsigned char *)malloc(render->m_width * (render->m_height + (render->m_height/2)) * 4);
 		if (!rgbaPixels) {
 			printf("Can't not allocate memory for output!\n");
@@ -783,6 +789,15 @@ void convert_save_nv12(struct render_tst* render, uint32_t index)
 			nv12ImageBuffer[k] = rgbaPixels[i];
 			k++;
 		}
+#else
+		unsigned char *nv12ImageBuffer = (unsigned char*)malloc(render->m_width * (render->m_height + (render->m_height / 2)));
+		if (!nv12ImageBuffer) {
+			printf("Can't allocate memory for sharing converted buffer \n");
+		}
+
+		//直接以8bit为一个单元读取该纹理中的数据
+		GL_CHECK(glReadPixels(0, 0, render->m_width, render->m_height + (render->m_height / 2), GL_RED, GL_UNSIGNED_BYTE, nv12ImageBuffer));
+#endif
 
 		GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		GL_CHECK(glDeleteFramebuffers(1, &fbo));
@@ -791,7 +806,7 @@ void convert_save_nv12(struct render_tst* render, uint32_t index)
 
 		fclose(f);
 
-		free(rgbaPixels);
+/*		free(rgbaPixels); */
 		free(nv12ImageBuffer);
 	} else {
 		printf("Problem with accessing output file!\n");
@@ -816,8 +831,8 @@ int main(int argc, const char *argv[])
 	struct render_tst render;
 	int i = 0;
 
-	render.m_width = 640;
-	render.m_height = 480;
+	render.m_width  = 1920;
+	render.m_height = 1080;
 
 	//render.m_fd_handle = fd;
 

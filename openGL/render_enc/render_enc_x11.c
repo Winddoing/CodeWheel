@@ -20,6 +20,27 @@
 #include <X11/Xlib.h>
 #include <assert.h>
 
+#define DEBUG_MSG(fmt, ...) \
+        do { \
+            printf(fmt " (%s:%d)\n", \
+                    ##__VA_ARGS__, __FUNCTION__, __LINE__); \
+        } while (0)
+#define ERROR_MSG(fmt, ...) \
+        do { printf("ERROR: " fmt " (%s:%d)\n", \
+                ##__VA_ARGS__, __FUNCTION__, __LINE__); } while (0)
+
+#define GCHK(x) do { \
+        GLenum err; \
+        DEBUG_MSG(">>> %s", #x); \
+        x; \
+        err = glGetError(); \
+        if (err != GL_NO_ERROR) { \
+            ERROR_MSG("<<< %s: failed: 0x%04x (%s)", #x, err, glStrError(err)); \
+            exit(-1); \
+        } \
+        DEBUG_MSG("<<< %s: succeeded", #x); \
+    } while (0)
+
 struct renderer_tst {
     Display* x11_display;
     Window x11_window;

@@ -43,9 +43,9 @@
 // Function creates DMA buffer from given texture id
 // Such function should be provided by server process.
 int CreateDmaBufferFromTexture(int DrmFD,
-	EGLDisplay Display, 
-	EGLContext Context, 
-	GLuint Texture, 
+	EGLDisplay Display,
+	EGLContext Context,
+	GLuint Texture,
 	EGLImageKHR &Image)
 {
 	EGLint name, handle, stride;
@@ -79,13 +79,13 @@ int CreateDmaBufferFromTexture(int DrmFD,
 // and returns KHR image
 // Not used
 EGLImageKHR CreateTextureFromFd(EGLDisplay Display,
-	int fd, 
-	int Width, 
-	int Height, 
+	int fd,
+	int Width,
+	int Height,
 	int Stride,
-	int Format, 
+	int Format,
 	GLuint LocalTextureId)
-{	
+{
 	EGLint attrs[13];
 
 	attrs[0] = EGL_DMA_BUF_PLANE0_FD_EXT;
@@ -120,7 +120,7 @@ GLuint PrepareComputeProgram()
 	GLuint progHandle = glCreateProgram();
 	GLuint cs = glCreateShader(GL_COMPUTE_SHADER);
 	char *src = NULL;
-	
+
 	const char *fullShaderSource[2];
 	const char *version = "#version 310 es \n";
 	fullShaderSource[0] = version;
@@ -151,10 +151,10 @@ GLuint PrepareComputeProgram()
 
 	glShaderSource(cs, 2, fullShaderSource, NULL);
 	glCompileShader(cs);
-	
+
 	int rvalue;
 	glGetShaderiv(cs, GL_COMPILE_STATUS, &rvalue);
-	if (!rvalue) 
+	if (!rvalue)
 	{
 		printf("Error in compiling the compute shader\n");
 		GLchar log[10240];
@@ -167,7 +167,7 @@ GLuint PrepareComputeProgram()
 
 	glLinkProgram(progHandle);
 	glGetProgramiv(progHandle, GL_LINK_STATUS, &rvalue);
-	if (!rvalue) 
+	if (!rvalue)
 	{
 		printf("Error in linking compute shader program\n");
 		GLchar log[10240];
@@ -203,7 +203,7 @@ unsigned char *LoadBMP(const char *FileName)
 		return b;
 	}
 	else
-	{ 
+	{
 		printf("Error loading bmp!\n");
 		exit(1);
 	}
@@ -227,12 +227,12 @@ int fdNV12 = 0;
 
 int Iterations = 1;
 
-// Load bmp file (RGB) and convert it to RGBA	
+// Load bmp file (RGB) and convert it to RGBA
 unsigned char *PrepareBMPFile(char *FileName)
 {
 	// Allocate memory for RGBA output image.
-	// Note that height of the texture on Intel cards must be 
-	// divisible (without remainder) by 32. 
+	// Note that height of the texture on Intel cards must be
+	// divisible (without remainder) by 32.
 	unsigned char *rgbaImage = (unsigned char*)malloc(TextureWidth * (ALIGN(TextureHeight,32) * 4));
 	if (!rgbaImage)
 		return NULL;
@@ -244,7 +244,7 @@ unsigned char *PrepareBMPFile(char *FileName)
 		return NULL;
 	}
 
-	// convert RGB to RGBx 
+	// convert RGB to RGBx
 	if (rgbImage)
 	{
 		// Skip BMP header
@@ -255,7 +255,7 @@ unsigned char *PrepareBMPFile(char *FileName)
 			dst[2] = src[i];
 			dst[1] = src[i + 1];
 			dst[0] = src[i + 2];
-			// keep alpha as 0 
+			// keep alpha as 0
 			dst[3] = 0;
 			dst += 4;
 		}
@@ -279,7 +279,7 @@ void PrepareTextures(int DrmFd, EGLDisplay Display, EGLContext Context, unsigned
 	// Fill texture with pixel data
 	GL_CHECK(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, TextureWidth, TextureHeight, GL_RGBA, GL_UNSIGNED_BYTE, PixelData));
 	GL_CHECK(glBindImageTexture(0, RGBAInputTextureHandle, 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA8));
-	
+
 #ifdef DMA_BUFF_SUPPORT
 	fdRGBA = CreateDmaBufferFromTexture(DrmFd, Display, Context, RGBAInputTextureHandle, ImageRGBA);
 #endif
@@ -290,7 +290,7 @@ void PrepareTextures(int DrmFd, EGLDisplay Display, EGLContext Context, unsigned
 	GL_CHECK(glBindTexture(GL_TEXTURE_2D, NV12TextureOutputHandle));
 	GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-		
+
 	GL_CHECK(glTexStorage2D(GL_TEXTURE_2D, 1, GL_R8, TextureWidth, TextureHeight + (TextureHeight/2)));
 	GL_CHECK(glBindImageTexture(1, NV12TextureOutputHandle, 0, GL_FALSE, 0, GL_READ_WRITE, GL_R8));
 
@@ -315,7 +315,7 @@ void ExecuteTest(GLuint ComputeHandle)
 
 	// Pass height to shader
 	GL_CHECK(glUniform1i(2, TextureHeight));
-	
+
 	if (timerQueriesSupported)
 	{
 		GL_CHECK(glGenQueriesEXT(1, &timeElapsedQuery));
@@ -362,9 +362,9 @@ void ExecuteTest(GLuint ComputeHandle)
 			}
 		}
 		printf("Time elapsed avg: %f ms min %f max %f \n", (totalElapsedTime / 1000000.0) / Iterations,
-			(minElapsedTime / 1000000.0), 
+			(minElapsedTime / 1000000.0),
 			(maxElapsedTime / 1000000.0));
-		
+
 		GL_CHECK(glDeleteQueriesEXT(1, &timeElapsedQuery));
 	}
 	else
@@ -421,11 +421,37 @@ int main(int argc, char *argv[])
 
 	printf("input texture [%d]x[%d] \n", TextureWidth, TextureHeight);
 
+#if 1
 	unsigned char *pixelData = PrepareBMPFile(argv[3]);
 	if (!pixelData)
 	{
 		return 1;
 	}
+#else
+	uint32_t w = 1920;
+	uint32_t h = 1080;
+	uint32_t sz = w * h * 4;
+	unsigned char *pixelData = (uint8_t*)malloc(sz);
+
+	FILE * file = NULL;
+	/*
+	 * ./tst_1920x1080.rgba 文件的生成
+	 *
+	 * 将bmp文件直接转换为rgba文件
+	 * 在线转换： https://convertio.co/zh/rgba-converter/
+	 * */
+	file = fopen("./tst_1920x1080.rgba", "rb");
+	if (file)
+	{
+		size_t read = fread(pixelData, 1, sz, file);
+		if (read != sz)
+		{
+			free(pixelData);
+			return -1;
+		}
+		fclose(file);
+	}
+#endif
 
 	const char *eglExtensionString = NULL;
 
@@ -454,7 +480,7 @@ int main(int argc, char *argv[])
 	// dma buff export extension check - not used in this version
 	assert(strstr(eglExtensionString, "EGL_MESA_image_dma_buf_export") != NULL);
 
-	static const EGLint config_attribs[] = 
+	static const EGLint config_attribs[] =
 	{
 		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT_KHR,
 		EGL_NONE
@@ -469,7 +495,7 @@ int main(int argc, char *argv[])
 	res = eglBindAPI(EGL_OPENGL_ES_API);
 	assert(res);
 
-	static const EGLint attribs[] = 
+	static const EGLint attribs[] =
 	{
 		EGL_CONTEXT_CLIENT_VERSION, 3,
 		EGL_NONE
@@ -495,7 +521,7 @@ int main(int argc, char *argv[])
 
 	ExecuteTest(computeHandle);
 
-	// Now dump result (NV12) to a file		
+	// Now dump result (NV12) to a file
 	FILE *f;
 	f = fopen("raw.nv12", "wb");
 	if (f)
@@ -527,7 +553,7 @@ int main(int argc, char *argv[])
 			nv12ImageBuffer[k] = rgbaPixels[i];
 			k++;
 		}
-		
+
 		GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		GL_CHECK(glDeleteFramebuffers(1, &fbo));
 
@@ -544,7 +570,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 	printf("\n");
-	
+
 #ifdef DMA_BUFF_SUPPORT
 	if (ImageRGBA)
 	{
