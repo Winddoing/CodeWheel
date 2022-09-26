@@ -249,6 +249,7 @@ unsigned char *PrepareBMPFile(char *FileName)
 	{
 		// Skip BMP header
 		unsigned char *src = &rgbImage[66];
+#if 0
 		unsigned char *dst = rgbaImage;
 		for (unsigned int i = 0; i < TextureWidth * TextureHeight * 3; i += 3)
 		{
@@ -259,6 +260,21 @@ unsigned char *PrepareBMPFile(char *FileName)
 			dst[3] = 0;
 			dst += 4;
 		}
+#else
+		uint32_t height = ALIGN(TextureHeight,32);
+		uint32_t width  = TextureWidth;
+
+		//以水平方向上下颠倒
+		for(uint32_t j = 0; j < height; j++) {
+			for(uint32_t i = 0; i < width; i++) {
+				//printf("R:0x%02x, G:0x%02x, B:0x%02x\n", src[(j * width + i) * 3 + 0], src[(j * width + i) * 3 + 1], src[(j * width + i) * 3 + 2]);
+				rgbaImage[(j * width + i) * 4 + 2] = src[((height - 1 - j) * width + (width + i)) * 3 + 0];
+				rgbaImage[(j * width + i) * 4 + 1] = src[((height - 1 - j) * width + (width + i)) * 3 + 1];
+				rgbaImage[(j * width + i) * 4 + 0] = src[((height - 1 - j) * width + (width + i)) * 3 + 2];
+				rgbaImage[(j * width + i) * 4 + 3] = 0;
+			}
+		}
+#endif
 	}
 
 	free(rgbImage);
