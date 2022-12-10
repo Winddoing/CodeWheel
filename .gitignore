@@ -9,6 +9,7 @@ bin
 #*.s
 *.so
 *.bin
+*.raw
 
 
 ## cmake
