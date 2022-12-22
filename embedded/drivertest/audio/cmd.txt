@@ -1,0 +1,3 @@
+
+
+aarch64-none-linux-gnu-gcc alsa_play.c -lasound -L /home/wqshao/work/Tequila/evb/buildroot/output/target/usr/lib/ -I /home/wqshao/work/Tequila/evb/buildroot/output/build/alsa-lib-1.2.4/include/

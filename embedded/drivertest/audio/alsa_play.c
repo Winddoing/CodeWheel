@@ -154,6 +154,9 @@ static int pcm_set_params(snd_pcm_params* pcm_params)
 		printf("set hw params error:%s", snd_strerror(ret));
 		return -1;
 	}
+
+	//snd_pcm_hw_params_get_period_time(pcm_params.hw_params, &val, &dir);
+
 	return 0;
 }
 
@@ -183,35 +186,28 @@ int main(int argc, char *argv[])
 	wav_head head;
 
 	if (argc < 2) {
-		printf("usage ./play ");
+		printf("usage ./play [wav_file]\n");
 		return -1;
 	}
 
-	fd = open(argv[1], O_RDWR);
-
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0) {
-		printf("file open error");
+		printf("file(%s) open error, errno=%d, %s\n", argv[1], errno, strerror(errno));
 		return -1;
 	}
 
 	parse_wav_file(fd, &head);
-
 	setup_audio_params(&head, &pcm_params);
-
-
-	//check_wavfile(fd, &hw_params);   //从wav头中分析出的参数，保存在hw_param中
 
 	pcm_open(&pcm_params);
 	pcm_set_params(&pcm_params);
 
-	//snd_pcm_hw_params_get_period_time(pcm_params.hw_params, &val, &dir);A
-	
 	uint32_t buf_frame_size = 0;
 
 	while (1) {
 		snd_pcm_hw_params_get_period_size(pcm_params.hw_params, &frames, &dir);
 		buf_frame_size = frames * 4; //2byte/smaple, 2 channels
-		printf("===> func: %s, line: %d, frames=%d\n", __func__, __LINE__, frames);
+		printf("===> func: %s, line: %d, frames=%ld, buf_frame_size=%d\n", __func__, __LINE__, frames, buf_frame_size);
 		buf_size = buf_frame_size * 12;
 		buffer = (char*)malloc(buf_size);
 		ret = read(fd, buffer, buf_size);                //3.从wav文件中读取数据
@@ -227,12 +223,15 @@ int main(int argc, char *argv[])
 			ret = snd_pcm_writei(pcm_params.handle, buffer + i, frames);   //4.将读取数据写到driver中进行播放
 
 			if (ret == -EPIPE) {
-				//printf("-EPIPE");
+				fprintf(stderr, "underrun occurred\n");
 				snd_pcm_prepare(pcm_params.handle);
+			} else if (ret < 0) {
+				fprintf(stderr,"error from writei: %s\n",snd_strerror(ret));
 			}
+
 			i += buf_frame_size;
 		}
-	
+
 		free(buffer);
 	}
 

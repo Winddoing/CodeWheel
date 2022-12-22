@@ -43,7 +43,7 @@ static uint16_t syslog_level(enum log_level level)
 void tst_log_init(char* ident)
 {
 	openlog(ident, LOG_PID | LOG_NDELAY, LOG_USER);
-	setlogmask(LOG_UPTO(LOG_NOTICE));
+	setlogmask(LOG_UPTO(LOG_DEBUG));
 }
 
 void tst_log(enum log_level level, const char *fmt, ...)
