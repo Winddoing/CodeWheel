@@ -17,58 +17,118 @@
 #include <errno.h>
 #include <string.h>  //strerror
 #include <sys/eventfd.h>
+#include <sys/epoll.h>
+#include <assert.h>
 #include <unistd.h>
 
+struct event {
+	int event_fd;
+	int epoll_fd;
+};
 
-static int open_event()
+static int create_event(struct event *ev)
 {
-	int eventFd = eventfd(0, EFD_CLOEXEC | EFD_SEMAPHORE);
-	if (eventFd == -1){
+	assert(ev != NULL);
+
+	ev->event_fd = eventfd(0, EFD_CLOEXEC | EFD_SEMAPHORE);
+	if (ev->event_fd == -1){
 		printf("eventfd create error:%s\n", strerror(errno));
 		return -1;
 	}
-	return eventFd;
+	ev->epoll_fd = epoll_create(1);
+	if (ev->epoll_fd == -1) {
+		printf("epolldf create error: %s\n", strerror(errno));
+		return -1;
+	}
+
+	struct epoll_event eventItem;
+	memset(&eventItem, 0, sizeof(struct epoll_event));
+	eventItem.events  = EPOLLIN;
+	eventItem.data.fd = ev->event_fd;
+	if(epoll_ctl(ev->epoll_fd, EPOLL_CTL_ADD, ev->event_fd, &eventItem) == -1) {
+		printf("epoll_ctl error: %s\n", strerror(errno));
+		return -1;
+	}
+
+	return 0;
 }
 
-static void close_event(int fd)
+static int delete_event(struct event *ev)
 {
-	close(fd);
+	assert(ev != NULL);
+
+	close(ev->event_fd);
+	ev->event_fd = -1;
+
+	close(ev->epoll_fd);
+	ev->epoll_fd = -1;
+
+	return 0;
 }
 
-static void read_event(int fd)
+/**
+ * @brief  wait_event等待事件被触发, 同时可以设置超时时间，单位ms
+ *
+ * @param ev  event结构体指针
+ * @param timeout_ms	等待超时时间，如果为0将死等事件被触发
+ *
+ * @returns   
+ */
+static int wait_event(struct event *ev, int timeout_ms)
 {
-    uint64_t v;
-    ssize_t n;
-    n = read(fd, &v, sizeof(uint64_t));
-    if (n != sizeof(uint64_t))
-        printf("eventfd read error\n");
+	uint64_t v;
+	ssize_t ret;
+
+	assert(ev != NULL);
+
+	struct epoll_event eventItem;
+	ret = epoll_wait(ev->epoll_fd, &eventItem, 1, timeout_ms);
+	if (ret == 0) {
+		printf("epoll wait timeout: %d ms, errno=%d\n", timeout_ms, errno);
+		return -1;
+	}
+
+	ret = read(eventItem.data.fd, &v, sizeof(uint64_t));
+	if (ret != sizeof(uint64_t)) {
+		printf("eventfd read error, ret=%ld, errno=%d(%s)\n", ret, errno, strerror(errno));
+		return ret;
+	}
+
+	return 0;
 }
 
-static void write_event(int fd)
+static int set_event(struct event *ev)
 {
     uint64_t v = 1;
-    ssize_t n;
-    n = write(fd, &v, sizeof(uint64_t));
-    if (n != sizeof(uint64_t))
-        printf("eventfd write error\n");
-}
+    ssize_t ret;
 
+	assert(ev != NULL);
+
+    ret = write(ev->event_fd, &v, sizeof(uint64_t));
+    if (ret != sizeof(uint64_t)) {
+		printf("eventfd write error, ret=%ld, errno=%d(%s)\n", ret, errno, strerror(errno));
+		return -1;
+	}
+
+	return 0;
+}
 
 int main(int argc, const char *argv[])
 {
-	int fd = 0;
 
-	fd = open_event();
+	struct event ev;
+
+	create_event(&ev);
 	printf("===> func: %s, line: %d\n", __func__, __LINE__);
 
-	write_event(fd);
+	//set_event(&ev);
+	set_event(&ev);
 	printf("===> func: %s, line: %d\n", __func__, __LINE__);
 
-	read_event(fd);
-	//read_event(fd);
+	wait_event(&ev, 100);
 	printf("===> func: %s, line: %d\n", __func__, __LINE__);
 
-	close_event(fd);
+	delete_event(&ev);
 
 	return 0;
 }
