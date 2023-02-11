@@ -3,7 +3,8 @@ project(TEMP-lib)
 
 set(LIB_NAME "TEMP")
 set(LIB_VERSION 0.0.1)
-set(DEPEND_LIB "")
+#set(DEPEND_LIB m pthread)
+set(DEPEND_LIB )
 
 set(CUR_DIR ${PROJECT_SOURCE_DIR})
 
