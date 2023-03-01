@@ -5,15 +5,15 @@ set(CMAKE_BUILD_TYPE "Debug")
 
 # 编译时参数
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -W -Wall -Wextra")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-discarded-qualifiers")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_GNU_SOURCE")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-discarded-qualifiers")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_GNU_SOURCE")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffunction-sections -fdata-sections") #标记暂时不用的功能函数,与-Wl,--gc-sections配合使用
 
 # 可执行文件链接时参数
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s -O3 -Wl,--gc-sections")
+# -Wl,--gc-sections： 不链接未用函数，减小可执行文件大小
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections")
 
 execute_process(
     COMMAND git rev-parse --short HEAD
@@ -34,11 +34,20 @@ execute_process(
 add_definitions( -DBRANCH_NAME=\"${BRANCH_NAME}\")
 
 string(TIMESTAMP COMPILE_TIME %Y%m%d%H)
+add_definitions(-DCOMPILE_TIME=\"${COMPILE_TIME}\")
+
+execute_process(
+	COMMAND uname -m COMMAND xargs echo -n
+	OUTPUT_VARIABLE ARCHITECTURE
+)
 
 message(STATUS " COMMIT_HASH : ${COMMIT_HASH}")
 message(STATUS " BRANCH_NAME : ${BRANCH_NAME}")
 message(STATUS "COMPILE_TIME : ${COMPILE_TIME}")
-message(STATUS "     VERSION : ${SA_VERSION}")
+message(STATUS "     VERSION : ${LIB_VERSION}")
+message(STATUS "Architecture : ${ARCHITECTURE}")
+
+file(WRITE version.info "${COMPILE_TIME}_${ARCHITECTURE}_${LIB_VERSION}|${BRANCH_NAME}-${COMMIT_HASH}\n")
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
@@ -67,7 +76,7 @@ add_subdirectory(${ROOT_DIR}/src)
 add_subdirectory(${ROOT_DIR}/tests)
 
 # 指定安装目录，默认路径：/usr/local/lib/
-set(CMAKE_INSTALL_PREFIX ${ROOT_DIR}/packages)
+set(CMAKE_INSTALL_PREFIX ${ROOT_DIR}/packages/${ARCHITECTURE})
 
 set(ALL_TARGETS TEMP-shared TEMP_test)
 set_target_properties(TEMP-shared PROPERTIES PUBLIC_HEADER ${ROOT_DIR}/include/TEMP.h)
@@ -79,11 +88,20 @@ install(TARGETS ${ALL_TARGETS}
 	RUNTIME DESTINATION Debug/bin
 	PUBLIC_HEADER DESTINATION Debug/include
 	)
+install(FILES version.info
+	CONFIGURATIONS Debug
+	SYSCONF DESTINATION Debug
+	)
+
 # CMAKE_BUILD_TYPE=Release时导出
 install(TARGETS ${ALL_TARGETS}
 	CONFIGURATIONS Release
 	LIBRARY DESTINATION Release/lib
 	ARCHIVE DESTINATION Release/lib
 	RUNTIME DESTINATION Release/bin
-	PUBLIC_HEADER DESTINATION include
+	PUBLIC_HEADER DESTINATION Release/include
+	)
+install(FILES version.info
+	CONFIGURATIONS Release
+	SYSCONF DESTINATION Release
 	)

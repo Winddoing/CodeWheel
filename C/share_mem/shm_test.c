@@ -4,6 +4,7 @@
  *  Author       : wqshao
  *  Created Time : 2023-02-11 10:30:47
  *  Description  :
+ *		gcc shm_test.c -lpthread
  */
 
 #include <stdio.h>
@@ -14,11 +15,12 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include <sys/ipc.h>                           
-#include <sys/shm.h> 
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <string.h>
 #include <errno.h>
 #include <assert.h>
+#include <pthread.h>
 
 #define MLOG(fmt, ...) printf("<%d> %s:" fmt , getpid(), __func__, ##__VA_ARGS__)
 
@@ -31,6 +33,8 @@ struct shm_obj {
 	size_t mem_size;
 
 	int32_t *nattach_ptr;
+	pthread_mutex_t *nattach_mutex_ptr;	//同步nattach_ptr操作
+	pthread_mutex_t *mem_mutex_ptr;		//共享内存资源同步,导出外部使用
 };
 
 //初始化共享内存句柄
@@ -44,7 +48,7 @@ shm_handle init_shm(key_t key, size_t size)
 		return NULL;
 	}
 
-	shm->mem_size = size + sizeof(int32_t);
+	shm->mem_size = size + sizeof(int32_t) + sizeof(pthread_mutex_t) + sizeof(pthread_mutex_t);
 
 	/* key = ftok(".",1);     //获取键值 */
 	shm->shmid = shmget(key, shm->mem_size, 0666 | IPC_CREAT); //打开或者创建共享内存
@@ -59,23 +63,38 @@ shm_handle init_shm(key_t key, size_t size)
 		return NULL;
 	}
 
-	MLOG("key: 0x%08x, shmid: %d\n", key, shm->shmid);
+	MLOG("key: 0x%08x, shmid: %d, shm size=%ld\n", key, shm->shmid, size);
 
 	/* nattach 用于判断当前共享内存的使用对象 */
 	uint8_t *data_ptr = (uint8_t*)shm->mem_addr;
-	shm->nattach_ptr = (int32_t*)(data_ptr + shm->mem_size);
 
-	MLOG("--0--shm nattach: %d, mem_addr=%p, data_ptr=%p\n", *shm->nattach_ptr, shm->mem_addr, data_ptr);
+	uint32_t nattach_ptr_pos = shm->mem_size;
+	uint32_t nattach_mutex_ptr_pos = shm->mem_size + sizeof(int32_t);
+	uint32_t mem_mutex_pos = shm->mem_size + sizeof(int32_t) + sizeof(pthread_mutex_t);
+
+	shm->nattach_ptr = (int32_t*)(data_ptr + nattach_ptr_pos);
+	shm->nattach_mutex_ptr = (pthread_mutex_t*)(data_ptr + nattach_mutex_ptr_pos);
+	shm->mem_mutex_ptr = (pthread_mutex_t*)(data_ptr + mem_mutex_pos);
+
+	MLOG("--0--shm nattach: %d, mem_addr=%p, data_ptr=%p, nattach_mutex_ptr=%p\n", *shm->nattach_ptr, shm->mem_addr, data_ptr, shm->nattach_mutex_ptr);
 
 	if (*shm->nattach_ptr < 0)
 		*shm->nattach_ptr = 0;
 
 	if (*shm->nattach_ptr == 0) {
-		MLOG("\t*** shm mem area cleared to zero. addr=%p, size=%ld ***\n", shm->mem_addr, shm->mem_size);
+		pthread_mutexattr_t attr;
+		pthread_mutexattr_init(&attr);
+		pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
+		pthread_mutex_init(shm->nattach_mutex_ptr, &attr);
+		pthread_mutex_init(shm->mem_mutex_ptr, &attr);
+
 		memset(shm->mem_addr, 0, shm->mem_size);
+		MLOG("\t*** shm mem area cleared to zero. addr=%p, size=%ld ***\n", shm->mem_addr, shm->mem_size);
 	}
 
+	pthread_mutex_lock(shm->nattach_mutex_ptr);
 	(*shm->nattach_ptr)++;
+	pthread_mutex_unlock(shm->nattach_mutex_ptr);
 	MLOG("--1--shm nattach: %d\n", *shm->nattach_ptr);
 
 	return (shm_handle)shm;
@@ -98,15 +117,18 @@ int free_shm(shm_handle handle)
 {
 	struct shm_obj *shm = (struct shm_obj*)handle;
 	uint64_t nattach = 0;
+	int ret = 0;
 
-	MLOG("mem_addr=%p\n", shm->mem_addr);
+	MLOG("--0--shm nattach: %d, mem_addr=%p\n", *shm->nattach_ptr, shm->mem_addr);
 	if (shm->mem_addr) {
+		pthread_mutex_lock(shm->nattach_mutex_ptr);
 		if (shm->nattach_ptr) {
 			if ((*shm->nattach_ptr) > 0)
 				(*shm->nattach_ptr) --;
 			nattach = (*shm->nattach_ptr);
 		}
-		MLOG("shm nattach: %ld\n", nattach);
+		pthread_mutex_unlock(shm->nattach_mutex_ptr);
+		MLOG("shm nattach: %ld, shmid=%d\n", nattach, shm->shmid);
 
 		shmdt(shm->mem_addr); //断开进程和内存的连接
 
@@ -116,21 +138,27 @@ int free_shm(shm_handle handle)
 				nattach = ds.shm_nattch;
 			MLOG("shm stat nattach = %ld\n", nattach);
 			if (ds.shm_nattch == 0) {
-				shmctl(shm->shmid, IPC_RMID, &ds); //删除共享内存段
+				ret = shmctl(shm->shmid, IPC_RMID, &ds); //删除共享内存段
+				if (ret == -1) {
+					MLOG("shmctl IPC_RMID error, errno=%d(%s)\n", errno, strerror(errno));
+				}
 			}
 
 			shm->shmid = -1;
 		}
 		shm->mem_addr = NULL;
 
-		MLOG("---exit  nattach = %ld\n", nattach);
-		if (nattach == 0) {
-			free(shm);
-			shm = NULL;
+		MLOG("---exit  nattach = %ld, ret=%d\n", nattach, ret);
+		if (ret == 0 && nattach == 0) {
+			MLOG("free shm, nattach=%ld, mem_mutex_ptr=%p, nattach_mutex_ptr=%p\n", nattach, shm->mem_mutex_ptr, shm->nattach_mutex_ptr);
+			pthread_mutex_destroy(shm->mem_mutex_ptr);
+			pthread_mutex_destroy(shm->nattach_mutex_ptr);
 		}
+		free(shm);
+		shm = NULL;
 	}
 
-	return 0;
+	return ret;
 }
 
 struct test {
@@ -143,7 +171,7 @@ int main(int argc, const char *argv[])
 	pid_t pid, child_pid;
 	int i = 0;
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 100; i++) {
 		pid = fork();
 		if (pid == 0 || pid == -1) {
 			break;
@@ -155,11 +183,15 @@ int main(int argc, const char *argv[])
 	} else if (pid == 0) {
 		MLOG("This is child process, id=%d, i=%d\n", getpid(), i);
 
-		shm_handle shm = init_shm(12343, sizeof(struct test));
+		shm_handle shm = init_shm(1343, sizeof(struct test));
 
 		void* shm_mem_addr = get_shm_addr(shm);
 
-		sleep(i + 1);
+		srand((unsigned)getpid());
+		uint32_t t = rand() % 10 + 1;
+		printf("pid=%d, i=%d, sleep %ds\n", getpid(), i, t);
+
+		sleep(rand() % 10 + 1);
 
 		free_shm(shm);
 
