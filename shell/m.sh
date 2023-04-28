@@ -8,22 +8,30 @@
 #  ./m.sh -c; ./m.sh -db; ./m.sh -d -b
 ##########################################################
 
-set -- $(getopt -q dbc "$@")
+if [ $# -eq 0 ]; then
+	args_list="-cdb"
+else
+	args_list=$@
+fi
+
+echo "Args list: $args_list"
+
+set -- $(getopt -q dbc "$args_list")
 while [ -n "$1" ]
 do
-        case "$1" in
-            -d) echo "Deploy ..."
+	case "$1" in
+		-d) echo "Deploy ..."
 
-                shift ;;
-            -b) echo "Build  ..."
+			shift ;;
+		-b) echo "Build  ..."
 
-                shift ;;
-            -c) echo "Clean  ..."
+			shift ;;
+		-c) echo "Clean  ..."
 
-                shift ;;
-            --) shift
-                break ;;
-            -*) echo "Nothing to do";;
-        esac
+			shift ;;
+		--) shift
+			break ;;
+		-*) echo "Nothing to do";;
+	esac
 done
 

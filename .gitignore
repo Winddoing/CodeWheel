@@ -21,3 +21,10 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+
+
+*.yuv
+*.yuv420
+*.yuv420p
+*.265
+*.264

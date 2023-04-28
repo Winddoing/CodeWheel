@@ -7,6 +7,7 @@
 #  Description  :
 ##########################################################
 
+# ffprobe -hide_banner -show_packets -loglevel quiet ~/Downloads/test.h264 | grep size | awk -F "=" '{print $2}' > test.len
 
 # sudo apt install libavcodec-dev
 
