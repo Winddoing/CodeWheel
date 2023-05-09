@@ -9,60 +9,62 @@
 #ifndef __LOG_H__
 #define __LOG_H__
 
+#include <syslog.h>
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 enum log_level {
-    TST_LOG_EMERG = 0,
-    TST_LOG_ALERT,
-    TST_LOG_CRIT,
-    TST_LOG_ERR,
-    TST_LOG_WARNING,
-    TST_LOG_NOTICE,
-    TST_LOG_INFO,
-    TST_LOG_DEBUG,
-    TST_LOG_MAX,
+    MLOG_EMERG = 0,
+    MLOG_ERR,
+    MLOG_WARNING,
+    MLOG_NOTICE,
+    MLOG_INFO,
+    MLOG_DEBUG,
+    MLOG_MAX,
 };
-static int def_log_level = TST_LOG_DEBUG;
+static int def_log_level = MLOG_DEBUG;
 
 #ifndef LOG_TAG
 #define LOG_TAG "TEST"
 #endif
 
-#define TST_LOG_INIT() do {						\
-	tst_log_init(LOG_TAG);						\
-} while(0);
+#define SYSLOG_DEF LOG_LOCAL3
 
-#define TST_LOG(level, fmt, ...) do {			\
-    tst_log(level, "[%s:%d] " fmt,				\
-           __func__, __LINE__, ##__VA_ARGS__);	\
+#define MLOG_INIT() do { \
+	openlog(LOG_TAG, LOG_PID | LOG_NDELAY, LOG_USER); \
+	setlogmask(LOG_UPTO(LOG_DEBUG)); \
 } while (0);
 
-#define MLOGE(fmt, ...) do {							\
-	if (def_log_level >= TST_LOG_ERR)					\
-		TST_LOG(TST_LOG_ERR, fmt, ##__VA_ARGS__);		\
+#define MLOG_DEINIT() do { \
+	closelog(); \
+} while (0);
+
+#define MLOG(level, fmt, ...) do { \
+    syslog(level, "[%s:%d] " fmt, __func__, __LINE__, ##__VA_ARGS__); \
+} while (0);
+
+#define MLOGE(fmt, ...) do { \
+	if (def_log_level >= MLOG_ERR) \
+		MLOG(LOG_ERR | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
 } while(0);
 
-#define MLOGW(fmt, ...) do {							\
-	if (def_log_level >= TST_LOG_WARNING)				\
-		TST_LOG(TST_LOG_WARNING, fmt, ##__VA_ARGS__);	\
+#define MLOGW(fmt, ...) do { \
+	if (def_log_level >= MLOG_WARNING) \
+		MLOG(LOG_WARNING | SYSLOG_DEF, fmt, ##__VA_ARGS__);	\
 } while(0);
 
-#define MLOGI(fmt, ...) do {							\
-	if (def_log_level >= TST_LOG_INFO)					\
-		TST_LOG(TST_LOG_INFO, fmt, ##__VA_ARGS__);		\
+#define MLOGI(fmt, ...) do { \
+	if (def_log_level >= MLOG_INFO) \
+		MLOG(LOG_INFO | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
 } while(0);
 
-#define MLOGD(fmt, ...) do {							\
-	if (def_log_level >= TST_LOG_DEBUG)					\
-		TST_LOG(TST_LOG_DEBUG, fmt, ##__VA_ARGS__);		\
+#define MLOGD(fmt, ...) do { \
+	if (def_log_level >= MLOG_DEBUG) \
+		MLOG(LOG_DEBUG | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
 } while(0);
-
-void tst_log_init(char* ident);
-void tst_log(enum log_level level, const char *fmt, ...);
-void tst_log_fini();
 
 #ifdef __cplusplus
 }

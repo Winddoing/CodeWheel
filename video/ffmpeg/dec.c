@@ -46,6 +46,29 @@ static void decode(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt,
     }
 }
 
+static void dump_bs_info(AVCodecParserContext *parser)
+{
+	//printf("pts=%ld, dts=%ld, last_pts=%ld, last_dts=%ld\n", parser->pts, parser->dts, parser->last_pts, parser->last_dts);
+	if (parser->key_frame == 1) {
+		printf("output_picture_number=%d\n", parser->output_picture_number);
+		printf("key_frame=%d, pos=%ld, width=%d, height=%d, coded_width=%d, coded_height=%d, format=%d\n",
+				parser->key_frame, parser->pos, parser->width, parser->height, parser->coded_width, parser->coded_height, parser->format);
+		switch(parser->format) {
+		case AV_PIX_FMT_YUV420P:
+			printf("AVPixelFormat - AV_PIX_FMT_YUV420P\n");
+			break;
+		default:
+			printf("AVPixelFormat - [%d]\n", parser->format);
+			break;
+		}
+	}
+
+	if (parser->coded_width == 0 || parser->coded_height == 0 || parser->format == -1) {
+		printf("bit stream exception. coded_width=%d, coded_height=%d, format=%d\n",
+				parser->coded_width, parser->coded_height, parser->format);
+	}
+}
+
 int main(int argc, char **argv)
 {
     const char *filename, *outfilename;
@@ -61,7 +84,7 @@ int main(int argc, char **argv)
     AVPacket *pkt;
 	const char *codec_type;
 	enum AVCodecID codec_id;
-	const char *codec_name;	
+	const char *codec_name;
 
     if (argc <= 3) {
         fprintf(stderr, "Usage: %s <h264|h265> <input file> <output file>\n"
@@ -158,8 +181,10 @@ int main(int argc, char **argv)
             data      += ret;
             data_size -= ret;
 
-            if (pkt->size)
+            if (pkt->size) {
+				dump_bs_info(parser);
                 decode(c, frame, pkt, outfile);
+			}
         }
     }
 

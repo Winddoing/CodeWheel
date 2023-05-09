@@ -10,7 +10,7 @@ execute_process(
 
 aux_source_directory(${TEST_DIR} TEST_SRC1)
 
-set(TEST_SRC ${ROOT_DIR}/unit/log.c ${TEST_SRC1})
+set(TEST_SRC ${TEST_SRC1})
 
 set(EXE_NAME test.out)
 add_executable(${EXE_NAME} ${TEST_SRC})

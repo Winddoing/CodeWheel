@@ -46,7 +46,7 @@ int main(int argc, char** argv)
     fprintf(stdout,"The square root of %g is %g\n",
             inputValue, outputValue);
 
-	TST_LOG_INIT();
+	MLOG_INIT();
 	MLOGI("Test info log\n");
 	MLOGD("Test debug log\n");
 	MLOGW("Test waring log\n");

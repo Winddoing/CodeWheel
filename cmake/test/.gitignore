@@ -1,5 +1,3 @@
-bulid/
-!./build/*.sh
-!./build/cmake/*
-lib
+build
+packages
 src/test.txt

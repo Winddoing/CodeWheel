@@ -23,32 +23,39 @@ typedef enum {
 
 #define SYSLOG_DEF LOG_LOCAL3
 
-#define MLOGD(fmt, ...)                                                                       \
-    do {                                                                                      \
-        if(DEFAULT_LOG_LEVEL >= kDebugLevel) {                                                \
-            syslog(LOG_DEBUG | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__);   \
-        }                                                                                     \
+#define LOG_TAG	"Tst"
+
+#define MLOG(level, fmt, ...) \
+	do { \
+		syslog(level, "<%s> [%s:%d] " fmt, LOG_TAG, __func__, __LINE__, ##__VA_ARGS__); \
+} while(0);
+
+#define MLOGD(fmt, ...) \
+    do { \
+        if(DEFAULT_LOG_LEVEL >= kDebugLevel) { \
+            MLOG(LOG_DEBUG | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
+        } \
     } while(0);
 
-#define MLOGI(fmt, ...)                                                                       \
-    do {                                                                                      \
-        if(DEFAULT_LOG_LEVEL >= kInformationLevel) {                                          \
-            syslog(LOG_INFO | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__);    \
-        }                                                                                     \
+#define MLOGI(fmt, ...) \
+    do { \
+        if(DEFAULT_LOG_LEVEL >= kInformationLevel) { \
+            MLOG(LOG_INFO | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
+        } \
     } while(0);
 
-#define MLOGW(fmt, ...)                                                                       \
-    do {                                                                                      \
-        if(DEFAULT_LOG_LEVEL >= kWarningLevel) {                                              \
-            syslog(LOG_WARNING | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__); \
-        }                                                                                     \
+#define MLOGW(fmt, ...) \
+    do { \
+        if(DEFAULT_LOG_LEVEL >= kWarningLevel) { \
+            MLOG(LOG_WARNING | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
+        } \
     } while(0);
 
-#define MLOGE(fmt, ...)                                                                       \
-    do {                                                                                      \
-        if(DEFAULT_LOG_LEVEL >= kErrorLevel) {                                                \
-            syslog(LOG_ERR | SYSLOG_DEF, "%s:%d " fmt, __func__, __LINE__, ##__VA_ARGS__);     \
-        }                                                                                     \
+#define MLOGE(fmt, ...) \
+    do { \
+        if(DEFAULT_LOG_LEVEL >= kErrorLevel) { \
+            MLOG(LOG_ERR | SYSLOG_DEF, fmt, ##__VA_ARGS__); \
+        } \
     } while(0);
 
 

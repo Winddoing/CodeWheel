@@ -7,12 +7,22 @@
 #  Description  :
 ##########################################################
 
-pin=$(pwd)
+top=$(pwd)
+ARCH=$(uname -m)
 if [ ! -d "build" ]; then
-  mkdir build
+	mkdir build
 fi
+
+if [ $# -eq 0 ]; then
+	args_list="-clbip"
+else
+	args_list=$@
+fi
+
+echo "Args list: $args_list"
+
 cd build
-set -- $(getopt -q dlbcih "$@")
+set -- $(getopt -q dlbcih "$args_list")
 while [ -n "$1" ]
 do
         case "$1" in

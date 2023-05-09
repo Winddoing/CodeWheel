@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 project(cmake_demo)
 
 set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake")
+set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/script/cmake")
 
 set(PROJECT_VERSION 0.0.1)
 set(PACKAGE_VERSION ${PROJECT_VERSION})
@@ -62,11 +62,19 @@ execute_process(
 )
 add_definitions( -DBRANCH_NAME=\"${BRANCH_NAME}\")
 
+execute_process(
+    COMMAND uname -m COMMAND xargs echo -n
+    OUTPUT_VARIABLE ARCHITECTURE
+)
+
 string(TIMESTAMP COMPILE_TIME %Y%m%d%H)
+add_definitions(-DCOMPILE_TIME=\"${COMPILE_TIME}\")
 
 message(STATUS "COMMIT_HASH  : ${COMMIT_HASH}")
 message(STATUS "BRANCH_NAME  : ${BRANCH_NAME}")
 message(STATUS "COMPILE_TIME : ${COMPILE_TIME}")
+message(STATUS "ARCHITECTURE : ${ARCHITECTURE}")
+message(STATUS "     VERSION : ${PROJECT_VERSION}")
 
 # configure a header file to pass some of the CMake settings
 # to the source code
@@ -85,7 +93,7 @@ include_directories(${ROOT_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR})
 
 link_directories(${ROOT_DIR}/lib)
-link_directories(${ROOT_DIR}/externals/lib)
+#link_directories(${ROOT_DIR}/externals/lib)
 
 # USE_MYMATH 为编译开关，中间的字符串为描述信息，ON/OFF为默认选项
 option (USE_MYMATH
@@ -103,7 +111,6 @@ MESSAGE(STATUS "-L: ${GL_LIBRARIES}")
 MESSAGE(STATUS "-I: ${GL_INCLUDE_DIRS}")
 message(STATUS "===========================")
 
-
 if(USE_MYMATH)
     add_definitions(-DUSE_MYMATH)
     add_subdirectory(${ROOT_DIR}/unit/math)
@@ -113,6 +120,9 @@ add_subdirectory(${ROOT_DIR}/src)
 add_subdirectory(${ROOT_DIR}/tests)
 
 # 打包deb，prefix默认是/usr
+# 指定安装目录，默认路径：/usr/local/lib/
+set(CMAKE_INSTALL_PREFIX ${ROOT_DIR}/packages/${ARCHITECTURE})
+
 
 install(
     TARGETS test.out
