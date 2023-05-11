@@ -1,15 +1,12 @@
 cmake_minimum_required(VERSION 3.2)
 project(cmake_demo)
 
-set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/script/cmake")
-
-set(PROJECT_VERSION 0.0.1)
-set(PACKAGE_VERSION ${PROJECT_VERSION})
-
 # The version number.
-set (TEST_VERSION_MAJOR 1)
-set (TEST_VERSION_MINOR 0)
+set(VERSION_MAJOR 0)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 1)
+
+set(PACKAGE_VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -42,46 +39,42 @@ set(CMAKE_BUILD_TYPE Debug)
 # 可执行文件链接时参数
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s -O3 -Wl,--gc-sections")
 
-add_definitions( -DPROJECT_VERSION=\"${PROJECT_VERSION}\")
-
 execute_process(
     COMMAND git rev-parse --short HEAD
-    OUTPUT_VARIABLE COMMIT_HASH
+    OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_QUIET
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
-add_definitions( -DCOMMIT_HASH=\"${COMMIT_HASH}\")
 
 execute_process(
     COMMAND git symbolic-ref --short -q HEAD
-    OUTPUT_VARIABLE BRANCH_NAME
+    OUTPUT_VARIABLE GIT_BRANCH_NAME
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_QUIET
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
-add_definitions( -DBRANCH_NAME=\"${BRANCH_NAME}\")
 
 execute_process(
     COMMAND uname -m COMMAND xargs echo -n
     OUTPUT_VARIABLE ARCHITECTURE
 )
 
-string(TIMESTAMP COMPILE_TIME %Y%m%d%H)
-add_definitions(-DCOMPILE_TIME=\"${COMPILE_TIME}\")
+string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
 
-message(STATUS "COMMIT_HASH  : ${COMMIT_HASH}")
-message(STATUS "BRANCH_NAME  : ${BRANCH_NAME}")
-message(STATUS "COMPILE_TIME : ${COMPILE_TIME}")
-message(STATUS "ARCHITECTURE : ${ARCHITECTURE}")
-message(STATUS "     VERSION : ${PROJECT_VERSION}")
+message(STATUS " GIT_COMMIT_HASH : ${GIT_COMMIT_HASH}")
+message(STATUS " GIT_BRANCH_NAME : ${GIT_BRANCH_NAME}")
+message(STATUS " BUILD_TIMESTAMP : ${BUILD_TIMESTAMP}")
+message(STATUS "    ARCHITECTURE : ${ARCHITECTURE}")
+message(STATUS "         VERSION : ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+message(STATUS " PACKAGE_VERSION : ${PACKAGE_VERSION}")
 
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-    "${PROJECT_SOURCE_DIR}/Config.h.in"
-    "${PROJECT_BINARY_DIR}/Config.h"
-    )
+    "${PROJECT_SOURCE_DIR}/include/version.h.in"
+    "${PROJECT_SOURCE_DIR}/include/version.h"
+)
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
@@ -96,8 +89,7 @@ link_directories(${ROOT_DIR}/lib)
 #link_directories(${ROOT_DIR}/externals/lib)
 
 # USE_MYMATH 为编译开关，中间的字符串为描述信息，ON/OFF为默认选项
-option (USE_MYMATH
-    "Use provided math implementation" OFF)
+option (USE_MYMATH "Use provided math implementation" OFF)
 
 #find_package(math REQUIRED)
 
@@ -123,25 +115,32 @@ add_subdirectory(${ROOT_DIR}/tests)
 # 指定安装目录，默认路径：/usr/local/lib/
 set(CMAKE_INSTALL_PREFIX ${ROOT_DIR}/packages/${ARCHITECTURE})
 
+set(ALL_INC ${ROOT_DIR}/include/version.h)
+install(FILES ${ALL_INC}
+    DESTINATION include
+    )
 
-install(
-    TARGETS test.out
-    COMPONENT applications
-    DESTINATION "bin"
-)
+set(ALL_TARGETS test.out)
+install(TARGETS ${ALL_TARGETS}
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    )
 
 if(USE_MYMATH)
-install(
-    FILES "unit/math/my_math.h"
-    DESTINATION "include"
-    COMPONENT headers
-)
-install(
-    TARGETS my_math
-    COMPONENT libraries
-    DESTINATION "lib"
-)
+	install(
+	    FILES "unit/math/my_math.h"
+	    DESTINATION "include"
+	    COMPONENT headers
+	)
+	install(
+	    TARGETS my_math
+	    COMPONENT libraries
+	    DESTINATION "lib"
+	)
 endif(USE_MYMATH)
+
+set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/script/cmake")
 
 set(CPACK_SET_DESTDIR TRUE)
 set(CPACK_INSTALL_PREFIX "/usr/local/")

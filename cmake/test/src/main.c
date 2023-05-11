@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "Config.h"
+#include "version.h"
 
 #define LOG_TAG "xxx"
 #include "log.h"
@@ -21,13 +21,13 @@
 int main(int argc, char** argv)
 {
     if (argc < 2) {
-        fprintf(stdout,"%s Version %d.%d, [%s]\n",
+        fprintf(stdout,"%s Version %d.%d.%d\n",
                 argv[0],
-                TEST_VERSION_MAJOR,
-                TEST_VERSION_MINOR,
-                PROJECT_VERSION);
-        fprintf(stdout, "Code Version: git-%s-%s\n", BRANCH_NAME, COMMIT_HASH);
-        fprintf(stdout, "Build Time: %s, %s\n", __DATE__, __TIME__);
+                VERSION_MAJOR,
+                VERSION_MINOR,
+				VERSION_PATCH);
+        fprintf(stdout, "Code Version: git-%s-%s\n", GIT_BRANCH_NAME, GIT_COMMIT_HASH);
+        fprintf(stdout, "Build Time: %s, %s, (%s)\n", __DATE__, __TIME__, BUILD_TIMESTAMP);
         fprintf(stdout,"Usage: %s number\n",argv[0]);
         return 1;
     }

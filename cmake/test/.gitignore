@@ -1,3 +1,8 @@
 build
 packages
+
+include/version.h
+
+
+
 src/test.txt

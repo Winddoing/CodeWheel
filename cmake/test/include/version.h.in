@@ -1,0 +1,24 @@
+/* Compile phase automatically generated do not edit */
+
+#ifndef __VERSION_H__
+#define __VERSION_H__
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+#define VERSION_MAJOR @VERSION_MAJOR@
+#define VERSION_MINOR @VERSION_MINOR@
+#define VERSION_PATCH @VERSION_PATCH@
+
+#define BUILD_TIMESTAMP "@BUILD_TIMESTAMP@"
+
+#define GIT_COMMIT_HASH "@GIT_COMMIT_HASH@"
+#define GIT_BRANCH_NAME "@GIT_BRANCH_NAME@"
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif//__VERSION_H__

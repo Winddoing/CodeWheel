@@ -1,3 +1,0 @@
-// the configured options and settings for test
-#define TEST_VERSION_MAJOR @TEST_VERSION_MAJOR@
-#define TEST_VERSION_MINOR @TEST_VERSION_MINOR@
