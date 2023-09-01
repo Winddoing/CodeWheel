@@ -48,7 +48,7 @@ shm_handle init_shm(key_t key, size_t size)
 		return NULL;
 	}
 
-	shm->mem_size = size + sizeof(int32_t) + sizeof(pthread_mutex_t) + sizeof(pthread_mutex_t);
+	shm->mem_size = size + sizeof(int32_t) + sizeof(pthread_mutex_t*) + sizeof(pthread_mutex_t*);
 
 	/* key = ftok(".",1);     //获取键值 */
 	shm->shmid = shmget(key, shm->mem_size, 0666 | IPC_CREAT); //打开或者创建共享内存
@@ -70,7 +70,7 @@ shm_handle init_shm(key_t key, size_t size)
 
 	uint32_t nattach_ptr_pos = shm->mem_size;
 	uint32_t nattach_mutex_ptr_pos = shm->mem_size + sizeof(int32_t);
-	uint32_t mem_mutex_pos = shm->mem_size + sizeof(int32_t) + sizeof(pthread_mutex_t);
+	uint32_t mem_mutex_pos = shm->mem_size + sizeof(int32_t) + sizeof(pthread_mutex_t*);
 
 	shm->nattach_ptr = (int32_t*)(data_ptr + nattach_ptr_pos);
 	shm->nattach_mutex_ptr = (pthread_mutex_t*)(data_ptr + nattach_mutex_ptr_pos);
@@ -147,13 +147,10 @@ int free_shm(shm_handle handle)
 			shm->shmid = -1;
 		}
 		shm->mem_addr = NULL;
+		shm->mem_mutex_ptr = NULL;
+		shm->nattach_mutex_ptr = NULL;
 
 		MLOG("---exit  nattach = %ld, ret=%d\n", nattach, ret);
-		if (ret == 0 && nattach == 0) {
-			MLOG("free shm, nattach=%ld, mem_mutex_ptr=%p, nattach_mutex_ptr=%p\n", nattach, shm->mem_mutex_ptr, shm->nattach_mutex_ptr);
-			pthread_mutex_destroy(shm->mem_mutex_ptr);
-			pthread_mutex_destroy(shm->nattach_mutex_ptr);
-		}
 		free(shm);
 		shm = NULL;
 	}
