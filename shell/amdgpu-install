@@ -1,0 +1,670 @@
+#!/bin/bash
+#
+# Copyright 2016-2021 Advanced Micro Devices, Inc.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+
+set -e
+
+REPOSITORY=/var/opt/amdgpu-local
+EULA_FILE="$REPOSITORY/AMDGPUPROEULA"
+
+DKMS_PACKAGE=amdgpu-dkms
+BASE_ROCM_PACKAGE=rocm-core
+BASE_PACKAGES=("$DKMS_PACKAGE" amdgpu-core "$BASE_ROCM_PACKAGE")
+OPENCL_ROCR_PACKAGE=rocm-opencl-runtime
+
+USECASE_DKMS_PACKAGES=("$DKMS_PACKAGE")
+USECASE_GRAPHICS_PACKAGES=(amdgpu-lib amdgpu-lib32)
+USECASE_MULTIMEDIA_PACKAGES=(amdgpu-lib amdgpu-lib32)
+USECASE_WORKSTATION_PACKAGES=(amdgpu-pro amdgpu-pro-lib32)
+USECASE_AMF_PACKAGES=(amf-amdgpu-pro)
+USECASE_ROCM_PACKAGES=(rocm-dev)
+USECASE_LRT_PACKAGES=(rocm-language-runtime)
+USECASE_OPENCL_PACKAGES=($OPENCL_ROCR_PACKAGE)
+USECASE_OPENCLSDK_PACKAGES=(rocm-opencl-sdk)
+USECASE_HIP_PACKAGES=(rocm-hip-runtime)
+USECASE_HIPLIBSDK_PACKAGES=(rocm-hip-sdk)
+USECASE_MLLIB_PACKAGES=(rocm-ml-libraries)
+USECASE_MLSDK_PACKAGES=(rocm-ml-sdk)
+
+OPENCL_ROCR_PACKAGES=($OPENCL_ROCR_PACKAGE)
+OPENCL_LEGACY_PACKAGES=(clinfo-amdgpu-pro opencl-legacy-amdgpu-pro-icd)
+
+VULKAN_AMDVLK_PACKAGES=(vulkan-amdgpu)
+VULKAN_PRO_PACKAGES=(vulkan-amdgpu-pro vulkan-amdgpu-pro:i386)
+VULKAN_RADV_PACKAGES=(mesa-vulkan-drivers)
+
+usage() {
+	cat <<END_USAGE
+Usage: $PROG [options...]
+
+Options:
+  -h|--help                Display this help message
+  --rocmrelease=           Install a specific ROCm release. By default only
+                           one release of ROCm can be installed. Using this
+                           option will allow installation of multiple releases.
+                           Note: when used during uninstall, the specific rocm
+                                 release will be removed. Use --rocmrelease=all
+                                 to uninstall all rocm releases.
+END_USAGE
+	if [[ "$PROG" != *"uninstall" ]]; then
+		cat <<END_USAGE
+  --dryrun                 Print list of commands to run and exit
+  --pro                    (DEPRECATED) Install legacy OpenGL, pro Vulkan, and
+                           open source multimedia. This is equivalent to:
+                           $PROG --usecase=workstation --vulkan=pro
+  --usecase=               Install a set of libraries for a specific use case
+  --list-usecase           Show all available usecases and descriptions
+  --opencl=                Install a specific OpenCL implementation. This option
+                           implies the addition of the opencl usecase.
+                           Available implementations:
+                           rocr        (ROCr/KFD based OpenCL)
+                           legacy      (Legacy OpenCL)
+  --vulkan=                Install a specific vulkan implementation
+                           Available implementations:
+                           amdvlk      (AMD open source implementation)
+                           pro         (AMD closed source implementation)
+  --no-dkms                Do not install dkms and use built-in kernel driver
+  --no-32                  Do not install 32 bit graphics runtime support
+  --accept-eula            Accept EULA for this run only (for non-free install)
+                           Note: only use this option if you accept the EULA
+  --uninstall              Uninstall the graphics driver
+
+  Options --opencl/--vulkan/--usecase can be used together, e.g.:
+  $PROG --usecase=graphics --vulkan=amdvlk --opencl=rocr
+
+  Multiple implementations can be selected if comma separated, e.g.:
+  $PROG --usecase=graphics,opencl --opencl=rocr,legacy --vulkan=amdvlk,pro
+
+  Unless the -h|--help option is given, '$PKGMAN' options may be present
+
+END_USAGE
+	fi
+}
+
+usecase_usage() {
+	cat <<END_USECASE_USAGE
+If --usecase option is not present, the default selection is
+"dkms,graphics,opencl,hip"
+Available use cases:
+dkms            (to only install the kernel mode driver)
+  - Kernel mode driver (included in all usecases)
+graphics        (for users of graphics applications)
+  - Open source Mesa 3D graphics and multimedia libraries
+multimedia      (for users of open source multimedia)
+  - Open source Mesa 3D graphics and multimedia libraries
+workstation     (for users of legacy WS applications)
+  - Open source multimedia libraries
+  - Closed source (legacy) OpenGL
+rocm            (for users and developers requiring full ROCm stack)
+  - OpenCL (ROCr/KFD based) runtime
+  - HIP runtimes
+  - Machine learning framework
+  - All ROCm libraries and applications
+amf             (for users of AMF based multimedia)
+  - AMF closed source multimedia library
+lrt             (for users of applications requiring ROCm runtime)
+  - ROCm Compiler and device libraries
+  - ROCr runtime and thunk
+opencl          (for users of applications requiring OpenCL on Vega or later
+                products)
+  - ROCr based OpenCL
+  - ROCm Language runtime
+openclsdk       (for application developers requiring ROCr based OpenCL)
+  - ROCr based OpenCL
+  - ROCm Language runtime
+  - development and SDK files for ROCr based OpenCL
+hip             (for users of HIP runtime on AMD products)
+  - HIP runtimes
+hiplibsdk       (for application developers requiring HIP on AMD products)
+  - HIP runtimes
+  - ROCm math libraries
+  - HIP development libraries
+mllib           (for users/developers executing machine learning workloads)
+  - MIOpen hip/tensile libraries
+  - Clang OpenCL
+  - MIOpen kernels
+
+END_USECASE_USAGE
+}
+
+function stderr() {
+	cat - 1>&2
+}
+
+function yum_repo() {
+	if [[ "${PKGMAN}" = "zypper" ]]; then
+		echo "/etc/zypp/repos.d"
+	else
+		echo "/etc/yum.repos.d"
+	fi
+}
+
+function fedora_repo_setup() {
+	local repofile=$(yum_repo)/amdgpu-local.repo
+	local gpgdata
+	SCRIPT_DIR=$REPOSITORY
+	if [ -d $REPOSITORY ]; then
+		return
+	fi
+	for repo in ls -d $PROG_DIR/*/; do
+		repo=${repo%/}
+		[ -f $repo/repodata/repomd.xml ] || continue
+		if [ -f $repo/repodata/repomd.xml.asc ] && \
+			[ -f $PROG_DIR/repo.gpg.key ]; then
+			gpgdata="gpgcheck=1\n"`
+				`"gpgkey=file://$REPOSITORY/repo.gpg.key"
+		else
+			gpgdata="gpgcheck=0"
+		fi
+		echo -e `\
+			`"[amdgpu-local-${repo##*/}]\n"`
+			`"Name=AMDGPU ${repo##*/} local repository\n"`
+			`"baseurl=file://$REPOSITORY/${repo##*/}\n"`
+			`"enabled=1\n"`
+			`"$gpgdata" \
+		| $SUDO tee $repofile
+	done
+	$SUDO mkdir -p $REPOSITORY/
+	$SUDO cp -arf "$PROG_DIR"/* $REPOSITORY/
+	$SUDO ln -sf $SCRIPT_DIR/$PROG $SBIN/${PROG%-*}-uninstall
+}
+
+function suse_repo_setup() {
+	fedora_repo_setup
+}
+
+function debian_repo_setup() {
+	local listfile=/etc/apt/sources.list.d/amdgpu-local.list
+	local repo url suite
+	SCRIPT_DIR=$REPOSITORY
+	if [ -d $REPOSITORY ]; then
+		return
+	fi
+	for repo in `find */dists/ -name Packages | sed 's|/binary-.*||' | uniq`; do
+		ls $repo/binary-*/Packages > /dev/null 2>&1 || continue
+		url="file:$REPOSITORY/${repo%dists*}"
+		suite="${repo#*dists/}"
+		suite="${suite/\// }"
+		if [ -f $repo/../Release.gpg ] && \
+			[ -f $PROG_DIR/repo.gpg ]; then
+			echo "deb $url $suite" | \
+				$SUDO tee -a $listfile
+		else
+			echo "deb [ trusted=yes ] $url $suite" | \
+				$SUDO tee -a $listfile
+		fi
+	done
+	if [ -f $PROG_DIR/repo.gpg ]; then
+		$SUDO install -D $PROG_DIR/repo.gpg \
+			/etc/apt/trusted.gpg.d/amdgpu-local.gpg
+	fi
+	$SUDO mkdir -p $REPOSITORY/
+	$SUDO cp -arf "$PROG_DIR"/* $REPOSITORY/
+	$SUDO ln -sf $SCRIPT_DIR/$PROG $SBIN/${PROG%-*}-uninstall
+}
+
+function check_for_absence_of_nomodeset() {
+	if grep -q nomodeset "/proc/cmdline"; then
+		echo "WARNING: nomodeset detected in kernel parameters, "`
+			`"amdgpu requires KMS" | stderr
+	fi
+}
+
+function check_dkms_succeeded_for_running_kernel() {
+	if [[ ! "${OPTIONS[*]}" =~ "no-dkms" ]] && \
+			! /usr/sbin/dkms status amdgpu | grep `uname -r` | \
+			grep -q installed; then
+		echo "WARNING: amdgpu dkms failed for running kernel" | stderr
+	fi
+}
+
+function check_install() {
+	check_for_absence_of_nomodeset
+	check_dkms_succeeded_for_running_kernel
+	if [[ "${OPTIONS[*]}" =~ "accept-eula" ]]; then
+		echo -e "INFO: Using --accept-eula confirms acceptance of the"`
+			`" following license\n$EULA_FILE"
+	fi
+}
+
+function check_options() {
+	if [[ "${OPTIONS[*]}" =~ "no-dkms" ]]; then
+		if [[ "$USECASE_OPTION" =~  "dkms" ]]; then
+			echo -e "ERROR: '--no-dkms' and '--usecase=dkms' does"`
+				`" not install a valid set of packages" \
+			| stderr
+			exit 1
+		elif [[ "$USECASE_OPTION" =~ "workstation" ]]; then
+			echo -e "ERROR: using '--no-dkms' with "`
+				`"'--usecase=workstation' is not supported" \
+			| stderr
+			exit 1
+		elif [[ "$OPENCL_OPTION" =~ "legacy" ]]; then
+			echo -e "ERROR: using '--no-dkms' with "`
+				`"'--opencl=legacy' is not supported" \
+			| stderr
+			exit 1
+		fi
+	fi
+}
+
+function check_eula() {
+	if [[ "${OPTIONS[*]}" =~ "accept-eula" ]]; then
+		${OS_CLASS}_enable_propriety
+		trap ${OS_CLASS}_disable_propriety 0 ERR
+	elif [[ "${PACKAGES[*]}" =~ "amdgpu-pro" ]]; then
+		local checksumdir="/var/lib/amdgpu/eula_accepted.d"
+		local checksum="$(eula_hash)"
+		if [ ! -f "$checksumdir/$checksum" ]; then
+			if dialog --textbox $EULA_FILE 0 0 --yesno "Do you "`
+				`"agree with the end user license agreement?" \
+				 0 0; then
+				clear
+				$SUDO mkdir -p "$checksumdir"
+				$SUDO touch "$checksumdir/$checksum"
+				${OS_CLASS}_enable_propriety
+			else
+				clear
+				echo -e "ERROR: EULA acceptance is required "`
+					`"to install requested packages" \
+					| stderr
+				exit 1
+			fi
+		fi
+	fi
+}
+
+function eula_hash() {
+	if [ -f "$EULA_FILE" ]; then
+		md5sum $EULA_FILE | cut -d' ' -f1
+	else
+		echo -e "ERROR: required $EULA_FILE does not exist." | stderr
+		exit 1
+	fi
+}
+
+function debian_enable_propriety() {
+	if [ -f /etc/apt/sources.list.d/amdgpu-proprietary.list ]; then
+		$SUDO sed -i 's/^#deb /deb /' \
+			/etc/apt/sources.list.d/amdgpu-proprietary.list
+		$SUDO $PKGMAN update
+	fi
+}
+
+function fedora_enable_propriety() {
+	if [ -f /etc/yum.repos.d/amdgpu-proprietary.repo ]; then
+		$SUDO sed -i 's/^enabled=0/enabled=1/' \
+			/etc/yum.repos.d/amdgpu-proprietary.repo
+	fi
+}
+
+function suse_enable_propriety() {
+	if [ -f /etc/zypp/repos.d/amdgpu-proprietary.repo ]; then
+		$SUDO sed -i 's/^enabled=0/enabled=1/' \
+			/etc/zypp/repos.d/amdgpu-proprietary.repo
+	fi
+}
+
+function debian_disable_propriety() {
+	$SUDO sed -i 's/^deb /#deb /' \
+		/etc/apt/sources.list.d/amdgpu-proprietary.list
+	$SUDO $PKGMAN update ||:
+}
+
+function fedora_disable_propriety() {
+	$SUDO sed -i 's/^enabled=1/enabled=0/' \
+		/etc/yum.repos.d/amdgpu-proprietary.repo
+}
+
+function suse_disable_propriety() {
+	$SUDO sed -i 's/^enabled=1/enabled=0/' \
+		/etc/zypp/repos.d/amdgpu-proprietary.repo
+}
+
+
+function os_release() {
+	if [[ -r  /etc/os-release ]]; then
+		. /etc/os-release
+		PKGUPDATE=
+
+		case "$ID" in
+		ubuntu|linuxmint|debian)
+			PKGUPDATE="apt-get update"
+			PKGMAN=apt-get
+			OS_CLASS=debian
+			:
+			;;
+		fedora)
+			PKGMAN=dnf
+			OS_CLASS=fedora
+			RMPKG=erase
+			;;
+		rhel|centos|almalinux|rocky)
+			PKGMAN=yum
+			OS_CLASS=fedora
+			RMPKG=erase
+			;;
+		sles|sled|opensuse*)
+			PKGMAN=zypper
+			OS_CLASS=suse
+			RMPKG=remove
+			;;
+		amzn)
+			PKGMAN=yum
+			OS_CLASS=fedora
+			RMPKG=erase
+			;;
+		*)
+			echo "Unsupported OS: `
+				`/etc/os-release ID '$ID'" | stderr
+			exit 1
+			;;
+		esac
+	else
+		echo "Unsupported OS" | stderr
+		exit 1
+	fi
+}
+
+function add_package_list() {
+	local listname="$1"
+	local option
+	local array=()
+	local listopts
+	eval listopts="\$${listname^^}_OPTION"
+
+	for option in ${listopts//,/ }; do
+		eval array=(\${${listname^^}_${option^^}_PACKAGES[*]})
+		if [[ -z "$array" ]]; then
+			echo "ERROR: $listname implementation '$option' is"`
+				`" not supported or invalid" | stderr
+			exit 1
+		fi
+		PACKAGES+=(${array[*]})
+	done
+}
+
+function debian_check_multi_rocm_install() {
+	dpkg -l | grep -q "$BASE_ROCM_PACKAGE[0-9]"
+}
+
+function fedora_check_multi_rocm_install() {
+	rpm -qa | grep -q "$BASE_ROCM_PACKAGE[0-9]"
+}
+
+function suse_check_multi_rocm_install() {
+	fedora_check_multi_rocm_install
+}
+
+function add_rocm_release() {
+	local i
+	if [[ -n "$ROCM_RELEASE" ]]; then
+		if [[ ! "${PACKAGES[*]}" =~ "rocm-" ]]; then
+			echo "ERROR: --rocmrelease option is used but no "`
+				`"ROCm package is to be installed" | stderr
+			exit 1
+		fi
+		if [[ "$ROCM_RELEASE" == "all" ]]; then
+			echo "ERROR: --rocmrelease=all is not a valid option "`
+				`"for install" | stderr
+			exit 1
+		fi
+		for i in "${!PACKAGES[@]}"; do
+		    if [[ "${PACKAGES[$i]}" = rocm-* ]]; then
+			PACKAGES[$i]="${PACKAGES[$i]}$ROCM_RELEASE"
+		    fi
+		done
+	elif ${OS_CLASS}_check_multi_rocm_install && \
+		[[ "${PACKAGES[*]}" =~ "rocm-" ]]; then
+		echo -e "ERROR: A multi-release ROCm install was detected on "`
+			`"the system.\nPlease specify --rocmrelease to "`
+			`"continue installing new rocm packages." | stderr
+		exit 1
+	fi
+}
+
+function check_version_list() {
+	local list="$(cat /usr/share/amdgpu*/*-versionlist 2>/dev/null | "`
+		`"awk -F'\"' '/AMDGPU_VERSION_LIST_/ {printf $2}')"
+
+	for i in ${!PACKAGES[@]}; do
+		for pkg in $list; do
+			if [[ "${pkg%%=*}" == "${PACKAGES[$i]}" ]]; then
+				if [[ "$DNF" == "yum" ]]; then
+                                        pkg="${pkg/=*:/=}"
+                                fi
+				PACKAGES[$i]="${pkg/=/-}"
+				break
+			fi
+		done
+	done
+}
+
+function debian_build_package_list() {
+	if [[ ! "${OPTIONS[*]}" =~ "no-dkms" ]]; then
+		if apt-cache show linux-headers-$(uname -r) &>/dev/null; then
+			PACKAGES=(${PACKAGES[*]} linux-headers-$(uname -r))
+		fi
+		if apt-cache show linux-modules-extra-$(uname -r) &>/dev/null
+		then
+			PACKAGES=(${PACKAGES[*]} linux-modules-extra-$(uname -r))
+		fi
+	fi
+}
+
+function fedora_build_package_list() {
+	OPTIONS+=(no-32)
+	check_version_list
+
+	if [[ ! "${OPTIONS[*]}" =~ "no-dkms" ]] && \
+		! rpm --quiet -q kernel-devel-$(uname -r); then
+		PACKAGES=(${PACKAGES[*]} kernel-devel-$(uname -r))
+	fi
+}
+
+function suse_build_package_list() {
+	OPTIONS+=(no-32)
+	check_version_list
+}
+
+function build_package_list() {
+	local list=()
+
+	add_package_list "Usecase"
+
+	if [[ ! "${OPTIONS[*]}" =~ "no-dkms" ]] && \
+		[[ ! "$USECASE_OPTION" =~ "dkms" ]]; then
+		PACKAGES=(${PACKAGES[*]} $DKMS_PACKAGE)
+	fi
+
+	if [[ -n "$OPENCL_OPTION" ]]; then
+		PACKAGES=("${PACKAGES[@]/$OPENCL_ROCR_PACKAGE/}")
+		add_package_list "OpenCL"
+	fi
+
+	add_package_list "Vulkan"
+
+	${OS_CLASS}_build_package_list
+
+	if [[ "${OPTIONS[*]}" =~ "no-32" ]]; then
+		PACKAGES=("${PACKAGES[@]/*lib32/}")
+		PACKAGES=("${PACKAGES[@]/*i386/}")
+	fi
+
+	add_rocm_release
+
+	return 0
+}
+
+function amdgpu_install() {
+	check_options
+	build_package_list
+
+	if [[ "${OPTIONS[*]}" =~ "dryrun" ]]; then
+		${PKGUPDATE:+echo $SUDO $PKGUPDATE}
+		echo $SUDO $PKGMAN install ${1+"$@"} ${PACKAGES[*]}
+		echo $SUDO ln -sf $SCRIPT_DIR/$PROG $SBIN/${PROG%-*}-uninstall
+		return 0
+	fi
+
+	check_eula
+	${PKGUPDATE:+$SUDO $PKGUPDATE}
+	$SUDO $PKGMAN install ${1+"$@"} ${PACKAGES[*]}
+	$SUDO ln -sf $SCRIPT_DIR/$PROG $SBIN/${PROG%-*}-uninstall
+
+	check_install
+}
+
+function amdgpu_uninstall() {
+	if [[ -z "$ROCM_RELEASE" ]] && \
+		${OS_CLASS}_check_multi_rocm_install; then
+		echo -e "ERROR: A multi-release ROCm install was detected on "`
+			`"the system.\nPlease use --rocmrelease to specify "`
+			`"which release to remove, or use\n--rocmrelease=all "`
+			`"to uninstall everything." | stderr
+		exit 1
+	fi
+	${OS_CLASS}_amdgpu_uninstall "$@"
+}
+
+function debian_amdgpu_uninstall() {
+	local list=()
+	local i
+	for i in "${BASE_PACKAGES[@]}"; do
+		list=(${list[*]} $(dpkg -l \
+			| awk /"$i"/' { printf " %s",$2 }'))
+	done
+	[ ${#list[@]} -eq 0 ] || $SUDO $PKGMAN purge ${1+"$@"} "${list[@]}"
+	$SUDO rm -rf $SBIN/${PROG%-*}-uninstall
+	$SUDO rm -rf $REPOSITORY
+	$SUDO rm -f /etc/apt/sources.list.d/amdgpu-local.list
+	$SUDO rm -f /etc/apt/trusted.gpg.d/amdgpu-local.gpg
+	$SUDO $PKGMAN update ||:
+}
+
+function fedora_amdgpu_uninstall() {
+	local list=()
+	for i in "${BASE_PACKAGES[@]}"; do
+		list=(${list[*]} $(rpm -qa "$i"* \
+			| awk -F'-[0-9]' '{ printf " %s",$1 }'))
+	done
+	[ ${#list[@]} -eq 0 ] || $SUDO $PKGMAN $RMPKG ${1+"$@"} "${list[@]}"
+	$SUDO rm -rf $SBIN/${PROG%-*}-uninstall
+	$SUDO rm -rf $REPOSITORY
+	$SUDO rm -f $(yum_repo)/amdgpu-local.repo
+}
+
+function suse_amdgpu_uninstall() {
+	fedora_amdgpu_uninstall "$@"
+}
+
+function radeon_install() {
+	echo -e "WARNING: '$PROG' is deprecated\n"`
+		`"Please use amdgpu-install instead."
+	amdgpu_install "$@"
+}
+
+function amdgpu_pro_install() {
+	echo -e "WARNING: '$PROG' is deprecated\n"`
+		`"Please use the following command instead:\n"`
+		`"amdgpu-install --usecase=workstation --vulkan=pro"
+	VULKAN_OPTION="pro"
+	USECASE_OPTION="workstation"
+	amdgpu_install "$@"
+}
+
+function radeon_uninstall() {
+	amdgpu_uninstall "$@"
+}
+
+function amdgpu_pro_uninstall() {
+	amdgpu_uninstall "$@"
+}
+
+PROG=${0##*/}
+PROG_DIR=$(cd ${0%/*} && pwd -P)
+SUDO=$([[ $(id -u) -ne 0 ]] && echo "sudo" ||:)
+SBIN="/usr/bin"
+SCRIPT_DIR=$(dirname "$0")
+USECASE_OPTION="graphics,opencl,hip"
+OPENCL_OPTION=
+VULKAN_OPTION=
+ROCM_RELEASE=
+OPTIONS=()
+
+os_release
+${OS_CLASS}_repo_setup
+
+while (($#))
+do
+	case "$1" in
+	-h|--help)
+		usage
+		exit 0
+		;;
+	--list-usecase)
+		usecase_usage
+		exit 0
+		;;
+	--dryrun|--no-dkms|--no-32|--accept-eula)
+		OPTIONS+=(${1#--})
+		shift
+		;;
+	--pro)
+		echo -e "WARNING: '--pro' option is deprecated\nPlease "`
+			`"use '--usecase=workstation --vulkan=pro' instead"
+		USECASE_OPTION="workstation"
+		VULKAN_OPTION="pro"
+		shift
+		;;
+	--usecase=*|--opencl=*|--vulkan=*)
+		option=${1%=*}
+		option=${option#--}
+		eval ${option^^}_OPTION="${1#--*=}"
+		shift
+		;;
+	--rocmrelease=*)
+		if [[ "${1#--*=}" == "all" ]] ; then
+			ROCM_RELEASE="all"
+		elif [[ ${1#--*=} =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]; then
+			ROCM_RELEASE="${1#--*=}"
+			BASE_PACKAGES=("$BASE_ROCM_PACKAGE$ROCM_RELEASE")
+		else
+			echo "ERROR: Invalid ROCm release format '${1#--*=}'" \
+				| stderr
+			usage
+			exit 1
+		fi
+		shift
+		;;
+	--uninstall)
+		PROG="amdgpu_uninstall"
+		shift
+		;;
+	*)
+		ARGS+="$1 "
+		shift
+		;;
+	esac
+done
+
+set -- $ARGS
+${PROG//-/_} ${1+"$@"}

@@ -34,6 +34,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_GNU_SOURCE")
 
+# 链接器参数
+#add_link_options("-fuse-ld=gold")
+
 set(CMAKE_BUILD_TYPE Debug)
 
 # 可执行文件链接时参数

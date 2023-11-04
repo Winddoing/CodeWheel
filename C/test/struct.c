@@ -54,6 +54,15 @@ err:
 	return ret;
 }
 
+
+struct my_aa {
+	int a;
+	int* wq;
+	int b;
+	int* c;
+};
+
+
 int main(int argc, const char *argv[])
 {
 	int ret = 0;
@@ -65,6 +74,16 @@ int main(int argc, const char *argv[])
 	ret = test(av->vap);
 
 	free(av);
+
+	struct my_aa A;
+	int t = 123;
+
+	A.a = 99;
+	A.wq = &t;
+	A.b = 66;
+
+
+	printf("===> func: %s, line: %d, t=%d, wq=%d, a=%d, b=%d\n", __func__, __LINE__, t, *A.wq, A.a, A.b);
 
 	return ret;
 }
