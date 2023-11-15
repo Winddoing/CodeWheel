@@ -28,3 +28,4 @@ CTestTestfile.cmake
 *.yuv420p
 *.265
 *.264
+*.wav
