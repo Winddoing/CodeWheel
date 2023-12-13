@@ -1,0 +1,5 @@
+service vtouch /vendor/bin/vtouch
+    disabled
+
+on property:ro.boot.vtouch_idx=*
+    start vtouch
