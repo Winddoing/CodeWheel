@@ -24,7 +24,7 @@ create_project()
 	local info="name=$project&path=$project&wiki_enabled=no&public_jobs=true&public=true&namespace_id=$groub_id&default_branch=master&private_token=$gitlab_token"
 	local ret=0
 
-	echo "$FUNCTION: project=$project, groub_id=$groub_id"
+	echo "$FUNCNAME: project=$project, groub_id=$groub_id"
 
 	if [ x"$groub_id" == x"null" ]; then
 		echo "$FUNCNAME :Not found parent_id. project may exist."
@@ -46,7 +46,7 @@ push_project()
 	local repo_path=$1
 	local ret=0
 
-	echo "$FUNCTION: repo_path=$repo_path"
+	echo "$FUNCNAME: repo_path=$repo_path"
 
 	set -x
 	cd $TOP$repo_path
@@ -64,7 +64,7 @@ create_subgroup()
 {
 	local subgroub=$1
 	local groub_id=$2
-	echo "$FUNCTION: subgroub=$subgroub, groub_id=$groub_id"
+	echo "$FUNCNAME: subgroub=$subgroub, groub_id=$groub_id"
 
 	if [ x"$groub_id" == x"null" ]; then
 		echo "$FUNCNAME :Not found parent_id. subgroub may exist."

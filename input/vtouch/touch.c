@@ -42,10 +42,9 @@ struct uinput_user_dev {
 
 #define INPUT_MT_TYPE_B 1
 
-#define UDEV_TOUCH_SCREEN_NAME "VirTouchScreen"
-#define UDEV_INPUT_NODE_NAME "/dev/input/event1"
-
-#define UEVENT_MSG_LEN 2048
+#define UDEV_TOUCH_SCREEN_NAME  "VirTouchScreen"
+#define UDEV_INPUT_NODE_NAME    "/dev/input/event1"
+#define UDEV_VTOUCH_PROP_NAME   "ro.boot.vtouch_idx"
 
 //#define DEBUG
 
@@ -112,6 +111,7 @@ static int create_touch_screen(char* dev_name)
 	// Setup the uinput device
 	ioctl(fd, UI_SET_EVBIT, EV_KEY);         //该设备支持按键
 	ioctl(fd, UI_SET_EVBIT, EV_REL);         //该设备支持释放
+	ioctl(fd, UI_SET_EVBIT, EV_SYN);         //事件分割标志
 
 	// Touch
 	ioctl(fd, UI_SET_EVBIT,  EV_ABS);        //支持触摸
@@ -366,8 +366,7 @@ static void close_udev_sig(int sig)
 	LOGD("signal=%d.\n", sig);
 
 	pthread_cond_signal(&udev_cond_run);
-
-	signal(sig, SIG_DFL);
+	signal(sig, SIG_IGN);
 }
 
 int main(int argc, const char *argv[])
@@ -375,32 +374,32 @@ int main(int argc, const char *argv[])
 	int ret = 0;
 	int touch_fd = 0;
 
-	signal(SIGINT, close_udev_sig);
+	signal(SIGINT , close_udev_sig);
 	signal(SIGKILL, close_udev_sig);
 	signal(SIGTERM, close_udev_sig);
+	signal(SIGSTOP, close_udev_sig);
 
-	char dev_name[64];
-	char idx[16];
+	char dev_name[128];
+	char idx[64];
 
 #ifdef ANDROID
-	__system_property_get("ro.boot.vtouch_idx", idx);
-#else
-	sprintf(idx, "%s", "test");
-#endif
-	LOGI("idx=%s\n", idx);
+	__system_property_get(UDEV_VTOUCH_PROP_NAME, idx);
 	if (!strlen(idx)) {
-		LOGE("ro.boot.vtouch_idx is not set. Please set a unique ID");
-		return -1;
+		int len = open_read_close("/proc/sys/kernel/random/uuid", idx, sizeof(idx));
+		idx[len - 1] = '\0';
+		LOGD("vtouch uuid idx=[%s]\n", idx);
+		__system_property_set(UDEV_VTOUCH_PROP_NAME, idx);
 	}
+#endif
+	LOGW("Build Time: %s %s, vtouch_idx=[%s]\n", __TIME__, __DATE__, idx);
 	sprintf(dev_name, "%s-%s", UDEV_TOUCH_SCREEN_NAME, idx);
 
-	LOGW("Create Touch Screen. dev_name=%s, Build Time: %s %s\n", dev_name, __TIME__, __DATE__);
+	LOGW("Create Touch Screen. dev_name=%s\n", dev_name);
 	touch_fd = create_touch_screen(dev_name);
 	if (touch_fd < 0) {
 		LOGE("create touch screen failed.\n");
 		return -1;
 	}
-
 #ifdef ANDROID
 	if (mk_dev_input_event(dev_name)) {
 		LOGE("mk dev input event node failed.\n");
@@ -409,11 +408,13 @@ int main(int argc, const char *argv[])
 #endif
 
 	pthread_cond_wait(&udev_cond_run, &mutex);
-	printf("\n\n\n");
+	printf("\n");
 
-	LOGI("Close Touch Screen.\n");
-	close(touch_fd);
+	LOGW("Close Touch Screen.\n");
+#ifdef ANDROID
 	unlink(UDEV_INPUT_NODE_NAME);
+#endif
+	close(touch_fd);
 
 	return 0;
 }

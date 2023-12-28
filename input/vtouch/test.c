@@ -108,6 +108,7 @@ static void send_key(int fd, int code)
 	printf("Send key fd=%d, type=%d, code=%d\n", fd, EV_KEY, code);
 
 	device_write_event(fd, EV_KEY, code, 1);
+	device_write_event(fd, EV_SYN, SYN_REPORT, 0);
 	device_write_event(fd, EV_KEY, code, 0);
 	device_write_event(fd, EV_SYN, SYN_REPORT, 0);
 
@@ -157,7 +158,7 @@ int main(int argc, const char *argv[])
 	send_key(fd, KEY_VOLUMEDOWN);
 	send_key(fd, KEY_VOLUMEDOWN);
 
-#if 0
+#if 1
 	send_key(fd, KEY_APPSELECT);
 	send_key(fd, KEY_HOMEPAGE);
 	usleep(100 * 1000);

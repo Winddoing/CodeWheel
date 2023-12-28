@@ -1,0 +1,5 @@
+service vtouchd /vendor/bin/vtouchd
+    disabled
+
+on boot
+    start vtouchd
