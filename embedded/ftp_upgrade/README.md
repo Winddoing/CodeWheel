@@ -47,10 +47,10 @@ f2--网线-->f3.3
    ```
    net_upgrade/
    ├── version.txt
-   └── vx_tequila_net_upgrade_512crc.bin
+   └── vx_images_net_upgrade_512crc.bin
    ```
 
-   将`version.txt`和`vx_tequila_net_upgrade_512crc.bin`文件拷贝U盘根目录下。
+   将`version.txt`和`vx_images_net_upgrade_512crc.bin`文件拷贝U盘根目录下。
 
    > `version.txt`文件中的信息，不清楚需求的情况下不要随意改动。
 

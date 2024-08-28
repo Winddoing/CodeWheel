@@ -65,7 +65,7 @@ gen_upgrabe_file()
 	local UPGRADE_FILE_HEAD_SZ=512
 	local UPGRADE_FILE_VXIMAGE="net_upgrade_512crc.bin"
 
-	local img_version="vx_tequila_r_v0.0.1_stub"
+	local img_version="vx_images_r_v0.0.1_stub"
 
 	if [ ! -d $NET_UPGRADE_DIR ]; then
 		mkdir $NET_UPGRADE_DIR

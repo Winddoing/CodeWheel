@@ -37,11 +37,19 @@ static void matrix_mul_c(uint16_t aa[][8], uint16_t bb[][8], uint16_t cc[][8])
 
     printf("===> func: %s, line: %d\n", __func__, __LINE__);
 
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm("nop");
     for(i = 0; i < 8; i++) {
         for(j = 0; j < 8; j++) {
             cc[i][j] = aa[i][j] * bb[i][j];
         }
     }
+    asm("nop");
+    asm("nop");
+    asm("nop");
+    asm("nop");
 
 }
 
@@ -219,6 +227,18 @@ static void matrix_mul_asm(uint16_t **aa, uint16_t **bb, uint16_t **cc)
 }
 #endif
 
+static uint64_t get_time()
+{
+#if 1
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1000 * 1000 + tv.tv_usec;
+#else
+	struct timespec timestamp;
+	clock_gettime(CLOCK_REALTIME, &timestamp);
+	return timestamp.tv_sec * 1000 * 1000 * 1000 + timestamp.tv_nsec;
+#endif
+}
 
 int main(int argc, const char *argv[])
 {
@@ -246,7 +266,6 @@ int main(int argc, const char *argv[])
 
     uint16_t cc[8][8] = {0};
     int i, j;
-    struct timeval tv;
     long long start_us = 0, end_us = 0;
 
     dump((uint16_t **)aa);
@@ -254,38 +273,26 @@ int main(int argc, const char *argv[])
     dump((uint16_t **)cc);
 
     /* ******** C **********/
-    gettimeofday(&tv, NULL);
-    start_us = tv.tv_sec + tv.tv_usec;
-
+    start_us = get_time();
     matrix_mul_c(aa, bb, cc);
-
-    gettimeofday(&tv, NULL);
-    end_us = tv.tv_sec + tv.tv_usec;
+    end_us = get_time();;
     printf("aa[][]*bb[][] C time %lld us\n", end_us - start_us);
     dump((uint16_t **)cc);
 
 #if __aarch64__
     /* ******** NEON **********/
     memset(cc, 0, sizeof(uint16_t) * 8 * 8);
-    gettimeofday(&tv, NULL);
-    start_us = tv.tv_sec + tv.tv_usec;
-
+    start_us = get_time();
     matrix_mul_neon((uint16_t **)aa, (uint16_t **)bb, (uint16_t **)cc);
-
-    gettimeofday(&tv, NULL);
-    end_us = tv.tv_sec + tv.tv_usec;
+    end_us = get_time();;
     printf("aa[][]*bb[][] neon time %lld us\n", end_us - start_us);
     dump((uint16_t **)cc);
 
     /* ******** asm **********/
     memset(cc, 0, sizeof(uint16_t) * 8 * 8);
-    gettimeofday(&tv, NULL);
-    start_us = tv.tv_sec + tv.tv_usec;
-
+    start_us = get_time();;
     matrix_mul_asm((uint16_t **)aa, (uint16_t **)bb, (uint16_t **)cc);
-
-    gettimeofday(&tv, NULL);
-    end_us = tv.tv_sec + tv.tv_usec;
+    end_us = get_time();;
     printf("aa[][]*bb[][] asm time %lld us\n", end_us - start_us);
     dump((uint16_t **)cc);
 #endif
