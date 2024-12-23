@@ -1,0 +1,27 @@
+#!/bin/bash
+
+mem_range=($(cat /proc/iomem | grep "RAM" | awk -F ':' '{print $1}'))
+IFS=',' read -r -a mem_names <<< "$(cat /proc/iomem | grep "RAM" | awk -F ':' '{print $2}' | sed -e 's/^[ ]*//g' | sed -e 's/[ ]*$//g' |sed 's/$/,/' | sed ":a;N;s/\n//g;ta")"
+mem_cnt=${#mem_range[@]}
+
+total_mem=0
+mem_blk_size=(0)
+
+echo "Physical memory info:"
+
+for i in `seq 0 $((mem_cnt-1))`
+do
+	s=$(printf "%d" "$((16#$(echo ${mem_range[$i]} | awk -F '-' '{print $1}')))")
+	e=$(printf "%d" "$((16#$(echo ${mem_range[$i]} | awk -F '-' '{print $2}')))")
+	size=$((e - s + 1))
+	mem_blk_size[$i]=$size
+	total_mem=$((total_mem + size))
+done
+echo -e "  Total size: $total_mem ($((total_mem/1024/1024))MB)"
+
+echo -e "  Address range layout:"
+printf "\tAddr ranges\t\tSize(MB)\tRes name\n"
+for i in `seq 0 $((mem_cnt-1))`
+do
+	printf "\t%s\t%d\t\t%s\n" "${mem_range[$i]}" $((${mem_blk_size[$i]}/1024/1024)) "${mem_names[$i]}"
+done

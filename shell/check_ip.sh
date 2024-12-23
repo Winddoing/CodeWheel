@@ -6,30 +6,30 @@
 ##########################################################
 #!/bin/bash
 
-up=0
-down=0
-
 net_seg="172.16.40"
-echo "Check ip: ${net_seg}.x"
+echo -e "Check ip: ${net_seg}.x\n"
+
+echo "-------------------------"
+printf " IP address\tstatus\n"
 for addr in $(seq 1 255)
 do
+	# 多线程
+	(
 	#site="192.168.2.${addr}"
 	site="${net_seg}.${addr}"
 	#echo "site=${site}"
 	#ping -c1 -W1 ${site} &> /dev/null
 	nc -vz -w 1 ${site} 80 &> /dev/null
 	if [ "$?" == "0" ]; then
-		up=$[$up+1]
-		echo -e "\n$site is UP, cnt=$up"
-	else
-		down=$[$down+1]
-		#echo "$site is DOWN, cnt=$down"
+		printf "%s.%-3d\talive\n" ${net_seg} ${addr}
+		#echo -e "$site is alive."
 	fi
-	#echo -n "#"
-	echo -n "${addr}-"
+	#echo -n "${addr}-"
+	)&
 done
 
-# 除法
-alive=`awk 'BEGIN{printf "%.2f\n",('$up'/'$(($up + $down))')}'`
+wait
 
-echo "up:$up, down:$down, alive:$alive"
+echo "-------------------------"
+
+#arp -a

@@ -13,6 +13,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <errno.h>
 
 int main(int argc, char **argv)
 {
@@ -30,13 +31,18 @@ int main(int argc, char **argv)
 	char ipbuf[16];
 
 	memset(&hints, 0, sizeof(struct addrinfo));
+#if 0
 	hints.ai_family = AF_INET; /* Allow IPv4 */
 	hints.ai_flags = AI_PASSIVE; /* For wildcard IP address */
 	hints.ai_protocol = 0; /* Any protocol */
 	hints.ai_socktype = SOCK_STREAM;
+#else
+	hints.ai_family = AF_INET6; /* Allow IPv6 */
+#endif
 
 	ret = getaddrinfo(argv[1], NULL, &hints, &res);
-	if (ret == -1) {
+	printf("===> func: %s, line: %d, ret=%d, errno=%d(%s)\n", __func__, __LINE__, ret, errno, strerror(errno));
+	if (ret != 0 ) {
 		perror("getaddrinfo");
 		exit(1);
 	}

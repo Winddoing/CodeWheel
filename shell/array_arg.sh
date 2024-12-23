@@ -19,3 +19,10 @@ function f() {
 x=("one two" "LAST")
 
 f x 
+
+
+array=("I am Chinese" "Good")
+
+for (( i = 0; i < ${#array[@]}; i++ )); do
+    echo ${array[$i]}
+done
