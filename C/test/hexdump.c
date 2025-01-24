@@ -24,6 +24,7 @@ static void pr_line(const char *buf, unsigned int len, unsigned int addr)
 
 	PRINT("0x%.8X: ", addr);
 
+#if 0
 	for (i = 0; i < HEXDUMP_LINE_LEN; i++) {
 		chr = (unsigned char)buf[i];
 
@@ -32,6 +33,17 @@ static void pr_line(const char *buf, unsigned int len, unsigned int addr)
 		else
 			PRINT("   ");
 	}
+#else
+	for (i = 0; i < HEXDUMP_LINE_LEN; i+=4) {
+		for (int j = 3; j >= 0; j--) {
+			chr = (unsigned char)buf[i + j];
+			PRINT("%.2x", chr);
+		}
+		PRINT(" ");
+		if (i > len )
+			PRINT("   ");
+	}
+#endif
 
 	PRINT("|");
 	for (i = 0; i < HEXDUMP_LINE_LEN; i++) {

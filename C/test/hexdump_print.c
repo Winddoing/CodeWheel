@@ -85,6 +85,23 @@ static void my_print_hex_dump(void *addr, const char *prefix_str, int prefix_typ
 
 int main(int argc, const char *argv[])
 {
+
+#if 1
+	char buf[1024];
+
+	printf("--- case 0 ---\n");
+	memset(buf, 0xDD, 1024);
+	my_print_hex_dump(buf, "DATA: ", 0, 1024);
+
+	printf("--- case 1 ---\n");
+	memset(buf, 0xAA, 1024);
+	buf[512] = 0;
+	buf[12] = 'a';
+	buf[312] = 'b';
+	memcpy(buf + 793, "hexdump", sizeof("hexdump"));
+	my_print_hex_dump(buf, "DATA: ", 0, 1024);
+
+#else
 	int fd = -1;
 	struct stat file_stat;
 	uint64_t size = 0;
@@ -114,6 +131,7 @@ int main(int argc, const char *argv[])
 
 	free(buf);
 	close(fd);
+#endif
 	
 	return 0;
 }
