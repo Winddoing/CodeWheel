@@ -11,8 +11,10 @@
 #include <string.h>
 #include <sys/time.h>
 
-#if __aarch64__
-#include <arm_neon.h>
+#if defined(__aarch64__) && defined(__ARM_NEON)
+  #include <arm_neon.h>
+#else
+  #error "NEON not supported"
 #endif
 
 static void dump(uint16_t **x)
@@ -62,7 +64,6 @@ static void matrix_mul_neon(uint16_t **aa, uint16_t **bb, uint16_t **cc)
     uint16_t (*b)[8] = (uint16_t (*)[8])bb;
     uint16_t (*c)[8] = (uint16_t (*)[8])cc;
 
-    printf("aaaaaaaa\n");
     asm("nop");
     asm("nop");
     asm("nop");

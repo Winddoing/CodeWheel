@@ -10,5 +10,6 @@
 set -x
 
 aarch64-linux-gnu-gcc -static armv8_timer_cntvct.c -o armv8_timer_cntvct.out
+aarch64-linux-gnu-gcc -static dump_cpu_regs.c -o dump_cpu_regs.out
 
 set +x

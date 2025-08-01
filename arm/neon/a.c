@@ -10,6 +10,12 @@
 
 #include <arm_neon.h>
 
+#if defined(__aarch64__) && defined(__ARM_NEON)
+  // AArch64下NEON已启用
+#else
+  #error "NEON not supported"
+#endif
+
 int main(int argc, const char *argv[])
 {
     int i;

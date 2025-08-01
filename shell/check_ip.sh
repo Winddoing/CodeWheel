@@ -19,9 +19,9 @@ do
 	site="${net_seg}.${addr}"
 	#echo "site=${site}"
 	#ping -c1 -W1 ${site} &> /dev/null
-	nc -vz -w 1 ${site} 80 &> /dev/null
+	nc -vz -w 1 ${site} 22 &> /dev/null
 	if [ "$?" == "0" ]; then
-		printf "%s.%-3d\talive\n" ${net_seg} ${addr}
+		printf "%s.%-3d\talive   http://%s.%-3d\n" ${net_seg} ${addr} ${net_seg} ${addr}
 		#echo -e "$site is alive."
 	fi
 	#echo -n "${addr}-"
