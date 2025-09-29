@@ -6,6 +6,12 @@
 make
 ```
 
+- arm64
+```
+make CROSS_COMPILE=aarch64-linux-gnu- ARCH=arm64
+make CROSS_COMPILE=aarch64-linux-gnu- ARCH=arm64 clean
+```
+
 ## 测试
 
 ```

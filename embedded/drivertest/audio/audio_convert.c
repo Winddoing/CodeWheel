@@ -396,17 +396,37 @@ static int gen_wav_data(int rate, int bits, int chan)
 
 	// 创建单个循环块 (1024字节)
 	int i = 0, j = 0;
-	int wav_block_size = 256 * 4 + 4;
+	uint32_t ch_val = 0, ch_max_val = 0xff;;
+	int ch_num = chan;
+	int ch_word_byte = bits / 8;
+	uint32_t per_block_ch_num = (ch_max_val + 1) * ch_num;
+	int wav_block_size = per_block_ch_num * ch_word_byte;
 	unsigned char block[wav_block_size];
-	for (i = 0; i < 256; i++) {
+	memset(block, 0, sizeof(block));
+
+	printf("per_block_ch_num=%d, wav_block_size=%d\n", per_block_ch_num, wav_block_size);
+#if 0
+	for (i = 0; i < (per_block_ch_num - ch_num); i+=ch_num) {
 		// 每个模式填充4个相同的字节
-		for (j = 0; j < 4; j++) {
-			block[i * 4 + j] = (unsigned char)i;
+		for (j = 0; j < ch_word_byte; j++) {
+			block[i * ch_word_byte + j] = (unsigned char)ch_val;
 		}
+		ch_val++;
 	}
 	for (j = 0; j < 4; j++) {
 		block[i * 4 + j] = 0x5a;
 	}
+#else
+	for (i = 0; i < per_block_ch_num; i+=ch_num) {
+		for (int c = 0; c < ch_num; c++) {
+			// 每个模式填充4个相同的字节
+			for (j = 0; j < ch_word_byte; j++) {
+				block[(i + c) * ch_word_byte + j] = (unsigned char)ch_val;
+			}
+		}
+		ch_val++;
+	}
+#endif
 
 	if (write(fd, &head, sizeof(head)) != sizeof(head)) {
 		printf("%s Write Head (%s)\n", __func__, strerror(errno));
@@ -553,7 +573,7 @@ int main(int argc, char *argv[])
 	}
 
 	if (cfg.act_func == ACT_FUNC_GEN_WAV) {
-		return gen_wav_data(48000, 32, 1);
+		return gen_wav_data(48000, 16, 2);
 	}
 
 	printf("input file: [%s]\n", cfg.in_file);

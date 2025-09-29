@@ -6,11 +6,14 @@
 # Description	:
 ##########################################################
 
-run_cmd_shell=$(tempfile)
+# -t; TTY 远程shell进行交互, ssh会保持登录状态，直到你退出需要交互的命令。
+
+run_cmd_shell=$(tempfile -p $0)
 cat > $run_cmd_shell << EOF
 #!/bin/bash
 
-ssh root@192.168.101.55 'pwd; ls; sleep 10'
+#ssh -t root@192.168.101.55 "pwd; ls; sleep 10"
+ssh root@192.168.101.55 "pwd; ls; sleep 10"
 EOF
 echo "Run cmd shell: $run_cmd_shell"
 

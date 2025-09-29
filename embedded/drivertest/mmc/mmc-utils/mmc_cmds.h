@@ -17,6 +17,10 @@
  * those modifications are Copyright (c) 2016 SanDisk Corp.
  */
 
+typedef int (*CommandFunction)(int argc, char **argv);
+
+void print_usage(CommandFunction func);
+
 /* mmc_cmds.c */
 int do_read_extcsd(int nargs, char **argv);
 int do_write_extcsd(int nargs, char **argv);
@@ -39,9 +43,24 @@ int do_rpmb_write_key(int nargs, char **argv);
 int do_rpmb_read_counter(int nargs, char **argv);
 int do_rpmb_read_block(int nargs, char **argv);
 int do_rpmb_write_block(int nargs, char **argv);
+int do_rpmb_sec_wp_enable(int nargs, char **argv);
+int do_rpmb_sec_wp_disable(int nargs, char **argv);
+int do_rpmb_sec_wp_mode_set(int nargs, char **argv);
+int do_rpmb_sec_wp_mode_clear(int nargs, char **argv);
+int do_rpmb_sec_wp_en_read(int nargs, char **argv);
 int do_cache_en(int nargs, char **argv);
 int do_cache_dis(int nargs, char **argv);
+int do_cache_flush(int nargs, char **argv);
 int do_ffu(int nargs, char **argv);
+int do_opt_ffu1(int nargs, char **argv);
+int do_opt_ffu2(int nargs, char **argv);
+int do_opt_ffu3(int nargs, char **argv);
+int do_opt_ffu4(int nargs, char **argv);
 int do_read_scr(int argc, char **argv);
 int do_read_cid(int argc, char **argv);
 int do_read_csd(int argc, char **argv);
+int do_erase(int nargs, char **argv);
+int do_general_cmd_read(int nargs, char **argv);
+int do_softreset(int nargs, char **argv);
+int do_preidle(int nargs, char **argv);
+int do_alt_boot_op(int nargs, char **argv);
