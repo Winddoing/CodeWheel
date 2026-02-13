@@ -15,7 +15,7 @@ SAMPLE_CHAN=(1 2 4 8)
 I2S_MODE=(TDM_8CH I2S_8CH TDM_2CH I2S_2CH)
 
 S_BCLK_LRCLK_RATIO=1
-S_FS=512
+S_MCLK_FS=512
 
 O_BCLK=0
 O_LRCLK=0
@@ -49,18 +49,18 @@ lcm() {
 	echo $(((a * b) / gcd_val ))
 }
 
-ASIC_CLK_INFO_EN=1
-FPGA_CLK_INFO_EN=0
+FPGA_CLK_INFO_EN=1
+ASIC_CLK_INFO_EN=$((!FPGA_CLK_INFO_EN))
 
 show_asic_clk_info()
 {
 	if [ $ASIC_CLK_INFO_EN -gt 0 ]; then
 		if [ $ASIC_CLK_INFO_EN -eq 1 ]; then
-			printf "%3s\t%s\t%7s\t%4s\t%4s\t%6s\t%5s\t%6s\t%s\t%9s\t%s\t%9s\t%s\t%s\t%s\t%s\t%s\n" \
-				"id" "I2S CTL" "mode" "channel" "bits" "rate" "FS" "BCLK/LRCLK" "LRCLK" "BCLK" "BCLK(MHz)" "MCLK" "MCLK(MHz)" "PLL" "PLL(MHZ)" "MDIV" "SDIV"
+			printf "%3s\t%s\t%7s\t%4s\t%4s\t%10s\t%7s\t%10s\t%12s\t%9s\t%s\t%9s\t%s\t%s\t%s\t%s\t%s\n" \
+				"id" "I2S CTL" "mode" "channel" "bits" "FS(rate)" "MCLK/FS" "BCLK/LRCLK" "LRCLK" "BCLK" "BCLK(MHz)" "MCLK" "MCLK(MHz)" "PLL" "PLL(MHZ)" "MDIV" "SDIV"
 		fi
-		printf "[%03d]\t%s\t%7s\t%4d\t%4d\t%6d\t%5d\t%6d\t%12d\t%9d\t%9.2f\t%9d\t%9.2f\t%s\t%8.2f\t%.2f\t%.2f\n" \
-			$CNT $I2S_CTL_NAME $mode $chan $bits $rate $S_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ $PLL_NAME $PLL_CLK_MHZ $MDIV $SDIV
+		printf "[%03d]\t%s\t%7s\t%4d\t%4d\t%10d\t%7d\t%10d\t%12d\t%9d\t%9.4f\t%9d\t%9.4f\t%s\t%8.4f\t%.2f\t%.2f\n" \
+			$CNT $I2S_CTL_NAME $mode $chan $bits $rate $S_MCLK_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ $PLL_NAME $PLL_CLK_MHZ $MDIV $SDIV
 
 		ASIC_CLK_INFO_EN=2
 	fi
@@ -70,11 +70,11 @@ show_fpga_clk_info()
 {
 	if [ $FPGA_CLK_INFO_EN -gt 0 ]; then
 		if [ $FPGA_CLK_INFO_EN -eq 1 ]; then
-			printf "%3s\t%s\t%7s\t%4s\t%4s\t%6s\t%5s\t%6s\t%s\t%9s\t%s\t%9s\t%s\t%s\t%s\t%s\t%s\n" \
-				"id" "I2S CTL" "mode" "channel" "bits" "rate" "FS" "BCLK/LRCLK" "LRCLK" "BCLK" "BCLK(MHz)" "MCLK" "MCLK(MHz)" "S2CCLK_4(BCLK)" "S2CCLK_6(MCLK)" "S2CCLK_3(BCLK)" "S2CCLK_5(MCLK)"
+			printf "%3s\t%s\t%7s\t%4s\t%4s\t%10s\t%7s\t%10s\t%12s\t%9s\t%s\t%9s\t%s\t%s\t%s\t%s\t%s\n" \
+				"id" "I2S CTL" "mode" "channel" "bits" "FS(rate)" "MCLK/FS" "BCLK/LRCLK" "LRCLK" "BCLK" "BCLK(MHz)" "MCLK" "MCLK(MHz)" "S2CCLK_4(BCLK)" "S2CCLK_6(MCLK)" "S2CCLK_3(BCLK)" "S2CCLK_5(MCLK)"
 		fi
-		printf "[%03d]\t%s\t%7s\t%4d\t%4d\t%6d\t%5d\t%6d\t%12d\t%9d\t%9.2f\t%9d\t%9.2f\t%14.3f\t%14.3f\t%14.3f\t%14.3f\n" \
-			$CNT $I2S_CTL_NAME $mode $chan $bits $rate $S_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ $S2CCLK_4 $S2CCLK_6 $S2CCLK_3 $S2CCLK_5
+		printf "[%03d]\t%s\t%7s\t%4d\t%4d\t%10d\t%7d\t%10d\t%12d\t%9d\t%9.4f\t%9d\t%9.4f\t%14.3f\t%14.3f\t%14.3f\t%14.3f\n" \
+			$CNT $I2S_CTL_NAME $mode $chan $bits $rate $S_MCLK_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ $S2CCLK_4 $S2CCLK_6 $S2CCLK_3 $S2CCLK_5
 
 		FPGA_CLK_INFO_EN=2
 	fi
@@ -107,12 +107,12 @@ for mode in ${I2S_MODE[@]}; do
 
 				O_LRCLK=$rate
 				O_BCLK=$((O_LRCLK * S_BCLK_LRCLK_RATIO))
-				O_MCLK=$((O_LRCLK * S_FS))
+				O_MCLK=$((O_LRCLK * S_MCLK_FS))
 
 				O_BCLK_MHZ=$(echo "scale=4;$O_BCLK/1000000" | bc)
 				O_MCLK_MHZ=$(echo "scale=4;$O_MCLK/1000000" | bc)
 
-				#printf "[%03d]\t%7s\t%4d\t%4d\t%6d\t%5d\t%6d\t%12d\t%9d\t%9.2f\t%9d\t%.2f\n" $CNT $mode $chan $bits $rate $S_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ
+				#printf "[%03d]\t%7s\t%4d\t%4d\t%6d\t%5d\t%6d\t%12d\t%9d\t%9.4f\t%9d\t%.4f\n" $CNT $mode $chan $bits $rate $S_MCLK_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ
 
 				# 分频系数
 				#        +----+     
@@ -137,8 +137,8 @@ for mode in ${I2S_MODE[@]}; do
 						PLL3_MDIV=$(echo "scale=2;$PLL3_CLK / $O_MCLK" | bc)
 						PLL3_SDIV=$(echo "scale=2;$PLL3_CLK / $O_BCLK" | bc)
 
-						#echo "mode=$mode, FS=$S_FS, bits=$bits, LRCLK=$O_LRCLK, BCLK=$O_BCLK, MCLK=$O_MCLK, MCLK/BCLK=$(echo "scale=2;$O_MCLK/$O_BCLK" | bc), PLL3_CLK=$PLL3_CLK, PLL3_CLK_MHZ=$PLL3_CLK_MHZ"
-						#printf "mode:%s FS:%d (%d/%d/%-6d)\tBCLK=%d\tMCLK=%d\tPLL3_CLK=%d\tPLL3_MDIV=%.2f\tPLL3_SDIV=%.2f\n" $mode $S_FS $chan $bits $O_LRCLK $O_BCLK $O_MCLK $PLL3_CLK $PLL3_MDIV $PLL3_SDIV
+						#echo "mode=$mode, FS=$S_MCLK_FS, bits=$bits, LRCLK=$O_LRCLK, BCLK=$O_BCLK, MCLK=$O_MCLK, MCLK/BCLK=$(echo "scale=2;$O_MCLK/$O_BCLK" | bc), PLL3_CLK=$PLL3_CLK, PLL3_CLK_MHZ=$PLL3_CLK_MHZ"
+						#printf "mode:%s FS:%d (%d/%d/%-6d)\tBCLK=%d\tMCLK=%d\tPLL3_CLK=%d\tPLL3_MDIV=%.2f\tPLL3_SDIV=%.2f\n" $mode $S_MCLK_FS $chan $bits $O_LRCLK $O_BCLK $O_MCLK $PLL3_CLK $PLL3_MDIV $PLL3_SDIV
 
 						I2S_CTL_NAME="I2S0/1"
 						PLL_NAME="PLL3"
@@ -153,6 +153,8 @@ for mode in ${I2S_MODE[@]}; do
 						S2CCLK_5=$O_MCLK_MHZ
 						;;
 					TDM_2CH | I2S_2CH)
+						[ $chan -gt 2 ] && continue;
+
 						# I2S2使用PLL4
 						PLL4_CLK=$(lcm $O_BCLK $O_MCLK)
 						[ $PLL4_CLK -gt $PLL4_MAX_CLK ] && PLL4_MAX_CLK=$PLL4_CLK;
@@ -166,8 +168,8 @@ for mode in ${I2S_MODE[@]}; do
 						PLL4_MDIV=$(echo "scale=2;$PLL4_CLK / $O_MCLK" | bc)
 						PLL4_SDIV=$(echo "scale=2;$PLL4_CLK / $O_BCLK" | bc)
 
-						#echo "mode=$mode, FS=$S_FS, bits=$bits, LRCLK=$O_LRCLK, BCLK=$O_BCLK, MCLK=$O_MCLK, MCLK/BCLK=$(echo "scale=2;$O_MCLK/$O_BCLK" | bc), PLL3_CLK=$PLL4_CLK, PLL4_CLK_MHZ=$PLL4_CLK_MHZ"
-						#printf "mode:%s FS:%d (%d/%d/%-6d)\tBCLK=%d\tMCLK=%d\tPLL4_CLK=%d\tPLL4_MDIV=%.2f\tPLL3_SDIV=%.2f\n" $mode $S_FS $chan $bits $O_LRCLK $O_BCLK $O_MCLK $PLL4_CLK $PLL4_MDIV $PLL4_SDIV
+						#echo "mode=$mode, FS=$S_MCLK_FS, bits=$bits, LRCLK=$O_LRCLK, BCLK=$O_BCLK, MCLK=$O_MCLK, MCLK/BCLK=$(echo "scale=2;$O_MCLK/$O_BCLK" | bc), PLL3_CLK=$PLL4_CLK, PLL4_CLK_MHZ=$PLL4_CLK_MHZ"
+						#printf "mode:%s FS:%d (%d/%d/%-6d)\tBCLK=%d\tMCLK=%d\tPLL4_CLK=%d\tPLL4_MDIV=%.2f\tPLL3_SDIV=%.2f\n" $mode $S_MCLK_FS $chan $bits $O_LRCLK $O_BCLK $O_MCLK $PLL4_CLK $PLL4_MDIV $PLL4_SDIV
 
 						I2S_CTL_NAME="I2S2"
 						PLL_NAME="PLL4"
@@ -189,10 +191,10 @@ for mode in ${I2S_MODE[@]}; do
 					show_asic_clk_info
 				fi
 				#printf "[%03d]\t%s\t%7s\t%4d\t%4d\t%6d\t%5d\t%6d\t%12d\t%9d\t%9.2f\t%9d\t%9.2f\t%s\t%8.2f\t%.2f\t%.2f\n" \
-				#	$CNT $I2S_CTL_NAME $mode $chan $bits $rate $S_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ $PLL_NAME $PLL_CLK_MHZ $MDIV $SDIV
+				#	$CNT $I2S_CTL_NAME $mode $chan $bits $rate $S_MCLK_FS $S_BCLK_LRCLK_RATIO $O_LRCLK $O_BCLK $O_BCLK_MHZ $O_MCLK $O_MCLK_MHZ $PLL_NAME $PLL_CLK_MHZ $MDIV $SDIV
 
 				if [ $O_BCLK -eq $O_MCLK ]; then
-					echo "------> The clocks of BCLK($O_BCLK_MHZ) and MCLK($O_MCLK_MHZ) are the same, but the FS($S_FS) configuration is abnormal"
+					echo "------> The clocks of BCLK($O_BCLK_MHZ) and MCLK($O_MCLK_MHZ) are the same, but the FS($S_MCLK_FS) configuration is abnormal"
 				fi
 
 				CNT=$((CNT + 1))

@@ -45,6 +45,17 @@ static inline void dump_gtimer_regs()
 	printf("%s: freq=%ld, pcnt=%ld, vcnt=%ld, off=%ld\n", __func__, freq, pcnt, vcnt, off);
 }
 
+static inline uint64_t read_cbar()
+{
+	uint64_t val;
+
+	asm volatile("isb"); //Instruction Synchronization Barrier
+	//asm volatile("mrs %0, CBAR_EL1" : "=r" (val));
+	asm volatile("mrs %0, S3_1_C15_C3_0" : "=r" (val));
+
+	return val;
+}
+
 int main(int argc, const char *argv[])
 {
 	uint64_t val = 0;
@@ -58,5 +69,14 @@ int main(int argc, const char *argv[])
 	
 	dump_gtimer_regs();
 
+#if 0
+	printf("===> func: %s, line: %d,  CCSIDR_EL1 = 0x%08x\n", __func__, __LINE__, read_sysreg(ccsidr_el1));
+	printf("===> func: %s, line: %d,   CLIDR_EL1 = 0x%08x\n", __func__, __LINE__, read_sysreg(clidr_el1));
+	printf("===> func: %s, line: %d,  CSSELR_EL1 = 0x%08x\n", __func__, __LINE__, read_sysreg(csselr_el1));
+	printf("===> func: %s, line: %d,     CTR_EL0 = 0x%08x\n", __func__, __LINE__, read_sysreg(ctr_el0));
+	printf("===> func: %s, line: %d,   DCZID_EL0 = 0x%08x\n", __func__, __LINE__, read_sysreg(dczid_el0));
+#endif
+
+	//printf(" CBAR_EL1 = 0x%016lx\n", read_cbar());
 	return 0;
 }

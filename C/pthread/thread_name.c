@@ -52,7 +52,7 @@ void* thread_function(void* arg)
 	// 设置线程名称
 	//pthread_setname_np(pthread_self(), "MyThread");
 
-	set_thread_name_with_suffix("MyThread");
+	set_thread_name_with_suffix("MyThread123456789");
 
 	// 线程工作
 	while (1) {

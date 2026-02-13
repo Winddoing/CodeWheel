@@ -16,4 +16,6 @@ gcc colorspace.c -o colorspace.out
 gcc bgra_convert.c -o bgra_convert.out
 ./bgra_convert.out 320 240 font_320x240.bgr0
 
+gcc tile2linear.c -o tile2linear.out
+
 set +x
