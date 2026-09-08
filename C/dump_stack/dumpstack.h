@@ -20,7 +20,7 @@ static void dump(void)
 	strings = backtrace_symbols(buffer, size);
 	if (strings == NULL) {
 		perror("backtrace_symbols.");
-		exit(EXIT_FAILURE);
+		return;
 	}
 
 	fprintf(stdout, "Obtained %zd stack frames\n", size);
@@ -29,7 +29,7 @@ static void dump(void)
 	}
 
 	free(strings);
-	exit(0);
+	return;
 }
 
 

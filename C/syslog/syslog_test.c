@@ -75,6 +75,13 @@ void cb_log_deinit(void)
         closelog();
 }
 
+#ifdef __GNUC__
+#define ATTR_PRINTF(fmt, arg) __attribute__((format(printf, fmt, arg)))
+#else
+#define ATTR_PRINTF(fmt, arg)
+#endif
+void cb_log(enum cb_log_level level, const char *fmt, ...) ATTR_PRINTF(2, 3);
+
 void cb_log(enum cb_log_level level, const char *fmt, ...)
 {
         va_list ap;
@@ -87,10 +94,18 @@ void cb_log(enum cb_log_level level, const char *fmt, ...)
 }
 
 
+#if 0
 #define MLOG(level, fmt, ...) \
 	do { \
 		syslog(level, "<%s> [%s:%d] " fmt, LOG_TAG, __func__, __LINE__, ##__VA_ARGS__); \
 } while(0);
+#else
+#define MLOG(level, fmt, ...) \
+	do { \
+		cb_log(level, "<%s> [%s:%d] " fmt, LOG_TAG, __func__, __LINE__, ##__VA_ARGS__); \
+} while(0);
+
+#endif
 
 #define MLOGD(fmt, ...) \
     do { \

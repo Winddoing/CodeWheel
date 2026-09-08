@@ -6,6 +6,8 @@
 #  Created Time : 2023-06-26 16:29:05
 #  Description  :
 #	 sudo apt install jq
+#	 需要使用 repo 下载裸仓库镜像
+#	 repo init --mirror -u <url> -b <branch> -m <manifest-name>
 ##########################################################
 TOP=$(pwd)
 

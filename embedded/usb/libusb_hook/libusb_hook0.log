@@ -1,0 +1,432 @@
+# cat /tmp/libusb_hook0.log 
+2026-03-25 17:52:29.559853 libusb_init(ctx=0x7fa8003d50(0x7f84000b90)) -> 0
+2026-03-25 17:52:29.560097 libusb_get_device_list(ctx=0x7f84000b90, list=0x7fb1e453f8(0x7f84012bf0)) -> 9
+2026-03-25 17:52:29.560288 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_descriptor(dev=0x7f84002a70, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x00, idVendor=0xabcd, idProduct=0x1234, bcdDevice=0x0100
+2026-03-25 17:52:29.560362 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_bus_number(dev=0x7f84002a70) -> 4
+2026-03-25 17:52:29.560437 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_address(dev=0x7f84002a70) -> 66
+2026-03-25 17:52:29.560514 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.560690 [4-1-3 vid=0xabcd pid=0x1234] libusb_open(dev=0x7f84002a70, handle=0x7fb1e42ab8(0x7f84011e30)) -> 0
+2026-03-25 17:52:29.560817 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7f840028a8) -> 0
+2026-03-25 17:52:29.560992 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7f84011e30, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.561085 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7f84017b88) -> 0
+2026-03-25 17:52:29.561216 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7f84011e30, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 18
+2026-03-25 17:52:29.561288 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_string_descriptor_ascii(handle=0x7f84011e30, desc_index=1, data=0x7fb1e45440, length=256) -> 8
+2026-03-25 17:52:29.561365 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7f84013368) -> 0
+2026-03-25 17:52:29.561490 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7f84011e30, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.561588 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7f84013458) -> 0
+2026-03-25 17:52:29.561732 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7f84011e30, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 34
+2026-03-25 17:52:29.561806 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_string_descriptor_ascii(handle=0x7f84011e30, desc_index=2, data=0x7fb1e45540, length=256) -> 16
+2026-03-25 17:52:29.561916 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7f84013548) -> 0
+2026-03-25 17:52:29.562085 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7f84011e30, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.562182 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7f84013638) -> 0
+2026-03-25 17:52:29.562331 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7f84011e30, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 4
+2026-03-25 17:52:29.562405 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_string_descriptor_ascii(handle=0x7f84011e30, desc_index=3, data=0x7fb1e456b0, length=256) -> 1
+2026-03-25 17:52:29.562649 [4-1-3 vid=0xabcd pid=0x1234] libusb_close(handle=0x7f84011e30)
+2026-03-25 17:52:29.563249 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fb1e3e910(0x7f84013880)) -> 0
+2026-03-25 17:52:29.563393 [4-1-3 vid=0xabcd pid=0x1234] libusb_open(dev=0x7f84002a70, handle=0x7fb1e3e918(0x7f84013920)) -> 0
+2026-03-25 17:52:29.563608 [4-1-3 vid=0xabcd pid=0x1234] libusb_close(handle=0x7f84013920)
+2026-03-25 17:52:29.563893 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fb1e3e918(0x7f84013990)) -> 0
+2026-03-25 17:52:29.564017 libusb_free_config_descriptor(config=0x7f84013990)
+2026-03-25 17:52:29.564204 libusb_free_config_descriptor(config=0x7f84013a30)
+2026-03-25 17:52:29.564566 libusb_free_config_descriptor(config=0x7f84013a30)
+2026-03-25 17:52:29.564778 [4-1-3 vid=0xabcd pid=0x1234]  previous API <libusb_get_active_config_descriptor> was called 3 times
+2026-03-25 17:52:29.564842 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.564919 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_parent(dev=0x7f84002a70) -> dev=0x7f84012ae0
+2026-03-25 17:52:29.564983 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.565052 [4-1 vid=0x1a40 pid=0x0101] libusb_get_parent(dev=0x7f84012ae0) -> dev=0x7f840029a0
+2026-03-25 17:52:29.565112 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.565225 [4-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840029a0) -> dev=(nil)
+2026-03-25 17:52:29.565717 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fb1e42948(0x7f84013a30)) -> 0
+2026-03-25 17:52:29.565876 [4-1-3 vid=0xabcd pid=0x1234] libusb_open(dev=0x7f84002a70, handle=0x7fb1e42950(0x7f84014090)) -> 0
+2026-03-25 17:52:29.566202 [4-1-3 vid=0xabcd pid=0x1234] libusb_close(handle=0x7f84014090)
+2026-03-25 17:52:29.566360 [4-1 vid=0x1a40 pid=0x0101] libusb_get_device_descriptor(dev=0x7f84012ae0, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1a40, idProduct=0x0101, bcdDevice=0x0111
+2026-03-25 17:52:29.566452 [4-1 vid=0x1a40 pid=0x0101] libusb_get_bus_number(dev=0x7f84012ae0) -> 4
+2026-03-25 17:52:29.566519 [4-1 vid=0x1a40 pid=0x0101] libusb_get_device_address(dev=0x7f84012ae0) -> 2
+2026-03-25 17:52:29.566596 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.566740 [4-1 vid=0x1a40 pid=0x0101] libusb_open(dev=0x7f84012ae0, handle=0x7fb1e42ab8(0x7f84001870)) -> 0
+2026-03-25 17:52:29.566819 [4-1 vid=0x1a40 pid=0x0101] libusb_get_string_descriptor_ascii(handle=0x7f84001870, desc_index=0, data=0x7fb1e45440, length=256) -> -2 (LIBUSB_ERROR_INVALID_PARAM)
+2026-03-25 17:52:29.566916 [4-1 vid=0x1a40 pid=0x0101] libusb_submit_transfer(transfer=0x7f84015508) -> 0
+2026-03-25 17:52:29.567146 [4-1 vid=0x1a40 pid=0x0101] libusb_control_transfer(handle=0x7f84001870, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.567246 [4-1 vid=0x1a40 pid=0x0101] libusb_submit_transfer(transfer=0x7f840155f8) -> 0
+2026-03-25 17:52:29.567335 [4-1 vid=0x1a40 pid=0x0101] libusb_control_transfer(handle=0x7f84001870, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 24
+2026-03-25 17:52:29.567401 [4-1 vid=0x1a40 pid=0x0101] libusb_get_string_descriptor_ascii(handle=0x7f84001870, desc_index=1, data=0x7fb1e45540, length=256) -> 11
+2026-03-25 17:52:29.567488 [4-1 vid=0x1a40 pid=0x0101]  previous API <libusb_get_string_descriptor_ascii> was called 2 times
+2026-03-25 17:52:29.567658 [4-1 vid=0x1a40 pid=0x0101] libusb_close(handle=0x7f84001870)
+2026-03-25 17:52:29.568091 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.568178 [4-1 vid=0x1a40 pid=0x0101] libusb_get_parent(dev=0x7f84012ae0) -> dev=0x7f840029a0
+2026-03-25 17:52:29.568239 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.568301 [4-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840029a0) -> dev=(nil)
+2026-03-25 17:52:29.569079 [4-1 vid=0x1a40 pid=0x0101] libusb_get_active_config_descriptor(dev=0x7f84012ae0, config=0x7fb1e42948(0x7f84015640)) -> 0
+2026-03-25 17:52:29.569229 [4-1 vid=0x1a40 pid=0x0101] libusb_open(dev=0x7f84012ae0, handle=0x7fb1e42950(0x7f840156a0)) -> 0
+2026-03-25 17:52:29.569606 [4-1 vid=0x1a40 pid=0x0101] libusb_close(handle=0x7f840156a0)
+2026-03-25 17:52:29.569795 [4-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f840029a0, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.569869 [4-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f840029a0) -> 4
+2026-03-25 17:52:29.569945 [4-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f840029a0) -> 1
+2026-03-25 17:52:29.570007 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.570217 [4-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f840029a0, handle=0x7fb1e42ab8(0x7f84015740)) -> 0
+2026-03-25 17:52:29.570334 [4-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.570444 [4-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84015740, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.570543 [4-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.570630 [4-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84015740, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 52
+2026-03-25 17:52:29.570694 [4-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84015740, desc_index=3, data=0x7fb1e45440, length=256) -> 25
+2026-03-25 17:52:29.570781 [4-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.570866 [4-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84015740, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.570956 [4-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.571040 [4-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84015740, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 38
+2026-03-25 17:52:29.571104 [4-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84015740, desc_index=2, data=0x7fb1e45540, length=256) -> 18
+2026-03-25 17:52:29.571194 [4-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.571279 [4-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84015740, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.571368 [4-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.571453 [4-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84015740, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 34
+2026-03-25 17:52:29.571517 [4-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84015740, desc_index=1, data=0x7fb1e456b0, length=256) -> 16
+2026-03-25 17:52:29.571595 [4-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f84015740)
+2026-03-25 17:52:29.571882 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.571954 [4-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840029a0) -> dev=(nil)
+2026-03-25 17:52:29.572352 [4-1 vid=0x1d6b pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f840029a0, config=0x7fb1e42948(0x7f84015b00)) -> 0
+2026-03-25 17:52:29.572458 [4-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f840029a0, handle=0x7fb1e42950(0x7f84015b80)) -> 0
+2026-03-25 17:52:29.572880 [4-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f84015b80)
+2026-03-25 17:52:29.573216 [3-1 vid=0x0d8c pid=0x0014] libusb_get_device_descriptor(dev=0x7f84001cf0, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0110, bDeviceClass=0x00, idVendor=0x0d8c, idProduct=0x0014, bcdDevice=0x0100
+2026-03-25 17:52:29.573328 [3-1 vid=0x0d8c pid=0x0014] libusb_get_bus_number(dev=0x7f84001cf0) -> 3
+2026-03-25 17:52:29.573412 [3-1 vid=0x0d8c pid=0x0014] libusb_get_device_address(dev=0x7f84001cf0) -> 2
+2026-03-25 17:52:29.573476 [3-1 vid=0x0d8c pid=0x0014] libusb_get_port_number(dev=0x7f84001cf0) -> 1
+2026-03-25 17:52:29.573717 [3-1 vid=0x0d8c pid=0x0014] libusb_open(dev=0x7f84001cf0, handle=0x7fb1e42ab8(0x7f84015d50)) -> 0
+2026-03-25 17:52:29.573839 [3-1 vid=0x0d8c pid=0x0014] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.574774 [3-1 vid=0x0d8c pid=0x0014] libusb_control_transfer(handle=0x7f84015d50, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.574922 [3-1 vid=0x0d8c pid=0x0014] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.575869 [3-1 vid=0x0d8c pid=0x0014] libusb_control_transfer(handle=0x7f84015d50, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 62
+2026-03-25 17:52:29.575989 [3-1 vid=0x0d8c pid=0x0014] libusb_get_string_descriptor_ascii(handle=0x7f84015d50, desc_index=1, data=0x7fb1e45440, length=256) -> 30
+2026-03-25 17:52:29.576087 [3-1 vid=0x0d8c pid=0x0014] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.577208 [3-1 vid=0x0d8c pid=0x0014] libusb_control_transfer(handle=0x7f84015d50, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.577391 [3-1 vid=0x0d8c pid=0x0014] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.577941 [3-1 vid=0x0d8c pid=0x0014] libusb_control_transfer(handle=0x7f84015d50, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 62
+2026-03-25 17:52:29.578064 [3-1 vid=0x0d8c pid=0x0014] libusb_get_string_descriptor_ascii(handle=0x7f84015d50, desc_index=2, data=0x7fb1e45540, length=256) -> 30
+2026-03-25 17:52:29.578154 [3-1 vid=0x0d8c pid=0x0014]  previous API <libusb_get_string_descriptor_ascii> was called 2 times
+2026-03-25 17:52:29.578260 [3-1 vid=0x0d8c pid=0x0014] libusb_close(handle=0x7f84015d50)
+2026-03-25 17:52:29.578998 [3-1 vid=0x0d8c pid=0x0014] libusb_get_active_config_descriptor(dev=0x7f84001cf0, config=0x7fb1e3e910(0x7f84015de0)) -> 0
+2026-03-25 17:52:29.579315 [3-1 vid=0x0d8c pid=0x0014] libusb_open(dev=0x7f84001cf0, handle=0x7fb1e3e918(0x7f84015f50)) -> 0
+2026-03-25 17:52:29.579550 [3-1 vid=0x0d8c pid=0x0014] libusb_close(handle=0x7f84015f50)
+2026-03-25 17:52:29.579803 [3-1 vid=0x0d8c pid=0x0014] libusb_get_active_config_descriptor(dev=0x7f84001cf0, config=0x7fb1e3e918(0x7f84016020)) -> 0
+2026-03-25 17:52:29.579900 libusb_free_config_descriptor(config=0x7f84016020)
+2026-03-25 17:52:29.580084 libusb_free_config_descriptor(config=0x7f84016020)
+2026-03-25 17:52:29.580267 libusb_free_config_descriptor(config=0x7f84016020)
+2026-03-25 17:52:29.580453 libusb_free_config_descriptor(config=0x7f84016020)
+2026-03-25 17:52:29.580649 libusb_free_config_descriptor(config=0x7f84016020)
+2026-03-25 17:52:29.580726 [3-1 vid=0x0d8c pid=0x0014]  previous API <libusb_get_active_config_descriptor> was called 5 times
+2026-03-25 17:52:29.580786 [3-1 vid=0x0d8c pid=0x0014] libusb_get_port_number(dev=0x7f84001cf0) -> 1
+2026-03-25 17:52:29.580848 [3-1 vid=0x0d8c pid=0x0014] libusb_get_parent(dev=0x7f84001cf0) -> dev=0x7f84002330
+2026-03-25 17:52:29.580909 [3-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84002330) -> 0
+2026-03-25 17:52:29.580969 [3-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f84002330) -> dev=(nil)
+2026-03-25 17:52:29.581376 [3-1 vid=0x0d8c pid=0x0014] libusb_get_active_config_descriptor(dev=0x7f84001cf0, config=0x7fb1e42948(0x7f84016020)) -> 0
+2026-03-25 17:52:29.581495 [3-1 vid=0x0d8c pid=0x0014] libusb_open(dev=0x7f84001cf0, handle=0x7fb1e42950(0x7f84011ef0)) -> 0
+2026-03-25 17:52:29.582251 [3-1 vid=0x0d8c pid=0x0014] libusb_close(handle=0x7f84011ef0)
+2026-03-25 17:52:29.582574 [3-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f84002330, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.582690 [3-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f84002330) -> 3
+2026-03-25 17:52:29.582778 [3-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f84002330) -> 1
+2026-03-25 17:52:29.582911 [3-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84002330) -> 0
+2026-03-25 17:52:29.583094 [3-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f84002330, handle=0x7fb1e42ab8(0x7f84011b40)) -> 0
+2026-03-25 17:52:29.583220 [3-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.583328 [3-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.583430 [3-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.583520 [3-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 52
+2026-03-25 17:52:29.583585 [3-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84011b40, desc_index=3, data=0x7fb1e45440, length=256) -> 25
+2026-03-25 17:52:29.583693 [3-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.583942 [3-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.584038 [3-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.584135 [3-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 38
+2026-03-25 17:52:29.584200 [3-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84011b40, desc_index=2, data=0x7fb1e45540, length=256) -> 18
+2026-03-25 17:52:29.584498 [3-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.584596 [3-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.584693 [3-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.584779 [3-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 34
+2026-03-25 17:52:29.584844 [3-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84011b40, desc_index=1, data=0x7fb1e456b0, length=256) -> 16
+2026-03-25 17:52:29.584924 [3-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f84011b40)
+2026-03-25 17:52:29.585293 [3-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84002330) -> 0
+2026-03-25 17:52:29.585376 [3-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f84002330) -> dev=(nil)
+2026-03-25 17:52:29.585952 [3-1 vid=0x1d6b pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f84002330, config=0x7fb1e42948(0x7f84001ad0)) -> 0
+2026-03-25 17:52:29.586091 [3-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f84002330, handle=0x7fb1e42950(0x7f84017bd0)) -> 0
+2026-03-25 17:52:29.586408 [3-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f84017bd0)
+2026-03-25 17:52:29.586609 [2-1 vid=0x1c4f pid=0x0002] libusb_get_device_descriptor(dev=0x7f84012cc0, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0110, bDeviceClass=0x00, idVendor=0x1c4f, idProduct=0x0002, bcdDevice=0x0150
+2026-03-25 17:52:29.586684 [2-1 vid=0x1c4f pid=0x0002] libusb_get_bus_number(dev=0x7f84012cc0) -> 2
+2026-03-25 17:52:29.586787 [2-1 vid=0x1c4f pid=0x0002] libusb_get_device_address(dev=0x7f84012cc0) -> 6
+2026-03-25 17:52:29.586849 [2-1 vid=0x1c4f pid=0x0002] libusb_get_port_number(dev=0x7f84012cc0) -> 1
+2026-03-25 17:52:29.586960 [2-1 vid=0x1c4f pid=0x0002] libusb_open(dev=0x7f84012cc0, handle=0x7fb1e42ab8(0x7f84011b40)) -> 0
+2026-03-25 17:52:29.587058 [2-1 vid=0x1c4f pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.587501 [2-1 vid=0x1c4f pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.587603 [2-1 vid=0x1c4f pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.588921 [2-1 vid=0x1c4f pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 20
+2026-03-25 17:52:29.589000 [2-1 vid=0x1c4f pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84011b40, desc_index=1, data=0x7fb1e45440, length=256) -> 9
+2026-03-25 17:52:29.589081 [2-1 vid=0x1c4f pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.589492 [2-1 vid=0x1c4f pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.589577 [2-1 vid=0x1c4f pid=0x0002] libusb_submit_transfer(transfer=0x7f84015858) -> 0
+2026-03-25 17:52:29.591275 [2-1 vid=0x1c4f pid=0x0002] libusb_control_transfer(handle=0x7f84011b40, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 26
+2026-03-25 17:52:29.591400 [2-1 vid=0x1c4f pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84011b40, desc_index=2, data=0x7fb1e45540, length=256) -> 12
+2026-03-25 17:52:29.591489 [2-1 vid=0x1c4f pid=0x0002]  previous API <libusb_get_string_descriptor_ascii> was called 2 times
+2026-03-25 17:52:29.591548 [2-1 vid=0x1c4f pid=0x0002] libusb_close(handle=0x7f84011b40)
+2026-03-25 17:52:29.592087 [2-1 vid=0x1c4f pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f84012cc0, config=0x7fb1e3e910(0x7f84011f60)) -> 0
+2026-03-25 17:52:29.592218 [2-1 vid=0x1c4f pid=0x0002] libusb_open(dev=0x7f84012cc0, handle=0x7fb1e3e918(0x7f84017bd0)) -> 0
+2026-03-25 17:52:29.592416 [2-1 vid=0x1c4f pid=0x0002] libusb_close(handle=0x7f84017bd0)
+2026-03-25 17:52:29.592601 [2-1 vid=0x1c4f pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f84012cc0, config=0x7fb1e3e918(0x7f84017c70)) -> 0
+2026-03-25 17:52:29.592678 libusb_free_config_descriptor(config=0x7f84017c70)
+2026-03-25 17:52:29.592846 libusb_free_config_descriptor(config=0x7f84017c70)
+2026-03-25 17:52:29.593010 libusb_free_config_descriptor(config=0x7f84015fc0)
+2026-03-25 17:52:29.593372 libusb_free_config_descriptor(config=0x7f84015870)
+2026-03-25 17:52:29.593544 libusb_free_config_descriptor(config=0x7f84015870)
+2026-03-25 17:52:29.593671 [2-1 vid=0x1c4f pid=0x0002]  previous API <libusb_get_active_config_descriptor> was called 5 times
+2026-03-25 17:52:29.593730 [2-1 vid=0x1c4f pid=0x0002] libusb_get_port_number(dev=0x7f84012cc0) -> 1
+2026-03-25 17:52:29.593796 [2-1 vid=0x1c4f pid=0x0002] libusb_get_parent(dev=0x7f84012cc0) -> dev=0x7f84001f30
+2026-03-25 17:52:29.593858 [2-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84001f30) -> 0
+2026-03-25 17:52:29.593919 [2-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f84001f30) -> dev=(nil)
+2026-03-25 17:52:29.594484 [2-1 vid=0x1c4f pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f84012cc0, config=0x7fb1e42948(0x7f84015fc0)) -> 0
+2026-03-25 17:52:29.594681 [2-1 vid=0x1c4f pid=0x0002] libusb_open(dev=0x7f84012cc0, handle=0x7fb1e42950(0x7f840122b0)) -> 0
+2026-03-25 17:52:29.595124 [2-1 vid=0x1c4f pid=0x0002] libusb_close(handle=0x7f840122b0)
+2026-03-25 17:52:29.595360 [2-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f84001f30, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.595444 [2-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f84001f30) -> 2
+2026-03-25 17:52:29.595507 [2-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f84001f30) -> 1
+2026-03-25 17:52:29.595570 [2-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84001f30) -> 0
+2026-03-25 17:52:29.595669 [2-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f84001f30, handle=0x7fb1e42ab8(0x7f840122b0)) -> 0
+2026-03-25 17:52:29.595897 [2-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016898) -> 0
+2026-03-25 17:52:29.596018 [2-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f840122b0, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.596118 [2-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016898) -> 0
+2026-03-25 17:52:29.596206 [2-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f840122b0, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 52
+2026-03-25 17:52:29.596271 [2-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f840122b0, desc_index=3, data=0x7fb1e45440, length=256) -> 25
+2026-03-25 17:52:29.596360 [2-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016898) -> 0
+2026-03-25 17:52:29.596445 [2-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f840122b0, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.596535 [2-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016898) -> 0
+2026-03-25 17:52:29.596622 [2-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f840122b0, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 38
+2026-03-25 17:52:29.596685 [2-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f840122b0, desc_index=2, data=0x7fb1e45540, length=256) -> 18
+2026-03-25 17:52:29.596773 [2-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016898) -> 0
+2026-03-25 17:52:29.596858 [2-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f840122b0, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.596950 [2-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016898) -> 0
+2026-03-25 17:52:29.597034 [2-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f840122b0, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 34
+2026-03-25 17:52:29.597098 [2-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f840122b0, desc_index=1, data=0x7fb1e456b0, length=256) -> 16
+2026-03-25 17:52:29.597173 [2-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f840122b0)
+2026-03-25 17:52:29.597419 [2-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84001f30) -> 0
+2026-03-25 17:52:29.597542 [2-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f84001f30) -> dev=(nil)
+2026-03-25 17:52:29.597959 [2-1 vid=0x1d6b pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f84001f30, config=0x7fb1e42948(0x7f840122e0)) -> 0
+2026-03-25 17:52:29.598070 [2-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f84001f30, handle=0x7fb1e42950(0x7f840167f0)) -> 0
+2026-03-25 17:52:29.598429 [2-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f840167f0)
+2026-03-25 17:52:29.598649 [1-1 vid=0x1c4f pid=0x0034] libusb_get_device_descriptor(dev=0x7f84001b10, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0110, bDeviceClass=0x00, idVendor=0x1c4f, idProduct=0x0034, bcdDevice=0x0110
+2026-03-25 17:52:29.598768 [1-1 vid=0x1c4f pid=0x0034] libusb_get_bus_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.598861 [1-1 vid=0x1c4f pid=0x0034] libusb_get_device_address(dev=0x7f84001b10) -> 2
+2026-03-25 17:52:29.598953 [1-1 vid=0x1c4f pid=0x0034] libusb_get_port_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.599061 [1-1 vid=0x1c4f pid=0x0034] libusb_open(dev=0x7f84001b10, handle=0x7fb1e42ab8(0x7f84016950)) -> 0
+2026-03-25 17:52:29.599164 [1-1 vid=0x1c4f pid=0x0034] libusb_submit_transfer(transfer=0x7f84016a68) -> 0
+2026-03-25 17:52:29.600693 [1-1 vid=0x1c4f pid=0x0034] libusb_control_transfer(handle=0x7f84016950, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.600839 [1-1 vid=0x1c4f pid=0x0034] libusb_submit_transfer(transfer=0x7f84016a68) -> 0
+2026-03-25 17:52:29.601901 [1-1 vid=0x1c4f pid=0x0034] libusb_control_transfer(handle=0x7f84016950, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 20
+2026-03-25 17:52:29.601995 [1-1 vid=0x1c4f pid=0x0034] libusb_get_string_descriptor_ascii(handle=0x7f84016950, desc_index=1, data=0x7fb1e45440, length=256) -> 9
+2026-03-25 17:52:29.602085 [1-1 vid=0x1c4f pid=0x0034] libusb_submit_transfer(transfer=0x7f84016a68) -> 0
+2026-03-25 17:52:29.602496 [1-1 vid=0x1c4f pid=0x0034] libusb_control_transfer(handle=0x7f84016950, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.602594 [1-1 vid=0x1c4f pid=0x0034] libusb_submit_transfer(transfer=0x7f84016a68) -> 0
+2026-03-25 17:52:29.603890 [1-1 vid=0x1c4f pid=0x0034] libusb_control_transfer(handle=0x7f84016950, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 20
+2026-03-25 17:52:29.603971 [1-1 vid=0x1c4f pid=0x0034] libusb_get_string_descriptor_ascii(handle=0x7f84016950, desc_index=2, data=0x7fb1e45540, length=256) -> 9
+2026-03-25 17:52:29.604064 [1-1 vid=0x1c4f pid=0x0034]  previous API <libusb_get_string_descriptor_ascii> was called 2 times
+2026-03-25 17:52:29.604206 [1-1 vid=0x1c4f pid=0x0034] libusb_close(handle=0x7f84016950)
+2026-03-25 17:52:29.604853 [1-1 vid=0x1c4f pid=0x0034] libusb_get_active_config_descriptor(dev=0x7f84001b10, config=0x7fb1e3e910(0x7f84012380)) -> 0
+2026-03-25 17:52:29.604989 [1-1 vid=0x1c4f pid=0x0034] libusb_open(dev=0x7f84001b10, handle=0x7fb1e3e918(0x7f840169a0)) -> 0
+2026-03-25 17:52:29.605234 [1-1 vid=0x1c4f pid=0x0034] libusb_close(handle=0x7f840169a0)
+2026-03-25 17:52:29.605467 [1-1 vid=0x1c4f pid=0x0034] libusb_get_active_config_descriptor(dev=0x7f84001b10, config=0x7fb1e3e918(0x7f840169a0)) -> 0
+2026-03-25 17:52:29.605545 libusb_free_config_descriptor(config=0x7f840169a0)
+2026-03-25 17:52:29.605637 [1-1 vid=0x1c4f pid=0x0034] libusb_get_port_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.605742 [1-1 vid=0x1c4f pid=0x0034] libusb_get_parent(dev=0x7f84001b10) -> dev=0x7f840018f0
+2026-03-25 17:52:29.605810 [1-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840018f0) -> 0
+2026-03-25 17:52:29.605872 [1-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840018f0) -> dev=(nil)
+2026-03-25 17:52:29.606371 [1-1 vid=0x1c4f pid=0x0034] libusb_get_active_config_descriptor(dev=0x7f84001b10, config=0x7fb1e42948(0x7f84016b80)) -> 0
+2026-03-25 17:52:29.606503 [1-1 vid=0x1c4f pid=0x0034] libusb_open(dev=0x7f84001b10, handle=0x7fb1e42950(0x7f84016c00)) -> 0
+2026-03-25 17:52:29.606874 [1-1 vid=0x1c4f pid=0x0034] libusb_close(handle=0x7f84016c00)
+2026-03-25 17:52:29.607102 [1-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f840018f0, desc=0x7fb1e45428) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.607226 [1-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f840018f0) -> 1
+2026-03-25 17:52:29.607295 [1-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f840018f0) -> 1
+2026-03-25 17:52:29.607355 [1-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840018f0) -> 0
+2026-03-25 17:52:29.607470 [1-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f840018f0, handle=0x7fb1e42ab8(0x7f84016c00)) -> 0
+2026-03-25 17:52:29.607622 [1-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016d18) -> 0
+2026-03-25 17:52:29.607817 [1-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84016c00, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.607960 [1-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016d18) -> 0
+2026-03-25 17:52:29.608058 [1-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84016c00, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 52
+2026-03-25 17:52:29.608156 [1-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84016c00, desc_index=3, data=0x7fb1e45440, length=256) -> 25
+2026-03-25 17:52:29.608448 [1-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016d18) -> 0
+2026-03-25 17:52:29.608783 [1-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84016c00, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.608900 [1-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016d18) -> 0
+2026-03-25 17:52:29.608988 [1-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84016c00, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 38
+2026-03-25 17:52:29.609061 [1-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84016c00, desc_index=2, data=0x7fb1e45540, length=256) -> 18
+2026-03-25 17:52:29.609167 [1-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016d18) -> 0
+2026-03-25 17:52:29.609329 [1-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84016c00, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb1e428a0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.609434 [1-1 vid=0x1d6b pid=0x0002] libusb_submit_transfer(transfer=0x7f84016d18) -> 0
+2026-03-25 17:52:29.609533 [1-1 vid=0x1d6b pid=0x0002] libusb_control_transfer(handle=0x7f84016c00, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb1e428a0, wLength=255, timeout=1000) -> 34
+2026-03-25 17:52:29.609649 [1-1 vid=0x1d6b pid=0x0002] libusb_get_string_descriptor_ascii(handle=0x7f84016c00, desc_index=1, data=0x7fb1e456b0, length=256) -> 16
+2026-03-25 17:52:29.609803 [1-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f84016c00)
+2026-03-25 17:52:29.610102 [1-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840018f0) -> 0
+2026-03-25 17:52:29.610229 [1-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840018f0) -> dev=(nil)
+2026-03-25 17:52:29.610721 [1-1 vid=0x1d6b pid=0x0002] libusb_get_active_config_descriptor(dev=0x7f840018f0, config=0x7fb1e42948(0x7f84016c30)) -> 0
+2026-03-25 17:52:29.610842 [1-1 vid=0x1d6b pid=0x0002] libusb_open(dev=0x7f840018f0, handle=0x7fb1e42950(0x7f84016cb0)) -> 0
+2026-03-25 17:52:29.611205 [1-1 vid=0x1d6b pid=0x0002] libusb_close(handle=0x7f84016cb0)
+2026-03-25 17:52:29.611445 [1-1 vid=0x1c4f pid=0x0034] libusb_get_port_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.611551 [1-1 vid=0x1c4f pid=0x0034] libusb_get_parent(dev=0x7f84001b10) -> dev=0x7f840018f0
+2026-03-25 17:52:29.611639 [1-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840018f0) -> 0
+2026-03-25 17:52:29.611729 [1-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840018f0) -> dev=(nil)
+2026-03-25 17:52:29.611853 [2-1 vid=0x1c4f pid=0x0002] libusb_get_port_number(dev=0x7f84012cc0) -> 1
+2026-03-25 17:52:29.611927 [2-1 vid=0x1c4f pid=0x0002] libusb_get_parent(dev=0x7f84012cc0) -> dev=0x7f84001f30
+2026-03-25 17:52:29.611989 [2-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84001f30) -> 0
+2026-03-25 17:52:29.612054 [2-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f84001f30) -> dev=(nil)
+2026-03-25 17:52:29.612151 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.612215 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_parent(dev=0x7f84002a70) -> dev=0x7f84012ae0
+2026-03-25 17:52:29.612281 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.612342 [4-1 vid=0x1a40 pid=0x0101] libusb_get_parent(dev=0x7f84012ae0) -> dev=0x7f840029a0
+2026-03-25 17:52:29.612407 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.612475 [4-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840029a0) -> dev=(nil)
+2026-03-25 17:52:29.613369 libusb_get_device_list(ctx=0x7f84000b90, list=0x7fb1e48608(0x7f84016cb0)) -> 9
+2026-03-25 17:52:29.614017 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_bus_number(dev=0x7f84002a70) -> 4
+2026-03-25 17:52:29.614160 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_address(dev=0x7f84002a70) -> 66
+2026-03-25 17:52:29.614233 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.614323 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_descriptor(dev=0x7f84002a70, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x00, idVendor=0xabcd, idProduct=0x1234, bcdDevice=0x0100
+2026-03-25 17:52:29.614859 [4-1 vid=0x1a40 pid=0x0101] libusb_get_bus_number(dev=0x7f84012ae0) -> 4
+2026-03-25 17:52:29.614984 [4-1 vid=0x1a40 pid=0x0101] libusb_get_device_address(dev=0x7f84012ae0) -> 2
+2026-03-25 17:52:29.615087 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.615228 [4-1 vid=0x1a40 pid=0x0101] libusb_get_device_descriptor(dev=0x7f84012ae0, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1a40, idProduct=0x0101, bcdDevice=0x0111
+2026-03-25 17:52:29.615601 [4-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f840029a0) -> 4
+2026-03-25 17:52:29.615767 [4-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f840029a0) -> 1
+2026-03-25 17:52:29.615832 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.615904 [4-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f840029a0, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.616362 [3-1 vid=0x0d8c pid=0x0014] libusb_get_bus_number(dev=0x7f84001cf0) -> 3
+2026-03-25 17:52:29.616467 [3-1 vid=0x0d8c pid=0x0014] libusb_get_device_address(dev=0x7f84001cf0) -> 2
+2026-03-25 17:52:29.616540 [3-1 vid=0x0d8c pid=0x0014] libusb_get_port_number(dev=0x7f84001cf0) -> 1
+2026-03-25 17:52:29.616624 [3-1 vid=0x0d8c pid=0x0014] libusb_get_device_descriptor(dev=0x7f84001cf0, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0110, bDeviceClass=0x00, idVendor=0x0d8c, idProduct=0x0014, bcdDevice=0x0100
+2026-03-25 17:52:29.617076 [3-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f84002330) -> 3
+2026-03-25 17:52:29.617171 [3-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f84002330) -> 1
+2026-03-25 17:52:29.617233 [3-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84002330) -> 0
+2026-03-25 17:52:29.617307 [3-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f84002330, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.617751 [2-1 vid=0x1c4f pid=0x0002] libusb_get_bus_number(dev=0x7f84012cc0) -> 2
+2026-03-25 17:52:29.617890 [2-1 vid=0x1c4f pid=0x0002] libusb_get_device_address(dev=0x7f84012cc0) -> 6
+2026-03-25 17:52:29.617980 [2-1 vid=0x1c4f pid=0x0002] libusb_get_port_number(dev=0x7f84012cc0) -> 1
+2026-03-25 17:52:29.618057 [2-1 vid=0x1c4f pid=0x0002] libusb_get_device_descriptor(dev=0x7f84012cc0, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0110, bDeviceClass=0x00, idVendor=0x1c4f, idProduct=0x0002, bcdDevice=0x0150
+2026-03-25 17:52:29.618933 [2-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f84001f30) -> 2
+2026-03-25 17:52:29.619044 [2-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f84001f30) -> 1
+2026-03-25 17:52:29.619108 [2-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84001f30) -> 0
+2026-03-25 17:52:29.619190 [2-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f84001f30, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.619529 [1-1 vid=0x1c4f pid=0x0034] libusb_get_bus_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.619720 [1-1 vid=0x1c4f pid=0x0034] libusb_get_device_address(dev=0x7f84001b10) -> 2
+2026-03-25 17:52:29.619793 [1-1 vid=0x1c4f pid=0x0034] libusb_get_port_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.619878 [1-1 vid=0x1c4f pid=0x0034] libusb_get_device_descriptor(dev=0x7f84001b10, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0110, bDeviceClass=0x00, idVendor=0x1c4f, idProduct=0x0034, bcdDevice=0x0110
+2026-03-25 17:52:29.620359 [1-1 vid=0x1d6b pid=0x0002] libusb_get_bus_number(dev=0x7f840018f0) -> 1
+2026-03-25 17:52:29.620473 [1-1 vid=0x1d6b pid=0x0002] libusb_get_device_address(dev=0x7f840018f0) -> 1
+2026-03-25 17:52:29.620542 [1-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840018f0) -> 0
+2026-03-25 17:52:29.620625 [1-1 vid=0x1d6b pid=0x0002] libusb_get_device_descriptor(dev=0x7f840018f0, desc=0x7fb1e47668) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x09, idVendor=0x1d6b, idProduct=0x0002, bcdDevice=0x0504
+2026-03-25 17:52:29.620922 libusb_hotplug_register_callback(ctx=0x7f84000b90, events=0x3, flags=1, vendor_id=0xffffffff, product_id=0xffffffff, dev_class=-1, cb_fn=0x7fb5c46a00, user_data=0x7fa8003c50, callback_handle=0x7fb1e4873c, *callback_handle=1) -> 0
+2026-03-25 17:52:29.660826 [1-1 vid=0x1c4f pid=0x0034] libusb_get_port_number(dev=0x7f84001b10) -> 1
+2026-03-25 17:52:29.660955 [1-1 vid=0x1c4f pid=0x0034] libusb_get_parent(dev=0x7f84001b10) -> dev=0x7f840018f0
+2026-03-25 17:52:29.661018 [1-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840018f0) -> 0
+2026-03-25 17:52:29.661098 [1-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840018f0) -> dev=(nil)
+2026-03-25 17:52:29.661176 [2-1 vid=0x1c4f pid=0x0002] libusb_get_port_number(dev=0x7f84012cc0) -> 1
+2026-03-25 17:52:29.661239 [2-1 vid=0x1c4f pid=0x0002] libusb_get_parent(dev=0x7f84012cc0) -> dev=0x7f84001f30
+2026-03-25 17:52:29.661299 [2-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f84001f30) -> 0
+2026-03-25 17:52:29.661358 [2-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f84001f30) -> dev=(nil)
+2026-03-25 17:52:29.661425 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.661489 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_parent(dev=0x7f84002a70) -> dev=0x7f84012ae0
+2026-03-25 17:52:29.661547 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.661608 [4-1 vid=0x1a40 pid=0x0101] libusb_get_parent(dev=0x7f84012ae0) -> dev=0x7f840029a0
+2026-03-25 17:52:29.661666 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.661725 [4-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840029a0) -> dev=(nil)
+2026-03-25 17:52:29.662208 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fb56aa2e0(0x7fa8002cb0)) -> 0
+2026-03-25 17:52:29.662359 [4-1-3 vid=0xabcd pid=0x1234] libusb_open(dev=0x7f84002a70, handle=0x7fb56aa2e8(0x7fa8002d30)) -> 0
+2026-03-25 17:52:29.662617 [4-1-3 vid=0xabcd pid=0x1234] libusb_close(handle=0x7fa8002d30)
+2026-03-25 17:52:29.662873 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fb56aa2e8(0x7fa8002dc0)) -> 0
+2026-03-25 17:52:29.662951 libusb_free_config_descriptor(config=0x7fa8002dc0)
+2026-03-25 17:52:29.663151 libusb_free_config_descriptor(config=0x7fa8002e60)
+2026-03-25 17:52:29.663473 libusb_free_config_descriptor(config=0x7fa8002e60)
+2026-03-25 17:52:29.663746 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb1e486b0) -> 0
+2026-03-25 17:52:29.672222 [4-1-3 vid=0xabcd pid=0x1234]  previous API <libusb_get_active_config_descriptor> was called 4 times
+2026-03-25 17:52:29.672359 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_descriptor(dev=0x7f84002a70, desc=0x7fb2e49ed8) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x00, idVendor=0xabcd, idProduct=0x1234, bcdDevice=0x0100
+2026-03-25 17:52:29.672444 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.672515 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_descriptor(dev=0x7f84002a70, desc=0x7fb2e49d20) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x00, idVendor=0xabcd, idProduct=0x1234, bcdDevice=0x0100
+2026-03-25 17:52:29.672651 [4-1-3 vid=0xabcd pid=0x1234] libusb_open(dev=0x7f84002a70, handle=0x7fa0001d90(0x7fa0001f10)) -> 0
+2026-03-25 17:52:29.672837 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_descriptor(dev=0x7f84002a70, desc=0x7fa0001ff0) -> 0  -> desc: bcdUSB=0x0200, bDeviceClass=0x00, idVendor=0xabcd, idProduct=0x1234, bcdDevice=0x0100
+2026-03-25 17:52:29.673062 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fa0001db8(0x7fa0002010)) -> 0
+2026-03-25 17:52:29.673181 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:29.673410 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_device_speed(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.673528 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002218) -> 0
+2026-03-25 17:52:29.673848 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e496c0) -> 0
+2026-03-25 17:52:29.673943 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb2e498d0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.674035 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002328) -> 0
+2026-03-25 17:52:29.674227 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e496c0) -> 0
+2026-03-25 17:52:29.674317 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7fb2e498d0, wLength=255, timeout=1000) -> 18
+2026-03-25 17:52:29.674392 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_string_descriptor_ascii(handle=0x7fa0001f10, desc_index=1, data=0x7fb2e49b20, length=256) -> 8
+2026-03-25 17:52:29.674488 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002528) -> 0
+2026-03-25 17:52:29.676326 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e496c0) -> 0
+2026-03-25 17:52:29.676611 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb2e498d0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.676825 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002618) -> 0
+2026-03-25 17:52:29.677014 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e496c0) -> 0
+2026-03-25 17:52:29.677097 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7fb2e498d0, wLength=255, timeout=1000) -> 34
+2026-03-25 17:52:29.677184 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_string_descriptor_ascii(handle=0x7fa0001f10, desc_index=2, data=0x7fb2e49c20, length=256) -> 16
+2026-03-25 17:52:29.677285 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002708) -> 0
+2026-03-25 17:52:29.677501 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e496c0) -> 0
+2026-03-25 17:52:29.677602 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7fb2e498d0, wLength=4, timeout=1000) -> 4
+2026-03-25 17:52:29.677731 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa00027f8) -> 0
+2026-03-25 17:52:29.677899 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e496c0) -> 0
+2026-03-25 17:52:29.677979 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7fb2e498d0, wLength=255, timeout=1000) -> 4
+2026-03-25 17:52:29.678055 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_string_descriptor_ascii(handle=0x7fa0001f10, desc_index=3, data=0x7fb2e49d20, length=256) -> 1
+2026-03-25 17:52:29.678638 [4-1-3 vid=0xabcd pid=0x1234] libusb_kernel_driver_active(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:29.678819 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_port_number(dev=0x7f84002a70) -> 3
+2026-03-25 17:52:29.678898 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_parent(dev=0x7f84002a70) -> dev=0x7f84012ae0
+2026-03-25 17:52:29.678959 [4-1 vid=0x1a40 pid=0x0101] libusb_get_port_number(dev=0x7f84012ae0) -> 1
+2026-03-25 17:52:29.679027 [4-1 vid=0x1a40 pid=0x0101] libusb_get_parent(dev=0x7f84012ae0) -> dev=0x7f840029a0
+2026-03-25 17:52:29.679090 [4-1 vid=0x1d6b pid=0x0002] libusb_get_port_number(dev=0x7f840029a0) -> 0
+2026-03-25 17:52:29.679179 [4-1 vid=0x1d6b pid=0x0002] libusb_get_parent(dev=0x7f840029a0) -> dev=(nil)
+2026-03-25 17:52:30.045841 [4-1-3 vid=0xabcd pid=0x1234] libusb_reset_device(handle=0x7fa0001f10) -> 0
+2026-03-25 17:52:30.046344 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.046483 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002978) -> 0
+2026-03-25 17:52:30.046646 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0100, wIndex=0x0000, data=0x7f8fbff1ce, wLength=18, timeout=0) -> 18
+2026-03-25 17:52:30.048720 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.048927 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ca8) -> 0
+2026-03-25 17:52:30.049415 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.049533 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0200, wIndex=0x0000, data=0x7f8fbff1ce, wLength=9, timeout=0) -> 9
+2026-03-25 17:52:30.051942 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.052114 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ca8) -> 0
+2026-03-25 17:52:30.052258 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.052336 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0200, wIndex=0x0000, data=0x7f8fbff1ce, wLength=32, timeout=0) -> 32
+2026-03-25 17:52:30.054601 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.054768 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ca8) -> 0
+2026-03-25 17:52:30.054844 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0301, wIndex=0x0409, data=0x7f8fbff1ce, wLength=255, timeout=0) -> 18
+2026-03-25 17:52:30.056675 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.056855 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ca8) -> 0
+2026-03-25 17:52:30.056983 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.057063 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0302, wIndex=0x0409, data=0x7f8fbff1ce, wLength=255, timeout=0) -> 34
+2026-03-25 17:52:30.059398 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.059586 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ca8) -> 0
+2026-03-25 17:52:30.059737 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.059813 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7f8fbff1ce, wLength=255, timeout=0) -> 4
+2026-03-25 17:52:30.090599 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.090763 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ca8) -> 0
+2026-03-25 17:52:30.103345 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.103487 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0100, wIndex=0x0000, data=0x7f8fbff1ce, wLength=18, timeout=0) -> 18
+2026-03-25 17:52:30.107896 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.108235 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ea8) -> 0
+2026-03-25 17:52:30.108439 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.108593 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0200, wIndex=0x0000, data=0x7f8fbff1ce, wLength=9, timeout=0) -> 9
+2026-03-25 17:52:30.111811 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.112030 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ea8) -> 0
+2026-03-25 17:52:30.112263 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.119417 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0200, wIndex=0x0000, data=0x7f8fbff1ce, wLength=32, timeout=0) -> 32
+2026-03-25 17:52:30.122500 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.122687 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ea8) -> 0
+2026-03-25 17:52:30.122857 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.122934 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7f8fbff1ce, wLength=2, timeout=0) -> 2
+2026-03-25 17:52:30.126458 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.126785 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ea8) -> 0
+2026-03-25 17:52:30.127003 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.127087 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0300, wIndex=0x0000, data=0x7f8fbff1ce, wLength=4, timeout=0) -> 4
+2026-03-25 17:52:30.131897 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.132105 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ea8) -> 0
+2026-03-25 17:52:30.132241 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.132316 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7f8fbff1ce, wLength=2, timeout=0) -> 2
+2026-03-25 17:52:30.135788 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.135972 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002ea8) -> 0
+2026-03-25 17:52:30.136105 libusb_wait_for_event(ctx=0x7f84000b90, tv=0x7fb2e4a200) -> 0
+2026-03-25 17:52:30.136220 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0x80, bRequest=0x06, wValue=0x0303, wIndex=0x0409, data=0x7f8fbff1ce, wLength=4, timeout=0) -> 4
+2026-03-25 17:52:30.142373 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_configuration(handle=0x7fa0001f10, config=0x7fb2e4a46c) -> 0  -> config=1
+2026-03-25 17:52:30.142599 [4-1-3 vid=0xabcd pid=0x1234] libusb_get_active_config_descriptor(dev=0x7f84002a70, config=0x7fa0001db8(0x7fa0002e00)) -> 0
+2026-03-25 17:52:30.142669 [4-1-3 vid=0xabcd pid=0x1234] libusb_claim_interface(handle=0x7fa0001f10, interface_number=0) -> 0
+2026-03-25 17:52:30.152981 [4-1-3 vid=0xabcd pid=0x1234]  previous API <libusb_claim_interface> was called 3 times
+2026-03-25 17:52:30.153222 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002f48) -> 0
+2026-03-25 17:52:30.153297 [4-1-3 vid=0xabcd pid=0x1234] libusb_control_transfer(handle=0x7fa0001f10, bmRequestType=0xa1, bRequest=0xfe, wValue=0x0000, wIndex=0x0000, data=0x7f8fbff1ce, wLength=1, timeout=0) -> 1
+2026-03-25 17:52:30.157509 [4-1-3 vid=0xabcd pid=0x1234] libusb_submit_transfer(transfer=0x7fa0002fb8) -> 0
+

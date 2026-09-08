@@ -29,6 +29,8 @@ void func_a()
 
 int main(int argc, const char *argv[])
 {
+	printf("===> func: %s, line: %d\n", __func__, __LINE__);
 	func_a();
+	printf("===> func: %s, line: %d\n", __func__, __LINE__);
 	return 0;
 }

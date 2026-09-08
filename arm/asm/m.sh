@@ -6,6 +6,11 @@
 ##########################################################
 #!/bin/bash
 
-aarch64-linux-gcc -c helloworld.c -o helloworld.o
+set -x
+aarch64-linux-gnu-gcc -c helloworld.c -o helloworld.o
 
-aarch64-linux-objdump -D helloworld.o > helloworld.s
+aarch64-linux-gnu-objdump -D helloworld.o > helloworld.s
+
+aarch64-linux-gnu-gcc opcode_asm.c -o opcode_asm.out
+aarch64-linux-gnu-objdump -Dz opcode_asm.out  > opcode_asm.s
+

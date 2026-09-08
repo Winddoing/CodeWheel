@@ -12,6 +12,7 @@ bin
 *.raw
 *.orig
 
+*.gdb_history
 
 ## cmake
 CMakeCache.txt
